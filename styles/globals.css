@@ -14,3 +14,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.flex {
+  flex-grow: 1;
+}
