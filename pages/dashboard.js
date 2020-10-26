@@ -6,49 +6,44 @@ import {
   Divider,
 } from '@material-ui/core';
 import Navbar from '../components/shared/dashboard/navbar';
-import theme from '../src/theme';
 
 const useStyles = makeStyles(() => {});
-
 function Dashboard(props) {
   const classes = useStyles();
   return (
     <>
       <Navbar />
-      <Grid container className={classes.root} spacing={2}>
-        <Grid item xs={12}>
-          <Grid container justify="center" spacing={4}>
-            {props.data.map((bridge) => (
-              <Grid key={bridge} item display="flex">
-                <Paper className={classes.paper}>
-                  <Typography variant="h2">{bridge.title}</Typography>
-                  <Divider />
-                  <Typography variant="p" flexDirection="row">
-                    Latest request:
-                  </Typography>
-                  <Typography
-                    variant="p"
-                    align="right"
-                    flexDirection="row-reverse"
-                  >
-                    {bridge.lastRequest}
-                  </Typography>
-                  <br />
-                  <Typography variant="p">Last modified:</Typography>
-                  <Typography variant="p">{bridge.updatedAt}</Typography>
-                  <br />
-                  <Typography variant="p">Last Number of requests:</Typography>
-                  <Typography variant="p">{bridge.requests}</Typography>
-                </Paper>
+      <Grid container className={classes.root} spacing={4}>
+        {props.data.map((bridge) => (
+          <Grid key={bridge} item xs={3}>
+            <Paper className={classes.paper}>
+              <Typography variant="h2">{bridge.title}</Typography>
+              <Divider />
+              <Grid container>
+                <Typography variant="body1">Latest request:</Typography>
+                <div className="flex" />
+                <Typography variant="body1">{bridge.lastRequest}</Typography>
               </Grid>
-            ))}
+              <Grid container>
+                <Typography variant="body1">Last modified:</Typography>
+                <div className="flex" />
+                <Typography variant="body1">{bridge.updatedAt}</Typography>
+                <br />
+              </Grid>
+              <Grid container>
+                <Typography variant="body1">
+                  Last Number of requests:
+                </Typography>
+                <div className="flex" />
+                <Typography variant="body1">{bridge.requests}</Typography>
+              </Grid>
+            </Paper>
           </Grid>
-        </Grid>
+        ))}
       </Grid>
     </>
   );
 }
-
 export async function getStaticProps(context) {
   return {
     props: {
@@ -87,5 +82,4 @@ export async function getStaticProps(context) {
     },
   };
 }
-
 export default Dashboard;
