@@ -12,7 +12,7 @@ function Dashboard(props) {
   const classes = useStyles();
   return (
     <>
-      <Navbar />
+      <Navbar title="Dashboard" />
       <Grid container className={classes.root} spacing={4}>
         {props.data.map((bridge) => (
           <Grid key={bridge} item xs={3}>
