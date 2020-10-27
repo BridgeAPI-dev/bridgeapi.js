@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
 import {
   AppBar, Toolbar, Typography, IconButton, MenuItem, Menu, makeStyles,
 } from '@material-ui/core';
@@ -14,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  toolbar: {
+    minHeight: 46,
   },
 }));
 
@@ -33,15 +38,18 @@ export default function Navbar({ title }) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <FaPlus />
-          </IconButton>
+        <Toolbar className={classes.toolbar}>
+          <Link href="/editor">
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+            >
+              <FaPlus />
+            </IconButton>
+          </Link>
+
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
@@ -70,8 +78,12 @@ export default function Navbar({ title }) {
               open={open}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link href="/users/account">Profile</Link>
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <Link href="/users/account">Log Out</Link>
+              </MenuItem>
             </Menu>
           </div>
         </Toolbar>
@@ -79,3 +91,7 @@ export default function Navbar({ title }) {
     </div>
   );
 }
+
+Navbar.propTypes = {
+  title: PropTypes.string.isRequired,
+};
