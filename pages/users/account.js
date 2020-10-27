@@ -5,3 +5,16 @@ function Account() {
 }
 
 export default Account;
+
+export async function getStaticProps(context) {
+  return {
+    props: {
+      user: {
+        email: 'myemail@gmail.com',
+        notifications: {
+          emailOnEvents: true,
+        },
+      },
+    },
+  };
+}
