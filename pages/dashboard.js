@@ -2,52 +2,95 @@ import {
   Grid,
   Paper,
   makeStyles,
-  Typography,
+  Container,
   Divider,
+  Typography,
 } from '@material-ui/core';
 import Navbar from '../components/shared/dashboard/navbar';
 
-const useStyles = makeStyles(() => {});
-function Dashboard(props) {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    textAlign: 'center',
+  },
+  values: {
+    textAlign: 'right',
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: 'left',
+    color: theme.palette.text.secondary,
+  },
+  paddedDivider: {
+    margin: '10px 0',
+  },
+}));
+
+function Dashboard({ bridges }) {
   const classes = useStyles();
+
   return (
     <>
-      <Navbar title="Dashboard" />
-      <Grid container className={classes.root} spacing={4}>
-        {props.data.map((bridge) => (
-          <Grid key={bridge} item xs={3}>
-            <Paper className={classes.paper}>
-              <Typography variant="h2">{bridge.title}</Typography>
-              <Divider />
-              <Grid container>
-                <Typography variant="body1">Latest request:</Typography>
-                <div className="flex" />
-                <Typography variant="body1">{bridge.lastRequest}</Typography>
+      <div className={classes.root}>
+        <Navbar />
+        <Container maxWidth="md">
+          <Grid container spacing={2}>
+
+            {bridges && bridges.map((bridge) => (
+              <Grid item xs={12} sm={6} md={4}>
+                <Paper className={classes.paper}>
+                  <Typography variant="h5" className={classes.title}>{bridge.title}</Typography>
+                  <Divider light className={classes.paddedDivider} />
+
+                  <Grid container spacing={2}>
+                    <Grid item xs container direction="column" spacing={2}>
+                      <Grid item xs>
+                        <Typography variant="subtitle1">
+                          Latest request:
+                        </Typography>
+                        <Typography variant="subtitle1">
+                          Last modified:
+                        </Typography>
+                        <Typography variant="subtitle1">
+                          Total Requests:
+                        </Typography>
+                      </Grid>
+                    </Grid>
+
+                    <Grid item xs container direction="column" className={classes.values}>
+                      <Typography variant="subtitle1">{bridge.lastRequest}</Typography>
+                      <Typography variant="subtitle1">{bridge.updatedAt}</Typography>
+                      <Typography variant="subtitle1">{bridge.requests}</Typography>
+                    </Grid>
+                  </Grid>
+
+                  <Divider light className={classes.paddedDivider} />
+                  <Grid container spacing={2} style={{ textAlign: 'left' }}>
+                    <Grid item xs container spacing={2}>
+                      <Grid item xs>
+                        <Typography variant="subtitle1">
+                          View Requests
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Paper>
               </Grid>
-              <Grid container>
-                <Typography variant="body1">Last modified:</Typography>
-                <div className="flex" />
-                <Typography variant="body1">{bridge.updatedAt}</Typography>
-                <br />
-              </Grid>
-              <Grid container>
-                <Typography variant="body1">
-                  Last Number of requests:
-                </Typography>
-                <div className="flex" />
-                <Typography variant="body1">{bridge.requests}</Typography>
-              </Grid>
-            </Paper>
+            ))}
+
           </Grid>
-        ))}
-      </Grid>
+        </Container>
+      </div>
     </>
   );
 }
+
 export async function getStaticProps(context) {
   return {
     props: {
-      data: [
+      bridges: [
         {
           title: 'test title 1',
           updatedAt: Date.now(),
