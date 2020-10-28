@@ -53,16 +53,18 @@ function Account({ user }) {
     <>
       <Navbar title="Profile" />
       <DeleteAccountModal open={open} setOpen={setOpen} />
-      <Container maxWidth="lg">
-        <Formik
-          initialValues={values}
-          validate={(values) => handleValidate(values)}
-          onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
-        >
-          {({
-            values, submitForm, isSubmitting, resetForm,
-          }) => (
-            <Form>
+
+      <Formik
+        initialValues={values}
+        validate={(values) => handleValidate(values)}
+        onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
+      >
+        {({
+          values, submitForm, isSubmitting, resetForm,
+        }) => (
+          <Form>
+            {isSubmitting && <LinearProgress />}
+            <Container maxWidth="lg">
               <Grid container spacing={3}>
                 <Grid item container md={8} lg={8} direction="column">
                   <Grid item container md={4} lg={4} direction="column">
@@ -131,7 +133,6 @@ function Account({ user }) {
                     >
                       Delete Account
                     </Button>
-                    {isSubmitting && <LinearProgress />}
                   </Grid>
                 </Grid>
                 <Grid item container md={4} lg={4} direction="column">
@@ -156,11 +157,12 @@ function Account({ user }) {
                   </Grid>
                 </Grid>
               </Grid>
-            </Form>
-          )}
-        </Formik>
+            </Container>
+          </Form>
+        )}
+      </Formik>
 
-      </Container>
+      {/* </Container> */}
     </>
   );
 }
