@@ -1,32 +1,30 @@
 import { Formik, Field, Form } from 'formik';
 import { TextField } from 'formik-material-ui';
 import {
-  Box,
   Button,
   Grid,
   Link,
   makeStyles,
-  // TextField,
+  Paper,
+  Typography,
 } from '@material-ui/core';
-// import Link from 'next/link';
 
 const useStyles = makeStyles({
-  centerPage: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  '@global': {
+    body: {
+      backgroundColor: 'F5F8FB',
+    },
   },
-  horizontalCenter: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  root: {
+    margin: 'auto',
+    maxWidth: '70%',
   },
-  field: {
-    width: 600,
-    padding: 10,
-    // marginLeft: 'auto',
-    // marginRight: 'auto',
+  paper: {
+    maxWidth: '50%',
+    margin: 'auto',
   },
+  form: {},
+  field: {},
 });
 
 function Signup() {
@@ -61,6 +59,7 @@ function Signup() {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
+          console.log(values);
           // TODO: axios request
           setTimeout(() => {
             setSubmitting(false);
@@ -68,51 +67,80 @@ function Signup() {
         }}
       >
         {({ submitForm, isSubmitting }) => (
-          <Form className={classes.centerPage}>
-            <Grid container direction="column" alignItems="center">
-              <Field
-                component={TextField}
-                name="email"
-                type="email"
-                label="Email"
-                className={classes.field}
-                variant="outlined"
-              />
-
-              <br />
-              <Field
-                component={TextField}
-                name="password"
-                type="password"
-                label="Password"
-                className={classes.field}
-                variant="outlined"
-              />
-              <br />
-              <Field
-                component={TextField}
-                name="confirmPassword"
-                type="password"
-                label="Confirm Password"
-                className={classes.field}
-                variant="outlined"
-              />
-              {isSubmitting && <LinearProgress />}
-              <br />
-              <Button
-                color="primary"
-                disabled={isSubmitting}
-                onClick={submitForm}
-                className={classes.horizontalCenter}
+          <Paper
+            style={{
+              maxWidth: '50%',
+              margin: 'auto',
+              marginTop: '10%',
+            }}
+          >
+            <Typography style={{ marginLeft: 15, marginTop: 15 }}>
+              Sign Up
+            </Typography>
+            <Form className={classes.root}>
+              <Grid
+                container
+                direction="column"
+                alignItems="center"
+                spacing={1}
+                style={{ marginTop: 50 }}
               >
-                SIGN UP
-              </Button>
-              <br />
-              <Link href="users/login">
-                <a>Already have an account?</a>
-              </Link>
-            </Grid>
-          </Form>
+                <Grid item>
+                  <Field
+                    component={TextField}
+                    name="email"
+                    type="email"
+                    label="Email"
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+                <br />
+                <Grid item>
+                  <Field
+                    component={TextField}
+                    name="password"
+                    type="password"
+                    label="Password"
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+                <br />
+                <Grid item>
+                  <Field
+                    component={TextField}
+                    name="confirmPassword"
+                    type="password"
+                    label="Confirm Password"
+                    className={classes.field}
+                    variant="outlined"
+                  />
+                </Grid>
+                <br />
+
+                <Grid item xs={6}>
+                  <Button
+                    color="primary"
+                    disabled={isSubmitting}
+                    onClick={submitForm}
+                    fullWidth
+                  >
+                    <Typography>SIGN UP</Typography>
+                  </Button>
+                </Grid>
+
+                <br />
+                <Grid item>
+                  <Link href="users/login">
+                    <a>
+                      <Typography>Already have an account?</Typography>
+                    </a>
+                  </Link>
+                </Grid>
+              </Grid>
+            </Form>
+          </Paper>
         )}
       </Formik>
     </>
