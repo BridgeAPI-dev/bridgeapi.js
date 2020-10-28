@@ -134,8 +134,8 @@ Dashboard.propTypes = {
   bridges: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      updatedAt: PropTypes.string.isRequired,
-      lastRequest: PropTypes.string.isRequired,
+      updatedAt: PropTypes.number.isRequired,
+      lastRequest: PropTypes.number.isRequired,
       requests: PropTypes.string.isRequired,
     }),
   ).isRequired,
