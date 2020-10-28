@@ -47,7 +47,7 @@ function BridgesMenu({ width }) {
       //   });
       setBridges([
         'Bridge 1',
-        'Bridges 2',
+        'Bridge 2',
         'Bridge 3',
       ]);
     };
