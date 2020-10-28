@@ -52,7 +52,8 @@ function AccountMenu() {
           </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Link href="/users/account">
+          {/* TODO: This should remove session cookies too */}
+          <Link href="/users/login">
             <Typography variant="subtitle1">
               <a className="menu-link-item">Log Out</a>
             </Typography>
