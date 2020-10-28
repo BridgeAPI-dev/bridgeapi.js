@@ -1,149 +1,171 @@
-import { Formik, Field, Form } from 'formik';
-import { TextField } from 'formik-material-ui';
 import {
+  Container,
+  Typography,
+  CssBaseline,
   Button,
   Grid,
-  Link,
   makeStyles,
+  TextField,
+  Link,
   Paper,
-  Typography,
 } from '@material-ui/core';
 
-const useStyles = makeStyles({
+import { Formik, Form } from 'formik';
+
+const useStyles = makeStyles((theme) => ({
   '@global': {
     body: {
-      backgroundColor: 'F5F8FB',
+      backgroundColor: '#F5F8FB',
     },
   },
-  root: {
-    margin: 'auto',
-    maxWidth: '70%',
-  },
   paper: {
-    maxWidth: '50%',
-    margin: 'auto',
+    width: '40%',
+    margin: theme.spacing(2, 'auto'),
   },
-  form: {},
-  field: {},
-});
+  container: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  title: {
+    marginTop: theme.spacing(2),
+    color: 'grey',
+  },
+  login: {
+    margin: theme.spacing(3, 0, 3),
+  },
+}));
+
+const handleValidate = (values) => {
+  const errors = [];
+  if (!values.email) {
+    errors.email = 'Required';
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+  if (!values.password) {
+    errors.password = 'Required';
+  }
+  if (!values.confirmPassword) {
+    errors.confirmPassword = 'Required';
+  }
+  if (values.password !== values.confirmPassword) {
+    errors.passWordsMismatch = 'Password does not match "Confirm Password"';
+  }
+  return errors;
+};
+
+const handleSubmit = (values, setSubmitting) => {
+  console.log(values);
+  // TODO: axios request
+  setTimeout(() => {
+    setSubmitting(false);
+  }, 500);
+};
 
 function Signup() {
   const classes = useStyles();
+
   return (
-    <>
-      <Formik
-        initialValues={{
-          email: '',
-          password: '',
-          confirmPassword: '',
-        }}
-        validate={(values) => {
-          const errors = [];
-          if (!values.email) {
-            errors.email = 'Required';
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-          ) {
-            errors.email = 'Invalid email address';
-          }
-          if (!values.password) {
-            errors.password = 'Required';
-          }
-          if (!values.confirmPassword) {
-            errors.confirmPassword = 'Required';
-          }
-          if (values.password !== values.confirmPassword) {
-            errors.passWordsMismatch =
-              'Password does not match "Confirm Password"';
-          }
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
-          // TODO: axios request
-          setTimeout(() => {
-            setSubmitting(false);
-          }, 500);
-        }}
-      >
-        {({ submitForm, isSubmitting }) => (
-          <Paper
-            style={{
-              maxWidth: '50%',
-              margin: 'auto',
-              marginTop: '10%',
+    <Paper className={classes.paper}>
+      <Container component="main" maxWidth="sm">
+        <CssBaseline />
+        <div className={classes.container}>
+          <Grid container>
+            <Grid item>
+              <Typography variant="body1" className={classes.title}>
+                Sign up
+              </Typography>
+            </Grid>
+          </Grid>
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+              confirm: '',
             }}
+            validate={(values) => handleValidate(values)}
+            onSubmit={(values, { setSubmitting }) =>
+              handleSubmit(values, setSubmitting)
+            }
           >
-            <Typography style={{ marginLeft: 15, marginTop: 15 }}>
-              Sign Up
+            {({ errors, handleChange, touched, submitForm, isSubmitting }) => (
+              <Form className={classes.form}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      error={errors.email && touched.email}
+                      variant="outlined"
+                      fullWidth
+                      onChange={handleChange}
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      helperText={
+                        errors.email && touched.email ? errors.email : null
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      error={errors.password && touched.password}
+                      variant="outlined"
+                      fullWidth
+                      onChange={handleChange}
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      helperText={
+                        errors.password && touched.password
+                          ? errors.password
+                          : null
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      error={errors.password && touched.password}
+                      variant="outlined"
+                      fullWidth
+                      onChange={handleChange}
+                      name="confirmPassword"
+                      label="Confirm Password"
+                      type="password"
+                      id="confirmPassword"
+                    />
+                  </Grid>
+                </Grid>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={submitForm}
+                  disabled={isSubmitting}
+                >
+                  Sign Up
+                </Button>
+              </Form>
+            )}
+          </Formik>
+          <Link href="users/login">
+            <Typography className={classes.login}>
+              Already have an account?
             </Typography>
-            <Form className={classes.root}>
-              <Grid
-                container
-                direction="column"
-                alignItems="center"
-                spacing={1}
-                style={{ marginTop: 50 }}
-              >
-                <Grid item>
-                  <Field
-                    component={TextField}
-                    name="email"
-                    type="email"
-                    label="Email"
-                    className={classes.field}
-                    variant="outlined"
-                  />
-                </Grid>
-                <br />
-                <Grid item>
-                  <Field
-                    component={TextField}
-                    name="password"
-                    type="password"
-                    label="Password"
-                    className={classes.field}
-                    variant="outlined"
-                  />
-                </Grid>
-                <br />
-                <Grid item>
-                  <Field
-                    component={TextField}
-                    name="confirmPassword"
-                    type="password"
-                    label="Confirm Password"
-                    className={classes.field}
-                    variant="outlined"
-                  />
-                </Grid>
-                <br />
-
-                <Grid item xs={6}>
-                  <Button
-                    color="primary"
-                    disabled={isSubmitting}
-                    onClick={submitForm}
-                    fullWidth
-                  >
-                    <Typography>SIGN UP</Typography>
-                  </Button>
-                </Grid>
-
-                <br />
-                <Grid item>
-                  <Link href="users/login">
-                    <a>
-                      <Typography>Already have an account?</Typography>
-                    </a>
-                  </Link>
-                </Grid>
-              </Grid>
-            </Form>
-          </Paper>
-        )}
-      </Formik>
-    </>
+          </Link>
+        </div>
+      </Container>
+    </Paper>
   );
 }
 
