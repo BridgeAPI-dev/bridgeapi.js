@@ -5,19 +5,14 @@ import {
   Button,
   Grid,
   makeStyles,
-  TextField,
   Link,
   Paper,
 } from '@material-ui/core';
 
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
+import { TextField } from 'formik-material-ui';
 
 const useStyles = makeStyles((theme) => ({
-  '@global': {
-    body: {
-      backgroundColor: '#F5F8FB',
-    },
-  },
   paper: {
     width: '40%',
     margin: theme.spacing(2, 'auto'),
@@ -45,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const handleValidate = (values) => {
-  const errors = [];
+  const errors = {};
   if (!values.email) {
     errors.email = 'Required';
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -56,9 +51,6 @@ const handleValidate = (values) => {
   }
   if (!values.confirmPassword) {
     errors.confirmPassword = 'Required';
-  }
-  if (values.password !== values.confirmPassword) {
-    errors.passWordsMismatch = 'Password does not match "Confirm Password"';
   }
   return errors;
 };
@@ -90,57 +82,46 @@ function Signup() {
             initialValues={{
               email: '',
               password: '',
-              confirm: '',
+              confirmPassword: '',
             }}
             validate={(values) => handleValidate(values)}
             onSubmit={(values, { setSubmitting }) =>
               handleSubmit(values, setSubmitting)
             }
           >
-            {({ errors, handleChange, touched, submitForm, isSubmitting }) => (
+            {({ values, submitForm, isSubmitting }) => (
               <Form className={classes.form}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
-                    <TextField
-                      error={errors.email && touched.email}
+                    <Field
+                      component={TextField}
                       variant="outlined"
                       fullWidth
-                      onChange={handleChange}
-                      id="email"
+                      type="email"
                       label="Email Address"
                       name="email"
-                      helperText={
-                        errors.email && touched.email ? errors.email : null
-                      }
+                      value={values.email}
+                      style={{ marginBottom: 20 }}
                     />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      error={errors.password && touched.password}
+                    <Field
+                      component={TextField}
                       variant="outlined"
                       fullWidth
-                      onChange={handleChange}
                       name="password"
                       label="Password"
                       type="password"
-                      id="password"
-                      helperText={
-                        errors.password && touched.password
-                          ? errors.password
-                          : null
-                      }
+                      value={values.password}
+                      style={{ marginBottom: 20 }}
                     />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      error={errors.password && touched.password}
+                    <Field
+                      component={TextField}
                       variant="outlined"
                       fullWidth
-                      onChange={handleChange}
                       name="confirmPassword"
                       label="Confirm Password"
                       type="password"
-                      id="confirmPassword"
+                      value={values.confirmPassword}
+                      style={{ marginBottom: 20 }}
                     />
                   </Grid>
                 </Grid>
