@@ -6,7 +6,7 @@ import {
   Divider,
   Typography,
 } from '@material-ui/core';
-import Navbar from '../components/shared/dashboard/navbar';
+import Navbar from '../components/shared/dashboard/Navbar';
 
 const useStyles = makeStyles((theme) => ({
   root: {

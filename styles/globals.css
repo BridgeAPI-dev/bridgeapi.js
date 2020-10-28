@@ -18,3 +18,12 @@ a {
 .flex {
   flex-grow: 1;
 }
+
+.menu-link-item {
+  text-decoration: 'none';
+  margin: 'auto';
+}
+
+.menu-link-item:visited {
+  text-decoration: 'none';
+}

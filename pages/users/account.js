@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
-import Navbar from '../../components/shared/dashboard/navbar';
+import Navbar from '../../components/shared/dashboard/Navbar';
 import DeleteAccountModal from '../../components/account/Modal';
 
 function Account({ user }) {
