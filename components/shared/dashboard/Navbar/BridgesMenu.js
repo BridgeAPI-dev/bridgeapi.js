@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 import {
   Typography, MenuItem, Menu, IconButton, makeStyles,
@@ -86,10 +87,10 @@ function BridgesMenu({ width }) {
         onClose={handleClose}
       >
         {bridges.map((bridge) => (
-          <MenuItem onClick={handleClose}>
-            <Link href="/users/account">
-              <Typography variant="subtitle1">
-                <a className="menu-link-item">{bridge}</a>
+          <MenuItem onClick={handleClose} key={`bridges-menu-${bridge}`}>
+            <Link href="/dashboard">
+              <Typography variant="subtitle1" className="menu-link-item">
+                {bridge}
               </Typography>
             </Link>
           </MenuItem>
@@ -100,3 +101,7 @@ function BridgesMenu({ width }) {
 }
 
 export default BridgesMenu;
+
+BridgesMenu.propTypes = {
+  width: PropTypes.number.isRequired,
+};
