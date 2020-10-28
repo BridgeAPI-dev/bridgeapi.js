@@ -1,7 +1,6 @@
 import {
   Container,
   Typography,
-  CssBaseline,
   Button,
   Grid,
   makeStyles,
@@ -14,14 +13,12 @@ import { TextField } from 'formik-material-ui';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    width: '40%',
+    flex: '30em',
+    flexGrow: 0,
     margin: theme.spacing(2, 'auto'),
   },
   container: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
   },
   form: {
     width: '100%',
@@ -63,27 +60,24 @@ const handleSubmit = (values, setSubmitting) => {
   }, 500);
 };
 
+const initialValues = {
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
+
 function Signup() {
   const classes = useStyles();
 
   return (
-    <Paper className={classes.paper}>
-      <Container component="main" maxWidth="sm">
-        <CssBaseline />
-        <div className={classes.container}>
-          <Grid container>
-            <Grid item>
-              <Typography variant="body1" className={classes.title}>
-                Sign up
-              </Typography>
-            </Grid>
-          </Grid>
+    <Grid container align="center" className={classes.container}>
+      <Paper className={classes.paper}>
+        <Container component="main" maxWidth="sm">
+          <Typography align="left" variant="body1" className={classes.title}>
+            Sign up
+          </Typography>
           <Formik
-            initialValues={{
-              email: '',
-              password: '',
-              confirmPassword: '',
-            }}
+            initialValues={initialValues}
             validate={(values) => handleValidate(values)}
             onSubmit={(values, { setSubmitting }) =>
               handleSubmit(values, setSubmitting)
@@ -121,12 +115,11 @@ function Signup() {
                       label="Confirm Password"
                       type="password"
                       value={values.confirmPassword}
-                      style={{ marginBottom: 20 }}
+                      style={{ marginBottom: 10 }}
                     />
                   </Grid>
                 </Grid>
                 <Button
-                  type="submit"
                   fullWidth
                   variant="contained"
                   color="primary"
@@ -139,14 +132,14 @@ function Signup() {
               </Form>
             )}
           </Formik>
-          <Link href="users/login">
+          <Link href="/users/login">
             <Typography className={classes.login}>
               Already have an account?
             </Typography>
           </Link>
-        </div>
-      </Container>
-    </Paper>
+        </Container>
+      </Paper>
+    </Grid>
   );
 }
 
