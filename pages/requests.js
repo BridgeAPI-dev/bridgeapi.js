@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Box,
   Card,
@@ -207,4 +208,10 @@ Requests.defaultProps = {
   length: 6615,
 };
 
+=======
+function Requests() {
+  return <h1>Requests</h1>;
+}
+
+>>>>>>> 8de29e8b1c32095ec4af6d89713dd2d9e4346103
 export default Requests;
