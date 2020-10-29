@@ -60,6 +60,7 @@ function DeleteAccountModal({ open, setOpen }) {
           variant="contained"
           color="secondary"
           onClick={handleDelete}
+          style={{ backgroundColor: '#f32013', color: 'white' }}
         >
           Delete Account
         </Button>
