@@ -78,6 +78,10 @@ const useStyles = makeStyles((theme) => ({
   testPayloadLabel: {
     margin: theme.spacing(2, 0),
   },
+  noMargins: {
+    margin: 0,
+    padding: 0,
+  },
 }));
 
 function Editor() {
@@ -126,7 +130,7 @@ function Editor() {
                 <Typography variant="subtitle1" className={classes.subtitle}>Configure your outbound request</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Container align="center" disableGutters>
+                <Container maxWidth={false} align="center" className={classes.noMargins}>
                   <Typography
                     className={classes.outboundLabel}
                   >
@@ -140,7 +144,7 @@ function Editor() {
                     className={classes.outboundURLField}
                     // value={values.password}
                   />
-                  <Grid container spacing={4}>
+                  <Grid container spacing={5} className={classes.noMargins}>
                     <Grid container spacing={2} xs={10} className={classes.headerSettingsInputs}>
                       <Grid item xs={6}>
                         <Field
