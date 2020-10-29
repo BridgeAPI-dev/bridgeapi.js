@@ -5,10 +5,10 @@ import Link from 'next/link';
 import {
   AppBar, Toolbar, Typography, IconButton, makeStyles,
 } from '@material-ui/core';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaArrowDown } from 'react-icons/fa';
 
-import AccountMenu from './AccountMenu';
-import BridgesMenu from './BridgesMenu';
+import { AccountCircle } from '@material-ui/icons';
+import Menu from './Menu';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,11 +25,56 @@ const useStyles = makeStyles((theme) => ({
     minHeight: 46,
     flexGrow: 1,
   },
+  menuRoot: {
+    flexGrow: 1,
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  iconButton: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  icon: {
+    marginLeft: '5px',
+    top: '3px',
+    position: 'relative',
+  },
 }));
 
 export default function Navbar() {
   const classes = useStyles();
+  const [bridges, setBridges] = useState([]);
   const [width, setWidth] = useState(null);
+
+  const bridgeMenuTransforms = {
+    anchor: {
+      vertical: 'bottom',
+      horizontal: 'center',
+    },
+    transform: {
+      vertical: 'top',
+      horizontal: 'center',
+    },
+  };
+
+  const menuUseEffect = () => {
+    // debugger;
+    const getBridges = async () => {
+      // await axios.get('http://localhost:3001/bridges')
+      //   .then((res) => {
+      //     setBridges(res.data);
+      //   });
+      setBridges([
+        'Bridge 1',
+        'Bridge 2',
+        'Bridge 3',
+      ]);
+    };
+
+    getBridges();
+  };
 
   // Determine the width of the 'Dashboard' link &
   // move the brigdes dropdown to center of the screen
@@ -63,9 +108,41 @@ export default function Navbar() {
             </Link>
           </Typography>
 
-          <BridgesMenu width={width} />
+          <Menu
+            icon={<FaArrowDown size={15} className={classes.icon} />}
+            text="Bridges"
+            width={width}
+            classes={{
+              root: classes.menuRoot,
+              iconButton: classes.iconButton,
+            }}
+            transforms={bridgeMenuTransforms}
+            useEff={menuUseEffect}
+          >
+            {bridges.map((bridge) => (
+              <Link href="/users/account">
+                <Typography variant="subtitle1">
+                  <a className="menu-link-item">{bridge}</a>
+                </Typography>
+              </Link>
+            ))}
+          </Menu>
 
-          <AccountMenu />
+          <Menu
+            icon={<AccountCircle />}
+            width={0}
+          >
+            <Link href="/users/account">
+              <Typography variant="subtitle1">
+                <a className="menu-link-item">Profile</a>
+              </Typography>
+            </Link>
+            <Link href="/users/login">
+              <Typography variant="subtitle1">
+                <a className="menu-link-item">Log Out</a>
+              </Typography>
+            </Link>
+          </Menu>
         </Toolbar>
       </AppBar>
     </div>
