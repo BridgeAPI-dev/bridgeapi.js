@@ -127,10 +127,7 @@ export default function Navbar() {
             ))}
           </Menu>
 
-          <Menu
-            icon={<AccountCircle />}
-            width={0}
-          >
+          <Menu icon={<AccountCircle />}>
             <Link href="/users/account" id="menu-item-profile">
               <Typography variant="subtitle1">
                 <a className="menu-link-item">Profile</a>
