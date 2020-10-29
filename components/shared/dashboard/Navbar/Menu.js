@@ -52,7 +52,7 @@ function Menu({
       >
         {children
           && React.Children.map(children, (child) => (
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleClose} key={`child-${child.props.id}`}>
               {React.cloneElement(child)}
             </MenuItem>
           ))}
