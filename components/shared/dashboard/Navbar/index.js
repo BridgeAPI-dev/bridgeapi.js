@@ -60,7 +60,6 @@ export default function Navbar() {
   };
 
   const menuUseEffect = () => {
-    // debugger;
     const getBridges = async () => {
       // await axios.get('http://localhost:3001/bridges')
       //   .then((res) => {
