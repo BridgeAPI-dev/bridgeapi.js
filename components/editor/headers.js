@@ -1,43 +1,56 @@
-import { Accordion, AccordionDetails, AccordionSummary, Button, Container, Typography, makeStyles, TextField, Grid, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  Container,
+  Typography,
+  makeStyles,
+  TextField,
+  Grid,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { Field } from "formik";
-import { useState } from "react";
+import { Field } from 'formik';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   pullRight: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.spacing(2),
   },
   heading: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   dinlineblock: {
-    display: "inline-block"
+    display: 'inline-block',
   },
   subtitle: {
-    color: "#a6a6a4",
-    marginLeft: theme.spacing(1),
+    color: '#a6a6a4',
   },
   noMargins: {
     margin: 0,
     padding: 0,
   },
   outboundLabel: {
-    display: "inline-block",
-    verticalAlign: "-18px",
+    display: 'inline-block',
+    verticalAlign: '-18px',
     marginRight: theme.spacing(1),
   },
 
   outboundURLField: {
-    width: "25%",
+    width: '25%',
     marginBottom: theme.spacing(3),
   },
   headerSettingsInputs: {
     paddingTop: theme.spacing(2),
   },
   formControl: {
-    width: "100%",
+    width: '100%',
   },
   dropDown: {
     marginBottom: theme.spacing(1),
@@ -50,7 +63,7 @@ function Headers() {
 
   function handleChange(event) {
     const id = Number(event.target.id.split('-')[2]);
-    if (isNaN(id)) return;
+    if (Number.isNaN(id)) return;
 
     if (id === headerFields.length - 1) {
       setHeaderFields([...headerFields, headerFields.length + 1]);
@@ -59,7 +72,7 @@ function Headers() {
 
   function handleDelete(event) {
     const id = Number(event.target.closest('div').id.split('-')[2]);
-    if (isNaN(id)) return;
+    if (Number.isNaN(id)) return;
 
     document.getElementById(`header-gkey-${id}`).remove();
     document.getElementById(`header-gvalue-${id}`).remove();
@@ -73,8 +86,10 @@ function Headers() {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography className={classes.heading}>Headers & Settings</Typography>
-        <Typography variant="subtitle1" className={classes.subtitle}>Configure your outbound request</Typography>
+        <Grid container direction="column" align="left">
+          <Typography className={classes.heading}>Headers & Settings</Typography>
+          <Typography variant="subtitle1" className={classes.subtitle}>Configure your outbound request</Typography>
+        </Grid>
       </AccordionSummary>
       <AccordionDetails>
         <Container maxWidth={false} align="center" className={classes.noMargins}>

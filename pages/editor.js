@@ -25,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0, 1),
   },
   buttonsContainer: {
-    position: "absolute",
-    display: "inline-block",
+    position: 'absolute',
+    display: 'inline-block',
     right: theme.spacing(2),
   },
   dinlineblock: {
-    display: "inline-block"
+    display: 'inline-block',
   },
 }));
 
@@ -40,7 +40,7 @@ function Editor() {
   const initialValues = {
   };
 
-  const handleValidate = (values) => {
+  const handleValidate = () => {
     const errors = {};
     return errors;
   };

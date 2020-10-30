@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
   },
   subtitle: {
     color: "#a6a6a4",
-    marginLeft: theme.spacing(1),
   },
   noPadding: {
     padding: 0,
@@ -52,8 +51,10 @@ function Envar() {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography className={classes.heading}>Environment variables</Typography>
-        <Typography variant="subtitle1" className={classes.subtitle}>Keep your secrets safe</Typography>
+        <Grid container direction="column" align="left">
+          <Typography className={classes.heading}>Environment variables</Typography>
+          <Typography variant="subtitle1" className={classes.subtitle}>Keep your secrets safe</Typography>
+        </Grid>
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>

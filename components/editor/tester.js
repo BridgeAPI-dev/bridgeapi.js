@@ -1,23 +1,24 @@
-import { Accordion, AccordionDetails, AccordionSummary, Button, Container, Typography, makeStyles } from "@material-ui/core";
+import {
+  Accordion, AccordionDetails, AccordionSummary, Button, Container, Typography, makeStyles, Grid,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   pullRight: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.spacing(2),
   },
   heading: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   testPayloadLabel: {
     margin: theme.spacing(2, 0),
   },
   dinlineblock: {
-    display: "inline-block"
+    display: 'inline-block',
   },
   subtitle: {
-    color: "#a6a6a4",
-    marginLeft: theme.spacing(1),
+    color: '#a6a6a4',
   },
 }));
 
@@ -30,8 +31,10 @@ function Tester() {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography className={classes.heading}>Bridge Tester</Typography>
-        <Typography variant="subtitle1" className={classes.subtitle}>E2E Bridge Testing</Typography>
+        <Grid container direction="column" align="left">
+          <Typography className={classes.heading}>Bridge Tester</Typography>
+          <Typography variant="subtitle1" className={classes.subtitle}>E2E Bridge Testing</Typography>
+        </Grid>
       </AccordionSummary>
       <AccordionDetails>
         <Container align="left" maxWidth={false} className={classes.payloadContainer}>
@@ -47,4 +50,3 @@ function Tester() {
 }
 
 export default Tester;
-
