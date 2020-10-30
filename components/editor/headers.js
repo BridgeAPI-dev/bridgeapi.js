@@ -55,6 +55,9 @@ const useStyles = makeStyles((theme) => ({
   dropDown: {
     marginBottom: theme.spacing(1),
   },
+  primary: {
+    color: theme.palette.primary.main,
+  },
 }));
 
 function Headers() {
