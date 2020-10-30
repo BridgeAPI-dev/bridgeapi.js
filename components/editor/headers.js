@@ -171,10 +171,11 @@ function Headers() {
                   name="method"
                   className={classes.dropDown}
                 >
-                  <MenuItem value="none">None</MenuItem>
-                  <MenuItem value="Ten">Ten</MenuItem>
-                  <MenuItem value="Twenty">Twenty</MenuItem>
-                  <MenuItem value="Thirty">Thirty</MenuItem>
+                  <MenuItem value="delete">Delete</MenuItem>
+                  <MenuItem value="get">Get</MenuItem>
+                  <MenuItem value="patch">Patch</MenuItem>
+                  <MenuItem value="post">Post</MenuItem>
+                  <MenuItem value="put">Put</MenuItem>
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
@@ -184,10 +185,10 @@ function Headers() {
                   name="method"
                   className={classes.dropDown}
                 >
-                  <MenuItem value="none">None</MenuItem>
-                  <MenuItem value="Ten">Ten</MenuItem>
-                  <MenuItem value="Twenty">Twenty</MenuItem>
-                  <MenuItem value="Thirty">Thirty</MenuItem>
+                  <MenuItem value="0">0 Retries</MenuItem>
+                  <MenuItem value="1">1 Retries</MenuItem>
+                  <MenuItem value="3">3 Retries</MenuItem>
+                  <MenuItem value="5">5 Retries</MenuItem>
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
@@ -197,10 +198,11 @@ function Headers() {
                   name="method"
                   className={classes.dropDown}
                 >
-                  <MenuItem value="none">None</MenuItem>
-                  <MenuItem value="Ten">Ten</MenuItem>
-                  <MenuItem value="Twenty">Twenty</MenuItem>
-                  <MenuItem value="Thirty">Thirty</MenuItem>
+                  <MenuItem value="0">Instant</MenuItem>
+                  <MenuItem value="15">15 Minutes</MenuItem>
+                  <MenuItem value="30">30 Minutes</MenuItem>
+                  <MenuItem value="1h">1 Hour</MenuItem>
+                  <MenuItem value="1d">1 Day</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
