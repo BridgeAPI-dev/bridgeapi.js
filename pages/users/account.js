@@ -8,6 +8,7 @@ import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
 import Navbar from '../../components/shared/dashboard/Navbar';
 import DeleteAccountModal from '../../components/account/Modal';
+import emailValidator from '../../utils/emailValidator';
 
 function Account({ user }) {
   const [open, setOpen] = useState(false);
@@ -20,9 +21,7 @@ function Account({ user }) {
     const errors = {};
     if (!values.email) {
       errors.email = 'Required';
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    ) {
+    } else if (emailValidator(values.email)) {
       errors.email = 'Invalid email address';
     }
     return errors;
