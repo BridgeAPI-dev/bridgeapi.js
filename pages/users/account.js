@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import {
   Button, LinearProgress, Container, Grid, Typography,
@@ -28,6 +29,7 @@ function Account({ user }) {
   };
 
   const handleSubmit = (values, setSubmitting) => {
+    // eslint-disable-next-line no-console
     console.log(values);
     setTimeout(() => {
       setSubmitting(false);
@@ -35,7 +37,7 @@ function Account({ user }) {
     }, 500);
   };
 
-  const values = {
+  const initialValues = {
     email: user.email,
     currentPassword: '',
     newPassword: '',
@@ -44,6 +46,7 @@ function Account({ user }) {
   };
 
   const handleReset = (resetForm) => {
+    // eslint-disable-next-line no-alert
     if (window.confirm('Reset?')) {
       resetForm();
     }
@@ -51,11 +54,11 @@ function Account({ user }) {
 
   return (
     <>
-      <Navbar title="Profile" />
+      <Navbar />
       <DeleteAccountModal open={open} setOpen={setOpen} />
 
       <Formik
-        initialValues={values}
+        initialValues={initialValues}
         validate={(values) => handleValidate(values)}
         onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
       >
@@ -169,6 +172,7 @@ function Account({ user }) {
 
 export default Account;
 
+// eslint-disable-next-line no-unused-vars
 export async function getStaticProps(context) {
   return {
     props: {
@@ -181,3 +185,12 @@ export async function getStaticProps(context) {
     },
   };
 }
+
+Account.propTypes = {
+  user: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    notifications: PropTypes.shape({
+      emailOnEvents: PropTypes.bool.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
