@@ -68,9 +68,7 @@ function Editor() {
           validate={(values) => handleValidate(values)}
           onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
         >
-          {({
-            submitForm, isSubmitting, values, handleChange
-          }) => (
+          {() => (
             <Form className={classes.form}>
               <Headers />
               <Envar />

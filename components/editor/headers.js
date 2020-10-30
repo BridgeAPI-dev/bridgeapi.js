@@ -1,6 +1,8 @@
 import { Accordion, AccordionDetails, AccordionSummary, Button, Container, Typography, makeStyles, TextField, Grid, FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { Field } from "formik";
+import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   pullRight: {
@@ -43,7 +45,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Headers() {
+  const [headerFields, setHeaderFields] = useState([1]);
   const classes = useStyles();
+
+  function handleChange(event) {
+    const id = Number(event.target.id.split('-')[2]);
+    if (isNaN(id)) return;
+
+    if (id === headerFields.length - 1) {
+      setHeaderFields([...headerFields, headerFields.length + 1]);
+    }
+  }
+
+  function handleDelete(event) {
+    const id = Number(event.target.closest('div').id.split('-')[2]);
+    if (isNaN(id)) return;
+
+    document.getElementById(`header-gkey-${id}`).remove();
+    document.getElementById(`header-gvalue-${id}`).remove();
+    document.getElementById(`header-delete-${id}`).remove();
+  }
+
   return (
     <Accordion defaultExpanded>
       <AccordionSummary
@@ -67,7 +89,6 @@ function Headers() {
             name="outboundURL"
             placeholder="Specify your outbound service here"
             className={classes.outboundURLField}
-            // value={values.password}
           />
           <Grid container spacing={5} className={classes.noMargins}>
             <Grid container spacing={2} xs={10} className={classes.headerSettingsInputs}>
@@ -75,48 +96,57 @@ function Headers() {
                 <Field
                   component={TextField}
                   variant="outlined"
-                  name="outboundURL"
                   placeholder="Content-Type"
                   fullWidth
                   disabled
                   className={classes.dinlineblock}
-                  // value={values.password}
                 />
               </Grid>
               <Grid item xs={6}>
                 <Field
                   component={TextField}
                   variant="outlined"
-                  name="outboundURL"
                   placeholder="application/json"
                   fullWidth
                   disabled
                   className={classes.dinlineblock}
-                  // value={values.password}
                 />
               </Grid>
-              <Grid item xs={6}>
-                <Field
-                  component={TextField}
-                  variant="outlined"
-                  name="outboundURL"
-                  placeholder="Key"
-                  fullWidth
-                  className={classes.dinlineblock}
-                  // value={values.password}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  component={TextField}
-                  variant="outlined"
-                  name="outboundURL"
-                  placeholder="Value"
-                  fullWidth
-                  className={classes.dinlineblock}
-                  // value={values.password}
-                />
-              </Grid>
+              { headerFields.map((_, i, self) => (
+                <>
+                  <Grid item id={`header-gkey-${i}`} xs={i !== self.length - 1 ? 5 : 6}>
+                    <Field
+                      component={TextField}
+                      variant="outlined"
+                      name={`header-key-${i}`}
+                      placeholder="Key"
+                      onChange={handleChange}
+                      id={`header-key-${i}`}
+                      fullWidth
+                      className={classes.dinlineblock}
+                    />
+                  </Grid>
+                  <Grid item id={`header-gvalue-${i}`} xs={6}>
+                    <Field
+                      component={TextField}
+                      variant="outlined"
+                      name={`header-value-${i}`}
+                      placeholder="Value"
+                      onChange={handleChange}
+                      id={`header-value-${i}`}
+                      fullWidth
+                      className={classes.dinlineblock}
+                    />
+                  </Grid>
+                  {i !== self.length - 1 && (
+                    <Grid item id={`header-delete-${i}`} xs={1}>
+                      <Button className={classes.primary} onClick={handleDelete}>
+                        <DeleteForeverIcon fontSize="large" />
+                      </Button>
+                    </Grid>
+                  )}
+                </>
+              ))}
             </Grid>
             <Grid item xs={2}>
               <FormControl className={classes.formControl}>
@@ -124,8 +154,6 @@ function Headers() {
                 <Select
                   labelId="methodLabel"
                   name="method"
-                  // value="none"
-                  // onChange={handleChange('method')}
                   className={classes.dropDown}
                 >
                   <MenuItem value="none">None</MenuItem>
@@ -139,8 +167,6 @@ function Headers() {
                 <Select
                   labelId="methodLabel"
                   name="method"
-                  // value="none"
-                  // onChange={handleChange('method')}
                   className={classes.dropDown}
                 >
                   <MenuItem value="none">None</MenuItem>
@@ -154,8 +180,6 @@ function Headers() {
                 <Select
                   labelId="methodLabel"
                   name="method"
-                  // value="none"
-                  // onChange={handleChange('method')}
                   className={classes.dropDown}
                 >
                   <MenuItem value="none">None</MenuItem>
@@ -173,4 +197,3 @@ function Headers() {
 }
 
 export default Headers;
-
