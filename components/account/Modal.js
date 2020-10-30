@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Modal, makeStyles } from '@material-ui/core';
 
 function getModalStyle() {
@@ -60,6 +61,7 @@ function DeleteAccountModal({ open, setOpen }) {
           variant="contained"
           color="secondary"
           onClick={handleDelete}
+          style={{ backgroundColor: '#f32013', color: 'white' }}
         >
           Delete Account
         </Button>
@@ -70,3 +72,8 @@ function DeleteAccountModal({ open, setOpen }) {
 }
 
 export default DeleteAccountModal;
+
+DeleteAccountModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+};
