@@ -42,7 +42,14 @@ function Dashboard({ bridges }) {
             {bridges && bridges.map((bridge) => (
               <Grid item xs={12} sm={6} md={4} key={`main-grid-${bridge.title}`}>
                 <Paper className={classes.paper}>
-                  <Typography variant="h5" className={classes.title}>{bridge.title}</Typography>
+                  <Typography
+                    variant="h5"
+                    color="primary"
+                    className={classes.title}
+                    style={{ fontWeight: 600 }}
+                  >
+                    {bridge.title}
+                  </Typography>
                   <Divider light className={classes.paddedDivider} />
 
                   <Grid container spacing={2}>
@@ -71,7 +78,7 @@ function Dashboard({ bridges }) {
                   <Grid container spacing={2} style={{ textAlign: 'left' }}>
                     <Grid item xs container spacing={2}>
                       <Grid item xs>
-                        <Typography variant="subtitle1">
+                        <Typography variant="subtitle1" color="secondary">
                           View Requests
                         </Typography>
                       </Grid>

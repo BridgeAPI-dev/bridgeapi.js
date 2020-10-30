@@ -18,7 +18,8 @@
     "prop-types": "^15.7.2",
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "react-icons": "^3.11.0"
+    "react-icons": "^3.11.0",
+    "typeface-open-sans": "^1.1.13"
   },
   "devDependencies": {
     "eslint": "^7.12.0",

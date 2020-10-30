@@ -131,8 +131,8 @@ function Account({ user }) {
                     </Typography>
                     <Button
                       variant="contained"
-                      color="secondary"
                       onClick={handleOpen}
+                      style={{ backgroundColor: '#f32013', color: 'white' }}
                     >
                       Delete Account
                     </Button>
