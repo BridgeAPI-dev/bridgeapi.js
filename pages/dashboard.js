@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Grid,
   Paper,
@@ -39,9 +40,16 @@ function Dashboard({ bridges }) {
           <Grid container spacing={2}>
 
             {bridges && bridges.map((bridge) => (
-              <Grid item xs={12} sm={6} md={4}>
+              <Grid item xs={12} sm={6} md={4} key={`main-grid-${bridge.title}`}>
                 <Paper className={classes.paper}>
-                  <Typography variant="h5" className={classes.title}>{bridge.title}</Typography>
+                  <Typography
+                    variant="h5"
+                    color="primary"
+                    className={classes.title}
+                    style={{ fontWeight: 600 }}
+                  >
+                    {bridge.title}
+                  </Typography>
                   <Divider light className={classes.paddedDivider} />
 
                   <Grid container spacing={2}>
@@ -70,7 +78,7 @@ function Dashboard({ bridges }) {
                   <Grid container spacing={2} style={{ textAlign: 'left' }}>
                     <Grid item xs container spacing={2}>
                       <Grid item xs>
-                        <Typography variant="subtitle1">
+                        <Typography variant="subtitle1" color="secondary">
                           View Requests
                         </Typography>
                       </Grid>
@@ -87,6 +95,9 @@ function Dashboard({ bridges }) {
   );
 }
 
+export default Dashboard;
+
+// eslint-disable-next-line no-unused-vars
 export async function getStaticProps(context) {
   return {
     props: {
@@ -95,34 +106,44 @@ export async function getStaticProps(context) {
           title: 'test title 1',
           updatedAt: Date.now(),
           lastRequest: Date.now(),
-          requests: 10,
+          requests: '10',
         },
         {
           title: 'test title 2',
           updatedAt: Date.now(),
           lastRequest: Date.now(),
-          requests: 15,
+          requests: '15',
         },
         {
           title: 'test title 3',
           updatedAt: Date.now(),
           lastRequest: Date.now(),
-          requests: 20,
+          requests: '20',
         },
         {
           title: 'test title 4',
           updatedAt: Date.now(),
           lastRequest: Date.now(),
-          requests: 25,
+          requests: '25',
         },
         {
           title: 'test title 5',
           updatedAt: Date.now(),
           lastRequest: Date.now(),
-          requests: 30,
+          requests: '30',
         },
       ],
     },
   };
 }
-export default Dashboard;
+
+Dashboard.propTypes = {
+  bridges: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      updatedAt: PropTypes.number.isRequired,
+      lastRequest: PropTypes.number.isRequired,
+      requests: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+};
