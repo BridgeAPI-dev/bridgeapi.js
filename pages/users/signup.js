@@ -11,6 +11,8 @@ import {
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 
+import emailValidator from '../../utils/emailValidator';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     flex: '30em',
@@ -40,7 +42,7 @@ const handleValidate = (values) => {
   const errors = {};
   if (!values.email) {
     errors.email = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+  } else if (emailValidator(values.email)) {
     errors.email = 'Invalid email address';
   }
   if (!values.password) {
@@ -79,9 +81,7 @@ function Signup() {
           <Formik
             initialValues={initialValues}
             validate={(values) => handleValidate(values)}
-            onSubmit={(values, { setSubmitting }) =>
-              handleSubmit(values, setSubmitting)
-            }
+            onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
           >
             {({ values, submitForm, isSubmitting }) => (
               <Form className={classes.form}>

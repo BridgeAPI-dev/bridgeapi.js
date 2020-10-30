@@ -29,17 +29,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const classes = useStyles();
-  const [width, setWidth] = useState(null);
+  const [width, setWidth] = useState(0);
 
   // Determine the width of the 'Dashboard' link &
   // move the brigdes dropdown to center of the screen
   const ref = useRef(null);
   useEffect(() => {
-    // IDK why eslint is mad, a function call is being made with `setWidth()`
-    // eslint-disable-next-line no-unused-expressions
-    ref.current
-      ? setWidth(ref.current.offsetWidth)
-      : console.error('Ref not found');
+    if (ref.current) {
+      setWidth(ref.current.offsetWidth);
+    } else {
+      throw new Error('Ref not found');
+    }
   }, [ref.current]);
 
   return (
@@ -57,9 +57,9 @@ export default function Navbar() {
             </IconButton>
           </Link>
 
-          <Typography variant="h6" ref={ref}>
+          <Typography variant="h6" ref={ref} className="menu-link-item" style={{ color: 'white' }}>
             <Link href="/dashboard">
-              <a className="menu-link-item" style={{ color: 'white' }}>Dashboard</a>
+              Dashboard
             </Link>
           </Typography>
 
