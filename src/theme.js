@@ -2,13 +2,15 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 require('typeface-open-sans');
 
+const secondary = '#96bb7c';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#184d47',
     },
     secondary: {
-      main: '#96bb7c',
+      main: secondary,
     },
     lightGreen: {
       main: '#d6efc7',
@@ -44,6 +46,10 @@ const theme = createMuiTheme({
           border: '2px solid #96bb7c',
           boxShadow: '0px 2px 2px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.04),0px 1px 1px 0px rgba(0,0,0,0.12)',
         },
+      },
+      containedPrimary: {
+        backgroundColor: secondary,
+        fontWeight: 600,
       },
     },
   },
