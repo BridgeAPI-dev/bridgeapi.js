@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import {
-  Card,
   Grid,
   makeStyles,
   List,
   ListItem,
   ListItemText,
+  Paper,
   Typography,
 } from '@material-ui/core';
 import {
@@ -19,6 +19,7 @@ import {
 } from '@material-ui/lab';
 import Navbar from '../components/shared/dashboard/Navbar/index';
 import TimelineAccordion from '../components/shared/TimelineAccordion';
+import FailedAttemptsAccordion from '../components/shared/FailedAttemptsACcordion';
 
 const getAlert = (props) => {
   const { statusCode, statusText } = props.events[0].responses.slice(-1)[0].headers;
@@ -97,10 +98,14 @@ const useStyles = makeStyles({
   },
   oppositeContent: {
     flex: 0.02,
-    marginLeft: '-1em',
+    marginLeft: '-0.65em',
   },
   accordion: {
     marginBottom: '2em',
+    padding: '0.7em 0',
+    // height: '3em',
+    // justifyContent: 'center',
+    width: '100%',
   },
   accordionDetails: {
     borderTop: '1px',
@@ -130,23 +135,27 @@ function Requests(props) {
   const [failedOpen, setFailedOpen] = useState(false);
 
   const FailedAttemptsBar = () => (
-    <TimelineItem className={classes.failedAttemptsBar}>
-      <Grid container item direction="row">
-        <TimelineOppositeContent className={classes.oppositeContent} />
-        <TimelineSeparator style={{ marginLeft: '-.45em', marginRight: '.45em' }}>
-          <TimelineConnector className={classes.secondaryTail} />
-        </TimelineSeparator>
-        <TimelineContent
-          className={classes.timelineContent}
-          onClick={() => setFailedOpen(!failedOpen)}
-        >
-          <Card>
-            <Typography align="center" variant="h6">
-              {failedOpen ? 'Hide failed attempts' : 'Show failed attempts'}
-            </Typography>
-          </Card>
-        </TimelineContent>
-      </Grid>
+    <TimelineItem>
+      {/* <Grid container item direction="row"> */}
+      <TimelineOppositeContent className={classes.oppositeContent}>
+        <Typography variant="body2" style={{ visibility: 'hidden' }}>
+          5:32PM
+        </Typography>
+      </TimelineOppositeContent>
+      <TimelineSeparator style={{ marginRight: '0.35em' }}>
+        <TimelineConnector className={classes.secondaryTail} />
+      </TimelineSeparator>
+      <TimelineContent
+        className={classes.timelineContent}
+        onClick={() => setFailedOpen(!failedOpen)}
+      >
+        <Paper className={classes.accordion}>
+          <Typography align="center" variant="h6">
+            {failedOpen ? 'Hide failed attempts' : 'Show failed attempts'}
+          </Typography>
+        </Paper>
+      </TimelineContent>
+      {/* </Grid> */}
     </TimelineItem>
   );
 
@@ -172,20 +181,22 @@ function Requests(props) {
   return (
     <>
       <Navbar />
-
-      {/* Sidebar */}
+      {/* Whole page */}
       <Grid container spacing={5} direction="row" wrap="nowrap">
+
+        {/* Sidebar */}
         <Grid
           item
           direction="column"
           xs={1.5}
-          style={{ 'overflow-y': 'scroll' }}
-        />
-        <List>
-          {populateSidebar(eventsForSidebar)}
-        </List>
+        >
+          <List style={{ overflowY: 'scroll' }}>
+            {populateSidebar(eventsForSidebar)}
+          </List>
+        </Grid>
 
-        <Grid item xs={10}>
+        {/* Viewport */}
+        <Grid item container direction="column" xs={10} wrap="nowrap">
           {getAlert(props)}
           <Typography align="center" variant="body2" style={{ marginTop: '1em' }}>
             Send your events here:
@@ -197,7 +208,6 @@ function Requests(props) {
           >
             {url}
           </Typography>
-
           <Timeline>
             <TimelineAccordion
               request={events[0].responses.slice(-1)[0]}
