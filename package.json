@@ -19,6 +19,7 @@
     "react": "16.14.0",
     "react-dom": "16.14.0",
     "react-icons": "^3.11.0",
+    "react-perfect-scrollbar": "^1.5.8",
     "typeface-open-sans": "^1.1.13"
   },
   "devDependencies": {
