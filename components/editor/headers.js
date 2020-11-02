@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
   formControl: {
-    width: "100%",
+    width: '100%',
   },
   outboundURLField: {
     width: '25%',
@@ -57,12 +57,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialFieldState = {};
-initialFieldState[uuid()] = '';
-
 function Headers() {
   const { values, setFieldValue } = useFormikContext();
-  const [headerFields, setHeaderFields] = useState(initialFieldState);
+  const [headerFields, setHeaderFields] = useState([uuid()]);
   const [lastInputId, setLastInputId] = useState();
   const lastInput = useRef();
   const classes = useStyles();
@@ -70,12 +67,10 @@ function Headers() {
   function fieldChanged(event, createNewField) {
     setLastInputId(event.target.id);
 
-    if (Object.keys(headerFields).length !== 1) setFieldValue(event.target.id, event.target.value);
+    if (headerFields.length !== 1) setFieldValue(event.target.id, event.target.value);
 
     if (createNewField) {
-      const newField = {};
-      newField[uuid()] = '';
-      setHeaderFields({ ...headerFields, ...newField });
+      setHeaderFields([...headerFields, uuid()]);
     }
   }
 
@@ -85,20 +80,17 @@ function Headers() {
   });
 
   function handleDelete(event) {
-    const id = Number(event.target.closest('div').id.split('-')[2]);
-    if (Number.isNaN(id)) return;
+    const idArray = event.target.closest('[id^=header]').id.split('-');
+    const id = idArray.slice(2, idArray.length).join('-');
+    const index = headerFields.findIndex((field) => field === id);
 
-    document.getElementById(`header-gkey-${id}`).remove();
-    document.getElementById(`header-gvalue-${id}`).remove();
-    document.getElementById(`header-delete-${id}`).remove();
+    setHeaderFields(headerFields.filter((_, i) => i !== index));
   }
 
   return (
     <Accordion defaultExpanded>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
       >
         <Grid container direction="column" align="left">
           <Typography className={classes.heading}>Headers & Settings</Typography>
@@ -145,9 +137,9 @@ function Headers() {
                     disabled
                   />
                 </Grid>
-                { Object.keys(headerFields).map((k, i, self) => (
+                { headerFields.map((k, i, self) => (
                   <React.Fragment key={uuid()}>
-                    <Grid item id={`header-gkey-${k}`} xs={i === self.length - 1 ? 6 : 5}>
+                    <Grid item xs={i === self.length - 1 ? 6 : 5}>
                       <Field
                         component={TextField}
                         variant="outlined"
@@ -160,7 +152,7 @@ function Headers() {
                         fullWidth
                       />
                     </Grid>
-                    <Grid item id={`header-gvalue-${k}`} xs={6}>
+                    <Grid item xs={6}>
                       <Field
                         component={TextField}
                         variant="outlined"
@@ -174,8 +166,8 @@ function Headers() {
                       />
                     </Grid>
                     { i !== self.length - 1 && (
-                      <Grid item id={`header-delete-${k}`} xs={1}>
-                        <Button className={classes.primary} onClick={handleDelete}>
+                      <Grid item xs={1}>
+                        <Button className={classes.primary} id={`header-delete-${k}`} onClick={handleDelete}>
                           <DeleteForeverIcon fontSize="large" />
                         </Button>
                       </Grid>
@@ -192,7 +184,7 @@ function Headers() {
                   name="method"
                   className={classes.dropDown}
                   onChange={(e) => setFieldValue('method', e.target.value)}
-                  value={values['method']}
+                  value={values.method}
                 >
                   <MenuItem value="delete">Delete</MenuItem>
                   <MenuItem value="get">Get</MenuItem>
@@ -208,7 +200,7 @@ function Headers() {
                   name="retries"
                   className={classes.dropDown}
                   onChange={(e) => setFieldValue('retries', e.target.value)}
-                  value={values['retries']}
+                  value={values.retries}
                 >
                   <MenuItem value="0">0 Retries</MenuItem>
                   <MenuItem value="1">1 Retries</MenuItem>
@@ -223,7 +215,7 @@ function Headers() {
                   name="delay"
                   className={classes.dropDown}
                   onChange={(e) => setFieldValue('delay', e.target.value)}
-                  value={values['delay']}
+                  value={values.delay}
                 >
                   <MenuItem value="0">Instant</MenuItem>
                   <MenuItem value="15">15 Minutes</MenuItem>

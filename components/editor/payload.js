@@ -1,17 +1,19 @@
-import { Accordion, AccordionDetails, AccordionSummary, Container, Typography, makeStyles, Grid } from "@material-ui/core";
+import {
+  Accordion, AccordionDetails, AccordionSummary, Container, Typography, makeStyles, Grid,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   subtitle: {
-    color: "#a6a6a4",
+    color: '#a6a6a4',
   },
   payloadContainer: {
     padding: 0,
     margin: 0,
-    width: "100%",
+    width: '100%',
   },
   inboundPayloadAccordion: {
     marginBottom: theme.spacing(2),
@@ -52,4 +54,3 @@ function Payload() {
 }
 
 export default Payload;
-

@@ -3,8 +3,8 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { Field } from 'formik';
-import React, { useState } from 'react';
+import { Field, useFormikContext } from 'formik';
+import React, { useEffect, useRef, useState } from 'react';
 import uuid from 'react-uuid';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,25 +26,33 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Envar() {
-  const [envarFields, setEnvarFields] = useState([1]);
+  const { values, setFieldValue } = useFormikContext();
+  const [envarFields, setEnvarFields] = useState([uuid()]);
+  const [lastInputId, setLastInputId] = useState();
+  const lastInput = useRef();
   const classes = useStyles();
 
-  function handleChange(event) {
-    const id = Number(event.target.id.split('-')[2]);
-    if (Number.isNaN(id)) return;
+  function fieldChanged(event, createNewField) {
+    setLastInputId(event.target.id);
 
-    if (id === envarFields.length - 1) {
-      setEnvarFields([...envarFields, envarFields.length + 1]);
+    if (envarFields.length !== 1) setFieldValue(event.target.id, event.target.value);
+
+    if (createNewField) {
+      setEnvarFields([...envarFields, uuid()]);
     }
   }
 
-  function handleDelete(event) {
-    const id = Number(event.target.closest('div').id.split('-')[2]);
-    if (Number.isNaN(id)) return;
+  useEffect(() => {
+    if (lastInput.current) lastInput.current.focus();
+    lastInput.current = null;
+  });
 
-    document.getElementById(`envar-gkey-${id}`).remove();
-    document.getElementById(`envar-gvalue-${id}`).remove();
-    document.getElementById(`envar-delete-${id}`).remove();
+  function handleDelete(event) {
+    const idArray = event.target.closest('[id^=header]').id.split('-');
+    const id = idArray.slice(2, idArray.length).join('-');
+    const index = envarFields.findIndex((field) => field === id);
+
+    setEnvarFields(envarFields.filter((_, i) => i !== index));
   }
 
   return (
@@ -61,27 +69,31 @@ function Envar() {
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
-          { envarFields.map((_, i, self) => (
+          { envarFields.map((k, i, self) => (
             <React.Fragment key={uuid()}>
-              <Grid id={`envar-gkey-${i}`} item xs={i !== self.length - 1 ? 5 : 6}>
+              <Grid item xs={i !== self.length - 1 ? 5 : 6}>
                 <Field
                   component={TextField}
                   variant="outlined"
-                  name={`envar-key-${i}`}
+                  name={`envar-key-${k}`}
+                  id={`envar-key-${k}`}
                   placeholder="Key"
-                  onChange={handleChange}
-                  id={`envar-key-${i}`}
+                  onChange={(e) => fieldChanged(e, i === self.length - 1)}
+                  inputRef={`envar-key-${k}` === lastInputId ? lastInput : undefined}
+                  value={values[`envar-key-${k}`]}
                   fullWidth
                 />
               </Grid>
-              <Grid id={`envar-gvalue-${i}`} item xs={6}>
+              <Grid item xs={6}>
                 <Field
                   component={TextField}
                   variant="outlined"
-                  name={`envar-value-${i}`}
-                  placeholder="Value"
-                  onChange={handleChange}
-                  id={`envar-value-${i}`}
+                  name={`envar-value-${k}`}
+                  id={`envar-value-${k}`}
+                  placeholder="Key"
+                  onChange={(e) => fieldChanged(e, i === self.length - 1)}
+                  inputRef={`envar-value-${k}` === lastInputId ? lastInput : undefined}
+                  value={values[`envar-value-${k}`]}
                   fullWidth
                 />
               </Grid>

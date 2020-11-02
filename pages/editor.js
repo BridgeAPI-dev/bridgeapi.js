@@ -38,9 +38,9 @@ function Editor() {
   const classes = useStyles();
 
   const initialValues = {
-    method: "",
-    retries: "",
-    delay: "",
+    method: '',
+    retries: '',
+    delay: '',
   };
 
   const handleValidate = () => {
