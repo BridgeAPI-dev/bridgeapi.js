@@ -19,7 +19,6 @@ import {
 } from '@material-ui/lab';
 import Navbar from '../components/shared/dashboard/Navbar/index';
 import TimelineAccordion from '../components/shared/TimelineAccordion';
-import FailedAttemptsAccordion from '../components/shared/FailedAttemptsACcordion';
 
 const getAlert = (props) => {
   const { statusCode, statusText } = props.events[0].responses.slice(-1)[0].headers;
@@ -122,6 +121,7 @@ const useStyles = makeStyles({
   },
   timelineContent: {
     marginTop: '-1.5em',
+    marginBottom: '2em',
   },
 });
 
@@ -261,6 +261,7 @@ Requests.defaultProps = {
           contentLength: 6615,
           time: '5:29PM',
           date: '10-2-2012',
+          url: 'https://slack.com/api/chat.postMessage',
         },
         payload: {
           data: 'some data',
@@ -274,6 +275,7 @@ Requests.defaultProps = {
           contentLength: 6615,
           time: '5:31PM',
           date: '10-2-2012',
+          url: 'https://slack.com/api/chat.postMessage',
         },
         payload: {
           data: 'some data',

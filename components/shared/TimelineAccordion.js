@@ -3,6 +3,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Box,
+  Divider,
   Grid,
   makeStyles,
   Typography,
@@ -34,6 +35,10 @@ const useStyles = makeStyles({
     fontWeight: 900,
     fontSize: '1.3em',
   },
+  centeredBold: {
+    fontWeight: '700',
+    align: 'center',
+  },
   oppositeContent: {
     flex: 0.02,
     marginLeft: '-1em',
@@ -43,6 +48,7 @@ const useStyles = makeStyles({
   },
   timelineContent: {
     marginTop: '-1.5em',
+    marginBottom: '2em',
   },
 });
 
@@ -50,12 +56,12 @@ export default function TimelineAccordion(props) {
   const classes = useStyles();
   const { title, subtitle } = props.request;
   const {
-    contentType, date, length, time,
+    contentType, date, host, latency, length, size, statusCode, statusText, time, url,
   } = props.request.headers;
 
   return (
     <>
-      <TimelineItem>
+      <TimelineItem className={classes.timelineItem}>
         <TimelineOppositeContent className={classes.oppositeContent}>
           <Typography variant="body2">
             {time}
@@ -81,10 +87,22 @@ export default function TimelineAccordion(props) {
                 <Typography variant="subtitle2" color="textSecondary">
                   {subtitle}
                 </Typography>
+
               </Grid>
             </AccordionSummary>
             <AccordionDetails className={classes.accordionDetails}>
               <Grid container direction="column">
+                <Divider style={{ marginBottom: '1em' }} />
+                <Typography align="center" className={classes.centeredBold}>
+                  {/* If it's an Inbound or Outbound request */}
+                  {['Inbound', 'Outbound'].includes(title) && `${time} on ${date}`}
+                  {/* If it's a response */}
+                  {title === 'Response' && `Status: ${statusCode} ${statusText} Time: ${latency} ms Size: ${size} KB`}
+                </Typography>
+                <Typography align="center" className={classes.centeredBold}>
+                  {title === 'Inbound' && `Event received from ${host}`}
+                  {title === 'Outbound' && `Sent to ${url}`}
+                </Typography>
                 <Typography>HEADERS:</Typography>
                 <Typography>
                   Date:
