@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
+  Divider,
   Grid,
   makeStyles,
+  Link,
   List,
   ListItem,
   ListItemText,
@@ -20,9 +23,9 @@ import {
 import Navbar from '../components/shared/dashboard/Navbar/index';
 import TimelineAccordion from '../components/shared/TimelineAccordion';
 
-const getAlert = (props) => {
-  const { statusCode, statusText } = props.events[0].responses.slice(-1)[0].headers;
-  const { completed } = props.events[0];
+const getAlert = (events) => {
+  const { statusCode, statusText } = events[0].responses.slice(-1)[0].headers;
+  const { completed } = events[0];
   if (!completed) {
     return (
       <Alert severity="info">
@@ -75,14 +78,14 @@ const getAlert = (props) => {
   }
 };
 
-const populateSidebar = (events) => events.reverse().slice().map((ev) => {
+const populateSidebar = ({ eventsForSidebar }) => eventsForSidebar.slice().reverse().map((ev) => {
   const { date, statusCode, time } = ev.responses.slice(-1)[0].headers;
   return (
     <ListItem divider>
       <ListItemText>
         <Typography
           variant="body2"
-          align={ev.completed ? 'center' : 'right'}
+          align={ev.completed ? 'right' : 'center'}
         >
           {ev.completed ? `${time} - ${date} ${statusCode}` : 'Ongoing' }
         </Typography>
@@ -102,8 +105,6 @@ const useStyles = makeStyles({
   accordion: {
     marginBottom: '2em',
     padding: '0.7em 0',
-    // height: '3em',
-    // justifyContent: 'center',
     width: '100%',
   },
   accordionDetails: {
@@ -125,18 +126,16 @@ const useStyles = makeStyles({
   },
 });
 
-function Requests(props) {
+function Requests({
+  events, eventsForSidebar, title, url,
+}) {
   const classes = useStyles();
-  const {
-    events, eventsForSidebar, text, url,
-  } = props;
 
   const [failedAttempts, setFailedAttempts] = useState(true);
   const [failedOpen, setFailedOpen] = useState(false);
 
   const FailedAttemptsBar = () => (
     <TimelineItem>
-      {/* <Grid container item direction="row"> */}
       <TimelineOppositeContent className={classes.oppositeContent}>
         <Typography variant="body2" style={{ visibility: 'hidden' }}>
           5:32PM
@@ -174,7 +173,7 @@ function Requests(props) {
   // To fill up sidebar
   let i = 20;
   while (i > 0) {
-    props.eventsForSidebar.unshift(randomItem);
+    eventsForSidebar.unshift(randomItem);
     i -= 1;
   }
 
@@ -191,13 +190,17 @@ function Requests(props) {
           xs={1.5}
         >
           <List style={{ overflowY: 'scroll' }}>
-            {populateSidebar(eventsForSidebar)}
+            <Link href="/editor">
+              <a><Typography variant="h5" align="center" style={{ padding: '1em', fontWeight: '700' }}>{title}</Typography></a>
+            </Link>
+            <Divider />
+            {populateSidebar({ eventsForSidebar })}
           </List>
         </Grid>
 
         {/* Viewport */}
         <Grid item container direction="column" xs={10} wrap="nowrap">
-          {getAlert(props)}
+          {getAlert(events)}
           <Typography align="center" variant="body2" style={{ marginTop: '1em' }}>
             Send your events here:
           </Typography>
@@ -617,3 +620,23 @@ const randomItem = {
 };
 
 export default Requests;
+
+// events, eventsForSidebar, title, url,
+
+Requests.propTypes = {
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  events: PropTypes.shape({
+
+  }),
+  // events.PropTypes.
+  //   props.title: PropTypes.string.isRequired,
+
+  //   props.events: PropTypes.shape({
+
+//   })
+};
+
+// const {
+//   events, eventsForSidebar, text, url,
+// } = props;

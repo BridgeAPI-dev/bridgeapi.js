@@ -23,7 +23,6 @@ const useStyles = makeStyles({
     width: '100%',
   },
   accordion: {
-    marginBottom: '2em',
   },
   accordionDetails: {
     borderTop: '1px',
@@ -48,7 +47,7 @@ const useStyles = makeStyles({
   },
   timelineContent: {
     marginTop: '-1.5em',
-    marginBottom: '2em',
+    marginBottom: '4em',
   },
 });
 
@@ -84,10 +83,9 @@ export default function TimelineAccordion(props) {
                 <Typography variant="h6" style={{ fontWeight: 900 }}>
                   {title}
                 </Typography>
-                <Typography variant="subtitle2" color="textSecondary">
+                <Typography variant="subtitle2" color="textSecondary" noWrap>
                   {subtitle}
                 </Typography>
-
               </Grid>
             </AccordionSummary>
             <AccordionDetails className={classes.accordionDetails}>
@@ -121,6 +119,7 @@ export default function TimelineAccordion(props) {
                 </Typography>
                 <Typography style={{ marginTop: '1em', marginBottom: '1em' }}>
                   PAYLOAD:
+                  {/* Editor */}
                 </Typography>
                 <Box>(Code editor)</Box>
               </Grid>

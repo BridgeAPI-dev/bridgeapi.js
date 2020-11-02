@@ -14,6 +14,8 @@
     "axios": "^0.21.0",
     "formik": "^2.2.1",
     "formik-material-ui": "^3.0.0",
+    "jsoneditor": "^9.1.1",
+    "jsoneditor-react": "^3.0.1",
     "next": "9.5.5",
     "prop-types": "^15.7.2",
     "react": "16.14.0",
