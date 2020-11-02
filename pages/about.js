@@ -8,7 +8,6 @@ import Footer from '../components/shared/Footer';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    background: 'white',
   },
   'mt-2': {
     marginTop: theme.spacing(2),
@@ -18,11 +17,6 @@ const useStyles = makeStyles((theme) => ({
   },
   'mt-6': {
     marginTop: theme.spacing(6),
-  },
-  palette: {
-    background: {
-      default: 'white',
-    },
   },
 }));
 

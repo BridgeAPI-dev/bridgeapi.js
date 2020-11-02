@@ -1,14 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  AppBar, Toolbar, Typography, IconButton, makeStyles, Grid,
+  AppBar, Toolbar, Typography, makeStyles, Grid,
 } from '@material-ui/core';
-import { FaPlus as Logo } from 'react-icons/fa';
+import logo from '../../../../src/images/logo.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    marginBottom: '70px',
+    marginBottom: '50px',
   },
   appbar: {
     alignItems: 'right',
@@ -49,18 +49,12 @@ export default function Navbar() {
       <AppBar position="fixed" className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
           <Link href="/">
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-            >
-              <Logo />
-            </IconButton>
+            <img src={logo} width={150} />
           </Link>
 
           <Grid container justify="flex-end">
             <Typography variant="subtitle1" className={classes.login}>
-              <Link href="/login">
+              <Link href="/users/login">
                 Login
               </Link>
             </Typography>
@@ -68,7 +62,7 @@ export default function Navbar() {
               variant="subtitle1"
               className={classes.signup}
             >
-              <Link href="/signup">
+              <Link href="/users/signup">
                 Sign Up
               </Link>
             </Typography>
