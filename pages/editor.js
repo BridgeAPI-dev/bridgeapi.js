@@ -38,6 +38,9 @@ function Editor() {
   const classes = useStyles();
 
   const initialValues = {
+    method: "",
+    retries: "",
+    delay: "",
   };
 
   const handleValidate = () => {
@@ -45,40 +48,38 @@ function Editor() {
     return errors;
   };
 
-  const handleSubmit = (values, setSubmitting) => {
+  const handleSubmit = (values) => {
     console.log(values);
     // TODO: axios request
     setTimeout(() => {
-      setSubmitting(false);
+      // setSubmitting(false);
     }, 500);
   };
 
   return (
-    <>
-      <Navbar />
-      <Container align="center" maxWidth={false} className={classes.root}>
-        <Typography variant="subtitle2">Send your events here</Typography>
-        <Typography variant="h5" className={classes.dinlineblock}>https://bridgeapi.dev/b13923/inbound</Typography>
-        <Box className={classes.buttonsContainer}>
-          <Button variant="outlined" color="secondary" className={classes.action}>Actions</Button>
-          <Button variant="contained" color="primary">Save</Button>
-        </Box>
-        <Formik
-          initialValues={initialValues}
-          validate={(values) => handleValidate(values)}
-          onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
-        >
-          {() => (
-            <Form className={classes.form}>
-              <Headers />
-              <Envar />
-              <Payload />
-              <Tester />
-            </Form>
-          )}
-        </Formik>
-      </Container>
-    </>
+    <Formik
+      initialValues={initialValues}
+      validate={(values) => handleValidate(values)}
+      onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
+    >
+      {({ submitForm }) => (
+        <Form className={classes.form}>
+          <Navbar />
+          <Container align="center" maxWidth={false} className={classes.root}>
+            <Typography variant="subtitle2">Send your events here</Typography>
+            <Typography variant="h5" className={classes.dinlineblock}>https://bridgeapi.dev/b13923/inbound</Typography>
+            <Box className={classes.buttonsContainer}>
+              <Button variant="outlined" color="secondary" className={classes.action}>Actions</Button>
+              <Button onClick={submitForm} variant="contained" color="primary">Save</Button>
+            </Box>
+            <Headers />
+            <Envar />
+            <Payload />
+            <Tester />
+          </Container>
+        </Form>
+      )}
+    </Formik>
   );
 }
 

@@ -15,8 +15,9 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { Field } from 'formik';
-import { useState } from 'react';
+import { Field, useFormikContext } from 'formik';
+import React, { useEffect, useRef, useState } from 'react';
+import uuid from 'react-uuid';
 
 const useStyles = makeStyles((theme) => ({
   pullRight: {
@@ -41,16 +42,12 @@ const useStyles = makeStyles((theme) => ({
     verticalAlign: '-18px',
     marginRight: theme.spacing(1),
   },
-
+  formControl: {
+    width: "100%",
+  },
   outboundURLField: {
     width: '25%',
     marginBottom: theme.spacing(3),
-  },
-  headerSettingsInputs: {
-    paddingTop: theme.spacing(2),
-  },
-  formControl: {
-    width: '100%',
   },
   dropDown: {
     marginBottom: theme.spacing(1),
@@ -60,18 +57,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const initialFieldState = {};
+initialFieldState[uuid()] = '';
+
 function Headers() {
-  const [headerFields, setHeaderFields] = useState([1]);
+  const { values, setFieldValue } = useFormikContext();
+  const [headerFields, setHeaderFields] = useState(initialFieldState);
+  const [lastInputId, setLastInputId] = useState();
+  const lastInput = useRef();
   const classes = useStyles();
 
-  function handleChange(event) {
-    const id = Number(event.target.id.split('-')[2]);
-    if (Number.isNaN(id)) return;
+  function fieldChanged(event, createNewField) {
+    setLastInputId(event.target.id);
 
-    if (id === headerFields.length - 1) {
-      setHeaderFields([...headerFields, headerFields.length + 1]);
+    if (Object.keys(headerFields).length !== 1) setFieldValue(event.target.id, event.target.value);
+
+    if (createNewField) {
+      const newField = {};
+      newField[uuid()] = '';
+      setHeaderFields({ ...headerFields, ...newField });
     }
   }
+
+  useEffect(() => {
+    if (lastInput.current) lastInput.current.focus();
+    lastInput.current = null;
+  });
 
   function handleDelete(event) {
     const id = Number(event.target.closest('div').id.split('-')[2]);
@@ -105,66 +116,73 @@ function Headers() {
             component={TextField}
             variant="outlined"
             name="outboundURL"
+            id="outboundURL"
+            onChange={(e) => {
+              setFieldValue(e.target.id, e.target.value);
+              setLastInputId(null);
+            }}
             placeholder="Specify your outbound service here"
             className={classes.outboundURLField}
           />
-          <Grid container spacing={5} className={classes.noMargins}>
-            <Grid container spacing={2} xs={10} className={classes.headerSettingsInputs}>
-              <Grid item xs={6}>
-                <Field
-                  component={TextField}
-                  variant="outlined"
-                  placeholder="Content-Type"
-                  fullWidth
-                  disabled
-                  className={classes.dinlineblock}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  component={TextField}
-                  variant="outlined"
-                  placeholder="application/json"
-                  fullWidth
-                  disabled
-                  className={classes.dinlineblock}
-                />
-              </Grid>
-              { headerFields.map((_, i, self) => (
-                <>
-                  <Grid item id={`header-gkey-${i}`} xs={i !== self.length - 1 ? 5 : 6}>
-                    <Field
-                      component={TextField}
-                      variant="outlined"
-                      name={`header-key-${i}`}
-                      placeholder="Key"
-                      onChange={handleChange}
-                      id={`header-key-${i}`}
-                      fullWidth
-                      className={classes.dinlineblock}
-                    />
-                  </Grid>
-                  <Grid item id={`header-gvalue-${i}`} xs={6}>
-                    <Field
-                      component={TextField}
-                      variant="outlined"
-                      name={`header-value-${i}`}
-                      placeholder="Value"
-                      onChange={handleChange}
-                      id={`header-value-${i}`}
-                      fullWidth
-                      className={classes.dinlineblock}
-                    />
-                  </Grid>
-                  {i !== self.length - 1 && (
-                    <Grid item id={`header-delete-${i}`} xs={1}>
-                      <Button className={classes.primary} onClick={handleDelete}>
-                        <DeleteForeverIcon fontSize="large" />
-                      </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={10}>
+              <Grid container spacing={2}>
+                <Grid item xs={6}>
+                  <Field
+                    component={TextField}
+                    variant="outlined"
+                    placeholder="Content-Type"
+                    fullWidth
+                    disabled
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <Field
+                    component={TextField}
+                    variant="outlined"
+                    placeholder="application/json"
+                    fullWidth
+                    disabled
+                  />
+                </Grid>
+                { Object.keys(headerFields).map((k, i, self) => (
+                  <React.Fragment key={uuid()}>
+                    <Grid item id={`header-gkey-${k}`} xs={i === self.length - 1 ? 6 : 5}>
+                      <Field
+                        component={TextField}
+                        variant="outlined"
+                        name={`header-key-${k}`}
+                        id={`header-key-${k}`}
+                        placeholder="Key"
+                        onChange={(e) => fieldChanged(e, i === self.length - 1)}
+                        inputRef={`header-key-${k}` === lastInputId ? lastInput : undefined}
+                        value={values[`header-key-${k}`]}
+                        fullWidth
+                      />
                     </Grid>
-                  )}
-                </>
-              ))}
+                    <Grid item id={`header-gvalue-${k}`} xs={6}>
+                      <Field
+                        component={TextField}
+                        variant="outlined"
+                        name={`header-value-${k}`}
+                        id={`header-value-${k}`}
+                        placeholder="Value"
+                        onChange={(e) => fieldChanged(e, i === self.length - 1)}
+                        inputRef={`header-value-${k}` === lastInputId ? lastInput : undefined}
+                        value={values[`header-value-${k}`]}
+                        fullWidth
+                      />
+                    </Grid>
+                    { i !== self.length - 1 && (
+                      <Grid item id={`header-delete-${k}`} xs={1}>
+                        <Button className={classes.primary} onClick={handleDelete}>
+                          <DeleteForeverIcon fontSize="large" />
+                        </Button>
+                      </Grid>
+                    )}
+                  </React.Fragment>
+                ))}
+              </Grid>
             </Grid>
             <Grid item xs={2}>
               <FormControl className={classes.formControl}>
@@ -173,6 +191,8 @@ function Headers() {
                   labelId="methodLabel"
                   name="method"
                   className={classes.dropDown}
+                  onChange={(e) => setFieldValue('method', e.target.value)}
+                  value={values['method']}
                 >
                   <MenuItem value="delete">Delete</MenuItem>
                   <MenuItem value="get">Get</MenuItem>
@@ -182,11 +202,13 @@ function Headers() {
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
-                <InputLabel id="methodLabel">Retries</InputLabel>
+                <InputLabel id="retriesLabel">Retries</InputLabel>
                 <Select
-                  labelId="methodLabel"
-                  name="method"
+                  labelId="retriesLabel"
+                  name="retries"
                   className={classes.dropDown}
+                  onChange={(e) => setFieldValue('retries', e.target.value)}
+                  value={values['retries']}
                 >
                   <MenuItem value="0">0 Retries</MenuItem>
                   <MenuItem value="1">1 Retries</MenuItem>
@@ -195,11 +217,13 @@ function Headers() {
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
-                <InputLabel id="methodLabel">Delay</InputLabel>
+                <InputLabel id="delayLabel">Delay</InputLabel>
                 <Select
-                  labelId="methodLabel"
-                  name="method"
+                  labelId="delayLabel"
+                  name="delay"
                   className={classes.dropDown}
+                  onChange={(e) => setFieldValue('delay', e.target.value)}
+                  value={values['delay']}
                 >
                   <MenuItem value="0">Instant</MenuItem>
                   <MenuItem value="15">15 Minutes</MenuItem>

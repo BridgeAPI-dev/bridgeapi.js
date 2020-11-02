@@ -42,12 +42,7 @@ function Payload() {
             >
               <Typography className={classes.heading}>View latest inbound payload</Typography>
             </AccordionSummary>
-            <AccordionDetails>
-              <Typography>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                sit amet blandit leo lobortis eget.
-              </Typography>
-            </AccordionDetails>
+            <AccordionDetails />
           </Accordion>
           <Typography>Edit outbound payload</Typography>
         </Container>

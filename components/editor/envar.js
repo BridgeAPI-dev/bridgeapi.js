@@ -1,24 +1,27 @@
-import { Accordion, AccordionDetails, AccordionSummary, Button, Typography, makeStyles, Grid, TextField, Box, Container } from "@material-ui/core";
+import {
+  Accordion, AccordionDetails, AccordionSummary, Button, Typography, makeStyles, Grid, TextField,
+} from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { Field } from "formik";
-import { useState } from "react";
+import { Field } from 'formik';
+import React, { useState } from 'react';
+import uuid from 'react-uuid';
 
 const useStyles = makeStyles((theme) => ({
   primary: {
     color: theme.palette.primary.main,
   },
   heading: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   subtitle: {
-    color: "#a6a6a4",
+    color: '#a6a6a4',
   },
   noPadding: {
     padding: 0,
   },
   test: {
-    display: "inline-block",
+    display: 'inline-block',
   },
 }));
 
@@ -28,7 +31,7 @@ function Envar() {
 
   function handleChange(event) {
     const id = Number(event.target.id.split('-')[2]);
-    if (isNaN(id)) return;
+    if (Number.isNaN(id)) return;
 
     if (id === envarFields.length - 1) {
       setEnvarFields([...envarFields, envarFields.length + 1]);
@@ -37,7 +40,7 @@ function Envar() {
 
   function handleDelete(event) {
     const id = Number(event.target.closest('div').id.split('-')[2]);
-    if (isNaN(id)) return;
+    if (Number.isNaN(id)) return;
 
     document.getElementById(`envar-gkey-${id}`).remove();
     document.getElementById(`envar-gvalue-${id}`).remove();
@@ -59,8 +62,8 @@ function Envar() {
       <AccordionDetails>
         <Grid container spacing={2}>
           { envarFields.map((_, i, self) => (
-            <>
-              <Grid id={`envar-gkey-${i}`} key={i} item xs={i !== self.length - 1 ? 5 : 6}>
+            <React.Fragment key={uuid()}>
+              <Grid id={`envar-gkey-${i}`} item xs={i !== self.length - 1 ? 5 : 6}>
                 <Field
                   component={TextField}
                   variant="outlined"
@@ -89,7 +92,7 @@ function Envar() {
                   </Button>
                 </Grid>
               )}
-            </>
+            </React.Fragment>
           ))}
         </Grid>
       </AccordionDetails>
@@ -98,4 +101,3 @@ function Envar() {
 }
 
 export default Envar;
-
