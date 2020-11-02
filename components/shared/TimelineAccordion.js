@@ -1,3 +1,5 @@
+/* eslint-disable react/forbid-prop-types */
+import PropTypes from 'prop-types';
 import {
   Accordion,
   AccordionSummary,
@@ -51,12 +53,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function TimelineAccordion(props) {
+export default function TimelineAccordion({ request }) {
   const classes = useStyles();
-  const { title, subtitle } = props.request;
+  const { title, subtitle } = request;
   const {
     contentType, date, host, latency, length, size, statusCode, statusText, time, url,
-  } = props.request.headers;
+  } = request.headers;
 
   return (
     <>
@@ -130,3 +132,12 @@ export default function TimelineAccordion(props) {
     </>
   );
 }
+
+TimelineAccordion.propTypes = {
+  request: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired,
+    headers: PropTypes.object.isRequired,
+    payload: PropTypes.object.isRequired,
+  }).isRequired,
+};
