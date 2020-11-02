@@ -48,11 +48,10 @@ function Envar() {
   });
 
   function handleDelete(event) {
-    const idArray = event.target.closest('[id^=header]').id.split('-');
+    const idArray = event.target.closest('[id^=envar]').id.split('-');
     const id = idArray.slice(2, idArray.length).join('-');
-    const index = envarFields.findIndex((field) => field === id);
 
-    setEnvarFields(envarFields.filter((_, i) => i !== index));
+    setEnvarFields(envarFields.filter((field) => field !== id));
   }
 
   return (
@@ -97,9 +96,9 @@ function Envar() {
                   fullWidth
                 />
               </Grid>
-              {i !== self.length - 1 && (
-                <Grid id={`envar-delete-${i}`} item xs={1}>
-                  <Button className={classes.primary} onClick={handleDelete}>
+              { i !== self.length - 1 && (
+                <Grid item xs={1}>
+                  <Button className={classes.primary} id={`envar-delete-${k}`} onClick={handleDelete}>
                     <DeleteForeverIcon fontSize="large" />
                   </Button>
                 </Grid>

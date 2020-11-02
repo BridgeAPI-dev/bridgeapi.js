@@ -82,9 +82,8 @@ function Headers() {
   function handleDelete(event) {
     const idArray = event.target.closest('[id^=header]').id.split('-');
     const id = idArray.slice(2, idArray.length).join('-');
-    const index = headerFields.findIndex((field) => field === id);
 
-    setHeaderFields(headerFields.filter((_, i) => i !== index));
+    setHeaderFields(headerFields.filter((field) => field !== id));
   }
 
   return (
