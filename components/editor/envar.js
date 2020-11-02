@@ -70,7 +70,7 @@ function Envar() {
         <Grid container spacing={2}>
           { envarFields.map((k, i, self) => (
             <React.Fragment key={uuid()}>
-              <Grid item xs={i !== self.length - 1 ? 5 : 6}>
+              <Grid item xs={5}>
                 <Field
                   component={TextField}
                   variant="outlined"

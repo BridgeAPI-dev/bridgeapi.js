@@ -118,7 +118,7 @@ function Headers() {
           <Grid container spacing={2}>
             <Grid item xs={10}>
               <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid item xs={5}>
                   <Field
                     component={TextField}
                     variant="outlined"
@@ -138,7 +138,7 @@ function Headers() {
                 </Grid>
                 { headerFields.map((k, i, self) => (
                   <React.Fragment key={uuid()}>
-                    <Grid item xs={i === self.length - 1 ? 6 : 5}>
+                    <Grid item xs={5}>
                       <Field
                         component={TextField}
                         variant="outlined"
