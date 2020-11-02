@@ -32,7 +32,19 @@ const theme = createMuiTheme({
     MuiCssBaseline: {
       '@global': {
         '@font-face': 'Open Sans',
+        a: {
+          color: 'inherit',
+          textDecoration: 'none',
+        },
+        '*': {
+          boxSizing: 'border-box',
+        },
+        '.menuLinkItem': {
+          textDecoration: 'none',
+          margin: 'auto',
+        },
       },
+
     },
     MuiButton: {
       // Name of the rule
