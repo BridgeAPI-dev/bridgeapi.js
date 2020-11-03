@@ -40,9 +40,15 @@ const useStyles = makeStyles({
     fontWeight: '700',
     align: 'center',
   },
+  divider: {
+    marginBottom: '1em',
+  },
   oppositeContent: {
     flex: 0.02,
     marginLeft: '-1em',
+  },
+  payloadHeader: {
+    margin: '1em 0',
   },
   timeline: {
     marginRight: '2em',
@@ -51,9 +57,12 @@ const useStyles = makeStyles({
     marginTop: '-1.5em',
     marginBottom: '4em',
   },
+  title: {
+    fontWeight: 900,
+  },
 });
 
-export default function TimelineAccordion({ request }) {
+function TimelineAccordion({ request }) {
   const classes = useStyles();
   const { title, subtitle } = request;
   const {
@@ -62,7 +71,7 @@ export default function TimelineAccordion({ request }) {
 
   return (
     <>
-      <TimelineItem className={classes.timelineItem}>
+      <TimelineItem>
         <TimelineOppositeContent className={classes.oppositeContent}>
           <Typography variant="body2">
             {time}
@@ -82,7 +91,7 @@ export default function TimelineAccordion({ request }) {
               className={classes.accordionSummary}
             >
               <Grid container direction="column">
-                <Typography variant="h6" style={{ fontWeight: 900 }}>
+                <Typography variant="h6" className={classes.title}>
                   {title}
                 </Typography>
                 <Typography variant="subtitle2" color="textSecondary" noWrap>
@@ -92,11 +101,12 @@ export default function TimelineAccordion({ request }) {
             </AccordionSummary>
             <AccordionDetails className={classes.accordionDetails}>
               <Grid container direction="column">
-                <Divider style={{ marginBottom: '1em' }} />
+                <Divider className={classes.divider} />
                 <Typography align="center" className={classes.centeredBold}>
                   {/* If it's an Inbound or Outbound request */}
                   {['Inbound', 'Outbound'].includes(title) && `${time} on ${date}`}
-                  {/* If it's a response */}
+
+                  {/* Or if it's a response */}
                   {title === 'Response' && `Status: ${statusCode} ${statusText} Time: ${latency} ms Size: ${size} KB`}
                 </Typography>
                 <Typography align="center" className={classes.centeredBold}>
@@ -119,10 +129,10 @@ export default function TimelineAccordion({ request }) {
                   {' '}
                   {length}
                 </Typography>
-                <Typography style={{ marginTop: '1em', marginBottom: '1em' }}>
+                <Typography className={classes.payloadHeader}>
                   PAYLOAD:
-                  {/* Editor */}
                 </Typography>
+                {/* EDITOR GOES HERE */}
                 <Box>(Code editor)</Box>
               </Grid>
             </AccordionDetails>
@@ -141,3 +151,5 @@ TimelineAccordion.propTypes = {
     payload: PropTypes.object.isRequired,
   }).isRequired,
 };
+
+export default TimelineAccordion;
