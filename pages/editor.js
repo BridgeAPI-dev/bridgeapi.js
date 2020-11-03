@@ -41,10 +41,14 @@ function Editor() {
     method: '',
     retries: '',
     delay: '',
-    'header-keys': ['@@@', '@@@'],
-    'envar-values': ['456', '456'],
-    'header-values': ['!!!', '!!!'],
-    'envar-keys': ['123', '123'],
+    'header-keys': ['123', '456'],
+    'header-values': ['789', '!!!'],
+    'envar-keys': ['@@@', '!@!'],
+    'envar-values': ['@!@', '%%%'],
+    // 'header-keys': [''],
+    // 'header-values': [''],
+    // 'envar-keys': [''],
+    // 'envar-values': [''],
   };
 
   const handleValidate = () => {
@@ -71,15 +75,15 @@ function Editor() {
           <Navbar />
           <Container align="center" maxWidth={false} className={classes.root}>
             <Typography variant="subtitle2">Send your events here</Typography>
-            <Typography variant="h5" className={classes.dinlineblock}>https://bridgeapi.dev/b13923/inbound</Typography>
+            <Typography variant="h6" className={classes.dinlineblock}>https://bridgeapi.dev/b13923/inbound</Typography>
             <Box className={classes.buttonsContainer}>
               <Button variant="outlined" color="secondary" className={classes.action}>Actions</Button>
               <Button onClick={submitForm} variant="contained" color="primary">Save</Button>
             </Box>
             <Headers />
-            <Envar />
-            <Payload />
-            <Tester />
+            {/* <Envar /> */}
+            {/* <Payload /> */}
+            {/* <Tester /> */}
           </Container>
         </Form>
       )}

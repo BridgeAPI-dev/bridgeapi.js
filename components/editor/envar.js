@@ -4,9 +4,10 @@ import {
 import { TextField } from 'formik-material-ui';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+
 import { Field, FieldArray, useFormikContext } from 'formik';
-import React, { useEffect, useRef, useState } from 'react';
-import uuid from 'react-uuid';
+
+import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   primary: {
@@ -28,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Envar() {
   const { values, setFieldValue } = useFormikContext();
-  const [envarFields, setEnvarFields] = useState([uuid()]);
   const classes = useStyles();
 
   function fieldChanged(event, arrayHelpers, createNewField) {
@@ -39,16 +39,10 @@ function Envar() {
     }
   }
 
-  // useEffect(() => {
-  //   if (lastInput.current) lastInput.current.focus();
-  //   lastInput.current = null;
-  // });
-
-  function handleDelete(event) {
-    const idArray = event.target.closest('[id^=envar]').id.split('-');
-    const id = idArray.slice(2, idArray.length).join('-');
-
-    setEnvarFields(envarFields.filter((field) => field !== id));
+  function handleDelete(arrayHelpers, index) {
+    arrayHelpers.remove(index);
+    setFieldValue('envar-values', values['envar-values'].filter((_, i) => i !== index));
+    console.log(values);
   }
 
   return (
@@ -66,7 +60,7 @@ function Envar() {
           <FieldArray
             name="envar-keys"
             render={(arrayHelpers) => values['envar-keys'].map((k, i, self) => (
-              <React.Fragment key={uuid()}>
+              <React.Fragment key={`${i}-${JSON.stringify(self)}`}>
                 <Grid item xs={5}>
                   <Field
                     component={TextField}
@@ -74,7 +68,6 @@ function Envar() {
                     name={`envar-keys[${i}]`}
                     placeholder="Key"
                     onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
-                    // value={values[`envar-key-${k}`]}
                     fullWidth
                   />
                 </Grid>
@@ -83,15 +76,17 @@ function Envar() {
                     component={TextField}
                     variant="outlined"
                     name={`envar-values[${i}]`}
-                    placeholder="Key"
+                    placeholder="Value"
                     onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
-                    // value={values[`envar-values[${k}]`]}
                     fullWidth
                   />
                 </Grid>
                 { i !== self.length - 1 && (
                 <Grid item xs={1}>
-                  <Button className={classes.primary} id={`envar-delete-${k}`} onClick={handleDelete}>
+                  <Button
+                    className={classes.primary}
+                    onClick={() => { handleDelete(arrayHelpers, i); }}
+                  >
                     <DeleteForeverIcon fontSize="large" />
                   </Button>
                 </Grid>

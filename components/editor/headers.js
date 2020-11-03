@@ -17,7 +17,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { Field, FieldArray, useFormikContext } from 'formik';
 import React from 'react';
-import uuid from 'react-uuid';
 
 const useStyles = makeStyles((theme) => ({
   pullRight: {
@@ -58,15 +57,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Headers() {
-  const { values, setFieldValue, setValues } = useFormikContext();
+  const { values, setFieldValue } = useFormikContext();
   const classes = useStyles();
 
   function fieldChanged(event, arrayHelpers, createNewField) {
+    console.log(event.target.name, event.target.value);
     setFieldValue(event.target.name, event.target.value);
 
     if (createNewField) {
       arrayHelpers.push('');
     }
+  }
+
+  function handleDelete(arrayHelpers, index) {
+    arrayHelpers.remove(index);
+    setFieldValue('header-values', values['header-values'].filter((_, i) => i !== index));
   }
 
   return (
@@ -120,13 +125,13 @@ function Headers() {
                 <FieldArray
                   name="header-keys"
                   render={(arrayHelpers) => values['header-keys'].map((k, i, self) => (
-                    <React.Fragment key={uuid()}>
+                    <React.Fragment key={k}>
                       <Grid item xs={5}>
                         <Field
                           component={TextField}
                           variant="outlined"
                           name={`header-keys[${i}]`}
-                          placeholder="Key"
+                          placeholder="Value"
                           onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
                           fullWidth
                         />
@@ -143,7 +148,10 @@ function Headers() {
                       </Grid>
                       { i !== self.length - 1 && (
                       <Grid item xs={1}>
-                        <Button className={classes.primary} onClick={() => { setValues({}); arrayHelpers.remove(1)}}>
+                        <Button
+                          className={classes.primary}
+                          onClick={() => { handleDelete(arrayHelpers, i); }}
+                        >
                           <DeleteForeverIcon fontSize="large" />
                         </Button>
                       </Grid>
