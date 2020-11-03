@@ -1,7 +1,9 @@
 import {
-  Accordion, AccordionDetails, AccordionSummary, Container, Typography, makeStyles, Grid,
+  Accordion, AccordionDetails, Container, Typography, makeStyles, AccordionSummary as MUIAccordionSummary,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+import AccordionSummary from '../../AccordionSummary';
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -25,27 +27,30 @@ function Payload() {
   return (
     <Accordion defaultExpanded>
       <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
-      >
-        <Grid container direction="column" align="left">
-          <Typography className={classes.heading}>Payload</Typography>
-          <Typography variant="subtitle1" className={classes.subtitle}>Edit payload for outgoing request</Typography>
-        </Grid>
-      </AccordionSummary>
+        icon={<ExpandMoreIcon />}
+        title="Payload"
+        subtitle="Edit payload for outgoing request"
+      />
+
       <AccordionDetails>
-        <Container align="left" maxWidth={false} className={classes.payloadContainer}>
+        <Container
+          align="left"
+          maxWidth={false}
+          className={classes.payloadContainer}
+        >
           <Accordion className={classes.inboundPayloadAccordion}>
-            <AccordionSummary
+            <MUIAccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <Typography className={classes.heading}>View latest inbound payload</Typography>
-            </AccordionSummary>
+              <Typography className={classes.heading}>
+                View latest inbound payload
+              </Typography>
+            </MUIAccordionSummary>
             <AccordionDetails />
           </Accordion>
+
           <Typography>Edit outbound payload</Typography>
         </Container>
       </AccordionDetails>
