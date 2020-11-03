@@ -61,8 +61,8 @@ const theme = createMuiTheme({
           color: primary,
         },
       },
-      containedPrimary: {
-        backgroundColor: secondary,
+      containedSecondary: {
+        color: "white",
         fontWeight: 600,
       },
     },
