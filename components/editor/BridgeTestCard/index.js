@@ -3,6 +3,7 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+import CodeMirror from '../../Codemirror';
 import AccordionSummary from '../../AccordionSummary';
 
 const useStyles = makeStyles((theme) => ({
@@ -61,6 +62,7 @@ function Tester() {
           <Typography className={classes.testPayloadLabel}>
             Test Payload
           </Typography>
+          <CodeMirror />
         </Container>
       </AccordionDetails>
     </Accordion>
