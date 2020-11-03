@@ -62,7 +62,7 @@ const theme = createMuiTheme({
         },
       },
       containedSecondary: {
-        color: "white",
+        color: 'white',
         fontWeight: 600,
       },
     },

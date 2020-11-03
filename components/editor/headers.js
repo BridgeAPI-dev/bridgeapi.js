@@ -160,7 +160,7 @@ function Headers() {
                     component={TextField}
                     variant="outlined"
                     name={`header-values[${values['header-keys'].length}]`}
-                    onKeyUp={() => setFieldValue(`header-keys[${values["header-keys"].length}]`, '')}
+                    onKeyUp={() => setFieldValue(`header-keys[${values['header-keys'].length}]`, '')}
                     placeholder="Value"
                     fullWidth
                   />
