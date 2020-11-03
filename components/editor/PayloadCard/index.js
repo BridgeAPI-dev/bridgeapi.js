@@ -64,7 +64,7 @@ function Payload({ inputCode }) {
                 className={classes.payloadContainer}
               >
 
-                <CodeMirror />
+                <CodeMirror readOnly />
               </Container>
             </AccordionDetails>
           </Accordion>

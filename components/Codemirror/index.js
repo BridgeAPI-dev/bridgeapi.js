@@ -10,14 +10,14 @@ import 'codemirror/addon/lint/lint.css';
 import 'codemirror/addon/display/fullscreen.css';
 import 'codemirror/addon/fold/foldgutter.css';
 
-function CodeMirror({ inputCode }) {
+function CodeMirror({ inputCode, readOnly = false }) {
   const codeRef = useRef(null);
   const [mounted, setMounted] = useState(false);
-  const [fullscreen, setFullscreen] = useState(false);
+  const [fullScreen, setFullScreen] = useState(false);
 
   const handleKeyPress = (e) => {
     if (e.key === 'F11') {
-      setFullscreen((fullscreen) => !fullscreen);
+      setFullScreen((fullScreen) => !fullScreen);
       e.preventDefault();
     }
   };
@@ -98,7 +98,8 @@ function CodeMirror({ inputCode }) {
           showTrailingSpace: true,
           styleActiveLine: true,
           foldGutter: true,
-          fullScreen: fullscreen,
+          fullScreen,
+          readOnly,
         }}
         style={{ zIndex: 1200 }}
       />
