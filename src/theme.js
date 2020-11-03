@@ -64,6 +64,9 @@ const theme = createMuiTheme({
       containedSecondary: {
         color: 'white',
         fontWeight: 600,
+        '&:hover': {
+          backgroundColor: primary,
+        },
       },
     },
   },
