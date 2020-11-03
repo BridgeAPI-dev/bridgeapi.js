@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
   testPayloadLabel: {
     margin: theme.spacing(2, 0),
   },
+  payloadContainer: {
+    padding: 0,
+    margin: 0,
+  },
   dinlineblock: {
     display: 'inline-block',
   },

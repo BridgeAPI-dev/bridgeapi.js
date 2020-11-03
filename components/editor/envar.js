@@ -31,18 +31,9 @@ function Envar() {
   const { values, setFieldValue } = useFormikContext();
   const classes = useStyles();
 
-  function fieldChanged(event, arrayHelpers, createNewField) {
-    setFieldValue(event.target.name, event.target.value);
-
-    if (createNewField) {
-      arrayHelpers.push('');
-    }
-  }
-
   function handleDelete(arrayHelpers, index) {
     arrayHelpers.remove(index);
     setFieldValue('envar-values', values['envar-values'].filter((_, i) => i !== index));
-    console.log(values);
   }
 
   return (
@@ -59,15 +50,14 @@ function Envar() {
         <Grid container spacing={2}>
           <FieldArray
             name="envar-keys"
-            render={(arrayHelpers) => values['envar-keys'].map((k, i, self) => (
-              <React.Fragment key={`${i}-${JSON.stringify(self)}`}>
+            render={(arrayHelpers) => values['envar-keys'].map((k, i) => (
+              <React.Fragment key={i}>
                 <Grid item xs={5}>
                   <Field
                     component={TextField}
                     variant="outlined"
                     name={`envar-keys[${i}]`}
                     placeholder="Key"
-                    onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
                     fullWidth
                   />
                 </Grid>
@@ -77,11 +67,9 @@ function Envar() {
                     variant="outlined"
                     name={`envar-values[${i}]`}
                     placeholder="Value"
-                    onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
                     fullWidth
                   />
                 </Grid>
-                { i !== self.length - 1 && (
                 <Grid item xs={1}>
                   <Button
                     className={classes.primary}
@@ -90,10 +78,28 @@ function Envar() {
                     <DeleteForeverIcon fontSize="large" />
                   </Button>
                 </Grid>
-                )}
               </React.Fragment>
             ))}
           />
+          <Grid item xs={5}>
+            <Field
+              component={TextField}
+              variant="outlined"
+              name={`envar-keys[${values['envar-keys'].length}]`}
+              placeholder="Value"
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Field
+              component={TextField}
+              variant="outlined"
+              name={`envar-values[${values['envar-keys'].length}]`}
+              onKeyUp={() => setFieldValue(`envar-keys[${values['envar-keys'].length}]`, '')}
+              placeholder="Value"
+              fullWidth
+            />
+          </Grid>
         </Grid>
       </AccordionDetails>
     </Accordion>

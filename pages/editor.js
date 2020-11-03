@@ -41,14 +41,14 @@ function Editor() {
     method: '',
     retries: '',
     delay: '',
-    'header-keys': ['123', '456'],
-    'header-values': ['789', '!!!'],
-    'envar-keys': ['@@@', '!@!'],
-    'envar-values': ['@!@', '%%%'],
-    // 'header-keys': [''],
-    // 'header-values': [''],
-    // 'envar-keys': [''],
-    // 'envar-values': [''],
+    // 'header-keys': ['123', '456'],
+    // 'header-values': ['789', '!!!'],
+    // 'envar-keys': ['@@@', '!@!'],
+    // 'envar-values': ['@!@', '%%%'],
+    'header-keys': [],
+    'header-values': [],
+    'envar-keys': [],
+    'envar-values': [],
   };
 
   const handleValidate = () => {
@@ -81,9 +81,9 @@ function Editor() {
               <Button onClick={submitForm} variant="contained" color="primary">Save</Button>
             </Box>
             <Headers />
-            {/* <Envar /> */}
-            {/* <Payload /> */}
-            {/* <Tester /> */}
+            <Envar />
+            <Payload />
+            <Tester />
           </Container>
         </Form>
       )}

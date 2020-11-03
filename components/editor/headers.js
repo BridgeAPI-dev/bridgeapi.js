@@ -60,15 +60,6 @@ function Headers() {
   const { values, setFieldValue } = useFormikContext();
   const classes = useStyles();
 
-  function fieldChanged(event, arrayHelpers, createNewField) {
-    console.log(event.target.name, event.target.value);
-    setFieldValue(event.target.name, event.target.value);
-
-    if (createNewField) {
-      arrayHelpers.push('');
-    }
-  }
-
   function handleDelete(arrayHelpers, index) {
     arrayHelpers.remove(index);
     setFieldValue('header-values', values['header-values'].filter((_, i) => i !== index));
@@ -124,15 +115,14 @@ function Headers() {
                 </Grid>
                 <FieldArray
                   name="header-keys"
-                  render={(arrayHelpers) => values['header-keys'].map((k, i, self) => (
-                    <React.Fragment key={k}>
+                  render={(arrayHelpers) => values['header-keys'].map((k, i) => (
+                    <React.Fragment key={i}>
                       <Grid item xs={5}>
                         <Field
                           component={TextField}
                           variant="outlined"
                           name={`header-keys[${i}]`}
-                          placeholder="Value"
-                          onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
+                          placeholder="Key"
                           fullWidth
                         />
                       </Grid>
@@ -142,11 +132,9 @@ function Headers() {
                           variant="outlined"
                           name={`header-values[${i}]`}
                           placeholder="Value"
-                          onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
                           fullWidth
                         />
                       </Grid>
-                      { i !== self.length - 1 && (
                       <Grid item xs={1}>
                         <Button
                           className={classes.primary}
@@ -155,10 +143,28 @@ function Headers() {
                           <DeleteForeverIcon fontSize="large" />
                         </Button>
                       </Grid>
-                      )}
                     </React.Fragment>
                   ))}
                 />
+                <Grid item xs={5}>
+                  <Field
+                    component={TextField}
+                    variant="outlined"
+                    name={`header-keys[${values['header-keys'].length}]`}
+                    placeholder="Value"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <Field
+                    component={TextField}
+                    variant="outlined"
+                    name={`header-values[${values['header-keys'].length}]`}
+                    onKeyUp={() => setFieldValue(`header-keys[${values["header-keys"].length}]`, '')}
+                    placeholder="Value"
+                    fullWidth
+                  />
+                </Grid>
               </Grid>
             </Grid>
             <Grid item xs={2}>
