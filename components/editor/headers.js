@@ -6,17 +6,17 @@ import {
   Container,
   Typography,
   makeStyles,
-  TextField,
   Grid,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
 } from '@material-ui/core';
+import { TextField } from 'formik-material-ui';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { Field, useFormikContext } from 'formik';
-import React, { useEffect, useRef, useState } from 'react';
+import { Field, FieldArray, useFormikContext } from 'formik';
+import React from 'react';
 import uuid from 'react-uuid';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,32 +58,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Headers() {
-  const { values, setFieldValue } = useFormikContext();
-  const [headerFields, setHeaderFields] = useState([uuid()]);
-  const [lastInputId, setLastInputId] = useState();
-  const lastInput = useRef();
+  const { values, setFieldValue, setValues } = useFormikContext();
   const classes = useStyles();
 
-  function fieldChanged(event, createNewField) {
-    setLastInputId(event.target.id);
-
-    if (headerFields.length !== 1) setFieldValue(event.target.id, event.target.value);
+  function fieldChanged(event, arrayHelpers, createNewField) {
+    setFieldValue(event.target.name, event.target.value);
 
     if (createNewField) {
-      setHeaderFields([...headerFields, uuid()]);
+      arrayHelpers.push('');
     }
-  }
-
-  useEffect(() => {
-    if (lastInput.current) lastInput.current.focus();
-    lastInput.current = null;
-  });
-
-  function handleDelete(event) {
-    const idArray = event.target.closest('[id^=header]').id.split('-');
-    const id = idArray.slice(2, idArray.length).join('-');
-
-    setHeaderFields(headerFields.filter((field) => field !== id));
   }
 
   return (
@@ -108,10 +91,6 @@ function Headers() {
             variant="outlined"
             name="outboundURL"
             id="outboundURL"
-            onChange={(e) => {
-              setFieldValue(e.target.id, e.target.value);
-              setLastInputId(null);
-            }}
             placeholder="Specify your outbound service here"
             className={classes.outboundURLField}
           />
@@ -122,6 +101,7 @@ function Headers() {
                   <Field
                     component={TextField}
                     variant="outlined"
+                    name="contentType"
                     placeholder="Content-Type"
                     fullWidth
                     disabled
@@ -131,48 +111,46 @@ function Headers() {
                   <Field
                     component={TextField}
                     variant="outlined"
+                    name="json"
                     placeholder="application/json"
                     fullWidth
                     disabled
                   />
                 </Grid>
-                { headerFields.map((k, i, self) => (
-                  <React.Fragment key={uuid()}>
-                    <Grid item xs={5}>
-                      <Field
-                        component={TextField}
-                        variant="outlined"
-                        name={`header-key-${k}`}
-                        id={`header-key-${k}`}
-                        placeholder="Key"
-                        onChange={(e) => fieldChanged(e, i === self.length - 1)}
-                        inputRef={`header-key-${k}` === lastInputId ? lastInput : undefined}
-                        value={values[`header-key-${k}`]}
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Field
-                        component={TextField}
-                        variant="outlined"
-                        name={`header-value-${k}`}
-                        id={`header-value-${k}`}
-                        placeholder="Value"
-                        onChange={(e) => fieldChanged(e, i === self.length - 1)}
-                        inputRef={`header-value-${k}` === lastInputId ? lastInput : undefined}
-                        value={values[`header-value-${k}`]}
-                        fullWidth
-                      />
-                    </Grid>
-                    { i !== self.length - 1 && (
+                <FieldArray
+                  name="header-keys"
+                  render={(arrayHelpers) => values['header-keys'].map((k, i, self) => (
+                    <React.Fragment key={uuid()}>
+                      <Grid item xs={5}>
+                        <Field
+                          component={TextField}
+                          variant="outlined"
+                          name={`header-keys[${i}]`}
+                          placeholder="Key"
+                          onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Field
+                          component={TextField}
+                          variant="outlined"
+                          name={`header-values[${i}]`}
+                          placeholder="Value"
+                          onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
+                          fullWidth
+                        />
+                      </Grid>
+                      { i !== self.length - 1 && (
                       <Grid item xs={1}>
-                        <Button className={classes.primary} id={`header-delete-${k}`} onClick={handleDelete}>
+                        <Button className={classes.primary} onClick={() => { setValues({}); arrayHelpers.remove(1)}}>
                           <DeleteForeverIcon fontSize="large" />
                         </Button>
                       </Grid>
-                    )}
-                  </React.Fragment>
-                ))}
+                      )}
+                    </React.Fragment>
+                  ))}
+                />
               </Grid>
             </Grid>
             <Grid item xs={2}>

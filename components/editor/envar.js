@@ -1,9 +1,10 @@
 import {
-  Accordion, AccordionDetails, AccordionSummary, Button, Typography, makeStyles, Grid, TextField,
+  Accordion, AccordionDetails, AccordionSummary, Button, Typography, makeStyles, Grid,
 } from '@material-ui/core';
+import { TextField } from 'formik-material-ui';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { Field, useFormikContext } from 'formik';
+import { Field, FieldArray, useFormikContext } from 'formik';
 import React, { useEffect, useRef, useState } from 'react';
 import uuid from 'react-uuid';
 
@@ -28,24 +29,20 @@ const useStyles = makeStyles((theme) => ({
 function Envar() {
   const { values, setFieldValue } = useFormikContext();
   const [envarFields, setEnvarFields] = useState([uuid()]);
-  const [lastInputId, setLastInputId] = useState();
-  const lastInput = useRef();
   const classes = useStyles();
 
-  function fieldChanged(event, createNewField) {
-    setLastInputId(event.target.id);
-
-    if (envarFields.length !== 1) setFieldValue(event.target.id, event.target.value);
+  function fieldChanged(event, arrayHelpers, createNewField) {
+    setFieldValue(event.target.name, event.target.value);
 
     if (createNewField) {
-      setEnvarFields([...envarFields, uuid()]);
+      arrayHelpers.push('');
     }
   }
 
-  useEffect(() => {
-    if (lastInput.current) lastInput.current.focus();
-    lastInput.current = null;
-  });
+  // useEffect(() => {
+  //   if (lastInput.current) lastInput.current.focus();
+  //   lastInput.current = null;
+  // });
 
   function handleDelete(event) {
     const idArray = event.target.closest('[id^=envar]').id.split('-');
@@ -58,8 +55,6 @@ function Envar() {
     <Accordion defaultExpanded>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content"
-        id="panel1a-header"
       >
         <Grid container direction="column" align="left">
           <Typography className={classes.heading}>Environment variables</Typography>
@@ -68,43 +63,42 @@ function Envar() {
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={2}>
-          { envarFields.map((k, i, self) => (
-            <React.Fragment key={uuid()}>
-              <Grid item xs={5}>
-                <Field
-                  component={TextField}
-                  variant="outlined"
-                  name={`envar-key-${k}`}
-                  id={`envar-key-${k}`}
-                  placeholder="Key"
-                  onChange={(e) => fieldChanged(e, i === self.length - 1)}
-                  inputRef={`envar-key-${k}` === lastInputId ? lastInput : undefined}
-                  value={values[`envar-key-${k}`]}
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Field
-                  component={TextField}
-                  variant="outlined"
-                  name={`envar-value-${k}`}
-                  id={`envar-value-${k}`}
-                  placeholder="Key"
-                  onChange={(e) => fieldChanged(e, i === self.length - 1)}
-                  inputRef={`envar-value-${k}` === lastInputId ? lastInput : undefined}
-                  value={values[`envar-value-${k}`]}
-                  fullWidth
-                />
-              </Grid>
-              { i !== self.length - 1 && (
+          <FieldArray
+            name="envar-keys"
+            render={(arrayHelpers) => values['envar-keys'].map((k, i, self) => (
+              <React.Fragment key={uuid()}>
+                <Grid item xs={5}>
+                  <Field
+                    component={TextField}
+                    variant="outlined"
+                    name={`envar-keys[${i}]`}
+                    placeholder="Key"
+                    onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
+                    // value={values[`envar-key-${k}`]}
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <Field
+                    component={TextField}
+                    variant="outlined"
+                    name={`envar-values[${i}]`}
+                    placeholder="Key"
+                    onChange={(e) => fieldChanged(e, arrayHelpers, i === self.length - 1)}
+                    // value={values[`envar-values[${k}]`]}
+                    fullWidth
+                  />
+                </Grid>
+                { i !== self.length - 1 && (
                 <Grid item xs={1}>
                   <Button className={classes.primary} id={`envar-delete-${k}`} onClick={handleDelete}>
                     <DeleteForeverIcon fontSize="large" />
                   </Button>
                 </Grid>
-              )}
-            </React.Fragment>
-          ))}
+                )}
+              </React.Fragment>
+            ))}
+          />
         </Grid>
       </AccordionDetails>
     </Accordion>

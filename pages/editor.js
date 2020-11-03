@@ -41,6 +41,10 @@ function Editor() {
     method: '',
     retries: '',
     delay: '',
+    'header-keys': ['@@@', '@@@'],
+    'envar-values': ['456', '456'],
+    'header-values': ['!!!', '!!!'],
+    'envar-keys': ['123', '123'],
   };
 
   const handleValidate = () => {
@@ -48,12 +52,12 @@ function Editor() {
     return errors;
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, setSubmitting) => {
     console.log(values);
     // TODO: axios request
     setTimeout(() => {
-      // setSubmitting(false);
-    }, 500);
+      setSubmitting(false);
+    }, 100);
   };
 
   return (
