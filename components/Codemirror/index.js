@@ -69,6 +69,7 @@ function CodeMirror({ inputCode }) {
   const code = inputCode
     || '// Javascript Object Syntax\n'
       + '// Requires `var =` otherwise defaults to JSON mode\n'
+      + '// While cursor is in editor, press F11 :)\n'
       + 'var payload = {\n'
       + '  hello: "world",\n'
       + '  env: $keys.MY_KEY,\n'

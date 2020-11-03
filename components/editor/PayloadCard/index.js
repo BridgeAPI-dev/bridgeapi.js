@@ -55,8 +55,18 @@ function Payload({ inputCode }) {
               <Typography className={classes.heading}>
                 View latest inbound payload
               </Typography>
+
             </MUIAccordionSummary>
-            <AccordionDetails />
+            <AccordionDetails>
+              <Container
+                align="left"
+                maxWidth={false}
+                className={classes.payloadContainer}
+              >
+
+                <CodeMirror />
+              </Container>
+            </AccordionDetails>
           </Accordion>
 
           <Typography>Edit outbound payload</Typography>
