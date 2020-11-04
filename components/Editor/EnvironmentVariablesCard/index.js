@@ -6,7 +6,7 @@ import { TextField } from 'formik-material-ui';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
-import { Field, FieldArray } from 'formik';
+import { FastField, FieldArray } from 'formik';
 
 import AccordionSummary from '../../AccordionSummary';
 
@@ -55,7 +55,7 @@ function EnvironmentVariablesCard({ envVars }) {
                 {envVars.map((envVar, idx) => (
                   <React.Fragment key={idx}>
                     <Grid item xs={5}>
-                      <Field
+                      <FastField
                         component={TextField}
                         variant="outlined"
                         name={`envVars[${idx}].key`}
@@ -67,7 +67,7 @@ function EnvironmentVariablesCard({ envVars }) {
                       />
                     </Grid>
                     <Grid item xs={6}>
-                      <Field
+                      <FastField
                         component={TextField}
                         variant="outlined"
                         name={`envVars[${idx}].value`}

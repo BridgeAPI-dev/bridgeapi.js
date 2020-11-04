@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import { TextField } from 'formik-material-ui';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import { Field, FieldArray } from 'formik';
+import { Field, FieldArray, FastField } from 'formik';
 
 const useStyles = makeStyles((theme) => ({
   primary: {
@@ -57,7 +57,7 @@ function HeaderTextFields({ headers }) {
             {headers.map((header, idx) => (
               <React.Fragment key={idx}>
                 <Grid item xs={5}>
-                  <Field
+                  <FastField
                     component={TextField}
                     variant="outlined"
                     name={`headers[${idx}].key`}
@@ -69,7 +69,7 @@ function HeaderTextFields({ headers }) {
                   />
                 </Grid>
                 <Grid item xs={6}>
-                  <Field
+                  <FastField
                     component={TextField}
                     variant="outlined"
                     name={`headers[${idx}].value`}
