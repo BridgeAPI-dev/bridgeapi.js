@@ -9,11 +9,11 @@ import PropTypes from 'prop-types';
 
 import { Formik, Form } from 'formik';
 
-import Navbar from '../components/shared/dashboard/Navbar';
-import BridgeTestCard from '../components/editor/BridgeTestCard';
-import PayloadCard from '../components/editor/PayloadCard';
-import EnvironmentVariablesCard from '../components/editor/EnvironmentVariablesCard';
-import HeadersCard from '../components/editor/HeadersCard';
+import Navbar from '../shared/dashboard/Navbar';
+import BridgeTestCard from './BridgeTestCard';
+import PayloadCard from './PayloadCard';
+import EnvironmentVariablesCard from './EnvironmentVariablesCard';
+import HeadersCard from './HeadersCard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -102,39 +102,34 @@ function Editor({
 
 export default Editor;
 
-// eslint-disable-next-line no-unused-vars
-export async function getStaticProps(context) {
-  return {
-    props: {
-      outboundURL: '',
-      method: '',
-      retries: '',
-      delay: '',
-      headers: [
-        { key: '', value: '' },
-      ],
-      envVars: [
-        { key: '', value: '' },
-      ],
-    },
-  };
-}
+Editor.defaultProps = {
+  outboundURL: '',
+  method: '',
+  retries: '',
+  delay: '',
+  headers: [
+    { key: '', value: '' },
+  ],
+  envVars: [
+    { key: '', value: '' },
+  ],
+};
 
 Editor.propTypes = {
-  outboundURL: PropTypes.string.isRequired,
-  method: PropTypes.string.isRequired,
-  retries: PropTypes.string.isRequired,
-  delay: PropTypes.string.isRequired,
+  outboundURL: PropTypes.string,
+  method: PropTypes.string,
+  retries: PropTypes.string,
+  delay: PropTypes.string,
   headers: PropTypes.arrayOf(
     PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
+      key: PropTypes.string,
+      value: PropTypes.string,
     }),
-  ).isRequired,
+  ),
   envVars: PropTypes.arrayOf(
     PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
+      key: PropTypes.string,
+      value: PropTypes.string,
     }),
-  ).isRequired,
+  ),
 };
