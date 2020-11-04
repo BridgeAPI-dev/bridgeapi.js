@@ -58,8 +58,8 @@ function Editor({
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
-          // TODO: Needs more discussion
-          // validateOnChange={false}
+          validateOnChange={false}
+          validateOnBlur={false}
         >
           {({ values, submitForm }) => (
             <Form>
