@@ -93,9 +93,11 @@ function Editor({
               <EnvironmentVariablesCard envVars={values.envVars} />
               <PayloadCard
                 isEditView={isEditView}
+                values={values}
               />
               <BridgeTestCard
                 isEditView={isEditView}
+                values={values}
               />
 
             </Form>

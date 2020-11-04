@@ -3,7 +3,6 @@ import React, {
   useState, useRef, useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
-import { useFormikContext } from 'formik';
 
 import { JSHINT } from 'jshint';
 import { UnControlled as CM } from 'react-codemirror2';
@@ -15,12 +14,11 @@ import 'codemirror/addon/display/fullscreen.css';
 import 'codemirror/addon/fold/foldgutter.css';
 
 function CodeMirror({
-  formKey, isEditView, readOnly,
+  formKey, isEditView, readOnly, values,
 }) {
   const codeRef = useRef(null);
   const [mounted, setMounted] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
-  const { values } = useFormikContext();
   const [code, setCode] = useState(
     '// Javascript Object Syntax\n'
       + '// Please ensure everything stays within the payload object\n'

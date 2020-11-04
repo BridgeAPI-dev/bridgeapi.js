@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BridgeTestCard({ isEditView, defaultTestCode }) {
+function BridgeTestCard({ isEditView, values }) {
   const classes = useStyles();
   return (
     <Accordion defaultExpanded>
@@ -64,8 +64,8 @@ function BridgeTestCard({ isEditView, defaultTestCode }) {
           </Typography>
           <CodeMirror
             formKey="testPayloadCode"
-            defaultCode={defaultTestCode}
             isEditView={isEditView}
+            values={values}
           />
         </Container>
       </AccordionDetails>

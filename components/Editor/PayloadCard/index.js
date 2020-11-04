@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function PayloadCard({ isEditView }) {
+function PayloadCard({ isEditView, values }) {
   const classes = useStyles();
 
   return (
@@ -71,7 +71,7 @@ function PayloadCard({ isEditView }) {
           </Accordion>
 
           <Typography>Edit outbound payload</Typography>
-          <CodeMirror formKey="payloadCode" isEditView={isEditView} />
+          <CodeMirror formKey="payloadCode" isEditView={isEditView} values={values} />
 
         </Container>
       </AccordionDetails>
