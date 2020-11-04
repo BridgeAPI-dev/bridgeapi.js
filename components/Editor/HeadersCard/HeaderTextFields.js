@@ -17,16 +17,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const validateHeaders = (input) => {
+  let error;
+  if (!input) {
+    error = 'Required or Delete Row';
+  }
+  return error;
+};
+
 function HeaderTextFields({ headers }) {
   const classes = useStyles();
-
-  const validateHeaders = (input) => {
-    let error;
-    if (!input) {
-      error = 'Required or Delete Row';
-    }
-    return error;
-  };
 
   return (
     <Grid container spacing={2}>

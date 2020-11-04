@@ -43,15 +43,6 @@ function Editor({
     testPayloadCode: '',
   };
 
-  const handleValidate = (values) => {
-    const errors = {};
-    // if (!values.method) {
-    //   errors.method = 'Required';
-    // }
-    // console.log(errors);
-    return errors;
-  };
-
   const handleSubmit = (values, setSubmitting) => {
     console.log(values);
     // TODO: axios request
@@ -66,7 +57,6 @@ function Editor({
       <Container maxWidth={false} className={classes.root}>
         <Formik
           initialValues={initialValues}
-          validate={(values) => handleValidate(values)}
           onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
         >
           {({ values, submitForm }) => (

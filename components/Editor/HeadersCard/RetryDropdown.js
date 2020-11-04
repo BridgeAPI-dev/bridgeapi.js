@@ -16,24 +16,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const retries = [
+  '0',
+  '1',
+  '3',
+  '5',
+];
+
+const validateRetries = (input) => {
+  let error;
+  if (!input) {
+    error = 'Required';
+  } else if (!retries.includes(input)) {
+    error = 'Nice Try But No.';
+  }
+  return error;
+};
+
 function MethodDropdown() {
   const classes = useStyles();
-  const retries = [
-    '0',
-    '1',
-    '3',
-    '5',
-  ];
-
-  const validateRetries = (input) => {
-    let error;
-    if (!input) {
-      error = 'Required';
-    } else if (!retries.includes(input)) {
-      error = 'Nice Try But No.';
-    }
-    return error;
-  };
 
   return (
     <FormControl className={classes.root}>

@@ -16,25 +16,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const delays = [
+  '0',
+  '15',
+  '30',
+  '60',
+  '1440',
+];
+
+const validateDelay = (input) => {
+  let error;
+  if (!input) {
+    error = 'Required';
+  } else if (!delays.includes(input)) {
+    error = 'Nice Try But No.';
+  }
+  return error;
+};
+
 function MethodDropdown() {
   const classes = useStyles();
-  const delays = [
-    '0',
-    '15',
-    '30',
-    '60',
-    '1440',
-  ];
-
-  const validateDelay = (input) => {
-    let error;
-    if (!input) {
-      error = 'Required';
-    } else if (!delays.includes(input)) {
-      error = 'Nice Try But No.';
-    }
-    return error;
-  };
 
   return (
     <FormControl className={classes.root}>

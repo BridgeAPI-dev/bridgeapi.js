@@ -69,45 +69,45 @@ function CodeMirror({
   // `ReferenceError: navigator is not defined` because
   // `navigator` is a react DOM thing and is not avaiable on the server
   const loadCodeMirrorAssets = () => {
-    if (!mounted) {
-      fetchData();
-      // Enable code folding - WIP: Can't get to work
-      require('codemirror/addon/fold/foldcode');
-      require('codemirror/addon/fold/foldgutter');
-      require('codemirror/addon/fold/brace-fold');
-      // Must bind JSHINT to window for lint support
-      window.JSHINT = JSHINT;
-      // Base Linting
-      require('codemirror/addon/lint/lint');
-      // JS & JSON Linting
-      require('codemirror/addon/lint/javascript-lint');
+    fetchData();
+    // Enable code folding - WIP: Can't get to work
+    require('codemirror/addon/fold/foldcode');
+    require('codemirror/addon/fold/foldgutter');
+    require('codemirror/addon/fold/brace-fold');
+    // Must bind JSHINT to window for lint support
+    window.JSHINT = JSHINT;
+    // Base Linting
+    require('codemirror/addon/lint/lint');
+    // JS & JSON Linting
+    require('codemirror/addon/lint/javascript-lint');
 
-      // Automatically make a closing bracket
-      require('codemirror/addon/edit/closebrackets');
-      // Add a squiggly for trailing whitespace
-      require('codemirror/addon/edit/trailingspace');
-      // Highlight the current set of brackets
-      require('codemirror/addon/edit/matchbrackets');
+    // Automatically make a closing bracket
+    require('codemirror/addon/edit/closebrackets');
+    // Add a squiggly for trailing whitespace
+    require('codemirror/addon/edit/trailingspace');
+    // Highlight the current set of brackets
+    require('codemirror/addon/edit/matchbrackets');
 
-      // Highlight current line
-      require('codemirror/addon/selection/active-line');
+    // Highlight current line
+    require('codemirror/addon/selection/active-line');
 
-      // F11 fullscreen mode
-      require('codemirror/addon/display/fullscreen');
+    // F11 fullscreen mode
+    require('codemirror/addon/display/fullscreen');
 
-      // Set the language - Includes JS & JSON
-      require('codemirror/mode/javascript/javascript');
+    // Set the language - Includes JS & JSON
+    require('codemirror/mode/javascript/javascript');
 
-      // Add event listener for fullscreen mode
-      codeRef.current.addEventListener('keydown', handleKeyPress);
-      // And prevent all this from happening again
-      setMounted(true);
-    }
+    // Add event listener for fullscreen mode
+    codeRef.current.addEventListener('keydown', handleKeyPress);
+    // And prevent all this from happening again
+    setMounted(true);
   };
 
   useEffect(() => {
-    // Prevent blocking the main thread
-    setTimeout(loadCodeMirrorAssets, 2500);
+    if (!mounted) {
+      // Make async - Prevent blocking the main thread
+      setTimeout(loadCodeMirrorAssets, 2500);
+    }
   }, []);
 
   return (

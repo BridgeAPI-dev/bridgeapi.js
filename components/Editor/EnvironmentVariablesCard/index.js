@@ -28,16 +28,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const validateEnvVars = (input) => {
+  let error;
+  if (!input) {
+    error = 'Required or Delete Row';
+  }
+  return error;
+};
+
 function EnvironmentVariablesCard({ envVars }) {
   const classes = useStyles();
-
-  const validateEnvVars = (input) => {
-    let error;
-    if (!input) {
-      error = 'Required or Delete Row';
-    }
-    return error;
-  };
 
   return (
     <Accordion defaultExpanded>
