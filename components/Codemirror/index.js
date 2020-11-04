@@ -1,3 +1,5 @@
+// Disables no-param-reassign because we need to mutate the values obj
+/* eslint-disable no-param-reassign */
 /* eslint-disable global-require */
 import React, {
   useState, useRef, useEffect,
@@ -154,6 +156,24 @@ CodeMirror.propTypes = {
   readOnly: PropTypes.bool,
   isEditView: PropTypes.bool.isRequired,
   formKey: PropTypes.string,
+  values: PropTypes.shape({
+    outboundURL: PropTypes.string.isRequired,
+    method: PropTypes.string.isRequired,
+    retries: PropTypes.string.isRequired,
+    delay: PropTypes.string.isRequired,
+    headers: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+      }).isRequired,
+    ).isRequired,
+    envVars: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+      }).isRequired,
+    ).isRequired,
+  }).isRequired,
 };
 
 CodeMirror.defaultProps = {
