@@ -68,6 +68,7 @@ function CodeMirror({ inputCode, readOnly = false }) {
   useEffect(() => {
     // Prevent blocking the main thread
     setTimeout(loadCodeMirrorAssets, 2500);
+    // TODO: API Request
   }, []);
 
   const code = inputCode

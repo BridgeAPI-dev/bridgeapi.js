@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
   noPadding: {
     padding: 0,
   },
-  test: {
-    display: 'inline-block',
+  plusButton: {
+    margin: theme.spacing(1),
   },
 }));
 
@@ -87,12 +87,15 @@ function EnvironmentVariablesCard({ envVars }) {
                     </Grid>
                   </React.Fragment>
                 ))}
-                <button
+                <Button
                   type="button"
+                  color="primary"
+                  variant="outlined"
+                  className={classes.plusButton}
                   onClick={() => arrayHelpers.push({ key: '', value: '' })}
                 >
                   +
-                </button>
+                </Button>
               </>
             )}
           />

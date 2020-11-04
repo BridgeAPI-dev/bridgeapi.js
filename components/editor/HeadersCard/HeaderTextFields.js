@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
   primary: {
     color: theme.palette.primary.main,
   },
+  plusButton: {
+    margin: theme.spacing(1),
+  },
 }));
 
 function HeaderTextFields({ headers }) {
@@ -86,12 +89,15 @@ function HeaderTextFields({ headers }) {
                 </Grid>
               </React.Fragment>
             ))}
-            <button
+            <Button
               type="button"
+              color="primary"
+              variant="outlined"
+              className={classes.plusButton}
               onClick={() => arrayHelpers.push({ key: '', value: '' })}
             >
               +
-            </button>
+            </Button>
           </>
         )}
       />
