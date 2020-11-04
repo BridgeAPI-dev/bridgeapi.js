@@ -64,13 +64,13 @@ function Editor({
           {({ values, submitForm }) => (
             <Form>
               <Grid container>
-                <Grid item md={8} lg={8} container justify="flex-end">
+                <Grid item sm={8} md={8} lg={8} container justify="flex-end">
                   <Grid>
                     <Typography variant="subtitle2" className={classes.textCenter}>Send your events here</Typography>
                     <Typography variant="h6">https://bridgeapi.dev/b13923/inbound</Typography>
                   </Grid>
                 </Grid>
-                <Grid item md={4} lg={4} container justify="flex-end">
+                <Grid item sm={4} md={4} lg={4} container justify="flex-end">
                   <Grid>
                     <Button variant="outlined" color="secondary" className={classes.action}>Actions</Button>
                     <Button onClick={submitForm} variant="contained" color="primary">Save</Button>
