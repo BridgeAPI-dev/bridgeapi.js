@@ -77,32 +77,31 @@ function CodeMirror({ inputCode, readOnly = false }) {
       + '}';
 
   return (
-    <div ref={codeRef}>
+    <div ref={codeRef} style={{ zIndex: fullScreen ? 1200 : 5, position: 'relative' }}>
       {mounted
       && (
-      <CM
-        value={code}
-        options={{
-          mode: {
-            name: 'javascript',
-            statementIndent: 2,
-          },
-          theme: 'material',
-          lineNumbers: true,
-          lint: true,
-          tabSize: 2,
-          autocomplete: true,
-          lineWrapping: true,
-          indentWithTabs: false,
-          matchBrackets: true,
-          showTrailingSpace: true,
-          styleActiveLine: true,
-          foldGutter: true,
-          fullScreen,
-          readOnly,
-        }}
-        style={{ zIndex: 1200 }}
-      />
+        <CM
+          value={code}
+          options={{
+            mode: {
+              name: 'javascript',
+              statementIndent: 2,
+            },
+            theme: 'material',
+            lineNumbers: true,
+            lint: true,
+            tabSize: 2,
+            autocomplete: true,
+            lineWrapping: true,
+            indentWithTabs: false,
+            matchBrackets: true,
+            showTrailingSpace: true,
+            styleActiveLine: true,
+            foldGutter: true,
+            fullScreen,
+            readOnly,
+          }}
+        />
       )}
     </div>
   );
