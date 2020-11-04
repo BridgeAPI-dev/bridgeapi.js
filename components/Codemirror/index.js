@@ -3,6 +3,7 @@ import React, {
   useState, useRef, useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
+import { useFormikContext } from 'formik';
 
 import { JSHINT } from 'jshint';
 import { UnControlled as CM } from 'react-codemirror2';
@@ -13,10 +14,23 @@ import 'codemirror/addon/lint/lint.css';
 import 'codemirror/addon/display/fullscreen.css';
 import 'codemirror/addon/fold/foldgutter.css';
 
-function CodeMirror({ inputCode, readOnly = false }) {
+function CodeMirror({
+  formKey, isEditView, readOnly,
+}) {
   const codeRef = useRef(null);
   const [mounted, setMounted] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
+  const { values } = useFormikContext();
+  const [code, setCode] = useState(
+    '// Javascript Object Syntax\n'
+      + '// Please ensure everything stays within the payload object\n'
+      + '// While your cursor is in editor, press F11 for fullscreen mode\n'
+      + 'var payload = {\n'
+      + '  hello: "world",\n'
+      + '  acessEnvVars: $env.MY_KEY,\n'
+      + '  accessPayload: $payload.message,\n'
+      + '}',
+  );
 
   const handleKeyPress = (e) => {
     if (e.key === 'F11') {
@@ -26,11 +40,39 @@ function CodeMirror({ inputCode, readOnly = false }) {
     }
   };
 
+  const fetchData = () => {
+    if (formKey && isEditView) {
+      // ie: editing bridge, for payload & test payload editors
+      // Sets the fetch data for form and editor
+      // fetch data
+      // set form data
+      // set editor code
+      values[formKey] = 'hello world'; // res.data.code
+      setCode(values[formKey]);
+    } else if (isEditView) {
+      // ie: editing bridge, for latest request editor
+      // Sets the fetch data for editor as form doesn't hold latest request
+      // fetch data
+      // set editor data
+      const data = '// My latest request';
+      setCode(data);
+    } else if (formKey) {
+      // ie: new bridge, for payload & test payload editors
+      // Sets the default for form, editor state is already at default
+      values[formKey] = code; // res.data.code
+    } else {
+      // ie: new bridge, for latest request
+      // Sets latest request editor to default helper text
+      setCode('// Your latest inbound request will show here after one occurs.');
+    }
+  };
+
   // Requring these at the top level throws a
   // `ReferenceError: navigator is not defined` because
   // `navigator` is a react DOM thing and is not avaiable on the server
   const loadCodeMirrorAssets = () => {
     if (!mounted) {
+      fetchData();
       // Enable code folding - WIP: Can't get to work
       require('codemirror/addon/fold/foldcode');
       require('codemirror/addon/fold/foldgutter');
@@ -68,18 +110,7 @@ function CodeMirror({ inputCode, readOnly = false }) {
   useEffect(() => {
     // Prevent blocking the main thread
     setTimeout(loadCodeMirrorAssets, 2500);
-    // TODO: API Request
   }, []);
-
-  const code = inputCode
-    || '// Javascript Object Syntax\n'
-      + '// Please ensure everything stays within the payload object\n'
-      + '// While your cursor is in editor, press F11 for fullscreen mode\n'
-      + 'var payload = {\n'
-      + '  hello: "world",\n'
-      + '  acessEnvVars: $env.MY_KEY,\n'
-      + '  accessPayload: $payload.message,\n'
-      + '}';
 
   return (
     <div ref={codeRef} style={{ zIndex: fullScreen ? 1200 : 5, position: 'relative' }}>
@@ -106,6 +137,11 @@ function CodeMirror({ inputCode, readOnly = false }) {
               fullScreen,
               readOnly,
             }}
+            onChange={(editor, data, value) => {
+              if (formKey) {
+                values[formKey] = value;
+              }
+            }}
           />
         ) : (
           <Loader />
@@ -118,10 +154,11 @@ export default CodeMirror;
 
 CodeMirror.propTypes = {
   readOnly: PropTypes.bool,
-  inputCode: PropTypes.string,
+  isEditView: PropTypes.bool.isRequired,
+  formKey: PropTypes.string,
 };
 
 CodeMirror.defaultProps = {
   readOnly: false,
-  inputCode: '',
+  formKey: '',
 };

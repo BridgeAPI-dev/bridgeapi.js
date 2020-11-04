@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Editor({
-  outboundURL, method, retries, delay, headers, envVars,
+  outboundURL, method, retries, delay, headers, envVars, isEditView,
 }) {
   const classes = useStyles();
 
@@ -39,6 +39,8 @@ function Editor({
     delay,
     headers,
     envVars,
+    payloadCode: '',
+    testPayloadCode: '',
   };
 
   const handleValidate = (values) => {
@@ -89,8 +91,12 @@ function Editor({
                 outboundURL={values.outboundURL}
               />
               <EnvironmentVariablesCard envVars={values.envVars} />
-              <PayloadCard values={values} />
-              <BridgeTestCard values={values} />
+              <PayloadCard
+                isEditView={isEditView}
+              />
+              <BridgeTestCard
+                isEditView={isEditView}
+              />
 
             </Form>
           )}
@@ -113,6 +119,7 @@ Editor.defaultProps = {
   envVars: [
     { key: '', value: '' },
   ],
+  isEditView: false,
 };
 
 Editor.propTypes = {
@@ -132,4 +139,5 @@ Editor.propTypes = {
       value: PropTypes.string,
     }),
   ),
+  isEditView: PropTypes.bool,
 };

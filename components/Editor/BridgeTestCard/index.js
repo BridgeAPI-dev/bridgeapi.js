@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Tester() {
+function BridgeTestCard({ isEditView, defaultTestCode }) {
   const classes = useStyles();
   return (
     <Accordion defaultExpanded>
@@ -62,11 +62,15 @@ function Tester() {
           <Typography className={classes.testPayloadLabel}>
             Test Payload
           </Typography>
-          <CodeMirror />
+          <CodeMirror
+            formKey="testPayloadCode"
+            defaultCode={defaultTestCode}
+            isEditView={isEditView}
+          />
         </Container>
       </AccordionDetails>
     </Accordion>
   );
 }
 
-export default Tester;
+export default BridgeTestCard;

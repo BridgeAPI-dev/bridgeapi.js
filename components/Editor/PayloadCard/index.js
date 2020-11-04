@@ -1,4 +1,5 @@
 /* eslint-disable global-require */
+import PropTypes from 'prop-types';
 import {
   Accordion,
   AccordionDetails,
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Payload({ inputCode }) {
+function PayloadCard({ isEditView }) {
   const classes = useStyles();
 
   return (
@@ -64,13 +65,13 @@ function Payload({ inputCode }) {
                 className={classes.payloadContainer}
               >
 
-                <CodeMirror readOnly />
+                <CodeMirror readOnly isEditView={isEditView} />
               </Container>
             </AccordionDetails>
           </Accordion>
 
           <Typography>Edit outbound payload</Typography>
-          <CodeMirror />
+          <CodeMirror formKey="payloadCode" isEditView={isEditView} />
 
         </Container>
       </AccordionDetails>
@@ -78,4 +79,8 @@ function Payload({ inputCode }) {
   );
 }
 
-export default Payload;
+export default PayloadCard;
+
+PayloadCard.propTypes = {
+  isEditView: PropTypes.bool.isRequired,
+};

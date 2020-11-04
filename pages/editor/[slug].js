@@ -13,6 +13,7 @@ function Show({
       delay={delay}
       headers={headers}
       envVars={envVars}
+      isEditView
     />
   );
 }
