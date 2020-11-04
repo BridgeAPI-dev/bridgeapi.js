@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button,
   makeStyles,
@@ -55,7 +56,7 @@ function HeaderTextFields({ headers }) {
         render={(arrayHelpers) => (
           <>
             {headers.map((header, idx) => (
-              <React.Fragment key={idx}>
+              <React.Fragment key={`header-${header.key}-${header.value}`}>
                 <Grid item xs={5}>
                   <FastField
                     component={TextField}
@@ -106,3 +107,12 @@ function HeaderTextFields({ headers }) {
 }
 
 export default HeaderTextFields;
+
+HeaderTextFields.propTypes = {
+  headers: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+};

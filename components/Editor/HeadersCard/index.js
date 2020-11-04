@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Accordion,
   AccordionDetails,
@@ -37,7 +38,7 @@ function HeaderCard({ headers, outboundURL }) {
   const classes = useStyles();
 
   const validateURL = (url) => {
-    const expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+    const expression = /[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi;
     let error;
     if (!url) {
       error = 'Required';
@@ -88,3 +89,13 @@ function HeaderCard({ headers, outboundURL }) {
 }
 
 export default HeaderCard;
+
+HeaderCard.propTypes = {
+  outboundURL: PropTypes.string.isRequired,
+  headers: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+};

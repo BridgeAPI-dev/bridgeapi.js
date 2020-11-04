@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Accordion, AccordionDetails, Button, makeStyles, Grid,
 } from '@material-ui/core';
@@ -53,7 +54,7 @@ function EnvironmentVariablesCard({ envVars }) {
             render={(arrayHelpers) => (
               <>
                 {envVars.map((envVar, idx) => (
-                  <React.Fragment key={idx}>
+                  <React.Fragment key={`envVar-${envVar.key}`}>
                     <Grid item xs={5}>
                       <FastField
                         component={TextField}
@@ -106,3 +107,12 @@ function EnvironmentVariablesCard({ envVars }) {
 }
 
 export default EnvironmentVariablesCard;
+
+EnvironmentVariablesCard.propTypes = {
+  envVars: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
+};

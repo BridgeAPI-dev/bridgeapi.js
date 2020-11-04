@@ -83,4 +83,22 @@ export default PayloadCard;
 
 PayloadCard.propTypes = {
   isEditView: PropTypes.bool.isRequired,
+  values: PropTypes.shape({
+    outboundURL: PropTypes.string.isRequired,
+    method: PropTypes.string.isRequired,
+    retries: PropTypes.string.isRequired,
+    delay: PropTypes.string.isRequired,
+    headers: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+      }).isRequired,
+    ).isRequired,
+    envVars: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+      }).isRequired,
+    ).isRequired,
+  }).isRequired,
 };

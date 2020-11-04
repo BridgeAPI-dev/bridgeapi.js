@@ -2,6 +2,7 @@ import {
   Accordion, AccordionDetails, Button, Container, Typography, makeStyles,
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PropTypes from 'prop-types';
 
 import CodeMirror from '../../Codemirror';
 import AccordionSummary from '../../AccordionSummary';
@@ -74,3 +75,25 @@ function BridgeTestCard({ isEditView, values }) {
 }
 
 export default BridgeTestCard;
+
+BridgeTestCard.propTypes = {
+  values: PropTypes.shape({
+    outboundURL: PropTypes.string.isRequired,
+    method: PropTypes.string.isRequired,
+    retries: PropTypes.string.isRequired,
+    delay: PropTypes.string.isRequired,
+    headers: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+      }).isRequired,
+    ).isRequired,
+    envVars: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+      }).isRequired,
+    ).isRequired,
+  }).isRequired,
+  isEditView: PropTypes.bool.isRequired,
+};
