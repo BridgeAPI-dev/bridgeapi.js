@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 import { JSHINT } from 'jshint';
 import { UnControlled as CM } from 'react-codemirror2';
+import Loader from '../Loader';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/addon/lint/lint.css';
@@ -71,7 +72,7 @@ function CodeMirror({ inputCode, readOnly = false }) {
 
   const code = inputCode
     || '// Javascript Object Syntax\n'
-      + 'Please ensure everything stays within the payload object\n'
+      + '// Please ensure everything stays within the payload object\n'
       + '// While your cursor is in editor, press F11 for fullscreen mode\n'
       + 'var payload = {\n'
       + '  hello: "world",\n'

@@ -5,6 +5,7 @@ import {
   makeStyles,
   Grid,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 import { Formik, Form } from 'formik';
 
@@ -26,20 +27,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Editor() {
+function Editor({
+  outboundURL, method, retries, delay, headers, envVars,
+}) {
   const classes = useStyles();
 
   const initialValues = {
-    outboundURL: '',
-    method: '',
-    retries: '',
-    delay: '',
-    headers: [
-      { key: '', value: '' }, // Needs at least 1 to start
-    ],
-    envVars: [
-      { key: '', value: '' }, // Needs at least 1 to start
-    ],
+    outboundURL,
+    method,
+    retries,
+    delay,
+    headers,
+    envVars,
   };
 
   const handleValidate = (values) => {
@@ -102,3 +101,40 @@ function Editor() {
 }
 
 export default Editor;
+
+// eslint-disable-next-line no-unused-vars
+export async function getStaticProps(context) {
+  return {
+    props: {
+      outboundURL: '',
+      method: '',
+      retries: '',
+      delay: '',
+      headers: [
+        { key: '', value: '' },
+      ],
+      envVars: [
+        { key: '', value: '' },
+      ],
+    },
+  };
+}
+
+Editor.propTypes = {
+  outboundURL: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
+  retries: PropTypes.string.isRequired,
+  delay: PropTypes.string.isRequired,
+  headers: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  envVars: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+};
