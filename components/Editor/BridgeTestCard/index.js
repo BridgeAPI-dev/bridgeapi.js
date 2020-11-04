@@ -94,6 +94,8 @@ BridgeTestCard.propTypes = {
         value: PropTypes.string.isRequired,
       }).isRequired,
     ).isRequired,
+    payloadCode: PropTypes.string.isRequired,
+    testPayloadCode: PropTypes.string.isRequired,
   }).isRequired,
   isEditView: PropTypes.bool.isRequired,
 };

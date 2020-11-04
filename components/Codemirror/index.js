@@ -157,26 +157,16 @@ CodeMirror.propTypes = {
   isEditView: PropTypes.bool.isRequired,
   formKey: PropTypes.string,
   values: PropTypes.shape({
-    outboundURL: PropTypes.string.isRequired,
-    method: PropTypes.string.isRequired,
-    retries: PropTypes.string.isRequired,
-    delay: PropTypes.string.isRequired,
-    headers: PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
-      }).isRequired,
-    ).isRequired,
-    envVars: PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
-      }).isRequired,
-    ).isRequired,
-  }).isRequired,
+    payloadCode: PropTypes.string,
+    testPayloadCode: PropTypes.string,
+  }),
 };
 
 CodeMirror.defaultProps = {
   readOnly: false,
   formKey: '',
+  values: {
+    payloadCode: '',
+    testPayloadCode: '',
+  },
 };
