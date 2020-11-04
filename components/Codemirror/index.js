@@ -67,7 +67,7 @@ function CodeMirror({ inputCode, readOnly = false }) {
 
   useEffect(() => {
     // Prevent blocking the main thread
-    setTimeout(loadCodeMirrorAssets, 0);
+    setTimeout(loadCodeMirrorAssets, 2500);
   }, []);
 
   const code = inputCode
@@ -83,30 +83,32 @@ function CodeMirror({ inputCode, readOnly = false }) {
   return (
     <div ref={codeRef} style={{ zIndex: fullScreen ? 1200 : 5, position: 'relative' }}>
       {mounted
-      && (
-        <CM
-          value={code}
-          options={{
-            mode: {
-              name: 'javascript',
-              statementIndent: 2,
-            },
-            theme: 'material',
-            lineNumbers: true,
-            lint: true,
-            tabSize: 2,
-            autocomplete: true,
-            lineWrapping: true,
-            indentWithTabs: false,
-            matchBrackets: true,
-            showTrailingSpace: true,
-            styleActiveLine: true,
-            foldGutter: true,
-            fullScreen,
-            readOnly,
-          }}
-        />
-      )}
+        ? (
+          <CM
+            value={code}
+            options={{
+              mode: {
+                name: 'javascript',
+                statementIndent: 2,
+              },
+              theme: 'material',
+              lineNumbers: true,
+              lint: true,
+              tabSize: 2,
+              autocomplete: true,
+              lineWrapping: true,
+              indentWithTabs: false,
+              matchBrackets: true,
+              showTrailingSpace: true,
+              styleActiveLine: true,
+              foldGutter: true,
+              fullScreen,
+              readOnly,
+            }}
+          />
+        ) : (
+          <Loader />
+        )}
     </div>
   );
 }
