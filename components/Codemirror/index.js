@@ -2,6 +2,8 @@
 import React, {
   useState, useRef, useEffect,
 } from 'react';
+import PropTypes from 'prop-types';
+
 import { JSHINT } from 'jshint';
 import { UnControlled as CM } from 'react-codemirror2';
 import 'codemirror/lib/codemirror.css';
@@ -17,6 +19,7 @@ function CodeMirror({ inputCode, readOnly = false }) {
 
   const handleKeyPress = (e) => {
     if (e.key === 'F11') {
+      // eslint-disable-next-line no-shadow
       setFullScreen((fullScreen) => !fullScreen);
       e.preventDefault();
     }
@@ -68,12 +71,12 @@ function CodeMirror({ inputCode, readOnly = false }) {
 
   const code = inputCode
     || '// Javascript Object Syntax\n'
-      + '// Requires `var =` otherwise defaults to JSON mode\n'
-      + '// While cursor is in editor, press F11 :)\n'
+      + 'Please ensure everything stays within the payload object\n'
+      + '// While your cursor is in editor, press F11 for fullscreen mode\n'
       + 'var payload = {\n'
       + '  hello: "world",\n'
-      + '  env: $keys.MY_KEY,\n'
-      + '  payload: $payload.status,\n'
+      + '  acessEnvVars: $env.MY_KEY,\n'
+      + '  accessPayload: $payload.message,\n'
       + '}';
 
   return (
@@ -108,3 +111,13 @@ function CodeMirror({ inputCode, readOnly = false }) {
 }
 
 export default CodeMirror;
+
+CodeMirror.propTypes = {
+  readOnly: PropTypes.bool,
+  inputCode: PropTypes.string,
+};
+
+CodeMirror.defaultProps = {
+  readOnly: false,
+  inputCode: '',
+};
