@@ -7,6 +7,7 @@ import {
   Link,
   Paper,
 } from '@material-ui/core';
+import { useRouter } from 'next/router';
 
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
@@ -51,15 +52,11 @@ const handleValidate = (values) => {
   if (!values.confirmPassword) {
     errors.confirmPassword = 'Required';
   }
+  if (values.password && values.confirmPassword && values.password !== values.confirmPassword) {
+    errors.password = 'Passwords do not match';
+    errors.confirmPassword = 'Passwords do not match';
+  }
   return errors;
-};
-
-const handleSubmit = (values, setSubmitting) => {
-  console.log(values);
-  // TODO: axios request
-  setTimeout(() => {
-    setSubmitting(false);
-  }, 500);
 };
 
 const initialValues = {
@@ -69,7 +66,17 @@ const initialValues = {
 };
 
 function Signup() {
+  const router = useRouter();
   const classes = useStyles();
+
+  const handleSubmit = (values, setSubmitting) => {
+    console.log(values);
+    // TODO: axios request
+    setTimeout(() => {
+      setSubmitting(false);
+      router.push('/dashboard');
+    }, 500);
+  };
 
   return (
     <Grid container align="center" className={classes.container}>
@@ -82,6 +89,8 @@ function Signup() {
             initialValues={initialValues}
             validate={(values) => handleValidate(values)}
             onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
+            validateOnBlur={false}
+            validateOnChange={false}
           >
             {({ values, submitForm, isSubmitting }) => (
               <Form className={classes.form}>
