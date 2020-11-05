@@ -39,10 +39,15 @@ function Requests({
       <Navbar />
       <Sidebar events={sidebarEvents} title={title} />
 
-      <Grid container spacing={5} className={classes.content}>
+      <Grid
+        container
+        spacing={5}
+        className={classes.content}
+        sm={10}
+      >
 
         {/* Event timeline */}
-        <Grid item container direction="column" sm={10} wrap="nowrap">
+        <Grid item container direction="column" wrap="nowrap">
           <EventStatus completed={event.completed} responses={event.responses} />
           <Typography align="center" variant="body2" className={classes.microCopy} noWrap>
             Send your events here:

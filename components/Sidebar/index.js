@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     minHeight: 46,
-    flexGrow: 1,
   },
 }));
 
