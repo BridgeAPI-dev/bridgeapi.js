@@ -73,7 +73,7 @@ function Editor({
                 <Grid item sm={4} md={4} lg={4} container justify="flex-end">
                   <Grid>
                     <Button variant="outlined" color="secondary" className={classes.action}>Actions</Button>
-                    <Button onClick={submitForm} variant="contained" color="primary">Save</Button>
+                    <Button onClick={submitForm} variant="contained" color="secondary">Save</Button>
                   </Grid>
                 </Grid>
               </Grid>
