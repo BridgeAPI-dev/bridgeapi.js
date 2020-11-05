@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import { Timeline } from '@material-ui/lab';
@@ -8,22 +8,21 @@ import EventStatus from '../components/requests/EventStatus';
 import FailedAttempts from '../components/requests/FailedAttempts';
 import Navbar from '../components/shared/dashboard/Navbar/index';
 import { SeedData } from '../components/requests/SeedData';
-import Sidebar from '../components/requests/Sidebar';
+import Sidebar from '../components/Sidebar';
 import TimelineAccordion from '../components/requests/TimelineAccordion';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   microCopy: {
-    paddingTop: '0.75em',
-    paddingBottom: '1.5em',
+    paddingTop: '0.5em',
   },
   url: {
-    fontWeight: 'bold', paddingBottom: '3em',
+    fontWeight: 'bold',
+    paddingBottom: '1em',
   },
-  eventTimeline: {
-    maxHeight: 'calc(100vh - 50px)',
-    overflow: 'scroll',
+  content: {
+    marginLeft: 180,
   },
-});
+}));
 
 function Requests({
   event, sidebarEvents, title, url,
@@ -38,15 +37,12 @@ function Requests({
   return (
     <>
       <Navbar />
+      <Sidebar events={sidebarEvents} title={title} />
 
-      {/* Whole page */}
-      <Grid container spacing={5} direction="row" wrap="nowrap">
-
-        {/* Sidebar */}
-        <Sidebar events={sidebarEvents} title={title} />
+      <Grid container spacing={5} className={classes.content}>
 
         {/* Event timeline */}
-        <Grid item container direction="column" xs={10} wrap="nowrap" className={classes.eventTimeline}>
+        <Grid item container direction="column" sm={10} wrap="nowrap">
           <EventStatus completed={event.completed} responses={event.responses} />
           <Typography align="center" variant="body2" className={classes.microCopy} noWrap>
             Send your events here:
