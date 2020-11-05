@@ -12,7 +12,7 @@ Account:
   url: '/users/account'
   method: GET
   returns:
-    status: 200
+    status: 200 Ok
     user: {
       email: 'myemail@gmail.com'
       notifications: {
@@ -22,7 +22,7 @@ Account:
 
   title: Update user info
   url: '/users/:id'
-  method: PUT
+  method: PATCH/PUT
   sends:
     user: {
       email: 'myNEWemail@gmail.com'
@@ -34,7 +34,7 @@ Account:
       }
     }
   returns:
-    status: 201
+    status: 202 Accepted
     message: 'Success'
 
 BridgesMenu:
@@ -42,12 +42,85 @@ BridgesMenu:
   url: '/bridge_titles'
   method: GET
   returns:
-    status: 200
+    status: 200 Ok
     bridges: [
       'bridge 1'
       'bridge 2'
       'bridge 3'
     ]
+
+Editor/New:
+  title: Create Bridge
+  url: '/bridges'
+  method: POST
+  sends:
+    bridge: {
+      outboundURL: 'https://slack.com/new_message/934782'
+      method: 'POST'
+      retries: '3'
+      delay: '0'
+      headers: [
+        { key: 'X-API-KEY', value: '$env.API_KEY' }
+      ]
+      envVars: [
+        { key: 'API_KEY', value: '1234567890APIKEY' }
+      ]
+    }
+  returns:
+    status: 201 Created
+    message: 'Success'
+
+Editor/[slug]:
+  title: Get Page Inputs
+  url: '/bridges/:slug'
+  method: GET
+  returns:
+    status: 200 Ok
+    bridge: {
+      outboundURL: 'https://slack.com/new_message/934782'
+      method: 'POST'
+      retries: '3'
+      delay: '0'
+      headers: [
+        { key: 'X-API-KEY', value: '$env.API_KEY' }
+      ]
+      envVars: [
+        { key: 'API_KEY', value: 'XXXXXXXXXXXXXXX' }
+      ]
+    }
+
+  title: Update Bridge
+  url: '/bridges'
+  method: PATCH/PUT
+  sends:
+    bridge: {
+      outboundURL: 'https://slack.com/new_message/934782'
+      method: 'POST'
+      retries: '3'
+      delay: '0'
+      headers: [
+        { key: 'X-API-KEY', value: '$env.API_KEY' }
+      ]
+      envVars: [
+        { key: 'API_KEY', value: '1234567890APIKEY' }
+      ]
+    } 
+  returns:
+    status: 202 Accepted
+    Message: 'Updated'
+  
+
+CodeMirror:
+  title: Get Editor Code
+  urls: [
+    '/bridges/:slug/code'
+    '/bridges/:slug/test_code'
+    '/bridges/:slug/lastest_request'
+  ]
+  method: GET
+  returns:
+    status: 200 Ok
+    code: "I am a json payload of the code"
 
 Dashboard:
   title: Get bridge data
@@ -74,7 +147,7 @@ Login:
       password: '...'
     }
   returns:
-    status: 200
+    status: 200 Ok
     session: '10982-ah34ads7098-u212437' (JWT)
 
 Signup:
