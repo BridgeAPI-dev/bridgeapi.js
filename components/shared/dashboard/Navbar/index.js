@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     display: 'flex',
     alignItems: 'center',
+    padding: '0 !important',
   },
   icon: {
     marginLeft: '5px',
@@ -90,7 +91,7 @@ export default function Navbar() {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
-          <Link href="/editor">
+          <Link href="/editor/new">
             <IconButton
               edge="start"
               className={classes.menuButton}
@@ -119,9 +120,9 @@ export default function Navbar() {
             useEff={menuUseEffect}
           >
             {bridges.map((bridge) => (
-              <Link href="/users/account" id={`bridge-${bridge}`} key={`bridge-${bridge}`}>
-                <Typography variant="subtitle1">
-                  <a className="menu-link-item">{bridge}</a>
+              <Link href="/editor/32" id={`bridge-${bridge}`} key={`bridge-${bridge}`}>
+                <Typography variant="subtitle1" className="menu-link-item">
+                  {bridge}
                 </Typography>
               </Link>
             ))}
@@ -129,13 +130,13 @@ export default function Navbar() {
 
           <Menu icon={<AccountCircle />}>
             <Link href="/users/account" id="menu-item-profile">
-              <Typography variant="subtitle1">
-                <a className="menu-link-item">Profile</a>
+              <Typography variant="subtitle1" className="menu-link-item">
+                Profile
               </Typography>
             </Link>
             <Link href="/users/login" id="menu-item-logout">
-              <Typography variant="subtitle1">
-                <a className="menu-link-item">Log Out</a>
+              <Typography variant="subtitle1" className="menu-link-item">
+                Log Out
               </Typography>
             </Link>
           </Menu>

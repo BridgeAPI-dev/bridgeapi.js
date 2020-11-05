@@ -34,7 +34,7 @@ function Menu({
         aria-haspopup="true"
         onClick={handleMenu}
         color="inherit"
-        style={{ right: (width / 2), padding: '0 !important' }}
+        style={{ right: (width / 2) }}
         className={classes.iconButton}
       >
         {text}
