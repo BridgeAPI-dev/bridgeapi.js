@@ -7,6 +7,7 @@ import {
   Link,
   Paper,
 } from '@material-ui/core';
+import { useRouter } from 'next/router';
 
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login() {
+  const router = useRouter();
   const classes = useStyles();
 
   const initialValues = {
@@ -62,6 +64,7 @@ function Login() {
     // TODO: axios request
     setTimeout(() => {
       setSubmitting(false);
+      router.push('/dashboard');
     }, 500);
   };
 

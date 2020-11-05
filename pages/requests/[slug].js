@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import { Timeline } from '@material-ui/lab';
 
-import EventStatus from '../components/requests/EventStatus';
-import FailedAttempts from '../components/requests/FailedAttempts';
-import Navbar from '../components/shared/dashboard/Navbar/index';
-import { SeedData } from '../components/requests/SeedData';
-import Sidebar from '../components/Sidebar';
-import TimelineAccordion from '../components/requests/TimelineAccordion';
+import EventStatus from '../../components/requests/EventStatus';
+import FailedAttempts from '../../components/requests/FailedAttempts';
+import Navbar from '../../components/shared/dashboard/Navbar/index';
+import { SeedData } from '../../components/requests/SeedData';
+import Sidebar from '../../components/Sidebar';
+import TimelineAccordion from '../../components/requests/TimelineAccordion';
 
 const useStyles = makeStyles(() => ({
   microCopy: {
@@ -76,7 +76,7 @@ function Requests({
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   return {
     props: SeedData,
   };

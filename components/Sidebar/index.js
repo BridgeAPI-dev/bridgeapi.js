@@ -2,7 +2,6 @@
 import PropTypes from 'prop-types';
 import {
   Divider,
-  Grid,
   Link,
   List,
   makeStyles,
@@ -13,7 +12,7 @@ import {
 
 import ListItem from './ListItem';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   title: {
     fontWeight: '600',
   },

@@ -6,6 +6,7 @@ import {
   Container,
   Divider,
   Typography,
+  Link,
 } from '@material-ui/core';
 import Navbar from '../components/shared/dashboard/Navbar';
 
@@ -42,14 +43,16 @@ function Dashboard({ bridges }) {
             {bridges && bridges.map((bridge) => (
               <Grid item xs={12} sm={6} md={4} key={`main-grid-${bridge.title}`}>
                 <Paper className={classes.paper}>
-                  <Typography
-                    variant="h5"
-                    color="primary"
-                    className={classes.title}
-                    style={{ fontWeight: 600 }}
-                  >
-                    {bridge.title}
-                  </Typography>
+                  <Link href={`/bridge/${bridge.slug}`}>
+                    <Typography
+                      variant="h5"
+                      color="primary"
+                      className={classes.title}
+                      style={{ fontWeight: 600 }}
+                    >
+                      {bridge.title}
+                    </Typography>
+                  </Link>
                   <Divider light className={classes.paddedDivider} />
 
                   <Grid container spacing={2}>
@@ -78,9 +81,11 @@ function Dashboard({ bridges }) {
                   <Grid container spacing={2} style={{ textAlign: 'left' }}>
                     <Grid item xs container spacing={2}>
                       <Grid item xs>
-                        <Typography variant="subtitle1" color="secondary">
-                          View Requests
-                        </Typography>
+                        <Link href={`/requests/${bridge.requestSlug}`}>
+                          <Typography variant="subtitle1" color="secondary">
+                            View Requests
+                          </Typography>
+                        </Link>
                       </Grid>
                     </Grid>
                   </Grid>
@@ -107,30 +112,40 @@ export async function getStaticProps(context) {
           updatedAt: Date.now(),
           lastRequest: Date.now(),
           requests: '10',
+          slug: '94',
+          requestSlug: '78',
         },
         {
           title: 'test title 2',
           updatedAt: Date.now(),
           lastRequest: Date.now(),
           requests: '15',
+          slug: '94',
+          requestSlug: '78',
         },
         {
           title: 'test title 3',
           updatedAt: Date.now(),
           lastRequest: Date.now(),
           requests: '20',
+          slug: '94',
+          requestSlug: '78',
         },
         {
           title: 'test title 4',
           updatedAt: Date.now(),
           lastRequest: Date.now(),
           requests: '25',
+          slug: '94',
+          requestSlug: '78',
         },
         {
           title: 'test title 5',
           updatedAt: Date.now(),
           lastRequest: Date.now(),
           requests: '30',
+          slug: '94',
+          requestSlug: '78',
         },
       ],
     },
