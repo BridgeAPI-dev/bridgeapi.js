@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Editor({
-  outboundURL, method, retries, delay, headers, envVars, isEditView,
+  outboundURL, method, retries, delay, headers, envVars, isEditView, events,
 }) {
   const classes = useStyles();
 
@@ -57,11 +57,10 @@ function Editor({
   return (
     <>
       <Navbar />
-      <Sidebar events={[]} title="Untitled" />
+      <Sidebar events={events} title="Untitled" />
 
       <Grid container item spacing={5} className={classes.root} sm={9} md={10}>
 
-        {/* Event timeline */}
         <Grid item container wrap="nowrap">
           <Formik
             initialValues={initialValues}
@@ -124,6 +123,7 @@ Editor.defaultProps = {
     { key: '', value: '' },
   ],
   isEditView: false,
+  events: [],
 };
 
 Editor.propTypes = {
@@ -144,4 +144,5 @@ Editor.propTypes = {
     }),
   ),
   isEditView: PropTypes.bool,
+  events: PropTypes.array,
 };

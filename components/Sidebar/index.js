@@ -18,13 +18,8 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '600',
   },
   root: {
-    // marginTop: '50px',
-    // maxHeight: 'calc(100vh - 50px)',
-    // overflowY: 'auto',
-    // paddingRight: '0 !important',
-    // paddingTop: '0 !important',
-    // backgroundColor: 'white',
     zIndex: 900,
+    position: 'relative',
   },
   drawer: {
     width: 180,
@@ -43,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 function Sidebar({ events, title }) {
   const classes = useStyles();
   return (
-    <div style={{ zIndex: 900, position: 'relative' }}>
+    <div className={classes.root}>
       <Drawer
         className={classes.drawer}
         variant="permanent"
