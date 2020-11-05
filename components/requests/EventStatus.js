@@ -21,13 +21,13 @@ function EventStatus({ completed, responses }) {
     );
   }
 
-  const alertText = statusCode <= 199 && 'info'
+  const severity = statusCode <= 199 && 'info'
                  || statusCode <= 299 && 'success'
                  || statusCode <= 399 && 'warning'
                  || 'error';
 
   return (
-    <Alert severity={alertText} className={classes.mb}>
+    <Alert severity={severity} className={classes.mb}>
       {statusCode}
       {' '}
       -
