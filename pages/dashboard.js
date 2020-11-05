@@ -43,7 +43,7 @@ function Dashboard({ bridges }) {
             {bridges && bridges.map((bridge) => (
               <Grid item xs={12} sm={6} md={4} key={`main-grid-${bridge.title}`}>
                 <Paper className={classes.paper}>
-                  <Link href={`/editor/${bridge.slug}`}>
+                  <Link href={`/bridge/${bridge.slug}`}>
                     <Typography
                       variant="h5"
                       color="primary"

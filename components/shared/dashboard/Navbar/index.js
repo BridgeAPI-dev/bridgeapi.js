@@ -1,9 +1,9 @@
 import React, {
   useState, useEffect, useRef,
 } from 'react';
-import Link from 'next/link';
+// import Link from 'next/link';
 import {
-  AppBar, Toolbar, Typography, IconButton, makeStyles,
+  AppBar, Toolbar, Typography, IconButton, makeStyles, Link,
 } from '@material-ui/core';
 import { FaPlus, FaArrowDown } from 'react-icons/fa';
 
@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    color: 'white',
   },
   appbar: {
     alignItems: 'center',
@@ -91,7 +92,7 @@ export default function Navbar() {
     <div className={classes.root}>
       <AppBar position="fixed">
         <Toolbar className={classes.toolbar}>
-          <Link href="/editor/new">
+          <Link href="/bridge/new">
             <IconButton
               edge="start"
               className={classes.menuButton}
@@ -102,11 +103,11 @@ export default function Navbar() {
             </IconButton>
           </Link>
 
-          <Typography variant="h6" ref={ref} className="menu-link-item" style={{ color: 'white' }}>
-            <Link href="/dashboard">
+          <Link href="/dashboard">
+            <Typography variant="h6" ref={ref} className="menu-link-item" style={{ color: 'white' }}>
               Dashboard
-            </Link>
-          </Typography>
+            </Typography>
+          </Link>
 
           <Menu
             icon={<FaArrowDown size={15} className={classes.icon} />}
@@ -120,7 +121,7 @@ export default function Navbar() {
             useEff={menuUseEffect}
           >
             {bridges.map((bridge) => (
-              <Link href="/editor/32" id={`bridge-${bridge}`} key={`bridge-${bridge}`}>
+              <Link href="/bridge/32" id={`bridge-${bridge}`} key={`bridge-${bridge}`}>
                 <Typography variant="subtitle1" className="menu-link-item">
                   {bridge}
                 </Typography>
