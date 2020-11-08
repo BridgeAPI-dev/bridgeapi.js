@@ -8,6 +8,7 @@ import { FaPlus, FaArrowDown } from 'react-icons/fa';
 
 import { AccountCircle } from '@material-ui/icons';
 import Menu from './Menu';
+import { useAuth } from '../../../../src/contexts/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +49,7 @@ export default function Navbar() {
   const classes = useStyles();
   const [bridges, setBridges] = useState([]);
   const [width, setWidth] = useState(null);
+  const { logout } = useAuth();
 
   const bridgeMenuTransforms = {
     anchor: {
@@ -134,11 +136,11 @@ export default function Navbar() {
                 Profile
               </Typography>
             </Link>
-            <Link href="/users/login" id="menu-item-logout">
-              <Typography variant="subtitle1" className="menu-link-item">
-                Log Out
-              </Typography>
-            </Link>
+
+            <Typography variant="subtitle1" className="menu-link-item" onClick={() => { logout(); }}>
+              Log Out
+            </Typography>
+
           </Menu>
         </Toolbar>
       </AppBar>

@@ -10,6 +10,9 @@ import {
 } from '@material-ui/core';
 import Navbar from '../components/shared/dashboard/Navbar';
 
+import { redirectUnlessToken } from '../utils/redirect';
+import ProtectRoute from '../utils/ProtectRoute';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -32,9 +35,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Dashboard({ bridges }) {
   const classes = useStyles();
+  // const { user } = useAuth();
 
   return (
-    <>
+    <ProtectRoute>
       <div className={classes.root}>
         <Navbar />
         <Container maxWidth="md">
@@ -96,14 +100,18 @@ function Dashboard({ bridges }) {
           </Grid>
         </Container>
       </div>
-    </>
+    </ProtectRoute>
   );
 }
 
 export default Dashboard;
 
 // eslint-disable-next-line no-unused-vars
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
+  if (redirectUnlessToken(context)) {
+    return { props: {} };
+  }
+
   return {
     props: {
       bridges: [
