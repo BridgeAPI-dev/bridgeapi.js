@@ -8,9 +8,6 @@ import api from '../../utils/api';
 
 const AuthContext = createContext({});
 
-// Provides a `useAuth` hook that is accessible anywhere.
-// Functions & variables included in `useAuth` include:
-// function `login`, function `logout`, boolean `isAuthenticated`
 function AuthProvider({ children }) {
   // TODO
   // const [user, setUser] = useState(null)
@@ -75,5 +72,9 @@ function AuthProvider({ children }) {
   );
 }
 
+// Provides a `useAuth` hook that is accessible anywhere.
+// Functions & variables included in `useAuth` include:
+// function `login`, function `logout`, boolean `isAuthenticated`
 export const useAuth = () => useContext(AuthContext);
+
 export default AuthProvider;
