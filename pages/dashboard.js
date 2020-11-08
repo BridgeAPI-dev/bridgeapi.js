@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import Navbar from '../components/shared/dashboard/Navbar';
 
-import { redirectUnlessToken } from '../utils/redirect';
+import { ssrRedirectUnlessToken } from '../utils/ssrRedirect';
 import ProtectRoute from '../utils/ProtectRoute';
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Dashboard({ bridges }) {
   const classes = useStyles();
-  // const { user } = useAuth();
 
   return (
     <ProtectRoute>
@@ -108,7 +107,7 @@ export default Dashboard;
 
 // eslint-disable-next-line no-unused-vars
 export async function getServerSideProps(context) {
-  if (redirectUnlessToken(context)) {
+  if (ssrRedirectUnlessToken(context)) {
     return { props: {} };
   }
 
