@@ -9,21 +9,16 @@ import api from '../../utils/api';
 const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
-  // TODO
-  // const [user, setUser] = useState(null)
   const router = useRouter();
 
-  // Sets the bearer token for future api requests on this page.
+  // Sets the JWT in headers for future api requests on the current page.
   // Helper function that enables us to fire off requests without
-  // having the set the bearer token each time.
+  // having the set the header token each time.
   useEffect(() => {
     async function loadUserFromCookies() {
       const token = Cookies.get('token');
       if (token) {
-        api.defaults.headers.Authorization = `Bearer ${token}`;
-        // TODO
-        // const { data: user } = await api.get('users/me');
-        // if (user) setUser(user);
+        api.defaults.headers['BRIDGE-JWT'] = token;
       }
     }
 
@@ -31,15 +26,19 @@ function AuthProvider({ children }) {
   }, []);
 
   // Fires off an api request to fetch the JWT.
-  // If it succeeds, token will be set in cookies & returns true,
-  // otherwise returns false.
+  // If it succeeds, token will be set in cookies & returns true, otherwise returns false.
   // Accessible through the `useAuth` hook.
   const login = async (email, password) => {
-    const { data: token } = await api.post('/users/login', { user: { email, password } });
+    const res = await api.post(
+      '/users/login',
+      { user: { email, password } },
+    ).catch((error) => ({ error, data: {} })); // Prevent error when fetching for token
 
-    if (token.token) {
-      Cookies.set('token', token.token, { expires: 60 });
-      api.defaults.headers['BRIDGE-JWT'] = token.token;
+    const { token } = res.data;
+
+    if (token) {
+      Cookies.set('token', token, { expires: 60, path: '/', sameSite: 'strict' });
+      api.defaults.headers['BRIDGE-JWT'] = token;
 
       return true;
     }
@@ -51,7 +50,7 @@ function AuthProvider({ children }) {
   // Accessible through the `useAuth` hook.
   const logout = () => {
     Cookies.remove('token');
-    delete api.defaults.headers.Authorization;
+    delete api.defaults.headers['BRIDGE-JWT'];
     router.push('/users/login');
   };
 

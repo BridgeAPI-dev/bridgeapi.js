@@ -1,4 +1,4 @@
-import { parseCookies, setCookie, destroyCookie } from 'nookies';
+import nookies from 'nookies';
 import api from './api';
 
 // Immediately ends the requests & redirects to login page
@@ -12,9 +12,7 @@ const ssrRedirect = (context) => {
 // a user is authenticated otherwise they will be redirected
 // to the login page. Returns `true` if redirect will be occuring.
 const ssrRedirectUnlessToken = (context) => {
-  // TODO: Just checking if ANY cookies exist.
-  // Need to ensure token actually exists SSR redirect if token doesn't exist
-  if (!context.req.headers.cookie) {
+  if (!nookies.get(context).token) {
     ssrRedirect(context);
     return true;
   }
@@ -33,23 +31,22 @@ const ssrRedirectUnlessToken = (context) => {
 //
 // *You can safely access the data retrieved from the api request*
 const fetchDataOrRedirect = async (context, endpoint) => {
-  // Ensure a token exists otherwise don't waste our time on
-  // an api request
+  // Ensure a token exists otherwise don't waste our time on an api request
   if (ssrRedirectUnlessToken(context)) { return false; }
 
-  const cookies = parseCookies(context);
+  const { token } = nookies.get(context);
   const res = await api.get(endpoint, {
     headers: {
-      'BRIDGE-JWT': cookies.token,
+      'BRIDGE-JWT': token,
     },
   });
 
-  // Return the response if the token exists & is valid
-  if (res.status === 200) {
+  // Return the response if we are not unauthorized
+  if (res.status !== 401) {
     return res;
   }
 
-  // If the token was fake or expired, redirect to login page
+  // Redirect to login page since the token is fake, expired or user is deleted
   ssrRedirect(context);
   return false;
 };

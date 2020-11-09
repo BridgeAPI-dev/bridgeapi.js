@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Container,
   Typography,
@@ -41,6 +42,7 @@ function Login() {
   const { login } = useAuth();
   const classes = useStyles();
   const router = useRouter();
+  const [formMessage, setFormMessage] = useState('');
 
   const initialValues = {
     email: '',
@@ -61,12 +63,15 @@ function Login() {
   };
 
   const handleSubmit = async (values, setSubmitting) => {
+    setFormMessage('');
+
     if (await login(values.email, values.password)) {
+      setFormMessage('Success: Logging in. Please wait.');
       router.push('/dashboard');
     } else {
-      console.log('Either email or password is incorrect');
+      setFormMessage('Error: Email or password is invalid');
+      setSubmitting(false);
     }
-    setSubmitting(false);
   };
 
   return (
@@ -114,6 +119,7 @@ function Login() {
                     />
                   </Grid>
                 </Grid>
+
                 <Button
                   fullWidth
                   variant="contained"
@@ -127,6 +133,13 @@ function Login() {
               </Form>
             )}
           </Formik>
+
+          {formMessage
+            && (
+            <Typography>
+              {formMessage}
+            </Typography>
+            )}
 
           <Link href="/users/signup">
             <Typography className={classes.login}>
