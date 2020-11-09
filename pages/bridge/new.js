@@ -1,8 +1,11 @@
 import Editor from '../../components/Editor';
+import ProtectRoute from '../../utils/ProtectRoute';
 
 function New() {
   return (
-    <Editor />
+    <ProtectRoute>
+      <Editor />
+    </ProtectRoute>
   );
 }
 

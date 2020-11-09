@@ -1,20 +1,23 @@
 import PropTypes from 'prop-types';
 
 import Editor from '../../components/Editor';
+import ProtectRoute from '../../utils/ProtectRoute';
 
 function Show({
   outboundURL, method, retries, delay, headers, envVars,
 }) {
   return (
-    <Editor
-      outboundURL={outboundURL}
-      method={method}
-      retries={retries}
-      delay={delay}
-      headers={headers}
-      envVars={envVars}
-      isEditView
-    />
+    <ProtectRoute>
+      <Editor
+        outboundURL={outboundURL}
+        method={method}
+        retries={retries}
+        delay={delay}
+        headers={headers}
+        envVars={envVars}
+        isEditView
+      />
+    </ProtectRoute>
   );
 }
 

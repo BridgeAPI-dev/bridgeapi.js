@@ -9,6 +9,7 @@ import Navbar from '../../components/shared/dashboard/Navbar/index';
 import { SeedData } from '../../components/requests/SeedData';
 import Sidebar from '../../components/Sidebar';
 import TimelineAccordion from '../../components/requests/TimelineAccordion';
+import ProtectRoute from '../../utils/ProtectRoute';
 
 const useStyles = makeStyles(() => ({
   microCopy: {
@@ -34,7 +35,7 @@ function Requests({
   });
 
   return (
-    <>
+    <ProtectRoute>
       <Navbar />
       <Sidebar events={sidebarEvents} title={title} />
 
@@ -71,7 +72,7 @@ function Requests({
           </Timeline>
         </Grid>
       </Grid>
-    </>
+    </ProtectRoute>
   );
 }
 

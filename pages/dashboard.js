@@ -106,11 +106,9 @@ function Dashboard({ bridges }) {
 
 export default Dashboard;
 
-// eslint-disable-next-line no-unused-vars
 export async function getServerSideProps(context) {
   const res = await fetchDataOrRedirect(context, '/bridges');
-
-  if (!res) return { props: {} };
+  if (!res) return { props: {} }; // Redirecting to /users/login
 
   return {
     props: {
