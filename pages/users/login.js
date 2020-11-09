@@ -60,8 +60,8 @@ function Login() {
     return errors;
   };
 
-  const handleSubmit = (values, setSubmitting) => {
-    if (login(values.email, values.password)) {
+  const handleSubmit = async (values, setSubmitting) => {
+    if (await login(values.email, values.password)) {
       router.push('/dashboard');
     } else {
       console.log('Either email or password is incorrect');

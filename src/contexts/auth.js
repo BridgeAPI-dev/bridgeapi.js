@@ -35,17 +35,12 @@ function AuthProvider({ children }) {
   // otherwise returns false.
   // Accessible through the `useAuth` hook.
   const login = async (email, password) => {
-    // const { data: token } = await api.post('/users/login', { email, password });
-    // TODO: Replace hardcode with api request
-    const token = '1234567890';
-    if (token) {
-      Cookies.set('token', token, { expires: 60 });
-      api.defaults.headers.Authorization = `Bearer ${token.token}`;
-      // TODO: This should probably not fire off another request & instead the first
-      // request should return the user
-      // const { data: user } = await api.get('users/me');
-      // setUser(user);
-      // console.log('Got user', user);
+    const { data: token } = await api.post('/users/login', { user: { email, password } });
+
+    if (token.token) {
+      Cookies.set('token', token.token, { expires: 60 });
+      api.defaults.headers['BRIDGE-JWT'] = token.token;
+
       return true;
     }
 

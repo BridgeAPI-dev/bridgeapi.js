@@ -3,11 +3,11 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../src/contexts/auth';
 import Login from '../pages/users/login';
 
-// This is a CSR route protection.
+// This is a client side route protection.
 //
 // It will return the children of the page if `isAuthenticated`
 // returns true. It will do a shallow push of the URL to `/users/login`
-// & display the login page is `isAuthenticated` returns false.
+// & display the login page if `isAuthenticated` returns false.
 // Realistically, we will be redirecting in the `getServerSideProps` phase
 // if the user is not authenticated. This is more of a last resort.
 //
