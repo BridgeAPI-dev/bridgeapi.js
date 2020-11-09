@@ -170,8 +170,17 @@ function Account({ user }) {
 
 export default Account;
 
-// eslint-disable-next-line no-unused-vars
-export async function getStaticProps(context) {
+export async function getStaticProps() {
+  // TODO: Axios Request
+  // const res = await fetchDataOrRedirect(context, '/bridges');
+  // if (!res) return { props: {} }; // Redirecting to /users/login
+
+  // return {
+  //   props: {
+  //     bridges: res.data.bridges,
+  //   },
+  // };
+
   return {
     props: {
       user: {

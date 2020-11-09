@@ -31,6 +31,7 @@ function Requests({
   const pastAttempts = event.responses.length > 1;
 
   useEffect(() => {
+    // TODO?
     document.body.style.overflowX = 'hidden';
   });
 
@@ -77,6 +78,16 @@ function Requests({
 }
 
 export async function getServerSideProps() {
+  // TODO: Axios Request
+  // const res = await fetchDataOrRedirect(context, '/bridges');
+  // if (!res) return { props: {} }; // Redirecting to /users/login
+
+  // return {
+  //   props: {
+  //     bridges: res.data.bridges,
+  //   },
+  // };
+
   return {
     props: SeedData,
   };
