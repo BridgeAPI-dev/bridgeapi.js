@@ -65,6 +65,9 @@ function Editor({ bridge, isEditView }) {
     delay,
     headers,
     environmentVariables,
+    // The code editors will set these vars in it's useEffect hook.
+    // However, if a user types faster than the useEffect loads,
+    // these won't be set thus backend validation will fail.
     payloadCode: data.payload || '{\n'
     + '  "hello": "world",\n'
     + '  "acessEnvVars": "$env.MY_KEY",\n'
@@ -92,7 +95,7 @@ function Editor({ bridge, isEditView }) {
   });
 
   const handleSubmit = async (values, setSubmitting) => {
-    if (id) {
+    if (id) { // POST if new bridge, otherwise PATCH
       await api
         .patch(`/bridges/${id}`, generatePayload(values))
         .catch(() => setErrorOpen(true));

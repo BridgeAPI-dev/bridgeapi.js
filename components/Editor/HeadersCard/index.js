@@ -4,10 +4,8 @@ import {
   Accordion,
   AccordionDetails,
   Container,
-  Typography,
   makeStyles,
   Grid,
-  FormControlLabel,
 } from '@material-ui/core';
 import { TextField } from 'formik-material-ui';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
