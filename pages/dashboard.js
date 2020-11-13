@@ -8,7 +8,11 @@ import {
   Typography,
   Link,
 } from '@material-ui/core';
+
 import Navbar from '../components/shared/dashboard/Navbar';
+
+import fetchDataOrRedirect from '../utils/ssrRedirect';
+import ProtectRoute from '../utils/ProtectRoute';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,7 +38,7 @@ function Dashboard({ bridges }) {
   const classes = useStyles();
 
   return (
-    <>
+    <ProtectRoute>
       <div className={classes.root}>
         <Navbar />
         <Container maxWidth="md">
@@ -96,58 +100,19 @@ function Dashboard({ bridges }) {
           </Grid>
         </Container>
       </div>
-    </>
+    </ProtectRoute>
   );
 }
 
 export default Dashboard;
 
-// eslint-disable-next-line no-unused-vars
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
+  const res = await fetchDataOrRedirect(context, '/bridges');
+  if (!res) return { props: {} }; // Redirecting to /users/login
+
   return {
     props: {
-      bridges: [
-        {
-          title: 'test title 1',
-          updatedAt: Date.now(),
-          lastRequest: Date.now(),
-          requests: '10',
-          slug: '94',
-          requestSlug: '78',
-        },
-        {
-          title: 'test title 2',
-          updatedAt: Date.now(),
-          lastRequest: Date.now(),
-          requests: '15',
-          slug: '94',
-          requestSlug: '78',
-        },
-        {
-          title: 'test title 3',
-          updatedAt: Date.now(),
-          lastRequest: Date.now(),
-          requests: '20',
-          slug: '94',
-          requestSlug: '78',
-        },
-        {
-          title: 'test title 4',
-          updatedAt: Date.now(),
-          lastRequest: Date.now(),
-          requests: '25',
-          slug: '94',
-          requestSlug: '78',
-        },
-        {
-          title: 'test title 5',
-          updatedAt: Date.now(),
-          lastRequest: Date.now(),
-          requests: '30',
-          slug: '94',
-          requestSlug: '78',
-        },
-      ],
+      bridges: res.data.bridges,
     },
   };
 }

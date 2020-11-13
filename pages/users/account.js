@@ -9,6 +9,7 @@ import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 import Navbar from '../../components/shared/dashboard/Navbar';
 import DeleteAccountModal from '../../components/account/Modal';
 import emailValidator from '../../utils/emailValidator';
+import ProtectRoute from '../../utils/ProtectRoute';
 
 function Account({ user }) {
   const [open, setOpen] = useState(false);
@@ -52,7 +53,7 @@ function Account({ user }) {
   };
 
   return (
-    <>
+    <ProtectRoute>
       <Navbar />
       <DeleteAccountModal open={open} setOpen={setOpen} />
 
@@ -163,16 +164,23 @@ function Account({ user }) {
           </Form>
         )}
       </Formik>
-
-      {/* </Container> */}
-    </>
+    </ProtectRoute>
   );
 }
 
 export default Account;
 
-// eslint-disable-next-line no-unused-vars
-export async function getStaticProps(context) {
+export async function getStaticProps() {
+  // TODO: Axios Request
+  // const res = await fetchDataOrRedirect(context, '/bridges');
+  // if (!res) return { props: {} }; // Redirecting to /users/login
+
+  // return {
+  //   props: {
+  //     bridges: res.data.bridges,
+  //   },
+  // };
+
   return {
     props: {
       user: {

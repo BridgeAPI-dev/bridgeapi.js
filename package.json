@@ -15,14 +15,17 @@
     "codemirror": "^5.58.2",
     "formik": "^2.2.1",
     "formik-material-ui": "^3.0.0",
+    "js-cookie": "^2.2.1",
     "jshint": "^2.12.0",
     "next": "^10.0.1",
     "next-images": "^1.6.2",
+    "nookies": "^2.5.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1",
     "react-codemirror2": "^7.2.1",
+    "react-dom": "^17.0.1",
     "react-icons": "^3.11.0",
+    "swr": "^0.3.8",
     "typeface-open-sans": "^1.1.13"
   },
   "devDependencies": {

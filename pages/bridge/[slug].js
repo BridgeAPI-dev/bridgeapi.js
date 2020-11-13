@@ -1,28 +1,39 @@
 import PropTypes from 'prop-types';
 
 import Editor from '../../components/Editor';
+import ProtectRoute from '../../utils/ProtectRoute';
 
 function Show({
   outboundURL, method, retries, delay, headers, envVars,
 }) {
   return (
-    <Editor
-      outboundURL={outboundURL}
-      method={method}
-      retries={retries}
-      delay={delay}
-      headers={headers}
-      envVars={envVars}
-      isEditView
-    />
+    <ProtectRoute>
+      <Editor
+        outboundURL={outboundURL}
+        method={method}
+        retries={retries}
+        delay={delay}
+        headers={headers}
+        envVars={envVars}
+        isEditView
+      />
+    </ProtectRoute>
   );
 }
 
 export default Show;
 
-// eslint-disable-next-line no-unused-vars
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   // TODO: Axios Request
+  // const res = await fetchDataOrRedirect(context, '/bridges');
+  // if (!res) return { props: {} }; // Redirecting to /users/login
+
+  // return {
+  //   props: {
+  //     bridges: res.data.bridges,
+  //   },
+  // };
+
   return {
     props: {
       outboundURL: 'https://slack.com/new_message/934782',
