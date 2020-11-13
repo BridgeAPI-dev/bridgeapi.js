@@ -3,7 +3,7 @@ import Editor from '../../components/Editor';
 import ProtectRoute from '../../utils/ProtectRoute';
 import fetchDataOrRedirect from '../../utils/ssrRedirect';
 
-const camelcaseKeys = require('camelcase-keys');
+import toCamel from '../../utils/toCamel';
 
 function Show({ bridge }) {
   const {
@@ -33,7 +33,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      bridge: camelcaseKeys(res.data.bridge, { deep: true }),
+      bridge: toCamel(res.data.bridge),
     },
   };
 }

@@ -1,9 +1,7 @@
-function snakeToCamel(obj) {
-  let json = JSON.stringify(obj);
+const camelcaseKeys = require('camelcase-keys');
 
-  json = json.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-  console.log(json);
-  return JSON.parse(json);
+function toCamel(data) {
+  return camelcaseKeys(data, { deep: true });
 }
 
-export default snakeToCamel;
+export default toCamel;

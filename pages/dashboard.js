@@ -13,6 +13,7 @@ import Navbar from '../components/shared/dashboard/Navbar';
 
 import fetchDataOrRedirect from '../utils/ssrRedirect';
 import ProtectRoute from '../utils/ProtectRoute';
+import toCamel from '../utils/toCamel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,7 +77,7 @@ function Dashboard({ bridges }) {
 
                     <Grid item xs container direction="column" className={classes.values}>
                       <Typography variant="subtitle1">{bridge.lastRequest}</Typography>
-                      <Typography variant="subtitle1">{bridge.updated_at}</Typography>
+                      <Typography variant="subtitle1">{bridge.updatedAt}</Typography>
                       <Typography variant="subtitle1">{bridge.requests}</Typography>
                     </Grid>
                   </Grid>
@@ -110,11 +111,9 @@ export async function getServerSideProps(context) {
   const res = await fetchDataOrRedirect(context, '/bridges');
   if (!res) return { props: {} }; // Redirecting to /users/login
 
-  console.log(res.data);
-
   return {
     props: {
-      bridges: res.data.bridges,
+      bridges: toCamel(res.data.bridges),
     },
   };
 }
@@ -123,8 +122,8 @@ Dashboard.propTypes = {
   bridges: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      updatedAt: PropTypes.number.isRequired,
-      lastRequest: PropTypes.number.isRequired,
+      updatedAt: PropTypes.string.isRequired,
+      lastRequest: PropTypes.string.isRequired,
       requests: PropTypes.string.isRequired,
     }),
   ).isRequired,
