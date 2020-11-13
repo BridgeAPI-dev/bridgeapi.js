@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 import { useAuth } from '../src/contexts/auth';
 import Login from '../pages/users/login';
 
@@ -42,3 +43,10 @@ function ProtectRoute({ children }) {
 }
 
 export default ProtectRoute;
+
+ProtectRoute.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};

@@ -3,6 +3,7 @@ import {
 } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 
 import api from '../../utils/api';
 
@@ -30,7 +31,7 @@ function AuthProvider({ children }) {
   // Accessible through the `useAuth` hook.
   const login = async (email, password) => {
     const res = await api.post(
-      '/users/login',
+      '/login',
       { user: { email, password } },
     ).catch((error) => ({ error, data: {} })); // Prevent error when fetching for token
 
@@ -57,8 +58,10 @@ function AuthProvider({ children }) {
   return (
     <AuthContext.Provider value={{
       // TODO: Currently, isAuthenticated is true by me manually settings a cookie named 'token'
-      // Need to some how ensure it is a valid token and not a made up one
-      isAuthenticated: /* !!user */!!Cookies.get('token'), login, logout,
+      // However, if a user makes a fake token, then tries to hit a protected route
+      // they will be redirected during the SSR phase. Leaving this todo here for now until
+      // I am confidient isAuthenticated isn't causing some error.
+      isAuthenticated: !!Cookies.get('token'), login, logout,
     }}
     >
       {children}
@@ -72,3 +75,10 @@ function AuthProvider({ children }) {
 export const useAuth = () => useContext(AuthContext);
 
 export default AuthProvider;
+
+AuthProvider.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};

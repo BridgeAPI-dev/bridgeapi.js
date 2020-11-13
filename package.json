@@ -12,6 +12,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "axios": "^0.21.0",
+    "camelcase-keys": "^6.2.2",
     "codemirror": "^5.58.2",
     "formik": "^2.2.1",
     "formik-material-ui": "^3.0.0",

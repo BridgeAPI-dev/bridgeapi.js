@@ -96,8 +96,13 @@ export async function getServerSideProps() {
 Requests.propTypes = {
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  event: PropTypes.object.isRequired,
+  // event: PropTypes.object.isRequired,
   sidebarEvents: PropTypes.array.isRequired,
+
+  event: PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  }),
 };
 
 export default Requests;

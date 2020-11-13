@@ -47,7 +47,7 @@ function Dashboard({ bridges }) {
             {bridges && bridges.map((bridge) => (
               <Grid item xs={12} sm={6} md={4} key={`main-grid-${bridge.title}`}>
                 <Paper className={classes.paper}>
-                  <Link href={`/bridge/${bridge.slug}`}>
+                  <Link href={`/bridge/${bridge.id}`}>
                     <Typography
                       variant="h5"
                       color="primary"
@@ -76,7 +76,7 @@ function Dashboard({ bridges }) {
 
                     <Grid item xs container direction="column" className={classes.values}>
                       <Typography variant="subtitle1">{bridge.lastRequest}</Typography>
-                      <Typography variant="subtitle1">{bridge.updatedAt}</Typography>
+                      <Typography variant="subtitle1">{bridge.updated_at}</Typography>
                       <Typography variant="subtitle1">{bridge.requests}</Typography>
                     </Grid>
                   </Grid>
@@ -109,6 +109,8 @@ export default Dashboard;
 export async function getServerSideProps(context) {
   const res = await fetchDataOrRedirect(context, '/bridges');
   if (!res) return { props: {} }; // Redirecting to /users/login
+
+  console.log(res.data);
 
   return {
     props: {
