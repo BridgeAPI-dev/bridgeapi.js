@@ -37,7 +37,7 @@ const validateEnvVars = (input) => {
   return error;
 };
 
-function EnvironmentVariablesCard({ envVars }) {
+function EnvironmentVariablesCard({ environmentVariables }) {
   const classes = useStyles();
 
   return (
@@ -50,19 +50,20 @@ function EnvironmentVariablesCard({ envVars }) {
       <AccordionDetails>
         <Grid container spacing={2}>
           <FieldArray
-            name="envVars"
+            name="environmentVariables"
             render={(arrayHelpers) => (
               <>
-                {envVars.map((envVar, idx) => (
-                  <React.Fragment key={`envVar-${envVar.key}`}>
+                {environmentVariables.map((envVar, idx) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <React.Fragment key={`environmentVariables-${idx}`}>
                     <Grid item xs={5}>
                       <FastField
                         component={TextField}
                         variant="outlined"
-                        name={`envVars[${idx}].key`}
+                        name={`environmentVariables[${idx}].key`}
                         value={envVar.key || ''}
                         placeholder="Key"
-                        id={`envVars-${idx}`}
+                        id={`envVar-${idx}`}
                         fullWidth
                         validate={validateEnvVars}
                       />
@@ -71,7 +72,7 @@ function EnvironmentVariablesCard({ envVars }) {
                       <FastField
                         component={TextField}
                         variant="outlined"
-                        name={`envVars[${idx}].value`}
+                        name={`environmentVariables[${idx}].value`}
                         value={envVar.value || ''}
                         placeholder="Value"
                         fullWidth
@@ -109,7 +110,7 @@ function EnvironmentVariablesCard({ envVars }) {
 export default EnvironmentVariablesCard;
 
 EnvironmentVariablesCard.propTypes = {
-  envVars: PropTypes.arrayOf(
+  environmentVariables: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired,

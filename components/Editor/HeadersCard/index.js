@@ -7,6 +7,7 @@ import {
   Typography,
   makeStyles,
   Grid,
+  FormControlLabel,
 } from '@material-ui/core';
 import { TextField } from 'formik-material-ui';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -23,18 +24,13 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: 0,
   },
-  outboundLabel: {
-    display: 'inline-block',
-    verticalAlign: '-18px',
-    marginRight: theme.spacing(1),
-  },
   outboundURLField: {
-    width: '25%',
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(0.5),
+    marginTop: theme.spacing(1),
   },
 }));
 
-function HeaderCard({ headers, outboundURL }) {
+function HeaderCard({ headers, outboundUrl, title }) {
   const classes = useStyles();
 
   const validateURL = (url) => {
@@ -48,6 +44,16 @@ function HeaderCard({ headers, outboundURL }) {
     return error;
   };
 
+  const validateTitle = (bridgeTitle) => {
+    let error;
+    if (!bridgeTitle) {
+      error = 'Required';
+    } else if (bridgeTitle.size < 3) {
+      error = 'Title must be at least 3 characters long';
+    }
+    return error;
+  };
+
   return (
     <Accordion defaultExpanded>
       <AccordionSummary
@@ -56,23 +62,36 @@ function HeaderCard({ headers, outboundURL }) {
         subtitle="Configure your outbound request"
       />
       <AccordionDetails>
-        <Container maxWidth={false} align="center" className={classes.noMargins}>
-          <Typography
-            className={classes.outboundLabel}
-          >
-            Outbound URL:
-          </Typography>
-          <Field
-            component={TextField}
-            variant="outlined"
-            name="outboundURL"
-            id="outboundURL"
-            placeholder="Specify your outbound service here"
-            className={classes.outboundURLField}
-            value={outboundURL}
-            validate={validateURL}
-          />
+        <Container className={classes.noMargins}>
           <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Field
+                component={TextField}
+                variant="outlined"
+                name="title"
+                id="title"
+                placeholder="Give your bridge a name"
+                className={classes.outboundURLField}
+                value={title}
+                validate={validateTitle}
+                fullWidth
+                label="Bridge Title"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <Field
+                component={TextField}
+                variant="outlined"
+                name="outboundURL"
+                id="outboundURL"
+                placeholder="Specify your outbound service here"
+                className={classes.outboundURLField}
+                value={outboundUrl}
+                validate={validateURL}
+                fullWidth
+                label="Outbound URL"
+              />
+            </Grid>
             <Grid item xs={10}>
               <HeaderTextFields headers={headers} />
             </Grid>
@@ -91,7 +110,8 @@ function HeaderCard({ headers, outboundURL }) {
 export default HeaderCard;
 
 HeaderCard.propTypes = {
-  outboundURL: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  outboundUrl: PropTypes.string.isRequired,
   headers: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.string.isRequired,

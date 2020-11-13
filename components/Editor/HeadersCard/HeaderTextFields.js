@@ -56,7 +56,8 @@ function HeaderTextFields({ headers }) {
         render={(arrayHelpers) => (
           <>
             {headers.map((header, idx) => (
-              <React.Fragment key={`header-${header.key}-${header.value}`}>
+              // eslint-disable-next-line react/no-array-index-key
+              <React.Fragment key={`header-${idx}`}>
                 <Grid item xs={5}>
                   <FastField
                     component={TextField}

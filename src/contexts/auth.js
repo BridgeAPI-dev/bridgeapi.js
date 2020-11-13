@@ -30,7 +30,7 @@ function AuthProvider({ children }) {
   // Accessible through the `useAuth` hook.
   const login = async (email, password) => {
     const res = await api.post(
-      '/users/login',
+      '/login',
       { user: { email, password } },
     ).catch((error) => ({ error, data: {} })); // Prevent error when fetching for token
 

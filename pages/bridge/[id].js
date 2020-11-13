@@ -6,19 +6,23 @@ import fetchDataOrRedirect from '../../utils/ssrRedirect';
 import toCamel from '../../utils/toCamel';
 
 function Show({ bridge }) {
-  const {
-    outboundUrl, method, retries, delay, headers, environmentVariables,
-  } = bridge;
+  // const {
+  //   id, outboundUrl, method, retries, delay, headers, environmentVariables, title,
+  // } = bridge;
 
   return (
     <ProtectRoute>
       <Editor
-        outboundURL={outboundUrl}
-        method={method}
-        retries={retries}
-        delay={delay}
-        headers={headers}
-        envVars={environmentVariables}
+        // id={id}
+        // title={title}
+        // outboundURL={outboundUrl}
+        // method={method}
+        // retries={String(retries)}
+        // delay={String(delay)}
+        // headers={headers}
+        // environmentVariables={environmentVariables}
+        // data={bridge.data}
+        bridge={bridge}
         isEditView
       />
     </ProtectRoute>
@@ -40,10 +44,11 @@ export async function getServerSideProps(context) {
 
 Show.propTypes = {
   bridge: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     outboundUrl: PropTypes.string.isRequired,
     method: PropTypes.string.isRequired,
-    retries: PropTypes.string.isRequired,
-    delay: PropTypes.string.isRequired,
+    retries: PropTypes.number.isRequired,
+    delay: PropTypes.number.isRequired,
     headers: PropTypes.arrayOf(
       PropTypes.shape({
         key: PropTypes.string.isRequired,
@@ -56,5 +61,9 @@ Show.propTypes = {
         value: PropTypes.string.isRequired,
       }),
     ).isRequired,
+    data: PropTypes.shape({
+      payload: PropTypes.string.isRequired,
+      testPayload: PropTypes.string.isRequired,
+    }),
   }).isRequired,
 };

@@ -22,13 +22,10 @@ function CodeMirror({
   const [mounted, setMounted] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   const [code, setCode] = useState(
-    '// Javascript Object Syntax\n'
-      + '// Please ensure everything stays within the payload object\n'
-      + '// While your cursor is in editor, press F11 for fullscreen mode\n'
-      + 'var payload = {\n'
-      + '  hello: "world",\n'
-      + '  acessEnvVars: $env.MY_KEY,\n'
-      + '  accessPayload: $payload.message,\n'
+    '{\n'
+      + '  "hello": "world",\n'
+      + '  "acessEnvVars": "$env.MY_KEY",\n'
+      + '  "accessPayload": "$payload.message"\n'
       + '}',
   );
 
@@ -42,12 +39,7 @@ function CodeMirror({
 
   const fetchData = () => {
     if (formKey && isEditView) {
-      // ie: editing bridge, for payload & test payload editors
-      // Sets the fetch data for form and editor
-      // fetch data
-      // set form data
-      // set editor code
-      values[formKey] = 'hello world'; // res.data.code
+      // Editing Bridge - For fetching payload & test payload code
       setCode(values[formKey]);
     } else if (isEditView) {
       // ie: editing bridge, for latest request editor
@@ -57,11 +49,11 @@ function CodeMirror({
       const data = '// My latest request';
       setCode(data);
     } else if (formKey) {
-      // ie: new bridge, for payload & test payload editors
+      // New Bridge - For payload & test payload editors
       // Sets the default for form, editor state is already at default
-      values[formKey] = code; // res.data.code
+      values[formKey] = code;
     } else {
-      // ie: new bridge, for latest request
+      // New Bridge - For latest request editor
       // Sets latest request editor to default helper text
       setCode('// Your latest inbound request will show here after one occurs.');
     }
