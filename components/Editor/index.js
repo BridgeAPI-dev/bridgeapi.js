@@ -1,12 +1,15 @@
+import React, { useState } from 'react';
 import {
   Typography,
   Button,
   makeStyles,
   Grid,
+  Snackbar,
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import PropTypes from 'prop-types';
-
 import { Formik, Form } from 'formik';
+import { useRouter } from 'next/router';
 
 import Navbar from '../shared/dashboard/Navbar';
 import Sidebar from '../Sidebar';
@@ -35,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Editor({ bridge, isEditView }) {
   const classes = useStyles();
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
+  // TODO: Custom error messages
+  // const [errMsg, setErrMsg] = useState('');
 
   const {
     id,
@@ -48,7 +56,6 @@ function Editor({ bridge, isEditView }) {
   } = bridge;
   const retries = String(bridge.retries);
   const delay = String(bridge.delay);
-  let bridgeId = id;
 
   const initialValues = {
     title,
@@ -58,8 +65,16 @@ function Editor({ bridge, isEditView }) {
     delay,
     headers,
     environmentVariables,
-    payloadCode: data.payload,
-    testPayloadCode: data.testPayload,
+    payloadCode: data.payload || '{\n'
+    + '  "hello": "world",\n'
+    + '  "acessEnvVars": "$env.MY_KEY",\n'
+    + '  "accessPayload": "$payload.message"\n'
+    + '}',
+    testPayloadCode: data.testPayload || '{\n'
+    + '  "hello": "world",\n'
+    + '  "acessEnvVars": "$env.MY_KEY",\n'
+    + '  "accessPayload": "$payload.message"\n'
+    + '}',
   };
 
   const generatePayload = (values) => ({
@@ -77,14 +92,28 @@ function Editor({ bridge, isEditView }) {
   });
 
   const handleSubmit = async (values, setSubmitting) => {
-    // TODO: Some visual cue that we saved.
-    if (bridgeId) {
-      const res = await api.patch(`/bridges/${id}`, generatePayload(values));
-      console.log(res);
+    if (id) {
+      await api
+        .patch(`/bridges/${id}`, generatePayload(values))
+        .catch(() => setErrorOpen(true));
     } else {
-      const res = await api.post('/bridges', generatePayload(values));
-      bridgeId = res.data.id;
+      await api
+        .post('/bridges', generatePayload(values))
+        .then((res) => router.push(`/bridge/${res.data.id}`))
+        .catch(() => setErrorOpen(true));
     }
+
+    setOpen(true);
+    setSubmitting(false);
+  };
+
+  const handleClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+    setErrorOpen(false);
   };
 
   return (
@@ -93,7 +122,6 @@ function Editor({ bridge, isEditView }) {
       <Sidebar events={events} title={title} />
 
       <Grid container item spacing={5} className={classes.root} sm={9} md={10}>
-
         <Grid item container wrap="nowrap">
           <Formik
             initialValues={initialValues}
@@ -139,6 +167,26 @@ function Editor({ bridge, isEditView }) {
           </Formik>
         </Grid>
       </Grid>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={handleClose} severity="success">
+          Bridge has been saved.
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={errorOpen}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={handleClose} severity="error">
+          Some error has occured. Please try again.
+        </Alert>
+      </Snackbar>
     </>
   );
 }
@@ -170,6 +218,7 @@ Editor.defaultProps = {
 Editor.propTypes = {
   isEditView: PropTypes.bool,
   bridge: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
     outboundUrl: PropTypes.string,
     method: PropTypes.string,
