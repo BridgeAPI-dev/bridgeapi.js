@@ -72,6 +72,7 @@ function CodeMirror({
     // require('codemirror/addon/fold/foldcode');
     // require('codemirror/addon/fold/foldgutter');
     // require('codemirror/addon/fold/brace-fold');
+
     // Must bind JSHINT to window for lint support
     window.JSHINT = JSHINT;
     // Base Linting
@@ -97,6 +98,7 @@ function CodeMirror({
 
     // Add event listener for fullscreen mode
     codeRef.current.addEventListener('keydown', handleKeyPress);
+
     // And prevent all this from happening again
     setMounted(true);
   };
