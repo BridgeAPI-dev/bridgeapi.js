@@ -1,5 +1,6 @@
 // Disables no-param-reassign because we need to mutate the values obj
 /* eslint-disable no-param-reassign */
+// Disables global-require because CodeMirror 5 doesn't support import syntax
 /* eslint-disable global-require */
 import React, {
   useState, useRef, useEffect,
@@ -64,10 +65,11 @@ function CodeMirror({
   // `navigator` is a react DOM thing and is not avaiable on the server
   const loadCodeMirrorAssets = () => {
     fetchData();
-    // Enable code folding - WIP: Can't get to work
-    require('codemirror/addon/fold/foldcode');
-    require('codemirror/addon/fold/foldgutter');
-    require('codemirror/addon/fold/brace-fold');
+    // TODO: Can't get to work
+    // Enable code folding
+    // require('codemirror/addon/fold/foldcode');
+    // require('codemirror/addon/fold/foldgutter');
+    // require('codemirror/addon/fold/brace-fold');
     // Must bind JSHINT to window for lint support
     window.JSHINT = JSHINT;
     // Base Linting
@@ -100,7 +102,7 @@ function CodeMirror({
   useEffect(() => {
     if (!mounted) {
       // Make async - Prevent blocking the main thread
-      setTimeout(loadCodeMirrorAssets, 2500);
+      setTimeout(loadCodeMirrorAssets, 0);
     }
   }, []);
 
