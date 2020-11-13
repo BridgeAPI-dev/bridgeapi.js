@@ -82,8 +82,8 @@ function HeaderCard({ headers, outboundUrl, title }) {
               <Field
                 component={TextField}
                 variant="outlined"
-                name="outboundURL"
-                id="outboundURL"
+                name="outboundUrl"
+                id="outboundUrl"
                 placeholder="Specify your outbound service here"
                 className={classes.outboundURLField}
                 value={outboundUrl}

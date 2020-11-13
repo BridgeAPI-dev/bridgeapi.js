@@ -48,6 +48,7 @@ function Editor({ bridge, isEditView }) {
   } = bridge;
   const retries = String(bridge.retries);
   const delay = String(bridge.delay);
+  let bridgeId = id;
 
   const initialValues = {
     title,
@@ -64,7 +65,7 @@ function Editor({ bridge, isEditView }) {
   const generatePayload = (values) => ({
     title: values.title,
     method: values.method,
-    outbound_url: values.outboundURL,
+    outbound_url: values.outboundUrl,
     retries: values.retries,
     delay: values.delay,
     headers_attributes: values.headers,
@@ -77,12 +78,12 @@ function Editor({ bridge, isEditView }) {
 
   const handleSubmit = async (values, setSubmitting) => {
     // TODO: Some visual cue that we saved.
-    if (id) {
+    if (bridgeId) {
       const res = await api.patch(`/bridges/${id}`, generatePayload(values));
       console.log(res);
     } else {
       const res = await api.post('/bridges', generatePayload(values));
-      id = res.data.id;
+      bridgeId = res.data.id;
     }
   };
 
