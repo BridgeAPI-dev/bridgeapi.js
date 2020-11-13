@@ -6,22 +6,9 @@ import fetchDataOrRedirect from '../../utils/ssrRedirect';
 import toCamel from '../../utils/toCamel';
 
 function Show({ bridge }) {
-  // const {
-  //   id, outboundUrl, method, retries, delay, headers, environmentVariables, title,
-  // } = bridge;
-
   return (
     <ProtectRoute>
       <Editor
-        // id={id}
-        // title={title}
-        // outboundURL={outboundUrl}
-        // method={method}
-        // retries={String(retries)}
-        // delay={String(delay)}
-        // headers={headers}
-        // environmentVariables={environmentVariables}
-        // data={bridge.data}
         bridge={bridge}
         isEditView
       />

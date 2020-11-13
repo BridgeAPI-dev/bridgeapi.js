@@ -56,6 +56,7 @@ function HeaderTextFields({ headers }) {
         render={(arrayHelpers) => (
           <>
             {headers.map((header, idx) => (
+              // Formik requires a key that will never change
               // eslint-disable-next-line react/no-array-index-key
               <React.Fragment key={`header-${idx}`}>
                 <Grid item xs={5}>

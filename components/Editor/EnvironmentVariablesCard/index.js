@@ -54,6 +54,7 @@ function EnvironmentVariablesCard({ environmentVariables }) {
             render={(arrayHelpers) => (
               <>
                 {environmentVariables.map((envVar, idx) => (
+                  // Formik requires a key that will never change
                   // eslint-disable-next-line react/no-array-index-key
                   <React.Fragment key={`environmentVariables-${idx}`}>
                     <Grid item xs={5}>
