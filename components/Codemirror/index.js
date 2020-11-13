@@ -67,7 +67,7 @@ function CodeMirror({
   // `navigator` is a react DOM thing and is not avaiable on the server
   const loadCodeMirrorAssets = () => {
     fetchData();
-    // TODO: Can't get to work
+    // TODO: Can't get code folding to work
     // Enable code folding
     // require('codemirror/addon/fold/foldcode');
     // require('codemirror/addon/fold/foldgutter');
