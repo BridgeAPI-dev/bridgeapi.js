@@ -47,6 +47,8 @@ function CodeMirror({
       // Sets the fetch data for editor as form doesn't hold latest request
       // fetch data
       // set editor data
+      // TODO: Need endpoint that accepts bridge_id and returns
+      // inbound payload of latest payload
       const data = '// My latest request';
       setCode(data);
     } else if (formKey) {
