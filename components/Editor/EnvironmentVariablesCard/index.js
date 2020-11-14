@@ -10,6 +10,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { FastField, FieldArray } from 'formik';
 
 import AccordionSummary from '../../AccordionSummary';
+import api from '../../../utils/api';
 
 const useStyles = makeStyles((theme) => ({
   primary: {
@@ -39,6 +40,16 @@ const validateEnvVars = (input) => {
 
 function EnvironmentVariablesCard({ environmentVariables }) {
   const classes = useStyles();
+
+  const handleDelete = async (arrayHelpers, envVar, idx) => {
+    if (envVar.id) {
+      arrayHelpers.remove(idx);
+      await api.delete(`/environment_variables/${envVar.id}`)
+        .catch(() => arrayHelpers.push(envVar));
+    } else {
+      arrayHelpers.remove(idx);
+    }
+  };
 
   return (
     <Accordion defaultExpanded>
@@ -83,7 +94,7 @@ function EnvironmentVariablesCard({ environmentVariables }) {
                     <Grid item xs={1}>
                       <Button
                         className={classes.primary}
-                        onClick={() => { arrayHelpers.remove(idx); }}
+                        onClick={() => { handleDelete(arrayHelpers, envVar, idx); }}
                       >
                         <DeleteForeverIcon fontSize="large" />
                       </Button>
@@ -113,6 +124,7 @@ export default EnvironmentVariablesCard;
 EnvironmentVariablesCard.propTypes = {
   environmentVariables: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.number,
       key: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired,
     }).isRequired,
