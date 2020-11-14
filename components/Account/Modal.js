@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal, makeStyles } from '@material-ui/core';
+import {
+  Button, Modal, makeStyles, Snackbar,
+} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+
+import api from '../../utils/api';
+import { useAuth } from '../../src/contexts/auth';
 
 function getModalStyle() {
   const top = 50;
@@ -28,13 +34,32 @@ const useStyles = makeStyles((theme) => ({
 function DeleteAccountModal({ open, setOpen }) {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
+  const { logout } = useAuth();
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleDelete = () => {
-    console.log('Deleting accounting');
+    api.delete('/users')
+      .then(() => {
+        setSuccessOpen(true);
+        setTimeout(() => { logout(); }, 1000);
+      })
+      .catch(() => {
+        setErrorOpen(true);
+      });
+  };
+
+  const handleSnackClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSuccessOpen(false);
+    setErrorOpen(false);
   };
 
   return (
@@ -65,8 +90,27 @@ function DeleteAccountModal({ open, setOpen }) {
         >
           Delete Account
         </Button>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={successOpen}
+          autoHideDuration={3000}
+          onClose={handleSnackClose}
+        >
+          <Alert onClose={handleSnackClose} severity="success">
+            Account has been deleted. Redirecting...
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={errorOpen}
+          autoHideDuration={3000}
+          onClose={handleSnackClose}
+        >
+          <Alert onClose={handleSnackClose} severity="error">
+            Some error occurred. Please try again later.
+          </Alert>
+        </Snackbar>
       </div>
-
     </Modal>
   );
 }

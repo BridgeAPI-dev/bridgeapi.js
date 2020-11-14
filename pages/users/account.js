@@ -2,17 +2,23 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import {
-  Button, LinearProgress, Container, Grid, Typography,
+  Button, LinearProgress, Container, Grid, Typography, Snackbar,
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
 import Navbar from '../../components/shared/dashboard/Navbar';
-import DeleteAccountModal from '../../components/account/Modal';
+import DeleteAccountModal from '../../components/Account/Modal';
 import emailValidator from '../../utils/emailValidator';
 import ProtectRoute from '../../utils/ProtectRoute';
 
+import api from '../../utils/api';
+import fetchDataOrRedirect from '../../utils/ssrRedirect';
+
 function Account({ user }) {
   const [open, setOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -25,16 +31,44 @@ function Account({ user }) {
     } else if (emailValidator(values.email)) {
       errors.email = 'Invalid email address';
     }
+
+    if (!values.currentPassword) {
+      errors.currentPassword = 'Required';
+    }
+
+    if (values.newPassword || values.confirmPassword) {
+      if (values.newPassword !== values.confirmPassword) {
+        errors.newPassword = 'Passwords do not match';
+        errors.confirmPassword = 'Passwords do not match';
+      }
+    }
     return errors;
   };
 
-  const handleSubmit = (values, setSubmitting) => {
-    // eslint-disable-next-line no-console
-    console.log(values);
-    setTimeout(() => {
-      setSubmitting(false);
-      // alert(JSON.stringify(values, null, 2));
-    }, 500);
+  const handleSubmit = async (values, setSubmitting) => {
+    const data = {
+      email: values.email,
+      password: values.currentPassword,
+      notifications: values.emailOnEvents,
+    };
+    if (values.newPassword) {
+      data.new_password = values.newPassword;
+      data.password_confirmation = values.confirmPassword;
+    }
+
+    await api.patch('/users', data)
+      .then(() => setSuccessOpen(true))
+      .catch(() => setErrorOpen(true));
+    setSubmitting(false);
+  };
+
+  const handleSnackClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSuccessOpen(false);
+    setErrorOpen(false);
   };
 
   const initialValues = {
@@ -81,12 +115,9 @@ function Account({ user }) {
                       type="email"
                       label="Email"
                       value={values.email}
-                      style={{ marginBottom: '25px' }}
+                      style={{ marginBottom: '10px' }}
                     />
 
-                    <Typography variant="caption" display="block" gutterBottom>
-                      New Password:
-                    </Typography>
                     <Field
                       component={TextField}
                       variant="outlined"
@@ -96,6 +127,9 @@ function Account({ user }) {
                       style={{ marginBottom: '10px' }}
                       value={values.currentPassword}
                     />
+                    <Typography variant="caption" display="block" gutterBottom>
+                      New Password:
+                    </Typography>
                     <Field
                       component={TextField}
                       variant="outlined"
@@ -164,29 +198,42 @@ function Account({ user }) {
           </Form>
         )}
       </Formik>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={successOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="success">
+          Account info has been updated.
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={errorOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="error">
+          Some error occurred. Please try again later.
+        </Alert>
+      </Snackbar>
     </ProtectRoute>
   );
 }
 
 export default Account;
 
-export async function getStaticProps() {
-  // TODO: Axios Request
-  // const res = await fetchDataOrRedirect(context, '/bridges');
-  // if (!res) return { props: {} }; // Redirecting to /users/login
-
-  // return {
-  //   props: {
-  //     bridges: res.data.bridges,
-  //   },
-  // };
+export async function getServerSideProps(context) {
+  const res = await fetchDataOrRedirect(context, '/users');
+  if (!res) return { props: {} }; // Redirecting to /users/login
 
   return {
     props: {
       user: {
-        email: 'myemail@gmail.com',
+        email: res.data.user.email,
         notifications: {
-          emailOnEvents: true,
+          emailOnEvents: res.data.user.notifications,
         },
       },
     },
