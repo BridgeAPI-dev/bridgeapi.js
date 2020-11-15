@@ -54,8 +54,8 @@ function Account({ user }) {
       },
     };
     if (values.newPassword) {
-      data.password = values.newPassword;
-      data.password_confirmation = values.confirmPassword;
+      data.user.password = values.newPassword;
+      data.user.password_confirmation = values.confirmPassword;
     }
     await api.patch('/users', data)
       .then(() => setSuccessOpen(true))
