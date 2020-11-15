@@ -47,15 +47,16 @@ function Account({ user }) {
 
   const handleSubmit = async (values, setSubmitting) => {
     const data = {
-      email: values.email,
-      password: values.currentPassword,
-      notifications: values.emailOnEvents,
+      current_password: values.currentPassword,
+      user: {
+        email: values.email,
+        notifications: values.emailOnEvents,
+      },
     };
     if (values.newPassword) {
-      data.new_password = values.newPassword;
+      data.password = values.newPassword;
       data.password_confirmation = values.confirmPassword;
     }
-
     await api.patch('/users', data)
       .then(() => setSuccessOpen(true))
       .catch(() => setErrorOpen(true));
