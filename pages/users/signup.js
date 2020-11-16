@@ -141,7 +141,7 @@ function Signup() {
               </Form>
             )}
           </Formik>
-          <Link href="/users/login">
+          <Link href="/user/login">
             <Typography className={classes.login}>
               Already have an account?
             </Typography>
