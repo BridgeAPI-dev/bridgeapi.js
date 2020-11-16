@@ -39,10 +39,10 @@ const fetchDataOrRedirect = async (context, endpoint) => {
     headers: {
       'BRIDGE-JWT': token,
     },
-  });
+  }).catch(() => false);
 
   // Return the response if we are not unauthorized
-  if (res.status !== 401) {
+  if (res && res.status !== 401) {
     return res;
   }
 

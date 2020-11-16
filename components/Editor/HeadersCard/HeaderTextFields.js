@@ -9,6 +9,8 @@ import { TextField } from 'formik-material-ui';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { Field, FieldArray, FastField } from 'formik';
 
+import api from '../../../utils/api';
+
 const useStyles = makeStyles((theme) => ({
   primary: {
     color: theme.palette.primary.main,
@@ -28,6 +30,16 @@ const validateHeaders = (input) => {
 
 function HeaderTextFields({ headers }) {
   const classes = useStyles();
+
+  const handleDelete = async (arrayHelpers, header, idx) => {
+    if (header.id) {
+      arrayHelpers.remove(idx);
+      await api.delete(`/headers/${header.id}`)
+        .catch(() => arrayHelpers.push(header));
+    } else {
+      arrayHelpers.remove(idx);
+    }
+  };
 
   return (
     <Grid container spacing={2}>
@@ -56,7 +68,9 @@ function HeaderTextFields({ headers }) {
         render={(arrayHelpers) => (
           <>
             {headers.map((header, idx) => (
-              <React.Fragment key={`header-${header.key}-${header.value}`}>
+              // Formik requires a key that will never change
+              // eslint-disable-next-line react/no-array-index-key
+              <React.Fragment key={`header-${idx}`}>
                 <Grid item xs={5}>
                   <FastField
                     component={TextField}
@@ -83,7 +97,7 @@ function HeaderTextFields({ headers }) {
                 <Grid item xs={1}>
                   <Button
                     className={classes.primary}
-                    onClick={() => { arrayHelpers.remove(idx); }}
+                    onClick={() => { handleDelete(arrayHelpers, header, idx); }}
                   >
                     <DeleteForeverIcon fontSize="large" />
                   </Button>
@@ -111,6 +125,7 @@ export default HeaderTextFields;
 HeaderTextFields.propTypes = {
   headers: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.number,
       key: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired,
     }),

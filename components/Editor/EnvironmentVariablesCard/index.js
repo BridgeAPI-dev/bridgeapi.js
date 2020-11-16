@@ -10,6 +10,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { FastField, FieldArray } from 'formik';
 
 import AccordionSummary from '../../AccordionSummary';
+import api from '../../../utils/api';
 
 const useStyles = makeStyles((theme) => ({
   primary: {
@@ -37,8 +38,18 @@ const validateEnvVars = (input) => {
   return error;
 };
 
-function EnvironmentVariablesCard({ envVars }) {
+function EnvironmentVariablesCard({ environmentVariables }) {
   const classes = useStyles();
+
+  const handleDelete = async (arrayHelpers, envVar, idx) => {
+    if (envVar.id) {
+      arrayHelpers.remove(idx);
+      await api.delete(`/environment_variables/${envVar.id}`)
+        .catch(() => arrayHelpers.push(envVar));
+    } else {
+      arrayHelpers.remove(idx);
+    }
+  };
 
   return (
     <Accordion defaultExpanded>
@@ -50,19 +61,21 @@ function EnvironmentVariablesCard({ envVars }) {
       <AccordionDetails>
         <Grid container spacing={2}>
           <FieldArray
-            name="envVars"
+            name="environmentVariables"
             render={(arrayHelpers) => (
               <>
-                {envVars.map((envVar, idx) => (
-                  <React.Fragment key={`envVar-${envVar.key}`}>
+                {environmentVariables.map((envVar, idx) => (
+                  // Formik requires a key that will never change
+                  // eslint-disable-next-line react/no-array-index-key
+                  <React.Fragment key={`environmentVariables-${idx}`}>
                     <Grid item xs={5}>
                       <FastField
                         component={TextField}
                         variant="outlined"
-                        name={`envVars[${idx}].key`}
+                        name={`environmentVariables[${idx}].key`}
                         value={envVar.key || ''}
                         placeholder="Key"
-                        id={`envVars-${idx}`}
+                        id={`envVar-${idx}`}
                         fullWidth
                         validate={validateEnvVars}
                       />
@@ -71,7 +84,7 @@ function EnvironmentVariablesCard({ envVars }) {
                       <FastField
                         component={TextField}
                         variant="outlined"
-                        name={`envVars[${idx}].value`}
+                        name={`environmentVariables[${idx}].value`}
                         value={envVar.value || ''}
                         placeholder="Value"
                         fullWidth
@@ -81,7 +94,7 @@ function EnvironmentVariablesCard({ envVars }) {
                     <Grid item xs={1}>
                       <Button
                         className={classes.primary}
-                        onClick={() => { arrayHelpers.remove(idx); }}
+                        onClick={() => { handleDelete(arrayHelpers, envVar, idx); }}
                       >
                         <DeleteForeverIcon fontSize="large" />
                       </Button>
@@ -109,8 +122,9 @@ function EnvironmentVariablesCard({ envVars }) {
 export default EnvironmentVariablesCard;
 
 EnvironmentVariablesCard.propTypes = {
-  envVars: PropTypes.arrayOf(
+  environmentVariables: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.number,
       key: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired,
     }).isRequired,

@@ -1,13 +1,15 @@
+import React, { useState } from 'react';
 import {
-  Container,
   Typography,
   Button,
   makeStyles,
   Grid,
+  Snackbar,
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import PropTypes from 'prop-types';
-
 import { Formik, Form } from 'formik';
+import { useRouter } from 'next/router';
 
 import Navbar from '../shared/dashboard/Navbar';
 import Sidebar from '../Sidebar';
@@ -17,10 +19,14 @@ import PayloadCard from './PayloadCard';
 import EnvironmentVariablesCard from './EnvironmentVariablesCard';
 import HeadersCard from './HeadersCard';
 
+import api from '../../utils/api';
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    // flexGrow: 1,
     marginLeft: 180,
+  },
+  form: {
+    minWidth: '100%',
   },
   action: {
     margin: theme.spacing(0, 1),
@@ -30,37 +36,95 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Editor({
-  outboundURL, method, retries, delay, headers, envVars, isEditView, events,
-}) {
+function Editor({ bridge, isEditView }) {
   const classes = useStyles();
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
+  // TODO: Custom error messages
+  // const [errMsg, setErrMsg] = useState('');
+
+  const {
+    id,
+    outboundUrl,
+    method,
+    headers,
+    environmentVariables,
+    events,
+    data,
+    title,
+  } = bridge;
+  const retries = String(bridge.retries);
+  const delay = String(bridge.delay);
 
   const initialValues = {
-    outboundURL,
+    title,
+    outboundUrl,
     method,
     retries,
     delay,
     headers,
-    envVars,
-    payloadCode: '',
-    testPayloadCode: '',
+    environmentVariables,
+    // The code editors will set these vars in it's useEffect hook.
+    // However, if a user types faster than the useEffect loads,
+    // these won't be set thus backend validation will fail.
+    payloadCode: data.payload || '{\n'
+    + '  "hello": "world",\n'
+    + '  "acessEnvVars": "$env.MY_KEY",\n'
+    + '  "accessPayload": "$payload.message"\n'
+    + '}',
+    testPayloadCode: data.testPayload || '{\n'
+    + '  "hello": "world",\n'
+    + '  "acessEnvVars": "$env.MY_KEY",\n'
+    + '  "accessPayload": "$payload.message"\n'
+    + '}',
   };
 
-  const handleSubmit = (values, setSubmitting) => {
-    console.log(values);
-    // TODO: axios request
-    setTimeout(() => {
-      setSubmitting(false);
-    }, 100);
+  const generatePayload = (values) => ({
+    title: values.title,
+    method: values.method,
+    outbound_url: values.outboundUrl,
+    retries: values.retries,
+    delay: values.delay,
+    headers_attributes: values.headers,
+    environment_variables_attributes: values.environmentVariables,
+    data: {
+      payload: values.payloadCode,
+      test_payload: values.testPayloadCode,
+    },
+  });
+
+  const handleSubmit = async (values, setSubmitting) => {
+    if (id) { // POST if new bridge, otherwise PATCH
+      await api
+        .patch(`/bridges/${id}`, generatePayload(values))
+        .catch(() => setErrorOpen(true));
+    } else {
+      await api
+        .post('/bridges', generatePayload(values))
+        .then((res) => router.push(`/bridge/${res.data.id}`))
+        .catch(() => setErrorOpen(true));
+    }
+
+    setOpen(true);
+    setSubmitting(false);
+  };
+
+  const handleClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+    setErrorOpen(false);
   };
 
   return (
     <>
       <Navbar />
-      <Sidebar events={events} title="Untitled" />
+      <Sidebar events={events} title={title} />
 
       <Grid container item spacing={5} className={classes.root} sm={9} md={10}>
-
         <Grid item container wrap="nowrap">
           <Formik
             initialValues={initialValues}
@@ -70,7 +134,7 @@ function Editor({
             className={classes.root}
           >
             {({ values, submitForm }) => (
-              <Form>
+              <Form className={classes.form}>
                 <Grid container>
                   <Grid item sm={8} md={8} lg={8} container justify="flex-end">
                     <Grid>
@@ -88,9 +152,10 @@ function Editor({
 
                 <HeadersCard
                   headers={values.headers}
-                  outboundURL={values.outboundURL}
+                  outboundUrl={values.outboundUrl}
+                  title={values.title}
                 />
-                <EnvironmentVariablesCard envVars={values.envVars} />
+                <EnvironmentVariablesCard environmentVariables={values.environmentVariables} />
                 <PayloadCard
                   isEditView={isEditView}
                   values={values}
@@ -105,6 +170,26 @@ function Editor({
           </Formik>
         </Grid>
       </Grid>
+      <Snackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={handleClose} severity="success">
+          Bridge has been saved.
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={errorOpen}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={handleClose} severity="error">
+          Some error has occured. Please try again.
+        </Alert>
+      </Snackbar>
     </>
   );
 }
@@ -112,37 +197,52 @@ function Editor({
 export default Editor;
 
 Editor.defaultProps = {
-  outboundURL: '',
-  method: '',
-  retries: '',
-  delay: '',
-  headers: [
-    { key: '', value: '' },
-  ],
-  envVars: [
-    { key: '', value: '' },
-  ],
   isEditView: false,
-  events: [],
+  bridge: {
+    title: '',
+    outboundUrl: '',
+    method: '',
+    retries: '',
+    delay: '',
+    headers: [
+    // { key: '', value: '' },
+    ],
+    environmentVariables: [
+    // { key: '', value: '' },
+    ],
+    events: [],
+    data: {
+      payload: '',
+      testPayload: '',
+    },
+  },
 };
 
 Editor.propTypes = {
-  outboundURL: PropTypes.string,
-  method: PropTypes.string,
-  retries: PropTypes.string,
-  delay: PropTypes.string,
-  headers: PropTypes.arrayOf(
-    PropTypes.shape({
-      key: PropTypes.string,
-      value: PropTypes.string,
-    }),
-  ),
-  envVars: PropTypes.arrayOf(
-    PropTypes.shape({
-      key: PropTypes.string,
-      value: PropTypes.string,
-    }),
-  ),
   isEditView: PropTypes.bool,
-  events: PropTypes.array,
+  bridge: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    outboundUrl: PropTypes.string,
+    method: PropTypes.string,
+    retries: PropTypes.number,
+    delay: PropTypes.number,
+    headers: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string,
+        value: PropTypes.string,
+      }),
+    ),
+    environmentVariables: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string,
+        value: PropTypes.string,
+      }),
+    ),
+    events: PropTypes.array,
+    data: PropTypes.shape({
+      payload: PropTypes.string,
+      testPayload: PropTypes.string,
+    }),
+  }),
 };
