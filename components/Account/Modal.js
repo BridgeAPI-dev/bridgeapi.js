@@ -43,7 +43,7 @@ function DeleteAccountModal({ open, setOpen }) {
   };
 
   const handleDelete = () => {
-    api.delete('/users')
+    api.delete('/user')
       .then(() => {
         setSuccessOpen(true);
         setTimeout(() => { logout(); }, 1000);
