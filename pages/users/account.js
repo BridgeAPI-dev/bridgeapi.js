@@ -2,7 +2,12 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import {
-  Button, LinearProgress, Container, Grid, Typography, Snackbar,
+  Button,
+  LinearProgress,
+  Container,
+  Grid,
+  Typography,
+  Snackbar,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { TextField, CheckboxWithLabel } from 'formik-material-ui';
@@ -57,7 +62,8 @@ function Account({ user }) {
       data.user.password = values.newPassword;
       data.user.password_confirmation = values.confirmPassword;
     }
-    await api.patch('/users', data)
+    await api
+      .patch('/user', data)
       .then(() => setSuccessOpen(true))
       .catch(() => setErrorOpen(true));
     setSubmitting(false);
@@ -95,11 +101,11 @@ function Account({ user }) {
       <Formik
         initialValues={initialValues}
         validate={(values) => handleValidate(values)}
-        onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
+        onSubmit={(values, { setSubmitting }) =>
+          handleSubmit(values, setSubmitting)
+        }
       >
-        {({
-          values, submitForm, isSubmitting, resetForm,
-        }) => (
+        {({ values, submitForm, isSubmitting, resetForm }) => (
           <Form>
             {isSubmitting && <LinearProgress />}
             <Container maxWidth="lg">
@@ -158,10 +164,17 @@ function Account({ user }) {
                       type="checkbox"
                       color="primary"
                       name="emailOnEvents"
-                      Label={{ label: 'Email notification after each bridge event' }}
+                      Label={{
+                        label: 'Email notification after each bridge event',
+                      }}
                     />
 
-                    <Typography variant="caption" display="block" gutterBottom style={{ marginTop: '25px' }}>
+                    <Typography
+                      variant="caption"
+                      display="block"
+                      gutterBottom
+                      style={{ marginTop: '25px' }}
+                    >
                       Delete Account:
                     </Typography>
                     <Button
@@ -226,8 +239,8 @@ function Account({ user }) {
 export default Account;
 
 export async function getServerSideProps(context) {
-  const res = await fetchDataOrRedirect(context, '/users');
-  if (!res) return { props: {} }; // Redirecting to /users/login
+  const res = await fetchDataOrRedirect(context, '/user');
+  if (!res) return { props: {} }; // Redirecting to /user/login
 
   return {
     props: {
