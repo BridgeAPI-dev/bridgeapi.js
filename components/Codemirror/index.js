@@ -1,5 +1,6 @@
 // Disables no-param-reassign because we need to mutate the values obj
 /* eslint-disable no-param-reassign */
+// Disables global-require because CodeMirror 5 doesn't support import syntax
 /* eslint-disable global-require */
 import React, {
   useState, useRef, useEffect,
@@ -22,13 +23,10 @@ function CodeMirror({
   const [mounted, setMounted] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   const [code, setCode] = useState(
-    '// Javascript Object Syntax\n'
-      + '// Please ensure everything stays within the payload object\n'
-      + '// While your cursor is in editor, press F11 for fullscreen mode\n'
-      + 'var payload = {\n'
-      + '  hello: "world",\n'
-      + '  acessEnvVars: $env.MY_KEY,\n'
-      + '  accessPayload: $payload.message,\n'
+    '{\n'
+      + '  "hello": "world",\n'
+      + '  "acessEnvVars": "$env.MY_KEY",\n'
+      + '  "accessPayload": "$payload.message"\n'
       + '}',
   );
 
@@ -42,26 +40,23 @@ function CodeMirror({
 
   const fetchData = () => {
     if (formKey && isEditView) {
-      // ie: editing bridge, for payload & test payload editors
-      // Sets the fetch data for form and editor
-      // fetch data
-      // set form data
-      // set editor code
-      values[formKey] = 'hello world'; // res.data.code
+      // Editing Bridge - For fetching payload & test payload code
       setCode(values[formKey]);
     } else if (isEditView) {
       // ie: editing bridge, for latest request editor
       // Sets the fetch data for editor as form doesn't hold latest request
       // fetch data
       // set editor data
+      // TODO: Need endpoint that accepts bridge_id and returns
+      // inbound payload of latest payload
       const data = '// My latest request';
       setCode(data);
     } else if (formKey) {
-      // ie: new bridge, for payload & test payload editors
+      // New Bridge - For payload & test payload editors
       // Sets the default for form, editor state is already at default
-      values[formKey] = code; // res.data.code
+      values[formKey] = code;
     } else {
-      // ie: new bridge, for latest request
+      // New Bridge - For latest request editor
       // Sets latest request editor to default helper text
       setCode('// Your latest inbound request will show here after one occurs.');
     }
@@ -72,10 +67,12 @@ function CodeMirror({
   // `navigator` is a react DOM thing and is not avaiable on the server
   const loadCodeMirrorAssets = () => {
     fetchData();
-    // Enable code folding - WIP: Can't get to work
-    require('codemirror/addon/fold/foldcode');
-    require('codemirror/addon/fold/foldgutter');
-    require('codemirror/addon/fold/brace-fold');
+    // TODO: Can't get code folding to work
+    // Enable code folding
+    // require('codemirror/addon/fold/foldcode');
+    // require('codemirror/addon/fold/foldgutter');
+    // require('codemirror/addon/fold/brace-fold');
+
     // Must bind JSHINT to window for lint support
     window.JSHINT = JSHINT;
     // Base Linting
@@ -101,6 +98,7 @@ function CodeMirror({
 
     // Add event listener for fullscreen mode
     codeRef.current.addEventListener('keydown', handleKeyPress);
+
     // And prevent all this from happening again
     setMounted(true);
   };
@@ -108,7 +106,7 @@ function CodeMirror({
   useEffect(() => {
     if (!mounted) {
       // Make async - Prevent blocking the main thread
-      setTimeout(loadCodeMirrorAssets, 2500);
+      setTimeout(loadCodeMirrorAssets, 0);
     }
   }, []);
 

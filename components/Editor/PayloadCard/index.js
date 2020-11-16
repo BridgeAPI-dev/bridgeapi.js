@@ -84,7 +84,7 @@ export default PayloadCard;
 PayloadCard.propTypes = {
   isEditView: PropTypes.bool.isRequired,
   values: PropTypes.shape({
-    outboundURL: PropTypes.string.isRequired,
+    outboundUrl: PropTypes.string.isRequired,
     method: PropTypes.string.isRequired,
     retries: PropTypes.string.isRequired,
     delay: PropTypes.string.isRequired,
@@ -94,7 +94,7 @@ PayloadCard.propTypes = {
         value: PropTypes.string.isRequired,
       }).isRequired,
     ).isRequired,
-    envVars: PropTypes.arrayOf(
+    environmentVariables: PropTypes.arrayOf(
       PropTypes.shape({
         key: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,

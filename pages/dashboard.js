@@ -13,6 +13,7 @@ import Navbar from '../components/shared/dashboard/Navbar';
 
 import fetchDataOrRedirect from '../utils/ssrRedirect';
 import ProtectRoute from '../utils/ProtectRoute';
+import toCamel from '../utils/toCamel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,7 +48,7 @@ function Dashboard({ bridges }) {
             {bridges && bridges.map((bridge) => (
               <Grid item xs={12} sm={6} md={4} key={`main-grid-${bridge.title}`}>
                 <Paper className={classes.paper}>
-                  <Link href={`/bridge/${bridge.slug}`}>
+                  <Link href={`/bridge/${bridge.id}`}>
                     <Typography
                       variant="h5"
                       color="primary"
@@ -112,7 +113,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      bridges: res.data.bridges,
+      bridges: toCamel(res.data.bridges),
     },
   };
 }
@@ -121,8 +122,8 @@ Dashboard.propTypes = {
   bridges: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      updatedAt: PropTypes.number.isRequired,
-      lastRequest: PropTypes.number.isRequired,
+      updatedAt: PropTypes.string.isRequired,
+      lastRequest: PropTypes.string.isRequired,
       requests: PropTypes.string.isRequired,
     }),
   ).isRequired,
