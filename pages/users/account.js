@@ -2,16 +2,28 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import {
-  Button, LinearProgress, Container, Grid, Typography,
+  Button,
+  LinearProgress,
+  Container,
+  Grid,
+  Typography,
+  Snackbar,
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
 import Navbar from '../../components/shared/dashboard/Navbar';
-import DeleteAccountModal from '../../components/account/Modal';
+import DeleteAccountModal from '../../components/Account/Modal';
 import emailValidator from '../../utils/emailValidator';
+import ProtectRoute from '../../utils/ProtectRoute';
+
+import api from '../../utils/api';
+import fetchDataOrRedirect from '../../utils/ssrRedirect';
 
 function Account({ user }) {
   const [open, setOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -24,16 +36,46 @@ function Account({ user }) {
     } else if (emailValidator(values.email)) {
       errors.email = 'Invalid email address';
     }
+
+    if (!values.currentPassword) {
+      errors.currentPassword = 'Required';
+    }
+
+    if (values.newPassword || values.confirmPassword) {
+      if (values.newPassword !== values.confirmPassword) {
+        errors.newPassword = 'Passwords do not match';
+        errors.confirmPassword = 'Passwords do not match';
+      }
+    }
     return errors;
   };
 
-  const handleSubmit = (values, setSubmitting) => {
-    // eslint-disable-next-line no-console
-    console.log(values);
-    setTimeout(() => {
-      setSubmitting(false);
-      // alert(JSON.stringify(values, null, 2));
-    }, 500);
+  const handleSubmit = async (values, setSubmitting) => {
+    const data = {
+      current_password: values.currentPassword,
+      user: {
+        email: values.email,
+        notifications: values.emailOnEvents,
+      },
+    };
+    if (values.newPassword) {
+      data.user.password = values.newPassword;
+      data.user.password_confirmation = values.confirmPassword;
+    }
+    await api
+      .patch('/user', data)
+      .then(() => setSuccessOpen(true))
+      .catch(() => setErrorOpen(true));
+    setSubmitting(false);
+  };
+
+  const handleSnackClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSuccessOpen(false);
+    setErrorOpen(false);
   };
 
   const initialValues = {
@@ -52,18 +94,18 @@ function Account({ user }) {
   };
 
   return (
-    <>
+    <ProtectRoute>
       <Navbar />
       <DeleteAccountModal open={open} setOpen={setOpen} />
 
       <Formik
         initialValues={initialValues}
         validate={(values) => handleValidate(values)}
-        onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
+        onSubmit={(values, { setSubmitting }) =>
+          handleSubmit(values, setSubmitting)
+        }
       >
-        {({
-          values, submitForm, isSubmitting, resetForm,
-        }) => (
+        {({ values, submitForm, isSubmitting, resetForm }) => (
           <Form>
             {isSubmitting && <LinearProgress />}
             <Container maxWidth="lg">
@@ -80,12 +122,9 @@ function Account({ user }) {
                       type="email"
                       label="Email"
                       value={values.email}
-                      style={{ marginBottom: '25px' }}
+                      style={{ marginBottom: '10px' }}
                     />
 
-                    <Typography variant="caption" display="block" gutterBottom>
-                      New Password:
-                    </Typography>
                     <Field
                       component={TextField}
                       variant="outlined"
@@ -95,6 +134,9 @@ function Account({ user }) {
                       style={{ marginBottom: '10px' }}
                       value={values.currentPassword}
                     />
+                    <Typography variant="caption" display="block" gutterBottom>
+                      New Password:
+                    </Typography>
                     <Field
                       component={TextField}
                       variant="outlined"
@@ -122,10 +164,17 @@ function Account({ user }) {
                       type="checkbox"
                       color="primary"
                       name="emailOnEvents"
-                      Label={{ label: 'Email notification after each bridge event' }}
+                      Label={{
+                        label: 'Email notification after each bridge event',
+                      }}
                     />
 
-                    <Typography variant="caption" display="block" gutterBottom style={{ marginTop: '25px' }}>
+                    <Typography
+                      variant="caption"
+                      display="block"
+                      gutterBottom
+                      style={{ marginTop: '25px' }}
+                    >
                       Delete Account:
                     </Typography>
                     <Button
@@ -163,22 +212,42 @@ function Account({ user }) {
           </Form>
         )}
       </Formik>
-
-      {/* </Container> */}
-    </>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={successOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="success">
+          Account info has been updated.
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={errorOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="error">
+          Some error occurred. Please try again later.
+        </Alert>
+      </Snackbar>
+    </ProtectRoute>
   );
 }
 
 export default Account;
 
-// eslint-disable-next-line no-unused-vars
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
+  const res = await fetchDataOrRedirect(context, '/user');
+  if (!res) return { props: {} }; // Redirecting to /user/login
+
   return {
     props: {
       user: {
-        email: 'myemail@gmail.com',
+        email: res.data.user.email,
         notifications: {
-          emailOnEvents: true,
+          emailOnEvents: res.data.user.notifications,
         },
       },
     },

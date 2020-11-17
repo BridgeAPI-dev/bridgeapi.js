@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Container,
   Typography,
@@ -6,13 +7,17 @@ import {
   makeStyles,
   Link,
   Paper,
+  Snackbar,
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import { useRouter } from 'next/router';
 
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 
+import { useAuth } from '../../src/contexts/auth';
 import emailValidator from '../../utils/emailValidator';
+import api from '../../utils/api';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -68,14 +73,40 @@ const initialValues = {
 function Signup() {
   const router = useRouter();
   const classes = useStyles();
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
+  const { login } = useAuth();
 
-  const handleSubmit = (values, setSubmitting) => {
-    console.log(values);
-    // TODO: axios request
-    setTimeout(() => {
-      setSubmitting(false);
-      router.push('/dashboard');
-    }, 500);
+  const handleSubmit = async (values, setSubmitting) => {
+    await api.post('/users', {
+      user: {
+        email: values.email,
+        password: values.password,
+        password_confirmation: values.confirmPassword,
+      },
+    }).catch(() => {
+      setErrorOpen(true);
+    });
+
+    setSuccessOpen(true);
+    if (await login(values.email, values.password)) {
+      router.push('/bridge/new');
+    } else {
+      // Ideally we send users to `/bridge/new` but if an error occurs
+      // lets at least send them to the login page.
+      router.push('/users/login');
+    }
+
+    setSubmitting(false);
+  };
+
+  const handleSnackClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSuccessOpen(false);
+    setErrorOpen(false);
   };
 
   return (
@@ -141,13 +172,33 @@ function Signup() {
               </Form>
             )}
           </Formik>
-          <Link href="/users/login">
+          <Link href="/user/login">
             <Typography className={classes.login}>
               Already have an account?
             </Typography>
           </Link>
         </Container>
       </Paper>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={successOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="success">
+          Account has been created. Redirecting...
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={errorOpen}
+        autoHideDuration={3000}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="error">
+          Some error occurred. Please try again.
+        </Alert>
+      </Snackbar>
     </Grid>
   );
 }

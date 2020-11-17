@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Container,
   Typography,
@@ -13,6 +14,7 @@ import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 
 import emailValidator from '../../utils/emailValidator';
+import { useAuth } from '../../src/contexts/auth';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,8 +39,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login() {
-  const router = useRouter();
+  const { login } = useAuth();
   const classes = useStyles();
+  const router = useRouter();
+  const [formMessage, setFormMessage] = useState('');
 
   const initialValues = {
     email: '',
@@ -58,14 +62,16 @@ function Login() {
     return errors;
   };
 
-  const handleSubmit = (values, setSubmitting) => {
-    // eslint-disable-next-line no-console
-    console.log(values);
-    // TODO: axios request
-    setTimeout(() => {
-      setSubmitting(false);
+  const handleSubmit = async (values, setSubmitting) => {
+    setFormMessage('');
+
+    if (await login(values.email, values.password)) {
+      setFormMessage('Success: Logging in. Please wait.');
       router.push('/dashboard');
-    }, 500);
+    } else {
+      setFormMessage('Error: Email or password is invalid');
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -113,6 +119,7 @@ function Login() {
                     />
                   </Grid>
                 </Grid>
+
                 <Button
                   fullWidth
                   variant="contained"
@@ -126,6 +133,13 @@ function Login() {
               </Form>
             )}
           </Formik>
+
+          {formMessage
+            && (
+            <Typography>
+              {formMessage}
+            </Typography>
+            )}
 
           <Link href="/users/signup">
             <Typography className={classes.login}>

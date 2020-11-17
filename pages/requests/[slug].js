@@ -9,6 +9,7 @@ import Navbar from '../../components/shared/dashboard/Navbar/index';
 import { SeedData } from '../../components/requests/SeedData';
 import Sidebar from '../../components/Sidebar';
 import TimelineAccordion from '../../components/requests/TimelineAccordion';
+import ProtectRoute from '../../utils/ProtectRoute';
 
 const useStyles = makeStyles(() => ({
   microCopy: {
@@ -30,11 +31,12 @@ function Requests({
   const pastAttempts = event.responses.length > 1;
 
   useEffect(() => {
+    // TODO?
     document.body.style.overflowX = 'hidden';
   });
 
   return (
-    <>
+    <ProtectRoute>
       <Navbar />
       <Sidebar events={sidebarEvents} title={title} />
 
@@ -71,11 +73,21 @@ function Requests({
           </Timeline>
         </Grid>
       </Grid>
-    </>
+    </ProtectRoute>
   );
 }
 
 export async function getServerSideProps() {
+  // TODO: Axios Request
+  // const res = await fetchDataOrRedirect(context, '/bridges');
+  // if (!res) return { props: {} }; // Redirecting to /users/login
+
+  // return {
+  //   props: {
+  //     bridges: res.data.bridges,
+  //   },
+  // };
+
   return {
     props: SeedData,
   };
