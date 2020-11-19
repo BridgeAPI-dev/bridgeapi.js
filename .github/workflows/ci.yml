@@ -16,3 +16,12 @@ jobs:
       run: npm i
     - name: Run ESLint
       run: npx eslint . --ext .js,.jsx,.ts,.tsx
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: npm i
+    - name: Run Cypress
+      run: npx cypress run
