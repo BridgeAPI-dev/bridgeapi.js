@@ -82,6 +82,15 @@ function Editor({ bridge, isEditView }) {
     + '}',
   };
 
+  const cleanEnvironmentVariables = (values) => values.environmentVariables.map((envVar) => {
+    const cleanedEnvVar = { ...envVar };
+    if (envVar.id && envVar.value === 'XXXX-XXX-XXXX') {
+      delete cleanedEnvVar.value;
+    }
+
+    return cleanedEnvVar;
+  });
+
   const generatePayload = (values) => ({
     title: values.title,
     method: values.method,
@@ -89,7 +98,7 @@ function Editor({ bridge, isEditView }) {
     retries: values.retries,
     delay: values.delay,
     headers_attributes: values.headers,
-    environment_variables_attributes: values.environmentVariables,
+    environment_variables_attributes: cleanEnvironmentVariables(values),
     data: {
       payload: values.payloadCode,
       test_payload: values.testPayloadCode,
