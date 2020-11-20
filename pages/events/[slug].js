@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import { Timeline } from '@material-ui/lab';
 
-import EventStatus from '../../components/requests/EventStatus';
-import FailedAttempts from '../../components/requests/FailedAttempts';
+import EventStatus from '../../components/events/EventStatus';
+import FailedAttempts from '../../components/events/FailedAttempts';
 import Navbar from '../../components/shared/dashboard/Navbar/index';
-import { SeedData } from '../../components/requests/SeedData';
+import { SeedData } from '../../components/events/SeedData';
 import Sidebar from '../../components/Sidebar';
-import TimelineAccordion from '../../components/requests/TimelineAccordion';
+import TimelineAccordion from '../../components/events/TimelineAccordion';
 import ProtectRoute from '../../utils/ProtectRoute';
 
 const useStyles = makeStyles(() => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Requests({
+function Events({
   event, sidebarEvents, title, url,
 }) {
   const classes = useStyles();
@@ -93,11 +93,11 @@ export async function getServerSideProps() {
   };
 }
 
-Requests.propTypes = {
+Events.propTypes = {
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   event: PropTypes.object.isRequired,
   sidebarEvents: PropTypes.array.isRequired,
 };
 
-export default Requests;
+export default Events;
