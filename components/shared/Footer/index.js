@@ -26,7 +26,7 @@ function Footer() {
     <Container className={classes.root}>
       <Grid container spacing={3} className={classes.mainGrid}>
         <Link href="/">
-          <img src={logo} width={150} alt="BridgeAPI logo of a bridge" />
+          <img src={logo} width={150} alt="BridgeAPI logo depicting an arch bridge" />
         </Link>
 
         <Grid container item spacing={3} justify="center">
