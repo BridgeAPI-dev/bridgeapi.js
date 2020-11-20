@@ -7,9 +7,7 @@ import {
   makeStyles,
   Link,
   Paper,
-  Snackbar,
 } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 import { useRouter } from 'next/router';
 
 import { Formik, Form, Field } from 'formik';
@@ -18,6 +16,7 @@ import { TextField } from 'formik-material-ui';
 import { useAuth } from '../../src/contexts/auth';
 import emailValidator from '../../utils/emailValidator';
 import api from '../../utils/api';
+import SnackAlert from '../../components/shared/alert';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -179,26 +178,8 @@ function Signup() {
           </Link>
         </Container>
       </Paper>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={successOpen}
-        autoHideDuration={3000}
-        onClose={handleSnackClose}
-      >
-        <Alert onClose={handleSnackClose} severity="success">
-          Account has been created. Redirecting...
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={errorOpen}
-        autoHideDuration={3000}
-        onClose={handleSnackClose}
-      >
-        <Alert onClose={handleSnackClose} severity="error">
-          Some error occurred. Please try again.
-        </Alert>
-      </Snackbar>
+      <SnackAlert open={successOpen} onClose={handleSnackClose} severity="success" message="Account has been created. Redirecting..." />
+      <SnackAlert open={errorOpen} onClose={handleSnackClose} severity="error" message="Some error occurred. Please try again." />
     </Grid>
   );
 }

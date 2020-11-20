@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Modal, makeStyles, Snackbar,
+  Button, Modal, makeStyles,
 } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 
 import api from '../../utils/api';
 import { useAuth } from '../../src/contexts/auth';
+import SnackAlert from '../shared/alert';
 
 function getModalStyle() {
   const top = 50;
@@ -90,26 +90,8 @@ function DeleteAccountModal({ open, setOpen }) {
         >
           Delete Account
         </Button>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          open={successOpen}
-          autoHideDuration={3000}
-          onClose={handleSnackClose}
-        >
-          <Alert onClose={handleSnackClose} severity="success">
-            Account has been deleted. Redirecting...
-          </Alert>
-        </Snackbar>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          open={errorOpen}
-          autoHideDuration={3000}
-          onClose={handleSnackClose}
-        >
-          <Alert onClose={handleSnackClose} severity="error">
-            Some error occurred. Please try again later.
-          </Alert>
-        </Snackbar>
+        <SnackAlert open={successOpen} onClose={handleSnackClose} severity="success" message="Account has been deleted. Redirecting..." />
+        <SnackAlert open={errorOpen} onClose={handleSnackClose} severity="error" message="Some error occurred. Please try again later." />
       </div>
     </Modal>
   );

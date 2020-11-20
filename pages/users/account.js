@@ -7,9 +7,7 @@ import {
   Container,
   Grid,
   Typography,
-  Snackbar,
 } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
 import Navbar from '../../components/shared/dashboard/Navbar';
@@ -19,6 +17,7 @@ import ProtectRoute from '../../utils/ProtectRoute';
 
 import api from '../../utils/api';
 import fetchDataOrRedirect from '../../utils/ssrRedirect';
+import SnackAlert from '../../components/shared/alert';
 
 function Account({ user }) {
   const [open, setOpen] = useState(false);
@@ -212,26 +211,8 @@ function Account({ user }) {
           </Form>
         )}
       </Formik>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={successOpen}
-        autoHideDuration={3000}
-        onClose={handleSnackClose}
-      >
-        <Alert onClose={handleSnackClose} severity="success">
-          Account info has been updated.
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={errorOpen}
-        autoHideDuration={3000}
-        onClose={handleSnackClose}
-      >
-        <Alert onClose={handleSnackClose} severity="error">
-          Some error occurred. Please try again later.
-        </Alert>
-      </Snackbar>
+      <SnackAlert open={successOpen} onClose={handleSnackClose} severity="success" message="Account info has been updated." />
+      <SnackAlert open={errorOpen} onClose={handleSnackClose} severity="error" message="Some error occurred. Please try again later." />
     </ProtectRoute>
   );
 }
