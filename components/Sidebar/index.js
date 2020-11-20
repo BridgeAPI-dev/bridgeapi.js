@@ -49,7 +49,7 @@ function Sidebar({ events, title }) {
         <div className={classes.drawerContainer}>
           <List>
             <Link href={`/bridges/${events[0].bridge_id}`}>
-              <Typography variant="h6" align="center" className={classes.title}>{title}</Typography>
+              <Typography variant="h6" align="center" className={classes.title}>{title || 'Untitled'}</Typography>
             </Link>
             <Divider />
             {events.slice().reverse().map((evt) => {
