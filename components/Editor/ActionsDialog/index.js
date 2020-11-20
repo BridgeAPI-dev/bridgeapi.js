@@ -25,16 +25,24 @@ const useStyles = makeStyles({
   },
 });
 
-function SimpleDialog({ open, onClose, id }) {
+function ActionsDialog({
+  active, open, onClose, id,
+}) {
   const [errorOpen, setErrorOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
   const classes = useStyles();
   const router = useRouter();
 
   const handleAbort = () => {
   };
 
-  const handleActivate = async (active = false) => {
-    await api.patch(`/bridges/${id}`, { bridge: { active } }).then(() => {
+  const handleActivate = async () => {
+    await api.patch(`/bridges/${id}`, { bridge: { active: !active } }).then(() => {
+      router.push(`/bridge/${id}`);
+      setSuccessOpen(true);
+      setTimeout(() => {
+        setSuccessOpen(false);
+      }, 2500);
     }).catch(() => {
       setErrorOpen(true);
       setTimeout(() => {
@@ -56,6 +64,15 @@ function SimpleDialog({ open, onClose, id }) {
 
   return (
     <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={successOpen}
+        autoHideDuration={3000}
+      >
+        <Alert severity="success">
+          Success! Your bridge has been updated.
+        </Alert>
+      </Snackbar>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={errorOpen}
@@ -81,7 +98,7 @@ function SimpleDialog({ open, onClose, id }) {
               <PauseIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Deactivate Bridge" />
+          <ListItemText primary={`${active ? 'Deactivate' : 'Activate'} Bridge`} />
         </ListItem>
         <ListItem button onClick={handleDelete}>
           <ListItemAvatar>
@@ -96,10 +113,11 @@ function SimpleDialog({ open, onClose, id }) {
   );
 }
 
-SimpleDialog.propTypes = {
+ActionsDialog.propTypes = {
+  active: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,
 };
 
-export default SimpleDialog;
+export default ActionsDialog;

@@ -47,6 +47,7 @@ function Editor({ bridge, isEditView }) {
   // const [errMsg, setErrMsg] = useState('');
 
   const {
+    active,
     id,
     outboundUrl,
     method,
@@ -60,6 +61,7 @@ function Editor({ bridge, isEditView }) {
   const delay = String(bridge.delay);
 
   const initialValues = {
+    active,
     title,
     outboundUrl,
     method,
@@ -92,6 +94,7 @@ function Editor({ bridge, isEditView }) {
   });
 
   const generatePayload = (values) => ({
+    active: values.active,
     title: values.title,
     method: values.method,
     outbound_url: values.outboundUrl,
@@ -156,6 +159,7 @@ function Editor({ bridge, isEditView }) {
                   <Grid item sm={4} md={4} lg={4} container justify="flex-end">
                     <Grid>
                       <ActionsDialog
+                        active={active}
                         open={actionsDialogOpen}
                         onClose={() => setActionsDialogOpen(false)}
                         id={id}
@@ -215,6 +219,7 @@ export default Editor;
 Editor.defaultProps = {
   isEditView: false,
   bridge: {
+    active: true,
     title: '',
     outboundUrl: '',
     method: '',
@@ -237,6 +242,7 @@ Editor.defaultProps = {
 Editor.propTypes = {
   isEditView: PropTypes.bool,
   bridge: PropTypes.shape({
+    active: PropTypes.bool,
     id: PropTypes.number,
     title: PropTypes.string,
     outboundUrl: PropTypes.string,
