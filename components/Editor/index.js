@@ -18,6 +18,7 @@ import BridgeTestCard from './BridgeTestCard';
 import PayloadCard from './PayloadCard';
 import EnvironmentVariablesCard from './EnvironmentVariablesCard';
 import HeadersCard from './HeadersCard';
+import ActionsDialog from './ActionsDialog';
 
 import api from '../../utils/api';
 
@@ -40,6 +41,7 @@ function Editor({ bridge, isEditView }) {
   const classes = useStyles();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [actionsDialogOpen, setActionsDialogOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
   // TODO: Custom error messages
   // const [errMsg, setErrMsg] = useState('');
@@ -79,6 +81,7 @@ function Editor({ bridge, isEditView }) {
     + '  "accessPayload": "$payload.message"\n'
     + '}',
   };
+  console.log(id);
 
   const generatePayload = (values) => ({
     title: values.title,
@@ -144,7 +147,12 @@ function Editor({ bridge, isEditView }) {
                   </Grid>
                   <Grid item sm={4} md={4} lg={4} container justify="flex-end">
                     <Grid>
-                      <Button variant="outlined" color="secondary" className={classes.action}>Actions</Button>
+                      <ActionsDialog
+                        open={actionsDialogOpen}
+                        onClose={() => setActionsDialogOpen(false)}
+                        id={id}
+                      />
+                      <Button onClick={() => setActionsDialogOpen(true)} variant="outlined" color="secondary" className={classes.action}>Actions</Button>
                       <Button onClick={submitForm} variant="contained" color="secondary">Save</Button>
                     </Grid>
                   </Grid>
