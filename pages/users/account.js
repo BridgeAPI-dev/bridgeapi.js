@@ -101,11 +101,11 @@ function Account({ user }) {
       <Formik
         initialValues={initialValues}
         validate={(values) => handleValidate(values)}
-        onSubmit={(values, { setSubmitting }) =>
-          handleSubmit(values, setSubmitting)
-        }
+        onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
       >
-        {({ values, submitForm, isSubmitting, resetForm }) => (
+        {({
+          values, submitForm, isSubmitting, resetForm,
+        }) => (
           <Form>
             {isSubmitting && <LinearProgress />}
             <Container maxWidth="lg">

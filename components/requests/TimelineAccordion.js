@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import {
   Accordion,
   AccordionDetails,
-  Box,
-  Divider,
   Grid,
   makeStyles,
   Typography,

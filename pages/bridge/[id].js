@@ -1,3 +1,8 @@
+/*
+  eslint no-param-reassign:
+  ["error", { "props": true, "ignorePropertyModificationsFor": ["envVar"] }]
+*/
+
 import PropTypes from 'prop-types';
 import Editor from '../../components/Editor';
 import ProtectRoute from '../../utils/ProtectRoute';
