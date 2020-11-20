@@ -66,6 +66,6 @@ AccordionSummary.propTypes = {
     PropTypes.node,
   ]).isRequired,
   // TODO
-  tooltip: PropTypes.bool,
-  tooltipMessage: PropTypes.string,
+  tooltip: PropTypes.bool.isRequired,
+  tooltipMessage: PropTypes.string.isRequired,
 };
