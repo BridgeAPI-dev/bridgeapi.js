@@ -9,8 +9,8 @@ const useStyles = makeStyles({
   },
 });
 
-function EventStatus({ completed, responses }) {
-  const { statusCode, statusText } = responses.slice(-1)[0].headers;
+function EventStatus({ completed, outbound }) {
+  const { statusCode, statusText } = outbound.slice(-1).response;
   const classes = useStyles();
 
   if (!completed) {
@@ -21,9 +21,9 @@ function EventStatus({ completed, responses }) {
     );
   }
 
-  const severity = statusCode <= 199 && 'info'
-                 || statusCode <= 299 && 'success'
-                 || statusCode <= 399 && 'warning'
+  const severity = (statusCode <= 199 && 'info')
+                 || (statusCode <= 299 && 'success')
+                 || (statusCode <= 399 && 'warning')
                  || 'error';
 
   return (
@@ -41,5 +41,5 @@ export default EventStatus;
 
 EventStatus.propTypes = {
   completed: PropTypes.bool.isRequired,
-  responses: PropTypes.object.isRequired,
+  outbound: PropTypes.array.isRequired,
 };

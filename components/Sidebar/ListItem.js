@@ -3,6 +3,7 @@ import {
   ListItemText,
   Typography,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 function ListItem({
   date, statusCode, timestamp, completed,
@@ -23,3 +24,10 @@ function ListItem({
 }
 
 export default ListItem;
+
+ListItem.propTypes = {
+  date: PropTypes.string.isRequired,
+  statusCode: PropTypes.number.isRequired,
+  timestamp: PropTypes.string.isRequired,
+  completed: PropTypes.bool.isRequired,
+};

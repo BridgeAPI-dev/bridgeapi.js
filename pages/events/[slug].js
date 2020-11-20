@@ -28,7 +28,9 @@ function Events({
   event, sidebarEvents, title, url,
 }) {
   const classes = useStyles();
-  const pastAttempts = event.responses.length > 1;
+  const { outbound } = JSON.parse(event.data);
+  const { inbound } = JSON.parse(event.data);
+  const pastAttempts = outbound.length > 1;
 
   useEffect(() => {
     // TODO?
@@ -49,7 +51,7 @@ function Events({
 
         {/* Event timeline */}
         <Grid item container direction="column" wrap="nowrap">
-          <EventStatus completed={event.completed} responses={event.responses} />
+          <EventStatus completed={event.completed} outbound={outbound} />
           <Typography align="center" variant="body2" className={classes.microCopy} noWrap>
             Send your events here:
           </Typography>
@@ -63,13 +65,13 @@ function Events({
           </Typography>
           <Timeline>
             {/* Responses */}
-            <TimelineAccordion request={event.responses.slice(-1)[0]} />
+            <TimelineAccordion request={outbound.slice(-1).response} />
             {/* Outbounds */}
-            <TimelineAccordion request={event.outbounds.slice(-1)[0]} />
+            <TimelineAccordion request={outbound.slice(-1).request} />
             {/* Failed attempts bar */}
             { pastAttempts && <FailedAttempts event={event} />}
             {/* Inbound */}
-            <TimelineAccordion request={event.inbound} />
+            <TimelineAccordion request={inbound} />
           </Timeline>
         </Grid>
       </Grid>
@@ -96,8 +98,26 @@ export async function getServerSideProps() {
 Events.propTypes = {
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  event: PropTypes.object.isRequired,
-  sidebarEvents: PropTypes.array.isRequired,
+  event: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    bridge_id: PropTypes.number.isRequired,
+    completed: PropTypes.bool,
+    completed_at: PropTypes.string,
+    data: PropTypes.string,
+    statusCode: PropTypes.number,
+    test: PropTypes.bool,
+  }).isRequired,
+  sidebarEvents: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      bridge_id: PropTypes.number.isRequired,
+      completed: PropTypes.bool,
+      completed_at: PropTypes.string,
+      data: PropTypes.string,
+      statusCode: PropTypes.number,
+      test: PropTypes.bool,
+    }),
+  ).isRequired,
 };
 
 export default Events;

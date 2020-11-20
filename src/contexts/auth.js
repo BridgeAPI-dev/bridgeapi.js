@@ -3,6 +3,7 @@ import {
 } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
 
 import api from '../../utils/api';
 
@@ -72,3 +73,10 @@ function AuthProvider({ children }) {
 export const useAuth = () => useContext(AuthContext);
 
 export default AuthProvider;
+
+AuthProvider.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+};
