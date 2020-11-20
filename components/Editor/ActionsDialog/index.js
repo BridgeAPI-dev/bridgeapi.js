@@ -32,8 +32,17 @@ function SimpleDialog({ open, onClose, id }) {
 
   const handleAbort = () => {
   };
-  const handleDeactive = (active) => {
+
+  const handleActivate = async (active = false) => {
+    await api.patch(`/bridges/${id}`, { bridge: { active } }).then(() => {
+    }).catch(() => {
+      setErrorOpen(true);
+      setTimeout(() => {
+        setErrorOpen(false);
+      }, 2500);
+    });
   };
+
   const handleDelete = () => {
     api.delete(`/bridges/${id}`).then(() => {
       router.push('/dashboard');
@@ -44,7 +53,6 @@ function SimpleDialog({ open, onClose, id }) {
       }, 2500);
     });
   };
-
 
   return (
     <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
@@ -67,7 +75,7 @@ function SimpleDialog({ open, onClose, id }) {
           </ListItemAvatar>
           <ListItemText primary="Abort Ongoing Requests" />
         </ListItem>
-        <ListItem button onClick={handleDeactive}>
+        <ListItem button onClick={handleActivate}>
           <ListItemAvatar>
             <Avatar className={classes.avatar}>
               <PauseIcon />
@@ -94,10 +102,4 @@ SimpleDialog.propTypes = {
   id: PropTypes.number.isRequired,
 };
 
-function SimpleDialogDemo({ open, onClose, id }) {
-  return (
-    <SimpleDialog id={id} open={open} onClose={onClose} />
-  );
-}
-
-export default SimpleDialogDemo;
+export default SimpleDialog;

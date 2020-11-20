@@ -81,7 +81,6 @@ function Editor({ bridge, isEditView }) {
     + '  "accessPayload": "$payload.message"\n'
     + '}',
   };
-  console.log(id);
 
   const generatePayload = (values) => ({
     title: values.title,
