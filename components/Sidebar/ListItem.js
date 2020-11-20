@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 
 function ListItem({
-  date, statusCode, timestamp, completed,
+  completed, completedAt, statusCode,
 }) {
   return (
     <MUIListItem divider>
@@ -15,7 +15,7 @@ function ListItem({
           noWrap
           align="center"
         >
-          {completed ? `${timestamp} - ${date} ${statusCode}` : 'Ongoing' }
+          {completed ? `${completedAt} - ${statusCode}` : 'Ongoing' }
         </Typography>
       </ListItemText>
     </MUIListItem>

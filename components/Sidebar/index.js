@@ -67,14 +67,13 @@ function Sidebar({ events, title }) {
               ? (
                 <Loader />
               ) : (
-                events.slice().reverse().map((evt) => {
-                  const { date, statusCode, time } = evt.responses.slice(-1)[0].headers;
+                events.map((event) => {
+                  const { completed, completedAt, statusCode } = event;
                   return (
                     <ListItem
-                      date={date}
                       statusCode={statusCode}
-                      timestamp={time}
-                      completed={evt.completed}
+                      completedAt={completedAt}
+                      completed={completed}
                     />
                   );
                 })
