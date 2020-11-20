@@ -49,7 +49,7 @@ export default function Navbar() {
       <AppBar position="fixed" className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
           <Link href="/">
-            <img src={logo} width={150} />
+            <img src={logo} width={150} alt="BridgeAPI logo depicting an arch bridge" />
           </Link>
 
           <Grid container justify="flex-end">

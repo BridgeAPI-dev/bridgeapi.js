@@ -68,17 +68,30 @@ function Editor({ bridge, isEditView }) {
     // The code editors will set these vars in it's useEffect hook.
     // However, if a user types faster than the useEffect loads,
     // these won't be set thus backend validation will fail.
-    payloadCode: data.payload || '{\n'
-    + '  "hello": "world",\n'
-    + '  "acessEnvVars": "$env.MY_KEY",\n'
-    + '  "accessPayload": "$payload.message"\n'
-    + '}',
-    testPayloadCode: data.testPayload || '{\n'
-    + '  "hello": "world",\n'
-    + '  "acessEnvVars": "$env.MY_KEY",\n'
-    + '  "accessPayload": "$payload.message"\n'
-    + '}',
+    payloadCode:
+      data.payload
+      || '{\n'
+        + '  "hello": "world",\n'
+        + '  "acessEnvVars": "$env.MY_KEY",\n'
+        + '  "accessPayload": "$payload.message"\n'
+        + '}',
+    testPayloadCode:
+      data.testPayload
+      || '{\n'
+        + '  "hello": "world",\n'
+        + '  "acessEnvVars": "$env.MY_KEY",\n'
+        + '  "accessPayload": "$payload.message"\n'
+        + '}',
   };
+
+  const cleanEnvironmentVariables = (values) => values.environmentVariables.map((envVar) => {
+    const cleanedEnvVar = { ...envVar };
+    if (envVar.id && envVar.value === 'XXXX-XXX-XXXX') {
+      delete cleanedEnvVar.value;
+    }
+
+    return cleanedEnvVar;
+  });
 
   const generatePayload = (values) => ({
     title: values.title,
@@ -87,7 +100,7 @@ function Editor({ bridge, isEditView }) {
     retries: values.retries,
     delay: values.delay,
     headers_attributes: values.headers,
-    environment_variables_attributes: values.environmentVariables,
+    environment_variables_attributes: cleanEnvironmentVariables(values),
     data: {
       payload: values.payloadCode,
       test_payload: values.testPayloadCode,
@@ -95,7 +108,8 @@ function Editor({ bridge, isEditView }) {
   });
 
   const handleSubmit = async (values, setSubmitting) => {
-    if (id) { // POST if new bridge, otherwise PATCH
+    if (id) {
+      // POST if new bridge, otherwise PATCH
       await api
         .patch(`/bridges/${id}`, generatePayload(values))
         .catch(() => setErrorOpen(true));
@@ -138,14 +152,33 @@ function Editor({ bridge, isEditView }) {
                 <Grid container>
                   <Grid item sm={8} md={8} lg={8} container justify="flex-end">
                     <Grid>
-                      <Typography variant="subtitle2" className={classes.textCenter}>Send your events here</Typography>
-                      <Typography variant="h6">https://bridgeapi.dev/b13923/inbound</Typography>
+                      <Typography
+                        variant="subtitle2"
+                        className={classes.textCenter}
+                      >
+                        Send your events here
+                      </Typography>
+                      <Typography variant="h6">
+                        https://bridgeapi.dev/b13923/inbound
+                      </Typography>
                     </Grid>
                   </Grid>
                   <Grid item sm={4} md={4} lg={4} container justify="flex-end">
                     <Grid>
-                      <Button variant="outlined" color="secondary" className={classes.action}>Actions</Button>
-                      <Button onClick={submitForm} variant="contained" color="secondary">Save</Button>
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        className={classes.action}
+                      >
+                        Actions
+                      </Button>
+                      <Button
+                        onClick={submitForm}
+                        variant="contained"
+                        color="secondary"
+                      >
+                        Save
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -155,16 +188,11 @@ function Editor({ bridge, isEditView }) {
                   outboundUrl={values.outboundUrl}
                   title={values.title}
                 />
-                <EnvironmentVariablesCard environmentVariables={values.environmentVariables} />
-                <PayloadCard
-                  isEditView={isEditView}
-                  values={values}
+                <EnvironmentVariablesCard
+                  environmentVariables={values.environmentVariables}
                 />
-                <BridgeTestCard
-                  isEditView={isEditView}
-                  values={values}
-                />
-
+                <PayloadCard isEditView={isEditView} values={values} />
+                <BridgeTestCard isEditView={isEditView} values={values} />
               </Form>
             )}
           </Formik>
@@ -205,10 +233,10 @@ Editor.defaultProps = {
     retries: '',
     delay: '',
     headers: [
-    // { key: '', value: '' },
+      // { key: '', value: '' },
     ],
     environmentVariables: [
-    // { key: '', value: '' },
+      // { key: '', value: '' },
     ],
     events: [],
     data: {
@@ -239,7 +267,17 @@ Editor.propTypes = {
         value: PropTypes.string,
       }),
     ),
-    events: PropTypes.array,
+    events: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        bridge_id: PropTypes.number.isRequired,
+        completed: PropTypes.bool,
+        completed_at: PropTypes.string,
+        data: PropTypes.string,
+        statusCode: PropTypes.number,
+        test: PropTypes.bool,
+      }),
+    ),
     data: PropTypes.shape({
       payload: PropTypes.string,
       testPayload: PropTypes.string,

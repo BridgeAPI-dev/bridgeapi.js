@@ -1,0 +1,27 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - 'master'
+  schedule:
+    - cron: '0 21 * * *'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: npm i
+    - name: Run ESLint
+      run: npx eslint . --ext .js,.jsx,.ts,.tsx
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: npm i
+    - name: Run Cypress
+      run: npx cypress run

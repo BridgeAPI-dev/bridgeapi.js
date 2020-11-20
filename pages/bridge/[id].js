@@ -1,3 +1,8 @@
+/*
+  eslint no-param-reassign:
+  ["error", { "props": true, "ignorePropertyModificationsFor": ["envVar"] }]
+*/
+
 import PropTypes from 'prop-types';
 import Editor from '../../components/Editor';
 import ProtectRoute from '../../utils/ProtectRoute';
@@ -22,9 +27,15 @@ export async function getServerSideProps(context) {
   const res = await fetchDataOrRedirect(context, `/bridges/${context.query.id}`);
   if (!res) return { props: {} }; // Redirecting to /users/login
 
+  const bridge = toCamel(res.data.bridge);
+  bridge.environmentVariables.forEach((envVar) => {
+    // If you change this 'XXXX-XXX-XXXX', make sure to update PayloadCard#generatePayload
+    envVar.value = 'XXXX-XXX-XXXX';
+  });
+
   return {
     props: {
-      bridge: toCamel(res.data.bridge),
+      bridge,
     },
   };
 }
