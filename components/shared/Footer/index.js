@@ -26,7 +26,7 @@ function Footer() {
     <Container className={classes.root}>
       <Grid container spacing={3} className={classes.mainGrid}>
         <Link href="/">
-          <img src={logo} width={150} />
+          <img src={logo} width={150} alt="BridgeAPI logo of a bridge" />
         </Link>
 
         <Grid container item spacing={3} justify="center">
@@ -57,7 +57,11 @@ function Footer() {
 
         <Grid container item spacing={3} justify="center">
           <Typography variant="subtitle1" className={classes['mt-2']}>
-            Made with ❤️ by WAA
+            Made with
+            {' '}
+            <span role="img" aria-label="heart icon">❤️</span>
+            {' '}
+            by WAA
           </Typography>
         </Grid>
       </Grid>
