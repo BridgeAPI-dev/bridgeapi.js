@@ -1,8 +1,7 @@
 // formats ruby timestamps to a date and time string
-// ruby timestamp format: "2020-11-19T16:44:53.702Z";
+// ruby timestamp format: "2020-11-19 16:44:53";
 function formatDate(timeStamp) {
-  const date = timeStamp.split(' ')[0];
-  const time = timeStamp.split(' ')[1].split('.')[0];
+  const [date, time] = timeStamp.split(' ');
   return { date, time };
 }
 
