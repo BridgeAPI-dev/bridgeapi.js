@@ -63,8 +63,10 @@ export default function Navbar() {
   };
 
   const menuUseEffect = () => {
+    let cancelled = false;
     const getBridges = async () => {
       // await axios.get('http://localhost:3001/bridges')
+      // if (!cancelled)
       //   .then((res) => {
       //     setBridges(res.data);
       //   });
@@ -76,6 +78,8 @@ export default function Navbar() {
     };
 
     getBridges();
+    // eslint-disable-next-line no-unused-vars
+    return () => { cancelled = true; };
   };
 
   // Determine the width of the 'Dashboard' link &

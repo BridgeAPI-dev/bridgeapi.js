@@ -16,14 +16,16 @@ function AuthProvider({ children }) {
   // Helper function that enables us to fire off requests without
   // having the set the header token each time.
   useEffect(() => {
+    let userLoaded = false;
     async function loadUserFromCookies() {
       const token = Cookies.get('token');
-      if (token) {
+      if (!userLoaded && token) {
         api.defaults.headers['BRIDGE-JWT'] = token;
       }
     }
 
     loadUserFromCookies();
+    return () => { userLoaded = true; };
   }, []);
 
   // Fires off an api request to fetch the JWT.

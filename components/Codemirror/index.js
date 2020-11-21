@@ -104,10 +104,13 @@ function CodeMirror({
   };
 
   useEffect(() => {
+    let loaded = false; // TODO use loaded in the fetch call
     if (!mounted) {
       // Make async - Prevent blocking the main thread
       setTimeout(loadCodeMirrorAssets, 0);
     }
+    // eslint-disable-next-line no-unused-vars
+    return () => { loaded = true; };
   }, []);
 
   return (
