@@ -37,7 +37,7 @@ function ActionsDialog({
   };
 
   const handleActivate = async () => {
-    await api.patch(`/bridges/${id}`, { bridge: { active: !active } }).then(() => {
+    await api.patch(`/bridges/${id}/${active ? 'deactivate' : 'activate'}`).then(() => {
       router.push(`/bridge/${id}`);
       setSuccessOpen(true);
       setTimeout(() => {
