@@ -59,9 +59,9 @@ function Card({ bridge }) {
           </Grid>
 
           <Grid item xs container direction="column" className={classes.values}>
-            <Typography variant="subtitle1">{bridge.lastRequest}</Typography>
-            <Typography variant="subtitle1">{bridge.updatedAt}</Typography>
-            <Typography variant="subtitle1">{bridge.requests}</Typography>
+            <Typography variant="subtitle1">{bridge.lastRequest || 'No requests'}</Typography>
+            <Typography variant="subtitle1">{(new Date(bridge.updatedAt)).toDateString()}</Typography>
+            <Typography variant="subtitle1">{bridge.requests || '0'}</Typography>
           </Grid>
         </Grid>
 
@@ -90,7 +90,7 @@ Card.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
-    lastRequest: PropTypes.string.isRequired,
-    requests: PropTypes.string.isRequired,
+    lastRequest: PropTypes.string,
+    requests: PropTypes.string,
   }).isRequired,
 };
