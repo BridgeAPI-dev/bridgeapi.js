@@ -60,7 +60,10 @@ function Card({ bridge }) {
 
           <Grid item xs container direction="column" className={classes.values}>
             <Typography variant="subtitle1">{bridge.lastRequest || 'No requests'}</Typography>
-            <Typography variant="subtitle1">{(new Date(bridge.updatedAt)).toDateString()}</Typography>
+            <Typography variant="subtitle1">
+              {(new Date(bridge.updatedAt)).toUTCString().split(' ').slice(1, 4)
+                .join(' ')}
+            </Typography>
             <Typography variant="subtitle1">{bridge.requests || '0'}</Typography>
           </Grid>
         </Grid>
