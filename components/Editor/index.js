@@ -4,9 +4,7 @@ import {
   Button,
   makeStyles,
   Grid,
-  Snackbar,
 } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import { useRouter } from 'next/router';
@@ -20,6 +18,7 @@ import EnvironmentVariablesCard from './EnvironmentVariablesCard';
 import HeadersCard from './HeadersCard';
 
 import api from '../../utils/api';
+import SnackAlert from '../shared/alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -198,26 +197,8 @@ function Editor({ bridge, isEditView }) {
           </Formik>
         </Grid>
       </Grid>
-      <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      >
-        <Alert onClose={handleClose} severity="success">
-          Bridge has been saved.
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={errorOpen}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      >
-        <Alert onClose={handleClose} severity="error">
-          Some error has occured. Please try again.
-        </Alert>
-      </Snackbar>
+      <SnackAlert open={open} onClose={handleClose} severity="success" message="Bridge has been saved." />
+      <SnackAlert open={errorOpen} onClose={handleClose} severity="error" message="Some error has occured. Please try again." />
     </>
   );
 }
