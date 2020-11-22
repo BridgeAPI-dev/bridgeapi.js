@@ -16,6 +16,7 @@ import BridgeTestCard from './BridgeTestCard';
 import PayloadCard from './PayloadCard';
 import EnvironmentVariablesCard from './EnvironmentVariablesCard';
 import HeadersCard from './HeadersCard';
+import ActionsDialog from './ActionsDialog';
 
 import api from '../../utils/api';
 import SnackAlert from '../shared/alert';
@@ -39,11 +40,13 @@ function Editor({ bridge, isEditView }) {
   const classes = useStyles();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [actionsDialogOpen, setActionsDialogOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
   // TODO: Custom error messages
   // const [errMsg, setErrMsg] = useState('');
 
   const {
+    active,
     id,
     outboundUrl,
     method,
@@ -57,6 +60,7 @@ function Editor({ bridge, isEditView }) {
   const delay = String(bridge.delay);
 
   const initialValues = {
+    active,
     title,
     outboundUrl,
     method,
@@ -93,6 +97,7 @@ function Editor({ bridge, isEditView }) {
   });
 
   const generatePayload = (values) => ({
+    active: values.active,
     title: values.title,
     method: values.method,
     outbound_url: values.outboundUrl,
@@ -164,20 +169,14 @@ function Editor({ bridge, isEditView }) {
                   </Grid>
                   <Grid item sm={4} md={4} lg={4} container justify="flex-end">
                     <Grid>
-                      <Button
-                        variant="outlined"
-                        color="secondary"
-                        className={classes.action}
-                      >
-                        Actions
-                      </Button>
-                      <Button
-                        onClick={submitForm}
-                        variant="contained"
-                        color="secondary"
-                      >
-                        Save
-                      </Button>
+                      <ActionsDialog
+                        active={active}
+                        open={actionsDialogOpen}
+                        onClose={() => setActionsDialogOpen(false)}
+                        id={id}
+                      />
+                      <Button onClick={() => setActionsDialogOpen(true)} variant="outlined" color="secondary" className={classes.action}>Actions</Button>
+                      <Button onClick={submitForm} variant="contained" color="secondary">Save</Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -208,6 +207,7 @@ export default Editor;
 Editor.defaultProps = {
   isEditView: false,
   bridge: {
+    active: true,
     title: '',
     outboundUrl: '',
     method: '',
@@ -230,6 +230,7 @@ Editor.defaultProps = {
 Editor.propTypes = {
   isEditView: PropTypes.bool,
   bridge: PropTypes.shape({
+    active: PropTypes.bool,
     id: PropTypes.number,
     title: PropTypes.string,
     outboundUrl: PropTypes.string,
