@@ -2,8 +2,8 @@ import Axios from 'axios';
 
 const urls = {
   test: 'http://localhost:3001',
-  development: 'http://bridgeapi-production.us-east-2.elasticbeanstalk.com',
-  production: 'http://bridgeapi-production.us-east-2.elasticbeanstalk.com',
+  development: 'http://localhost:3001',
+  production: 'http://localhost:3001',
 };
 const api = Axios.create({
   baseURL: urls[process.env.NODE_ENV],
