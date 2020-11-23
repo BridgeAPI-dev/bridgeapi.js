@@ -15,7 +15,6 @@ function EventStatus({ completed, outbound, eventId }) {
   const { statusCode, statusText } = outbound.slice(-1).response;
   const classes = useStyles();
   const [aborted, setAborted] = useState(false);
-  const [abortButton, setAbortButton] = useState(!completed);
 
   if (!completed) {
     return (
@@ -23,12 +22,11 @@ function EventStatus({ completed, outbound, eventId }) {
         <Alert severity="info">
           { aborted ? 'Aborted' : 'Ongoing' }
         </Alert>
-        { abortButton
+        { !aborted
         && (
         <Button onClick={
           async () => api.get('/events/abort', { id: eventId })
             .then(setAborted(true))
-            .then(setAbortButton(false))
             .catch(() => {})
 }
         >
