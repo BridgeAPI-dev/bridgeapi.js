@@ -48,7 +48,7 @@ function Sidebar({ events, title }) {
         <Toolbar className={classes.toolbar} />
         <div className={classes.drawerContainer}>
           <List>
-            <Link href={`/bridges/${events[0].bridge_id}`}>
+            <Link href={`/bridges/${events[0] ? events[0].bridge_id : 'new'}`}>
               <Typography variant="h6" align="center" className={classes.title}>{title || 'Untitled'}</Typography>
             </Link>
             <Divider />
