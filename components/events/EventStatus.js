@@ -1,7 +1,9 @@
 /* eslint-disable react/forbid-prop-types */
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Alert } from '@material-ui/lab';
+import { Alert, Button } from '@material-ui/lab';
+import api from '../../utils/api';
 
 const useStyles = makeStyles({
   mb: {
@@ -9,15 +11,31 @@ const useStyles = makeStyles({
   },
 });
 
-function EventStatus({ completed, outbound }) {
+function EventStatus({ completed, outbound, eventId }) {
   const { statusCode, statusText } = outbound.slice(-1).response;
   const classes = useStyles();
+  const [aborted, setAborted] = useState(false);
+  const [abortButton, setAbortButton] = useState(!completed);
 
   if (!completed) {
     return (
-      <Alert severity="info">
-        Ongoing
-      </Alert>
+      <>
+        <Alert severity="info">
+          { aborted ? 'Aborted' : 'Ongoing' }
+        </Alert>
+        { abortButton
+        && (
+        <Button onClick={
+          async () => api.get('/events/abort', { id: eventId })
+            .then(setAborted(true))
+            .then(setAbortButton(false))
+            .catch(() => {})
+}
+        >
+          Abort events
+        </Button>
+        )}
+      </>
     );
   }
 
@@ -42,4 +60,5 @@ export default EventStatus;
 EventStatus.propTypes = {
   completed: PropTypes.bool.isRequired,
   outbound: PropTypes.array.isRequired,
+  eventId: PropTypes.number.isRequired,
 };

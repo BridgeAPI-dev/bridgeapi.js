@@ -51,7 +51,7 @@ function Events({
 
         {/* Event timeline */}
         <Grid item container direction="column" wrap="nowrap">
-          <EventStatus completed={event.completed} outbound={outbound} />
+          <EventStatus completed={event.completed} outbound={outbound} eventId={event.id} />
           <Typography align="center" variant="body2" className={classes.microCopy} noWrap>
             Send your events here:
           </Typography>

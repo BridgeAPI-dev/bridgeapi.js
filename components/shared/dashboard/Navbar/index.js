@@ -9,6 +9,7 @@ import { FaPlus, FaArrowDown } from 'react-icons/fa';
 import { AccountCircle } from '@material-ui/icons';
 import Menu from './Menu';
 import { useAuth } from '../../../../src/contexts/auth';
+import api from '../../../../utils/api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
