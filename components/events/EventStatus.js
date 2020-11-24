@@ -1,8 +1,8 @@
 /* eslint-disable react/forbid-prop-types */
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import { Alert, Button } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 import api from '../../utils/api';
 
 const useStyles = makeStyles({
