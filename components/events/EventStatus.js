@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { Alert, Button } from '@material-ui/lab';
@@ -21,20 +21,12 @@ function EventStatus({ completed, outbound, eventId }) {
   || (statusCode <= 399 && 'warning')
   || 'error';
 
-  useEffect(() => {
-    const handleAbort = async () => { await api.patch('/events/abort', { id: eventId }); };
-    let cancelled = false;
+  const handleAbort = async () => {
     setAborting(true);
-    handleAbort()
-      .then(() => {
-        if (!cancelled) {
-          setAborted(true);
-          cancelled = true;
-        }
-      })
-      .catch(() => {});
-    return () => { cancelled = true; };
-  }, [aborted]);
+    await api.patch('/events/abort', { id: eventId });
+    setAborting(false);
+    setAborted(true);
+  };
 
   if (!completed) {
     return (
@@ -44,7 +36,7 @@ function EventStatus({ completed, outbound, eventId }) {
         </Alert>
         { !aborted
         && (
-        <Button onClick={setAborted(true)}>
+        <Button onClick={handleAbort}>
           {aborting ? 'aborting...' : 'Abort events'}
         </Button>
         )}
