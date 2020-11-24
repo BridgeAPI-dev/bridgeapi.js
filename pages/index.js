@@ -75,7 +75,7 @@ export default function Home() {
           </Grid>
           <Grid container item xs={12} alignItems="center" direction="column">
             <Typography variant="subtitle1">
-              Maybe a 2 x 2 grid with some icons and light text on the right side
+              Maybe a 2 x 2 grid with some icons and light text on the right side.
             </Typography>
             <Typography variant="subtitle1">
               dont ask me what to do for this box. I am out of ideas.
