@@ -58,6 +58,7 @@ export default Dashboard;
 
 export async function getServerSideProps(context) {
   const res = await fetchDataOrRedirect(context, '/bridges');
+  console.log(res);
   if (!res) return { props: {} }; // Redirecting to /users/login
 
   return {

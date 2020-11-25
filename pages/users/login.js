@@ -1,3 +1,4 @@
+// TODO: Change to snackbar
 import { useState } from 'react';
 import {
   Container,
@@ -67,7 +68,21 @@ function Login() {
 
     if (await login(values.email, values.password)) {
       setFormMessage('Success: Logging in. Please wait.');
-      router.push('/dashboard');
+      // router.push('/dashboard');
+      //
+      // TODO: Nextjs doesn't support Server side redirects
+      // with client side router pushes. If we push to dashboard,
+      // then dashboards `getServerSideProps` returns 4XX, the app
+      // will crash with error:
+      // Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+      //
+      // To remedy this, I believe it would be best to get rid of
+      // the ssrRedirect protection and rely on the client side
+      // protection.
+      //
+      // window.location causes a full refresh which solves the issue.
+      debugger;
+      window.location.pathname = '/dashboard';
     } else {
       setFormMessage('Error: Email or password is invalid');
       setSubmitting(false);
@@ -92,6 +107,7 @@ function Login() {
             initialValues={initialValues}
             validate={(values) => handleValidate(values)}
             onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
+            id="form"
           >
             {({
               submitForm, isSubmitting, values,
@@ -107,6 +123,7 @@ function Login() {
                       label="Email"
                       value={values.email}
                       style={{ marginBottom: '25px', width: '100%' }}
+                      id="email-input"
                     />
                     <Field
                       component={TextField}
@@ -116,6 +133,7 @@ function Login() {
                       name="password"
                       style={{ width: '100%' }}
                       value={values.password}
+                      id="password-input"
                     />
                   </Grid>
                 </Grid>

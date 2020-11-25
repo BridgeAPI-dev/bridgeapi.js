@@ -59,7 +59,7 @@ describe('Sign Up', () => {
 
     cy.get('.MuiAlert-message').contains('Account has been created. Redirecting...');
     cy.location().should((location) => {
-      expect(location.href).to.eq('http://localhost:3000/bridge/new');
+      expect(location.pathname).to.eq('/bridge/new');
     });
   });
 
@@ -70,7 +70,7 @@ describe('Sign Up', () => {
 
     cy.get('.MuiAlert-message').contains('Some error occurred. Please try again.');
     cy.location().should((location) => {
-      expect(location.href).to.eq('http://localhost:3000/users/signup');
+      expect(location.pathname).to.eq('/users/signup');
     });
   });
 
@@ -80,9 +80,8 @@ describe('Sign Up', () => {
     inputFields();
     submit();
 
-    cy.get('.MuiAlert-message').contains('Account has been created. Redirecting...');
     cy.location().should((location) => {
-      expect(location.href).to.eq('http://localhost:3000/users/login');
+      expect(location.pathname).to.eq('/users/login');
     });
   });
 });
