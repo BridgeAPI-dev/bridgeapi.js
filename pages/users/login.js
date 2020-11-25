@@ -15,6 +15,7 @@ import { TextField } from 'formik-material-ui';
 
 import emailValidator from '../../utils/emailValidator';
 import { useAuth } from '../../src/contexts/auth';
+import SnackAlert from '../../components/shared/SnackAlert';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -43,6 +44,8 @@ function Login() {
   const classes = useStyles();
   const router = useRouter();
   const [formMessage, setFormMessage] = useState('');
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const initialValues = {
     email: '',
@@ -66,12 +69,21 @@ function Login() {
     setFormMessage('');
 
     if (await login(values.email, values.password)) {
-      setFormMessage('Success: Logging in. Please wait.');
+      setSuccessOpen(true);
       router.push('/dashboard');
     } else {
-      setFormMessage('Error: Email or password is invalid');
+      setErrorOpen(true);
       setSubmitting(false);
     }
+  };
+
+  const handleSnackClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSuccessOpen(false);
+    setErrorOpen(false);
   };
 
   return (
@@ -149,6 +161,8 @@ function Login() {
 
         </Container>
       </Paper>
+      <SnackAlert open={successOpen} onClose={handleSnackClose} severity="success" message="Success: Logging in. Please wait." />
+      <SnackAlert open={errorOpen} onClose={handleSnackClose} severity="error" message="Error: Email or password is invalid" />
     </Grid>
   );
 }
