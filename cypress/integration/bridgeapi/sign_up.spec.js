@@ -1,54 +1,34 @@
 /// <reference types="cypress" />
 
 const stubSuccessSignUp = () => {
-  cy.server();
-  cy.route({
-    url: '/user',
-    method: 'POST',
-    status: 201,
-    response: {
-      user: {
-        email: 'demo@demo.com',
-        notifications: false,
-      },
+  const response = {
+    user: {
+      email: 'demo@demo.com',
+      notifications: false,
     },
-  });
+  };
+  cy.stubRequest('/user', 'POST', 201, response);
 };
 
 const stubFailSignUp = () => {
-  cy.server();
-  cy.route({
-    url: '/user',
-    method: 'POST',
-    status: 422,
-    response: {
-      error: 'email or password is invalid',
-    },
-  });
+  const response = {
+    error: 'email or password is invalid',
+  };
+  cy.stubRequest('/user', 'POST', 422, response);
 };
 
 const stubSuccessLogin = () => {
-  cy.server();
-  cy.route({
-    url: '/login',
-    method: 'POST',
-    status: 201,
-    response: {
-      token: '123984790182347',
-    },
-  });
+  const response = {
+    token: '123984790182347',
+  };
+  cy.stubRequest('/login', 'POST', 201, response);
 };
 
 const stubFailLogin = () => {
-  cy.server();
-  cy.route({
-    url: '/login',
-    method: 'POST',
-    status: 422,
-    response: {
-      token: '123984790182347',
-    },
-  });
+  const response = {
+    token: '123984790182347',
+  };
+  cy.stubRequest('/login', 'POST', 422, response);
 };
 
 const inputFields = () => {
