@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "cypress:open": "cypress open"
+    "cypress:open": "cypress open",
+    "start-test-server": "next build && next start",
+    "cy:run": "cypress run",
+    "test": "start-server-and-test start-test-server http://localhost:3000 cy:run"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -34,9 +37,11 @@
     "cypress": "^5.6.0",
     "eslint": "^7.12.0",
     "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "start-server-and-test": "^1.11.6"
   }
 }

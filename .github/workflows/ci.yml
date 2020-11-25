@@ -24,4 +24,4 @@ jobs:
     - name: Install modules
       run: npm i
     - name: Run Cypress
-      run: npx cypress run
+      run: npm run test
