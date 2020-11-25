@@ -51,7 +51,12 @@ function Events({
 
         {/* Event timeline */}
         <Grid item container direction="column" wrap="nowrap">
-          <EventStatus completed={event.completed} outbound={outbound} eventId={event.id} />
+          <EventStatus
+            eventCompleted={event.completed}
+            eventAborted={event.aborted}
+            outbound={outbound}
+            eventId={event.id}
+          />
           <Typography align="center" variant="body2" className={classes.microCopy} noWrap>
             Send your events here:
           </Typography>
@@ -99,6 +104,7 @@ Events.propTypes = {
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   event: PropTypes.shape({
+    aborted: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
     bridge_id: PropTypes.number.isRequired,
     completed: PropTypes.bool,

@@ -11,35 +11,43 @@ const useStyles = makeStyles({
   },
 });
 
-function EventStatus({ completed, outbound, eventId }) {
+function EventStatus({
+  eventCompleted, eventAborted, outbound, eventId,
+}) {
   const { statusCode, statusText } = outbound.slice(-1).response;
   const classes = useStyles();
-  const [aborted, setAborted] = useState(false);
-  const [aborting, setAborting] = useState(false);
+  const [completed, setCompleted] = useState(eventCompleted);
+  const [buttonDisable, setButtonDisable] = useState(false);
   const severity = (statusCode <= 199 && 'info')
   || (statusCode <= 299 && 'success')
   || (statusCode <= 399 && 'warning')
   || 'error';
 
   const handleAbort = async () => {
-    setAborting(true);
-    await api.patch('/events/abort', { id: eventId });
-    setAborting(false);
-    setAborted(true);
+    setButtonDisable(true);
+    await api.patch(`/events/${eventId}/abort`);
+    setCompleted(true);
   };
 
   if (!completed) {
     return (
       <>
         <Alert severity="info">
-          { aborted ? 'Aborted' : 'Ongoing' }
+          Ongoing
         </Alert>
-        { !aborted
-        && (
-        <Button onClick={handleAbort}>
-          {aborting ? 'aborting...' : 'Abort events'}
+        <Button onClick={handleAbort} disable={buttonDisable}>
+          Abort event
         </Button>
-        )}
+      </>
+    );
+  }
+
+  if (eventAborted) {
+    return (
+      <>
+        <Alert severity={severity} className={classes.mb}>
+          Aborted
+        </Alert>
       </>
     );
   }
@@ -58,7 +66,8 @@ function EventStatus({ completed, outbound, eventId }) {
 export default EventStatus;
 
 EventStatus.propTypes = {
-  completed: PropTypes.bool.isRequired,
+  eventAborted: PropTypes.bool.isRequired,
+  eventCompleted: PropTypes.bool.isRequired,
   outbound: PropTypes.array.isRequired,
   eventId: PropTypes.number.isRequired,
 };
