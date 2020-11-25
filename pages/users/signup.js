@@ -77,7 +77,7 @@ function Signup() {
   const { login } = useAuth();
 
   const handleSubmit = async (values, setSubmitting) => {
-    await api.post('/users', {
+    await api.post('/user', {
       user: {
         email: values.email,
         password: values.password,
@@ -171,7 +171,7 @@ function Signup() {
               </Form>
             )}
           </Formik>
-          <Link href="/user/login">
+          <Link href="/users/login">
             <Typography className={classes.login}>
               Already have an account?
             </Typography>
