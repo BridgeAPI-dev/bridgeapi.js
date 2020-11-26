@@ -34,6 +34,8 @@
     "typeface-open-sans": "^1.1.13"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.8.5",
+    "babel-plugin-istanbul": "^6.0.0",
     "cypress": "^6.0.0",
     "eslint": "^7.12.0",
     "eslint-config-airbnb": "^18.2.0",
@@ -42,7 +44,9 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "istanbul-lib-coverage": "^3.0.0",
     "msw": "^0.22.3",
+    "nyc": "^15.1.0",
     "start-server-and-test": "^1.11.6"
   }
 }
