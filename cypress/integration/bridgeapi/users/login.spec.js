@@ -46,19 +46,19 @@ describe('Login', () => {
 
     // TODO: Test snackbar
     // cy.get('.MuiAlert-message').contains('Account has been created. Redirecting...');
-    cy.location({ timeout: 10000 }).should((location) => {
+    cy.location().should((location) => {
       expect(location.pathname).to.eq('/dashboard');
     });
   });
 
-  // it('can handle failed login', () => {
-  //   stubFailLogin();
-  //   inputFields();
-  //   submit();
+  it('can handle failed login', () => {
+    stubFailLogin();
+    inputFields();
+    submit();
 
-  //   // cy.get('.MuiAlert-message').contains('Some error occurred. Please try again.');
-  //   cy.location().should((location) => {
-  //     expect(location.pathname).to.eq('/users/login');
-  //   });
-  // });
+    // cy.get('.MuiAlert-message').contains('Some error occurred. Please try again.');
+    cy.location().should((location) => {
+      expect(location.pathname).to.eq('/users/login');
+    });
+  });
 });
