@@ -33,3 +33,18 @@ export const inputLoginFields = (email, pw) => {
 export const submit = () => {
   cy.get('form').submit();
 };
+
+export const inputTitle = (title) => {
+  const input = title || 'Bridge Title';
+  cy.get('#title').type(input).should('have.value', input);
+};
+
+export const inputOutboundUrl = (url) => {
+  const input = url || 'Outbound URL';
+  cy.get('#outboundUrl').type(input).should('have.value', input);
+};
+
+export const inputMethod = (methodName) => {
+  const input = methodName || 'Method';
+  cy.get('#outboundUrl').type(input).should('have.value', input);
+};

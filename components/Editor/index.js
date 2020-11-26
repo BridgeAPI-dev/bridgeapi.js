@@ -150,6 +150,7 @@ function Editor({ bridge, isEditView }) {
             validateOnChange={false}
             validateOnBlur={false}
             className={classes.root}
+            id="form"
           >
             {({ values, submitForm }) => (
               <Form className={classes.form}>

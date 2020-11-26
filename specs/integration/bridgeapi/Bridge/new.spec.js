@@ -1,15 +1,3 @@
-const stubCreateSuccessBridge = () => {
-  cy.stubRequest('/bridge', 'POST', 201, whateverYouWantReturned)
-}
+import { stubCreateSuccessfullBridge, stubCreateFailedBridge } from '../../support/utils/stubs';
 
-const stubFailCreateBridge = () => {
-  cy.stubRequest('/bridge', 'POST', 400, )
-}
-
-const stubUpdateSuccessBridge = () => {
-  cy.stubRequest('/bridge', 'PATCH', 200, whateverYouWantReturned)
-}
-
-const stubFailUpdateBridge = () => {
-  cy.stubRequest('/bridge', 'PATCH', )
-}
+import {inputTitle, inputOutboundUrl, inputMethod, inputRetries, inputDelay, inputKey, inputValue}

@@ -47,6 +47,7 @@ function MethodDropdown() {
         validate={validateMethod}
         label="Method"
         className={classes.dropDown}
+        id="method"
       >
         {methods.map((method) => (
           <MenuItem key={method} value={method}>{method}</MenuItem>
