@@ -38,7 +38,7 @@ export const stubSuccessfullCreateBridge = () => {
 
 export const stubFailedCreateBridge = () => {
   const response = {
-    error: 'random error message',
+    error: 'Some error has occurred. Please try again.',
   };
   cy.stubRequest('/bridges', 'POST', 400, response);
 };
