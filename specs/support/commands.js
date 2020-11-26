@@ -29,3 +29,11 @@ Cypress.Commands.add('stubRequest', (endpoint, method, statusCode, body) => {
     body,
   });
 });
+
+Cypress.Commands.add('setToken', () => {
+  cy.setCookie('token', 'goodToken');
+});
+
+Cypress.Commands.add('setBadToken', () => {
+  cy.setCookie('token', 'badToken');
+});

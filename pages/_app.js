@@ -12,9 +12,9 @@ import AuthProvider from '../src/contexts/auth';
 // If TEST_ENV is truthy, include mocks in the build.
 // This is strictly for testing. Can't do NODE_ENV as
 // `next build` overwrites NODE_ENV with production.
-if (process.env.TEST_ENV) {
+if (process.env.NEXT_PUBLIC_TEST_ENV) {
   // eslint-disable-next-line global-require
-  require('../mocks');
+  require('../specs/support/mocks');
 }
 
 export default function MyApp(props) {
