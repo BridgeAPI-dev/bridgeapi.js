@@ -30,10 +30,10 @@ function Dashboard({ bridges }) {
       <div className={classes.root}>
         <Navbar />
         <Container maxWidth="lg">
-          <Grid container spacing={2}>
+          <Grid container spacing={2} id="dashboard-card-container">
 
             {bridges && bridges.length > 0
-              ? (bridges.map((bridge) => <Card bridge={bridge} key={bridge} />))
+              ? (bridges.map((bridge, idx) => <Card bridge={bridge} key={bridge} index={idx} />))
               : (
                 <Grid item xs={12}>
                   <Typography
@@ -58,9 +58,9 @@ export default Dashboard;
 
 export async function getServerSideProps(context) {
   const res = await fetchDataOrRedirect(context, '/bridges');
-
   if (!res) return { props: {} }; // Redirecting to /users/login
 
+  console.log(res.data.bridges);
   return {
     props: {
       bridges: toCamel(res.data.bridges),
