@@ -71,7 +71,7 @@ function PayloadCard({ isEditView, values }) {
           </Accordion>
 
           <Typography>Edit outbound payload</Typography>
-          <CodeMirror formKey="payloadCode" isEditView={isEditView} values={values} />
+          <CodeMirror formKey="payloadCode" isEditView={isEditView} values={values} id="payload" />
 
         </Container>
       </AccordionDetails>

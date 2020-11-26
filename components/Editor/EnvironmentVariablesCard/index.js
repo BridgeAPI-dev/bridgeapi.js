@@ -89,6 +89,7 @@ function EnvironmentVariablesCard({ environmentVariables }) {
                         name={`environmentVariables[${idx}].value`}
                         value={envVar.value || ''}
                         placeholder="Value"
+                        id={`envVar-${idx}-value`}
                         fullWidth
                         validate={validateEnvVars}
                       />

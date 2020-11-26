@@ -17,7 +17,7 @@ import 'codemirror/addon/display/fullscreen.css';
 import 'codemirror/addon/fold/foldgutter.css';
 
 function CodeMirror({
-  formKey, isEditView, readOnly, values,
+  formKey, isEditView, readOnly, values, id,
 }) {
   const codeRef = useRef(null);
   const [mounted, setMounted] = useState(false);
@@ -116,6 +116,7 @@ function CodeMirror({
         ? (
           <CM
             value={code}
+            id={id}
             options={{
               mode: {
                 name: 'javascript',
@@ -158,6 +159,7 @@ CodeMirror.propTypes = {
     payloadCode: PropTypes.string,
     testPayloadCode: PropTypes.string,
   }),
+  id: PropTypes.string,
 };
 
 CodeMirror.defaultProps = {
@@ -167,4 +169,5 @@ CodeMirror.defaultProps = {
     payloadCode: '',
     testPayloadCode: '',
   },
+  id: '',
 };

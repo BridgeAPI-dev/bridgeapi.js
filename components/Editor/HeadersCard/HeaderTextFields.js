@@ -90,6 +90,7 @@ function HeaderTextFields({ headers }) {
                     name={`headers[${idx}].value`}
                     value={header.value || ''}
                     placeholder="Value"
+                    id={`headers-${idx}-value`}
                     validate={validateHeaders}
                     fullWidth
                   />
