@@ -1,3 +1,4 @@
+// TODO: Change to snackbar
 import { useState } from 'react';
 import {
   Container,
@@ -42,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
 function Login() {
   const { login } = useAuth();
   const classes = useStyles();
+  // TODO
+  // eslint-disable-next-line no-unused-vars
   const router = useRouter();
   const [formMessage, setFormMessage] = useState('');
   const [successOpen, setSuccessOpen] = useState(false);
@@ -69,8 +72,26 @@ function Login() {
     setFormMessage('');
 
     if (await login(values.email, values.password)) {
+<<<<<<< HEAD
       setSuccessOpen(true);
       router.push('/dashboard');
+=======
+      setFormMessage('Success: Logging in. Please wait.');
+      // router.push('/dashboard');
+      //
+      // TODO: Nextjs doesn't support Server side redirects
+      // with client side router pushes. If we push to dashboard,
+      // then dashboards `getServerSideProps` returns 4XX, the app
+      // will crash with error:
+      // Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+      //
+      // To remedy this, I believe it would be best to get rid of
+      // the ssrRedirect protection and rely on the client side
+      // protection.
+      //
+      // window.location causes a full refresh which solves the issue.
+      window.location.pathname = '/dashboard';
+>>>>>>> 61ae7b805767edfac883db3ef8e83b9dab2d6ea2
     } else {
       setErrorOpen(true);
       setSubmitting(false);
@@ -104,6 +125,7 @@ function Login() {
             initialValues={initialValues}
             validate={(values) => handleValidate(values)}
             onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
+            id="form"
           >
             {({
               submitForm, isSubmitting, values,
@@ -119,6 +141,7 @@ function Login() {
                       label="Email"
                       value={values.email}
                       style={{ marginBottom: '25px', width: '100%' }}
+                      id="email-input"
                     />
                     <Field
                       component={TextField}
@@ -128,6 +151,7 @@ function Login() {
                       name="password"
                       style={{ width: '100%' }}
                       value={values.password}
+                      id="password-input"
                     />
                   </Grid>
                 </Grid>
