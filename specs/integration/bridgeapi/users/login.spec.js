@@ -3,11 +3,14 @@
 import {
   stubSuccessLogin,
   stubFailLogin,
+} from '../../../support/utils/stubs';
+
+import {
   inputEmail,
   inputPassword,
   inputLoginFields as inputFields,
   submit,
-} from '../../../support/utils/login_signup_forms';
+} from '../../../support/utils/inputs';
 
 describe('Login', () => {
   beforeEach(() => {

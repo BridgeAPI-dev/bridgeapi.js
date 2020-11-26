@@ -5,12 +5,15 @@ import {
   stubFailSignUp,
   stubSuccessLogin,
   stubFailLogin,
+} from '../../../support/utils/stubs';
+
+import {
   inputEmail,
   inputPassword,
   inputPasswordConfirmation,
   inputSignUpFields as inputFields,
   submit,
-} from '../../../support/utils/login_signup_forms';
+} from '../../../support/utils/inputs';
 
 describe('Sign Up', () => {
   beforeEach(() => {
