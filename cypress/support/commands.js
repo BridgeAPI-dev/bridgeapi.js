@@ -23,3 +23,13 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('stubRequest', (url, method, status, response) => {
+  cy.server();
+  cy.route({
+    url,
+    method,
+    status,
+    response,
+  });
+});
