@@ -1,0 +1,61 @@
+{
+  "bridges": [
+    {
+      "id": 7,
+      "title": "title_0",
+      "inbound_url": "d51985cdb5139d8d7a76",
+      "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
+      "http_method": "POST",
+      "retries": 0,
+      "delay": 0,
+      "data": {
+        "payload": "{\n  \"hello\": \"world\"\n}",
+        "test_payload": "{\n  \"hello\": \"world\",\n  \"acessEnvVars\": \"$env.MY_KEY\",\n  \"accessPayload\": \"$payload.message\"\n}"
+      },
+      "created_at": "2020-11-24T13:49:08.508Z",
+      "updated_at": "2020-11-25T15:33:12.740Z",
+      "user_id": 3,
+      "active": true,
+      "eventCount": 1,
+      "completedAt": "2020-11-25T15:33:34.274Z"
+    },
+    {
+      "id": 4,
+      "title": "title_1",
+      "inbound_url": "534a9856d7b2b9267609",
+      "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
+      "http_method": "POST",
+      "retries": 0,
+      "delay": 0,
+      "data": {
+        "payload": "{\n  \"hello\": \"world\"\n}",
+        "test_payload": "{\n  \"hello\": \"world\",\n  \"acessEnvVars\": \"$env.MY_KEY\",\n  \"accessPayload\": \"$payload.message\"\n}"
+      },
+      "created_at": "2020-11-26T18:30:24.093Z",
+      "updated_at": "2020-11-26T18:30:24.093Z",
+      "user_id": 3,
+      "active": true,
+      "eventCount": 0,
+      "completedAt": ""
+    },
+    {
+      "id": 5,
+      "title": "title_2",
+      "inbound_url": "71049d297d641db846ff",
+      "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
+      "http_method": "POST",
+      "retries": 0,
+      "delay": 0,
+      "data": {
+        "payload": "{\n  \"hello\": \"world\"\n}",
+        "test_payload": "{\n  \"hello\": \"world\",\n  \"acessEnvVars\": \"$env.MY_KEY\",\n  \"accessPayload\": \"$payload.message\"\n}"
+      },
+      "created_at": "2020-11-26T18:30:25.780Z",
+      "updated_at": "2020-11-26T18:30:25.780Z",
+      "user_id": 3,
+      "active": true,
+      "eventCount": 0,
+      "completedAt": ""
+    }
+  ]
+}
