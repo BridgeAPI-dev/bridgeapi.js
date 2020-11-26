@@ -19,6 +19,7 @@ const stubDashboard = () => {
     bridges: [],
   };
   cy.stubRequest('/bridges', 'GET', 200, response);
+  // cy.intercept('/bbb', response);
 };
 
 const inputFields = () => {
