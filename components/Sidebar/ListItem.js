@@ -6,8 +6,10 @@ import {
 import PropTypes from 'prop-types';
 
 function ListItem({
-  date, statusCode, timestamp, completed,
+  completedAt, statusCode, completed,
 }) {
+  const timestamp = new Date(completedAt).toDateString();
+
   return (
     <MUIListItem divider>
       <ListItemText>
@@ -16,7 +18,7 @@ function ListItem({
           noWrap
           align="center"
         >
-          {completed ? `${timestamp} - ${date} ${statusCode}` : 'Ongoing' }
+          {completed ? `${timestamp} - ${statusCode}` : 'Ongoing' }
         </Typography>
       </ListItemText>
     </MUIListItem>

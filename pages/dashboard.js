@@ -29,7 +29,7 @@ function Dashboard({ bridges }) {
     <ProtectRoute>
       <div className={classes.root}>
         <Navbar />
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
           <Grid container spacing={2}>
 
             {bridges && bridges.length > 0
