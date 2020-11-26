@@ -47,7 +47,7 @@ describe('Sign Up', () => {
     });
   });
 
-  it('can handle failed api request', () => {
+  it('can handle failed login api request', () => {
     stubSuccessSignUp();
     stubFailLogin();
     inputFields();
@@ -56,6 +56,18 @@ describe('Sign Up', () => {
     cy.location().should((location) => {
       expect(location.pathname).to.eq('/users/login');
     });
+  });
+
+  it('is invalid wtih bad email', () => {
+    inputEmail('demo@demo');
+    inputPassword();
+    inputPasswordConfirmation();
+
+    submit();
+
+    cy.get('#email-input').parent().should('have.class', 'Mui-error');
+    cy.get('.MuiFormHelperText-root.MuiFormHelperText-contained.Mui-error')
+      .contains('Invalid email address').should('be.visible');
   });
 
   it('is invalid without email', () => {
