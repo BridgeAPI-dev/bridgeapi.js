@@ -72,10 +72,6 @@ function Login() {
     setFormMessage('');
 
     if (await login(values.email, values.password)) {
-<<<<<<< HEAD
-      setSuccessOpen(true);
-      router.push('/dashboard');
-=======
       setFormMessage('Success: Logging in. Please wait.');
       // router.push('/dashboard');
       //
@@ -91,7 +87,6 @@ function Login() {
       //
       // window.location causes a full refresh which solves the issue.
       window.location.pathname = '/dashboard';
->>>>>>> 61ae7b805767edfac883db3ef8e83b9dab2d6ea2
     } else {
       setErrorOpen(true);
       setSubmitting(false);
