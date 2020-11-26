@@ -28,8 +28,7 @@ function ListItem({
 export default ListItem;
 
 ListItem.propTypes = {
-  date: PropTypes.string.isRequired,
   statusCode: PropTypes.number.isRequired,
-  timestamp: PropTypes.string.isRequired,
+  completedAt: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
 };
