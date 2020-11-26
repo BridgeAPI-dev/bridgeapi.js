@@ -42,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
 function Login() {
   const { login } = useAuth();
   const classes = useStyles();
+  // TODO
+  // eslint-disable-next-line no-unused-vars
   const router = useRouter();
   const [formMessage, setFormMessage] = useState('');
 
