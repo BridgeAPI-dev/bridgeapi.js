@@ -81,7 +81,6 @@ function Login() {
       // protection.
       //
       // window.location causes a full refresh which solves the issue.
-      debugger;
       window.location.pathname = '/dashboard';
     } else {
       setFormMessage('Error: Email or password is invalid');
