@@ -1,54 +1,24 @@
 /// <reference types="cypress" />
 
-const stubSuccessSignUp = () => {
-  const response = {
-    user: {
-      email: 'demo@demo.com',
-      notifications: false,
-    },
-  };
-  cy.stubRequest('/user', 'POST', 201, response);
-};
-
-const stubFailSignUp = () => {
-  const response = {
-    error: 'email or password is invalid',
-  };
-  cy.stubRequest('/user', 'POST', 422, response);
-};
-
-const stubSuccessLogin = () => {
-  const response = {
-    token: '123984790182347',
-  };
-  cy.stubRequest('/login', 'POST', 201, response);
-};
-
-const stubFailLogin = () => {
-  const response = {
-    token: '123984790182347',
-  };
-  cy.stubRequest('/login', 'POST', 422, response);
-};
-
-const inputFields = () => {
-  cy.get('#email-input')
-    .type('demo@demo.com').should('have.value', 'demo@demo.com');
-
-  cy.get('#password-input')
-    .type('password').should('have.value', 'password');
-
-  cy.get('#password-confirmation-input')
-    .type('password').should('have.value', 'password');
-};
-
-const submit = () => {
-  cy.get('form').submit();
-};
+import {
+  stubSuccessSignUp,
+  stubFailSignUp,
+  stubSuccessLogin,
+  stubFailLogin,
+  inputEmail,
+  inputPassword,
+  inputPasswordConfirmation,
+  inputSignUpFields as inputFields,
+  submit,
+} from '../../../support/utils/login_signup_forms';
 
 describe('Sign Up', () => {
   beforeEach(() => {
     cy.visit('/users/signup');
+  });
+
+  afterEach(() => {
+    cy.clearCookies();
   });
 
   it('can sign up & login', () => {
@@ -74,7 +44,7 @@ describe('Sign Up', () => {
     });
   });
 
-  it('can handle failed login', () => {
+  it('can handle failed api request', () => {
     stubSuccessSignUp();
     stubFailLogin();
     inputFields();
@@ -83,5 +53,52 @@ describe('Sign Up', () => {
     cy.location().should((location) => {
       expect(location.pathname).to.eq('/users/login');
     });
+  });
+
+  it('is invalid without email', () => {
+    inputPassword();
+    inputPasswordConfirmation();
+
+    submit();
+
+    cy.get('#email-input').parent().should('have.class', 'Mui-error');
+    cy.get('.MuiFormHelperText-root.MuiFormHelperText-contained.Mui-error')
+      .contains('Required').should('be.visible');
+  });
+
+  it('is invalid without password', () => {
+    inputEmail();
+    inputPasswordConfirmation();
+
+    submit();
+
+    cy.get('#password-input').parent().should('have.class', 'Mui-error');
+    cy.get('.MuiFormHelperText-root.MuiFormHelperText-contained.Mui-error')
+      .contains('Required').should('be.visible');
+  });
+
+  it('is invalid without password confirmation', () => {
+    inputEmail();
+    inputPassword();
+
+    submit();
+
+    cy.get('#password-confirmation-input').parent().should('have.class', 'Mui-error');
+    cy.get('.MuiFormHelperText-root.MuiFormHelperText-contained.Mui-error')
+      .contains('Required').should('be.visible');
+  });
+
+  it('is invalid when passwords don\'t match', () => {
+    inputEmail();
+    inputPassword();
+    inputPasswordConfirmation('fakeword');
+
+    submit();
+
+    cy.get('#password-input').parent().should('have.class', 'Mui-error');
+    cy.get('#password-confirmation-input').parent().should('have.class', 'Mui-error');
+
+    cy.get('.MuiFormHelperText-root.MuiFormHelperText-contained.Mui-error')
+      .contains('Passwords do not match').should('be.visible');
   });
 });

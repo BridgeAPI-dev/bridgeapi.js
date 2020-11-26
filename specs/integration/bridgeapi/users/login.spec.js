@@ -1,47 +1,25 @@
 /// <reference types="cypress" />
 
-const stubSuccessLogin = () => {
-  const response = {
-    token: '123984790182347',
-  };
-  cy.stubRequest('/login', 'POST', 201, response);
-};
-
-const stubFailLogin = () => {
-  const response = {
-    token: '123984790182347',
-  };
-  cy.stubRequest('/login', 'POST', 422, response);
-};
-
-const stubDashboard = () => {
-  const response = {
-    bridges: [],
-  };
-  cy.stubRequest('/bridges', 'GET', 200, response);
-  // cy.intercept('/bbb', response);
-};
-
-const inputFields = () => {
-  cy.get('#email-input')
-    .type('demo@demo.com').should('have.value', 'demo@demo.com');
-
-  cy.get('#password-input')
-    .type('password').should('have.value', 'password');
-};
-
-const submit = () => {
-  cy.get('form').submit();
-};
+import {
+  stubSuccessLogin,
+  stubFailLogin,
+  inputEmail,
+  inputPassword,
+  inputLoginFields as inputFields,
+  submit,
+} from '../../../support/utils/login_signup_forms';
 
 describe('Login', () => {
   beforeEach(() => {
     cy.visit('/users/login');
   });
 
+  afterEach(() => {
+    cy.clearCookies();
+  });
+
   it('can login', () => {
     stubSuccessLogin();
-    stubDashboard();
     inputFields();
     submit();
 
@@ -52,7 +30,7 @@ describe('Login', () => {
     });
   });
 
-  it('can handle failed login', () => {
+  it('can handle failed api request', () => {
     stubFailLogin();
     inputFields();
     submit();
@@ -61,5 +39,36 @@ describe('Login', () => {
     cy.location().should((location) => {
       expect(location.pathname).to.eq('/users/login');
     });
+  });
+
+  it('is invalid without email', () => {
+    inputPassword();
+    submit();
+
+    cy.get('#email-input').parent().should('have.class', 'Mui-error');
+    cy.get('.MuiFormHelperText-root.MuiFormHelperText-contained.Mui-error')
+      .contains('Required').should('be.visible');
+  });
+
+  it('is invalid wtih bad email', () => {
+    inputEmail('demo@demo');
+    inputPassword();
+
+    submit();
+
+    cy.get('#email-input').parent().should('have.class', 'Mui-error');
+    cy.get('.MuiFormHelperText-root.MuiFormHelperText-contained.Mui-error')
+      .contains('Invalid Email Address').should('be.visible');
+  });
+
+  it('is invalid without password', () => {
+    inputEmail();
+    submit();
+
+    cy.get('#password-input')
+      .parent()
+      .should('have.class', 'Mui-error');
+    cy.get('.MuiFormHelperText-root.MuiFormHelperText-contained.Mui-error')
+      .contains('Required').should('be.visible');
   });
 });
