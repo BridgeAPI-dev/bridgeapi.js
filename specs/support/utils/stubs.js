@@ -29,14 +29,14 @@ export const stubFailLogin = () => {
   cy.stubRequest('/login', 'POST', 422, response);
 };
 
-export const stubCreateSuccessfullBridge = () => {
+export const stubSuccessfullCreateBridge = () => {
   const response = {
     id: '1',
   };
   cy.stubRequest('/bridges', 'POST', 201, response);
 };
 
-export const stubCreateFailedBridge = () => {
+export const stubFailedCreateBridge = () => {
   const response = {
     error: 'random error message',
   };

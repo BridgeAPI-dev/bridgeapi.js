@@ -90,7 +90,7 @@ export const inputPayload = (payload) => {
   cy.get('#payload').type(input).should('have.value', input);
 };
 
-export const getTestPayload = (testPayload) => {
+export const inputTestPayload = (testPayload) => {
   const input = testPayload || defaultPayload;
   cy.get('#test-payload').type(input).should('have.value', input);
 };
