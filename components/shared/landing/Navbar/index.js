@@ -3,7 +3,8 @@ import Link from 'next/link';
 import {
   AppBar, Toolbar, Typography, makeStyles, Grid,
 } from '@material-ui/core';
-import logo from '../../../../src/images/logo.svg';
+// import logo from '../../../../src/images/logo.svg';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,7 +50,8 @@ export default function Navbar() {
       <AppBar position="fixed" className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
           <Link href="/">
-            <img src={logo} width={150} alt="BridgeAPI logo depicting an arch bridge" />
+            {/* <img src={logo} width={150} alt="BridgeAPI logo depicting an arch bridge" /> */}
+            <Image src="/logo.svg" alt="me" width="64" height="64" />
           </Link>
 
           <Grid container justify="flex-end">

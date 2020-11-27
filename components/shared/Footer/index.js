@@ -1,7 +1,8 @@
 import {
   Grid, makeStyles, Container, Typography, Link,
 } from '@material-ui/core';
-import logo from '../../../src/images/logo.svg';
+// import logo from '../../../src/images/logo.svg';
+import Image from 'next/image';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +27,8 @@ function Footer() {
     <Container className={classes.root}>
       <Grid container spacing={3} className={classes.mainGrid}>
         <Link href="/">
-          <img src={logo} width={150} alt="BridgeAPI logo depicting an arch bridge" />
+          {/* <img src={logo} width={150} alt="BridgeAPI logo depicting an arch bridge" /> */}
+          <Image src="/logo.svg" alt="me" width="64" height="64" />
         </Link>
 
         <Grid container item spacing={3} justify="center">
