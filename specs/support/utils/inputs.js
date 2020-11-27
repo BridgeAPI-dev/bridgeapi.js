@@ -94,3 +94,23 @@ export const inputTestPayload = (testPayload) => {
   const input = testPayload || defaultPayload;
   cy.get('#test-payload').type(input).should('have.value', input);
 };
+
+export const inputHeaderFields = (title, outboundUrl, method, retries, delay, key, value) => {
+  inputTitle(title);
+  inputOutboundUrl(outboundUrl);
+  inputMethod(method);
+  inputRetries(retries);
+  inputDelay(delay);
+  inputHeaderKey(key);
+  inputHeaderValue(value);
+};
+
+export const inputEnvFields = (key, value) => {
+  inputEnvVarKey(key);
+  inputEnvVarValue(value);
+};
+
+export const inputPayloadFields = (payload, testPayload) => {
+  inputPayload(payload);
+  inputTestPayload(testPayload);
+};

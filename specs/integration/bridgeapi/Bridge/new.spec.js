@@ -1,4 +1,4 @@
-import { stubSuccessfullCreateBridge, stubFailedCreateBridge } from '../../support/utils/stubs';
+import { stubSuccessfullCreateBridge, stubFailedCreateBridge } from '../../../support/utils/stubs';
 
 import {
   inputTitle,
@@ -6,14 +6,17 @@ import {
   inputMethod,
   inputRetries,
   inputDelay,
+  inputHeaderFields,
   inputHeaderKey,
   inputHeaderValue,
+  inputEnvFields,
   inputEnvVarKey,
   inputEnvVarValue,
+  inputPayloadFields,
   inputPayload,
   inputTestPayload,
   submit,
-} from '../../support/utils/inputs';
+} from '../../../support/utils/inputs';
 
 describe('Create a new bridge', () => {
   beforeEach(() => {
@@ -23,6 +26,9 @@ describe('Create a new bridge', () => {
     cy.clearCookies();
   });
   it('can create a new bridge', () => {
-    stubSuccessfullCreateBridge();
+    inputHeaderFields();
+    inputEnvFields();
+    inputPayloadFields();
+    // stubSuccessfullCreateBridge();
   });
 });

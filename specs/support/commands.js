@@ -23,18 +23,6 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-<<<<<<< HEAD:cypress/support/commands.js
-
-Cypress.Commands.add('stubRequest', (url, method, status, response) => {
-  cy.server();
-  cy.route({
-    url,
-    method,
-    status,
-    response,
-  });
-});
-=======
 Cypress.Commands.add('stubRequest', (endpoint, method, statusCode, body) => {
   cy.intercept(method, endpoint, {
     statusCode,
@@ -49,4 +37,3 @@ Cypress.Commands.add('setToken', () => {
 Cypress.Commands.add('setBadToken', () => {
   cy.setCookie('token', 'badToken');
 });
->>>>>>> e5e318050b2b85121bf9a39cdd34d1635835df9a:specs/support/commands.js
