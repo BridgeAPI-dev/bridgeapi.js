@@ -19,7 +19,7 @@ import HeadersCard from './HeadersCard';
 import ActionsDialog from './ActionsDialog';
 
 import api from '../../utils/api';
-import SnackAlert from '../shared/alert';
+import SnackAlert from '../shared/SnackAlert';
 
 const useStyles = makeStyles((theme) => ({
   root: {

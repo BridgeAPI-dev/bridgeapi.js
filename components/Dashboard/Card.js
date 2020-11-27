@@ -25,18 +25,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Card({ bridge }) {
+function Card({ bridge, index }) {
   const classes = useStyles();
+
+  const completedAt = (bridge.completedAt
+    && new Date(bridge.completedAt).toDateString())
+    || 'No requests';
+
+  const updatedAt = new Date(bridge.updatedAt).toDateString();
 
   return (
     <Grid item xs={12} sm={6} md={4} key={`main-grid-${bridge.title}`}>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} id={`card-${index}`}>
         <Link href={`/bridge/${bridge.id}`}>
           <Typography
             variant="h5"
             color="primary"
             className={classes.title}
             style={{ fontWeight: 600 }}
+            id={`card-title-${index}`}
           >
             {bridge.title}
           </Typography>
@@ -59,12 +66,17 @@ function Card({ bridge }) {
           </Grid>
 
           <Grid item xs container direction="column" className={classes.values}>
-            <Typography variant="subtitle1">{bridge.lastRequest || 'No requests'}</Typography>
-            <Typography variant="subtitle1">
-              {(new Date(bridge.updatedAt)).toUTCString().split(' ').slice(1, 4)
-                .join(' ')}
+            <Typography variant="subtitle1" id={`card-completedAt-${index}`}>
+              {completedAt}
             </Typography>
-            <Typography variant="subtitle1">{bridge.requests || '0'}</Typography>
+
+            <Typography variant="subtitle1" id={`card-updateAt-${index}`}>
+              {updatedAt}
+            </Typography>
+
+            <Typography variant="subtitle1" id={`card-eventCount-${index}`}>
+              {bridge.eventCount || '0'}
+            </Typography>
           </Grid>
         </Grid>
 
@@ -73,9 +85,9 @@ function Card({ bridge }) {
           <Grid item xs container spacing={2}>
             <Grid item xs>
               {/* TODO: Should be request id */}
-              <Link href={`/requests/${bridge.id}`}>
+              <Link href={`/events/${bridge.id}`}>
                 <Typography variant="subtitle1" color="secondary">
-                  View Requests
+                  View Events
                 </Typography>
               </Link>
             </Grid>
@@ -93,7 +105,8 @@ Card.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
-    lastRequest: PropTypes.string,
-    requests: PropTypes.string,
+    eventCount: PropTypes.number.isRequired,
+    completedAt: PropTypes.string,
   }).isRequired,
+  index: PropTypes.number.isRequired,
 };

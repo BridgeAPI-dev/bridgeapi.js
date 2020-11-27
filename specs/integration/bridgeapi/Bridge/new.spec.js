@@ -20,7 +20,7 @@ import {
 
 describe('Create a new bridge', () => {
   beforeEach(() => {
-    cy.visit('/bridges/new');
+    cy.visit('/bridge/new');
   });
   afterEach(() => {
     cy.clearCookies();
@@ -29,6 +29,7 @@ describe('Create a new bridge', () => {
     inputHeaderFields();
     inputEnvFields();
     inputPayloadFields();
+    submit();
     // stubSuccessfullCreateBridge();
   });
 });
