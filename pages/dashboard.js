@@ -60,7 +60,6 @@ export async function getServerSideProps(context) {
   const res = await fetchDataOrRedirect(context, '/bridges');
   if (!res) return { props: {} }; // Redirecting to /users/login
 
-  console.log(res.data.bridges);
   return {
     props: {
       bridges: toCamel(res.data.bridges),
