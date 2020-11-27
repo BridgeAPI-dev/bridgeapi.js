@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 const urls = {
   development: 'http://localhost:3001/',
-  production: 'http://localhost:3004/',
+  production: 'https://api.bridgeapi.dev',
 };
 
 // Tests require the application to be built and
