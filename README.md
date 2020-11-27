@@ -1,165 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+  <img src="./public/logo.svg" width="800">
+</p>
 
-## Deploy on Vercel
+(BridgeAPI)[https://bridgeapi.dev] is a serverless integration platform that
+empowers users to connect apps through event-driven workflows.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This is the frontend codebase. The backend is made with Ruby on Rails and can be found (here)[https://github.com/angeljruiz/BridgeAPI.rb].
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## About
+TODO
+- Made with nextjs
+- Tested with cypress
+- Mocked & stubbed with cypress & msw
 
-## API Requests
-Account:
-  title: Get user into
-  url: '/users/account'
-  method: GET
-  returns:
-    status: 200 Ok
-    user: {
-      email: 'myemail@gmail.com'
-      notifications: {
-        emailOnEvents: true
-      }
-    }
+## Installation
 
-  title: Update user info
-  url: '/users/:id'
-  method: PATCH/PUT
-  sends:
-    user: {
-      email: 'myNEWemail@gmail.com'
-      currentPassword: '...'
-      newPassword: '...'
-      confirmPassword: '...'
-      notifications: {
-        emailOnEvents: true
-      }
-    }
-  returns:
-    status: 202 Accepted
-    message: 'Success'
+```sh
+git clone https://github.com/williampj/bridgeapi.js
+cd bridgeapi.js
+npm i
+npm run dev
+```
 
-BridgesMenu:
-  title: Get bridge titles
-  url: '/bridge_titles'
-  method: GET
-  returns:
-    status: 200 Ok
-    bridges: [
-      'bridge 1'
-      'bridge 2'
-      'bridge 3'
-    ]
+## Testing
 
-Editor/New:
-  title: Create Bridge
-  url: '/bridges'
-  method: POST
-  sends:
-    bridge: {
-      outboundURL: 'https://slack.com/new_message/934782'
-      method: 'POST'
-      retries: '3'
-      delay: '0'
-      headers: [
-        { key: 'X-API-KEY', value: '$env.API_KEY' }
-      ]
-      envVars: [
-        { key: 'API_KEY', value: '1234567890APIKEY' }
-      ]
-    }
-  returns:
-    status: 201 Created
-    message: 'Success'
+Follow the installation guide and then run:
 
-Editor/[slug]:
-  title: Get Page Inputs
-  url: '/bridges/:slug'
-  method: GET
-  returns:
-    status: 200 Ok
-    bridge: {
-      outboundURL: 'https://slack.com/new_message/934782'
-      method: 'POST'
-      retries: '3'
-      delay: '0'
-      headers: [
-        { key: 'X-API-KEY', value: '$env.API_KEY' }
-      ]
-      envVars: [
-        { key: 'API_KEY', value: 'XXXXXXXXXXXXXXX' }
-      ]
-    }
+```sh
+# Fully automated
+NEXT_PUBLIC_TEST_ENV=test npm run test
 
-  title: Update Bridge
-  url: '/bridges'
-  method: PATCH/PUT
-  sends:
-    bridge: {
-      outboundURL: 'https://slack.com/new_message/934782'
-      method: 'POST'
-      retries: '3'
-      delay: '0'
-      headers: [
-        { key: 'X-API-KEY', value: '$env.API_KEY' }
-      ]
-      envVars: [
-        { key: 'API_KEY', value: '1234567890APIKEY' }
-      ]
-    } 
-  returns:
-    status: 202 Accepted
-    Message: 'Updated'
-  
+# Run individual tests
+# Terminal 1
+NEXT_PUBLIC_TEST_ENV=test npm run build
+NEXT_PUBLIC_TEST_ENV=test npm run start
 
-CodeMirror:
-  title: Get Editor Code
-  urls: [
-    '/bridges/:slug/code'
-    '/bridges/:slug/test_code'
-    '/bridges/:slug/lastest_request'
-  ]
-  method: GET
-  returns:
-    status: 200 Ok
-    code: "I am a json payload of the code"
+# Terminal 2
+npm run cypress:open
+```
 
-Dashboard:
-  title: Get bridge data
-  url: '/bridges'
-  method: GET
-  returns:
-    status: 200
-    bridges: [
-      {
-        title: 'test title 1'
-        updatedAt: Date.now()
-        lastRequest: Date.now()
-        requests: 10
-      }
-    ]
+## Contributors
 
-Login:
-  title: Log in user
-  url: '/users/login'
-  method: POST
-  sends: 
-    user: {
-      email: 'myemail@email.com'
-      password: '...'
-    }
-  returns:
-    status: 200 Ok
-    session: '10982-ah34ads7098-u212437' (JWT)
-
-Signup:
-  title: Sign up user
-  url: '/users/signup'
-  method: POST
-  sends: 
-    user: {
-      email: 'myemail@email.com'
-      password: '...'
-      passwordConfirm: '...'
-    }
-  returns:
-    status: 201
-    message: 'Success - Please check email'
+- (andrewc910)[https://github.com/andrewc910] - creator and maintainer
+- (angeljruiz)[https://github.com/angeljruiz] - creator and maintainer
+- (williampj)[https://github.com/williampj] - creator and maintainer
