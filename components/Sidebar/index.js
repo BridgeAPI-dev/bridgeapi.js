@@ -36,6 +36,7 @@ const useStyles = makeStyles(() => ({
 
 function Sidebar({ events, title }) {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <Drawer
@@ -52,17 +53,13 @@ function Sidebar({ events, title }) {
               <Typography variant="h6" align="center" className={classes.title}>{title || 'Untitled'}</Typography>
             </Link>
             <Divider />
-            {events.slice().reverse().map((evt) => {
-              const { date, statusCode, time } = evt.responses.slice(-1)[0].headers;
-              return (
-                <ListItem
-                  date={date}
-                  statusCode={statusCode}
-                  timestamp={time}
-                  completed={evt.completed}
-                />
-              );
-            })}
+            {events.map((event) => (
+              <ListItem
+                completedAt={event.completedAt}
+                statusCode={event.statusCode}
+                completed={event.completed}
+              />
+            ))}
           </List>
         </div>
       </Drawer>
