@@ -17,7 +17,7 @@ import ProtectRoute from '../../utils/ProtectRoute';
 
 import api from '../../utils/api';
 import fetchDataOrRedirect from '../../utils/ssrRedirect';
-import SnackAlert from '../../components/shared/alert';
+import SnackAlert from '../../components/shared/SnackAlert';
 
 function Account({ user }) {
   const [open, setOpen] = useState(false);

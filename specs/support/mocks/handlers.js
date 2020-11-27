@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { rest } from 'msw';
 
+const bridges = require('../../fixtures/bridges.json');
+
 // msw doesn't give us a way to stub requests on a per spec basis. Because
 // of this, we need to make our own way. Use `cy.setToken` to create a
 // token that will be valid. Use `cy.setBadToken` to create an invalid token.
@@ -20,11 +22,7 @@ const handlers = [
       );
     }
 
-    return res(
-      ctx.json(
-        { bridges: [] },
-      ),
-    );
+    return res(ctx.json(bridges));
   }),
 ];
 

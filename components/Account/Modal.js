@@ -6,7 +6,7 @@ import {
 
 import api from '../../utils/api';
 import { useAuth } from '../../src/contexts/auth';
-import SnackAlert from '../shared/alert';
+import SnackAlert from '../shared/SnackAlert';
 
 function getModalStyle() {
   const top = 50;
