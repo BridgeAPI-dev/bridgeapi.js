@@ -85,9 +85,9 @@ function Card({ bridge, index }) {
           <Grid item xs container spacing={2}>
             <Grid item xs>
               {/* TODO: Should be request id */}
-              <Link href={`/requests/${bridge.id}`}>
+              <Link href={`/events/${bridge.id}`}>
                 <Typography variant="subtitle1" color="secondary">
-                  View Requests
+                  View Events
                 </Typography>
               </Link>
             </Grid>

@@ -16,7 +16,7 @@ import { TextField } from 'formik-material-ui';
 import { useAuth } from '../../src/contexts/auth';
 import emailValidator from '../../utils/emailValidator';
 import api from '../../utils/api';
-import SnackAlert from '../../components/shared/alert';
+import SnackAlert from '../../components/shared/SnackAlert';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
