@@ -32,9 +32,10 @@ const useStyles = makeStyles({
     fontWeight: 900,
     fontSize: '1.3em',
   },
-  centeredBold: {
+  uri: {
     fontWeight: '700',
     align: 'center',
+    marginBottom: '0.5em',
   },
   oppositeContent: {
     flex: 0.02,
@@ -48,6 +49,9 @@ const useStyles = makeStyles({
   timelineContent: {
     marginTop: '-1.5em',
     marginBottom: '4em',
+  },
+  bold: {
+    fontWeight: '700',
   },
 });
 
@@ -79,7 +83,7 @@ function OutboundAccordion({ request }) {
 
             <AccordionDetails className={classes.accordionDetails}>
               <Grid container direction="column">
-                <Typography align="center" className={classes.centeredBold}>
+                <Typography align="center" className={classes.uri}>
                   URI:
                   {' '}
                   {request.uri}
@@ -94,22 +98,27 @@ function OutboundAccordion({ request }) {
                 <Typography>
                   Headers:
                   {' '}
-                  {/* {request.headers} */}
+                  <ul>
+                    {request.headers.map((header) => (
+                      <li key={`${header.key}`}>
+                        <Typography display="inline" className={classes.bold}>
+                          {header.key}
+                          :
+                        </Typography>
+                        {'  '}
+                        <Typography display="inline">
+                          {header.value}
+                        </Typography>
+                      </li>
+                    ))}
+                  </ul>
+
                 </Typography>
 
-                <Typography>
-                  Content-Type:
-                  {' '}
-                  application/json
-                </Typography>
-
-                <Typography>
-                  Content-Length:
-                  {' '}
-                  {request.contentLength}
-                </Typography>
-
-                <Typography variant="subtitle1" className={classes.payloadHeader}>
+                <Typography
+                  variant="subtitle1"
+                  className={classes.payloadHeader}
+                >
                   Payload:
                 </Typography>
 

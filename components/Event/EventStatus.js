@@ -12,7 +12,7 @@ const useStyles = makeStyles({
 });
 
 function EventStatus({
-  eventCompleted, eventAborted, outbound, eventId,
+  eventCompleted, aborted, outbound, id,
 }) {
   const classes = useStyles();
   const [completed, setCompleted] = useState(eventCompleted);
@@ -27,7 +27,7 @@ function EventStatus({
 
   const handleAbort = async () => {
     setButtonDisable(true);
-    await api.patch(`/events/${eventId}/abort`);
+    await api.patch(`/events/${id}/abort`);
     setCompleted(true);
   };
 
@@ -44,7 +44,7 @@ function EventStatus({
     );
   }
 
-  if (eventAborted) {
+  if (aborted) {
     return (
       <>
         <Alert severity={severity} className={classes.mb}>
@@ -68,8 +68,8 @@ function EventStatus({
 export default EventStatus;
 
 EventStatus.propTypes = {
-  eventAborted: PropTypes.bool.isRequired,
+  aborted: PropTypes.bool.isRequired,
   eventCompleted: PropTypes.bool.isRequired,
   outbound: PropTypes.array.isRequired,
-  eventId: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
 };

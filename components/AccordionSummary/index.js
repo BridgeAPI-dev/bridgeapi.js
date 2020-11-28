@@ -30,7 +30,7 @@ function AccordionSummary({
       className={classes.root}
     >
       <Grid container>
-        <Grid item direction="column" align="left">
+        <Grid item align="left">
           <Typography className={classes.heading}>
             {title}
           </Typography>
@@ -58,6 +58,11 @@ function AccordionSummary({
 
 export default AccordionSummary;
 
+AccordionSummary.defaultProps = {
+  tooltip: false,
+  tooltipMessage: '',
+};
+
 AccordionSummary.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
@@ -65,7 +70,6 @@ AccordionSummary.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-  // TODO
-  tooltip: PropTypes.bool.isRequired,
-  tooltipMessage: PropTypes.string.isRequired,
+  tooltip: PropTypes.bool,
+  tooltipMessage: PropTypes.string,
 };

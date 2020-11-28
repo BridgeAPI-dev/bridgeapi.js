@@ -43,15 +43,16 @@ function Events({ event }) {
         container
         spacing={5}
         className={classes.content}
+        item
         sm={10}
       >
 
         <Grid item container direction="column" wrap="nowrap">
           <EventStatus
             eventCompleted={event.completed}
-            eventAborted={event.aborted}
+            aborted={event.aborted}
             outbound={outbound}
-            eventId={event.id}
+            id={event.id}
           />
           {/* <Typography align="center" variant="body2" className={classes.microCopy} noWrap>
             Send your events here:

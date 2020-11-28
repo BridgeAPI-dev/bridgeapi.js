@@ -84,13 +84,12 @@ function FailedAttempts({ requests }) {
           <Accordion className={classes.accordion}>
             <MUIAccordionSummary
               className={classes.root}
-              expanded={false}
               classes={{
                 expanded: classes.expanded,
               }}
             >
               <Grid container>
-                <Grid item justify="center">
+                <Grid item>
                   <Typography className={classes.heading} align="center">
                     {failedOpen ? 'Hide failed attempts' : 'Show failed attempts'}
                   </Typography>
