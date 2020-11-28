@@ -1,4 +1,3 @@
-/* eslint-disable react/forbid-prop-types */
 import PropTypes from 'prop-types';
 import {
   Accordion,
@@ -8,7 +7,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import {
-  TimelineConnector,
   TimelineContent,
   TimelineDot,
   TimelineItem,
@@ -19,6 +17,8 @@ import { ExpandMore } from '@material-ui/icons';
 
 import AccordionSummary from '../AccordionSummary';
 import CodeMirror from '../Codemirror';
+
+import { hourMinutes } from '../../utils/formatDate';
 
 const useStyles = makeStyles({
   root: {
@@ -36,11 +36,10 @@ const useStyles = makeStyles({
     align: 'center',
   },
   oppositeContent: {
-    flex: 0.02,
-    marginLeft: '-1em',
+    flex: 0,
   },
   payloadHeader: {
-    margin: '1em 0',
+    margin: '0.5em 0 0 0',
   },
   timeline: {
     marginRight: '2em',
@@ -53,10 +52,7 @@ const useStyles = makeStyles({
 
 function TimelineAccordion({ request }) {
   const classes = useStyles();
-  const { title, subtitle } = request;
-  const {
-    contentType, date, host, latency, length, size, statusCode, statusText, time, url,
-  } = request.headers;
+  const time = hourMinutes(request.dateTime);
 
   return (
     <>
@@ -66,54 +62,49 @@ function TimelineAccordion({ request }) {
             {time}
           </Typography>
         </TimelineOppositeContent>
+
         <TimelineSeparator>
           <TimelineDot color="primary" />
-          {title !== 'Inbound' && <TimelineConnector />}
         </TimelineSeparator>
+
         <TimelineContent className={classes.timelineContent}>
           <Accordion className={classes.accordion}>
 
             <AccordionSummary
               icon={<ExpandMore />}
-              title={title}
-              subtitle={subtitle}
+              title="Inbound"
+              subtitle="Received from the inbound service"
             />
 
             <AccordionDetails className={classes.accordionDetails}>
               <Grid container direction="column">
-
-                <Typography align="center" className={classes.centeredBold}>
-                  {/* If it's an Inbound or Outbound request */}
-                  {['Inbound', 'Outbound'].includes(title) && `${time} on ${date}`}
-
-                  {/* Or if it's a response */}
-                  {title === 'Response' && `Status: ${statusCode} ${statusText} Time: ${latency} ms Size: ${size} KB`}
-                </Typography>
-                <Typography align="center" className={classes.centeredBold}>
-                  {title === 'Inbound' && `Event received from ${host}`}
-                  {title === 'Outbound' && `Sent to ${url}`}
-                </Typography>
-                <Typography>HEADERS:</Typography>
                 <Typography>
-                  Date:
-                  {' '}
-                  {date}
+                  Headers:
                 </Typography>
+
+                <Typography>
+                  Timestamp:
+                  {' '}
+                  {request.dateTime}
+                </Typography>
+
                 <Typography>
                   Content-Type:
                   {' '}
-                  {contentType}
+                  application/json
                 </Typography>
+
                 <Typography>
                   Content-Length:
                   {' '}
-                  {length}
-                </Typography>
-                <Typography className={classes.payloadHeader}>
-                  PAYLOAD:
+                  {request.contentLength}
                 </Typography>
 
-                <CodeMirror readonly isEditView />
+                <Typography className={classes.payloadHeader}>
+                  Payload:
+                </Typography>
+
+                <CodeMirror readOnly isEditView data={request.payload} />
               </Grid>
             </AccordionDetails>
           </Accordion>
@@ -125,10 +116,9 @@ function TimelineAccordion({ request }) {
 
 TimelineAccordion.propTypes = {
   request: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    subtitle: PropTypes.string.isRequired,
-    headers: PropTypes.object.isRequired,
-    payload: PropTypes.object.isRequired,
+    dateTime: PropTypes.string.isRequired,
+    contentLength: PropTypes.number.isRequired,
+    payload: PropTypes.shape({}).isRequired,
   }).isRequired,
 };
 

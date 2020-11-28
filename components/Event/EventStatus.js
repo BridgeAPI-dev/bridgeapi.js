@@ -14,10 +14,12 @@ const useStyles = makeStyles({
 function EventStatus({
   eventCompleted, eventAborted, outbound, eventId,
 }) {
-  const { statusCode, statusText } = outbound.slice(-1).response;
   const classes = useStyles();
   const [completed, setCompleted] = useState(eventCompleted);
   const [buttonDisable, setButtonDisable] = useState(false);
+
+  const { statusCode, message } = outbound.slice(-1)[0].response;
+
   const severity = (statusCode <= 199 && 'info')
   || (statusCode <= 299 && 'success')
   || (statusCode <= 399 && 'warning')
@@ -58,7 +60,7 @@ function EventStatus({
       {' '}
       -
       {' '}
-      {statusText}
+      {message}
     </Alert>
   );
 }

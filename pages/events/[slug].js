@@ -1,15 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Grid, makeStyles, Typography } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import { Timeline } from '@material-ui/lab';
 
-import EventStatus from '../../components/events/EventStatus';
-import FailedAttempts from '../../components/events/FailedAttempts';
+import EventStatus from '../../components/Event/EventStatus';
+import FailedAttempts from '../../components/Event/FailedAttempts';
 import Navbar from '../../components/shared/dashboard/Navbar/index';
-import { SeedData } from '../../components/events/SeedData';
 import Sidebar from '../../components/Sidebar';
-import TimelineAccordion from '../../components/events/TimelineAccordion';
+import InboundAccordion from '../../components/Event/InboundAccordion';
+import OutboundAccordion from '../../components/Event/OutboundAccordion';
+import ResponseAccordion from '../../components/Event/ResponseAccordion';
+
+import fetchDataOrRedirect from '../../utils/ssrRedirect';
 import ProtectRoute from '../../utils/ProtectRoute';
+import toCamel from '../../utils/toCamel';
 
 const useStyles = makeStyles(() => ({
   microCopy: {
@@ -24,23 +28,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Events({
-  event, sidebarEvents, title, url,
-}) {
+function Events({ event }) {
   const classes = useStyles();
-  const { outbound } = JSON.parse(event.data);
-  const { inbound } = JSON.parse(event.data);
-  const pastAttempts = outbound.length > 1;
 
-  useEffect(() => {
-    // TODO?
-    document.body.style.overflowX = 'hidden';
-  });
+  const { inbound, outbound } = event.data;
+  const requiredRetry = outbound.length > 1;
 
   return (
     <ProtectRoute>
       <Navbar />
-      <Sidebar events={sidebarEvents} title={title} />
+      <Sidebar events={[]} title="TODO" />
 
       <Grid
         container
@@ -49,7 +46,6 @@ function Events({
         sm={10}
       >
 
-        {/* Event timeline */}
         <Grid item container direction="column" wrap="nowrap">
           <EventStatus
             eventCompleted={event.completed}
@@ -57,7 +53,7 @@ function Events({
             outbound={outbound}
             eventId={event.id}
           />
-          <Typography align="center" variant="body2" className={classes.microCopy} noWrap>
+          {/* <Typography align="center" variant="body2" className={classes.microCopy} noWrap>
             Send your events here:
           </Typography>
           <Typography
@@ -66,17 +62,19 @@ function Events({
             noWrap
             className={classes.url}
           >
-            {url}
-          </Typography>
+            {event.outbound_url}
+          </Typography> */}
           <Timeline>
-            {/* Responses */}
-            <TimelineAccordion request={outbound.slice(-1).response} />
-            {/* Outbounds */}
-            <TimelineAccordion request={outbound.slice(-1).request} />
-            {/* Failed attempts bar */}
-            { pastAttempts && <FailedAttempts event={event} />}
-            {/* Inbound */}
-            <TimelineAccordion request={inbound} />
+            <ResponseAccordion
+              request={outbound[0].response}
+            />
+
+            <OutboundAccordion
+              request={outbound[0].request}
+            />
+
+            { requiredRetry && <FailedAttempts requests={outbound.slice(1)} />}
+            <InboundAccordion request={inbound} />
           </Timeline>
         </Grid>
       </Grid>
@@ -84,46 +82,62 @@ function Events({
   );
 }
 
-export async function getServerSideProps() {
-  // TODO: Axios Request
-  // const res = await fetchDataOrRedirect(context, '/bridges');
-  // if (!res) return { props: {} }; // Redirecting to /users/login
+export async function getServerSideProps(context) {
+  const res = await fetchDataOrRedirect(context, `/events/${context.query.slug}`);
+  if (!res) return { props: {} }; // Redirecting to /users/login
 
-  // return {
-  //   props: {
-  //     bridges: res.data.bridges,
-  //   },
-  // };
+  const { event } = res.data;
+  event.data = JSON.parse(event.data);
 
   return {
-    props: SeedData,
+    props: {
+      event: toCamel(event),
+    },
   };
 }
 
 Events.propTypes = {
-  title: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
   event: PropTypes.shape({
+    completed: PropTypes.bool.isRequired,
     aborted: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
-    bridge_id: PropTypes.number.isRequired,
-    completed: PropTypes.bool,
-    completed_at: PropTypes.string,
-    data: PropTypes.string,
+    bridgeId: PropTypes.number.isRequired,
+    completedAt: PropTypes.string.isRequired,
+    data: PropTypes.shape({
+      inbound: PropTypes.shape({
+        dateTime: PropTypes.string.isRequired,
+        contentLength: PropTypes.number.isRequired,
+        payload: PropTypes.shape({}).isRequired,
+      }).isRequired,
+
+      outbound: PropTypes.arrayOf(
+        PropTypes.shape({
+          request: PropTypes.shape({
+            dateTime: PropTypes.string.isRequired,
+            contentLength: PropTypes.string.isRequired,
+            uri: PropTypes.string.isRequired,
+            payload: PropTypes.shape({}).isRequired,
+            headers: PropTypes.arrayOf(
+              PropTypes.shape({
+                key: PropTypes.string.isRequired,
+                value: PropTypes.string.isRequired,
+              }),
+            ),
+          }).isRequired,
+
+          response: PropTypes.shape({
+            dateTime: PropTypes.string.isRequired,
+            statusCode: PropTypes.string.isRequired,
+            message: PropTypes.string.isRequired,
+            size: PropTypes.number.isRequired,
+            payload: PropTypes.shape({}).isRequired,
+          }).isRequired,
+        }).isRequired,
+      ).isRequired,
+    }),
     statusCode: PropTypes.number,
     test: PropTypes.bool,
   }).isRequired,
-  sidebarEvents: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      bridge_id: PropTypes.number.isRequired,
-      completed: PropTypes.bool,
-      completed_at: PropTypes.string,
-      data: PropTypes.string,
-      statusCode: PropTypes.number,
-      test: PropTypes.bool,
-    }),
-  ).isRequired,
 };
 
 export default Events;
