@@ -45,28 +45,49 @@ export const inputOutboundUrl = (url) => {
 };
 
 export const inputMethod = (methodName) => {
-  const input = methodName || 'Method';
-  cy.get('#method').type(input).should('have.value', input);
+  const input = methodName || 'GET';
+  cy.get('#method').click().then(() => {
+    cy.get(`[data-value="${input}"]`).click().then(() => {
+      cy.get('#method').invoke('text').should('eq', input);
+    });
+  });
 };
 
 export const inputRetries = (retries) => {
-  const input = retries || 'Retries';
-  cy.get('#retries').type(input).should('have.value', input);
+  const input = retries && `${retries} Retries` || '3 Retries';
+  cy.get('#retries').click().then(() => {
+    cy.get(`[data-value="${3}"]`).click().then(() => {
+      cy.get('#retries').invoke('text').should('eq', input);
+    });
+  });
 };
 
 export const inputDelay = (delay) => {
-  const input = delay || 'Delay';
-  cy.get('#delay').type(input).should('have.value', input);
+  const input = delay || '30';
+  cy.get('#delay').click().then(() => {
+    cy.get(`[data-value="${input}"]`).click().then(() => {
+      cy.get('#delay').invoke('text').should('eq', `${input} Minutes`);
+    });
+  });
+
+  // const input = delay || 'Delay';
+  // cy.get('#delay').type(input).should('have.value', input);
 };
 
 export const inputHeaderKey = (headerKey) => {
   const input = headerKey || 'Key';
-  cy.get('#headers-0').type(input).should('have.value', input);
+  cy.get('#headerPlusBtn').click().then(() => {
+    cy.get('#headers-0').type(input).should('have.value', input);
+  });
 };
+
+// envPlusBtn
 
 export const inputHeaderValue = (headerValue) => {
   const input = headerValue || 'Value';
-  cy.get('#headers-0-value').type(input).should('have.value', input);
+  cy.get('#envPlusBtn').click().then(() => {
+    cy.get('#headers-0-value').type(input).should('have.value', input);
+  });
 };
 
 export const inputEnvVarKey = (envKey) => {
@@ -79,19 +100,21 @@ export const inputEnvVarValue = (envValue) => {
   cy.get('#envVar-0-value').type(input).should('have.value', input);
 };
 
-const defaultPayload = {
-  hello: 'world',
-  acessEnvVars: '$env.MY_KEY',
-  accessPayload: '$payload.message',
-};
+// const defaultPayload = {
+//   hello: 'world',
+//   acessEnvVars: '$env.MY_KEY',
+//   accessPayload: '$payload.message',
+// };
 
 export const inputPayload = (payload) => {
-  const input = payload || defaultPayload;
+  const input = "{ 'hello': 'world' }";
+  // const input = payload || defaultPayload;
   cy.get('#payload').type(input).should('have.value', input);
 };
 
 export const inputTestPayload = (testPayload) => {
-  const input = testPayload || defaultPayload;
+  const input = "{ 'hello': 'world' }";
+  // const input = testPayload || defaultPayload;
   cy.get('#test-payload').type(input).should('have.value', input);
 };
 

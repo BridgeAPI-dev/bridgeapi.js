@@ -110,6 +110,7 @@ function EnvironmentVariablesCard({ environmentVariables }) {
                   variant="outlined"
                   className={classes.plusButton}
                   onClick={() => arrayHelpers.push({ key: '', value: '' })}
+                  id="envPlusBtn"
                 >
                   +
                 </Button>

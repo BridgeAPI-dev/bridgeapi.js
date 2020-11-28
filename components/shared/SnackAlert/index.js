@@ -3,7 +3,7 @@ import { Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 function SnackAlert({
-  open, severity, message, onClose,
+  open, severity, message, onClose, id,
 }) {
   return (
     <Snackbar
@@ -11,6 +11,7 @@ function SnackAlert({
       open={open}
       onClose={onClose}
       autoHideDuration={3000}
+      id={id}
     >
       <Alert severity={severity}>
         { message }
@@ -22,6 +23,7 @@ function SnackAlert({
 export default SnackAlert;
 
 SnackAlert.propTypes = {
+  id: PropTypes.bool.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func,
   severity: PropTypes.string.isRequired,

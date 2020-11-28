@@ -111,6 +111,7 @@ function HeaderTextFields({ headers }) {
               variant="outlined"
               className={classes.plusButton}
               onClick={() => arrayHelpers.push({ key: '', value: '' })}
+              id="headerPlusBtn"
             >
               +
             </Button>

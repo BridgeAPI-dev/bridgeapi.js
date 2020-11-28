@@ -111,12 +111,11 @@ function CodeMirror({
   }, []);
 
   return (
-    <div ref={codeRef} style={{ zIndex: fullScreen ? 1200 : 5, position: 'relative' }}>
+    <div ref={codeRef} id={id} style={{ zIndex: fullScreen ? 1200 : 5, position: 'relative' }}>
       {mounted
         ? (
           <CM
             value={code}
-            id={id}
             options={{
               mode: {
                 name: 'javascript',
