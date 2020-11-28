@@ -40,7 +40,7 @@ export const inputTitle = (title) => {
 };
 
 export const inputOutboundUrl = (url) => {
-  const input = url || 'Outbound URL';
+  const input = url || 'www.outboundurl.com';
   cy.get('#outboundUrl').type(input).should('have.value', input);
 };
 
@@ -113,12 +113,14 @@ export const inputPayload = (payload) => {
 };
 
 export const inputTestPayload = (testPayload) => {
-  const input = "{ 'hello': 'world' }";
+  const input = "{ 'hello': 'world' }" || testPayload;
   // const input = testPayload || defaultPayload;
   cy.get('#test-payload').type(input).should('have.value', input);
 };
 
-export const inputHeaderFields = (title, outboundUrl, method, retries, delay, key, value) => {
+export const inputHeaderFields = (
+  title, outboundUrl, method, retries, delay, key, value,
+) => {
   inputTitle(title);
   inputOutboundUrl(outboundUrl);
   inputMethod(method);

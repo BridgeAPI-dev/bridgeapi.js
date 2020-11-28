@@ -185,7 +185,7 @@ function Signup() {
         </Container>
       </Paper>
       <SnackAlert open={successOpen} onClose={handleSnackClose} severity="success" message="Account has been created. Redirecting..." />
-      <SnackAlert open={errorOpen} onClose={handleSnackClose} severity="error" message="Some error occurred. Please try again." />
+      <SnackAlert open={errorOpen} onClose={handleSnackClose} severity="error" message="Some error has occurred. Please try again." />
     </Grid>
   );
 }

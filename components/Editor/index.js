@@ -177,7 +177,7 @@ function Editor({ bridge, isEditView }) {
                         id={id}
                       />
                       <Button onClick={() => setActionsDialogOpen(true)} variant="outlined" color="secondary" className={classes.action}>Actions</Button>
-                      <Button onClick={submitForm} variant="contained" color="secondary">Save</Button>
+                      <Button id="save-btn" onClick={submitForm} variant="contained" color="secondary">Save</Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -197,8 +197,8 @@ function Editor({ bridge, isEditView }) {
           </Formik>
         </Grid>
       </Grid>
-      <SnackAlert open={open} onClose={handleClose} severity="success" message="Bridge has been saved." />
-      <SnackAlert open={errorOpen} onClose={handleClose} severity="error" message="Some error has occured. Please try again." />
+      <SnackAlert id="success-alert" open={open} onClose={handleClose} severity="success" message="Bridge has been saved." />
+      <SnackAlert id="error-alert" open={errorOpen} onClose={handleClose} severity="error" message="Some error has occurred. Please try again." />
     </>
   );
 }
