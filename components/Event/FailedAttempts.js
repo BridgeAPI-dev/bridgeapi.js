@@ -87,6 +87,7 @@ function FailedAttempts({ requests }) {
               classes={{
                 expanded: classes.expanded,
               }}
+              id="failed-attempts"
             >
               <Grid container>
                 <Grid item>

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function AccordionSummary({
-  title, subtitle, icon, tooltip = false, tooltipMessage,
+  title, subtitle, icon, tooltip = false, tooltipMessage, id,
 }) {
   const classes = useStyles();
 
@@ -28,6 +28,7 @@ function AccordionSummary({
     <MUIAccordionSummary
       expandIcon={icon}
       className={classes.root}
+      id={id}
     >
       <Grid container>
         <Grid item align="left">
@@ -61,6 +62,7 @@ export default AccordionSummary;
 AccordionSummary.defaultProps = {
   tooltip: false,
   tooltipMessage: '',
+  id: '',
 };
 
 AccordionSummary.propTypes = {
@@ -72,4 +74,5 @@ AccordionSummary.propTypes = {
   ]).isRequired,
   tooltip: PropTypes.bool,
   tooltipMessage: PropTypes.string,
+  id: PropTypes.string,
 };

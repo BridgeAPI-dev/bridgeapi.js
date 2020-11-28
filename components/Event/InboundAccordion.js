@@ -74,14 +74,11 @@ function TimelineAccordion({ request }) {
               icon={<ExpandMore />}
               title="Inbound"
               subtitle="Received from the inbound service"
+              id="inbound-request"
             />
 
             <AccordionDetails className={classes.accordionDetails}>
               <Grid container direction="column">
-                <Typography>
-                  Headers:
-                </Typography>
-
                 <Typography>
                   Timestamp:
                   {' '}

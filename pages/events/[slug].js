@@ -52,7 +52,7 @@ function Events({ event }) {
             eventCompleted={event.completed}
             aborted={event.aborted}
             outbound={outbound}
-            id={event.id}
+            eventId={event.id}
           />
           {/* <Typography align="center" variant="body2" className={classes.microCopy} noWrap>
             Send your events here:
@@ -65,13 +65,15 @@ function Events({ event }) {
           >
             {event.outbound_url}
           </Typography> */}
-          <Timeline>
+          <Timeline id="event-timeline">
             <ResponseAccordion
               request={outbound[0].response}
+              id="response-0"
             />
 
             <OutboundAccordion
               request={outbound[0].request}
+              id="outbound-0"
             />
 
             { requiredRetry && <FailedAttempts requests={outbound.slice(1)} />}
