@@ -1,19 +1,24 @@
 {
-  "id": 1,
-  "title": "title_1",
-  "inbound_url": "534a9856d7b2b9267609",
-  "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
-  "http_method": "POST",
-  "retries": 2,
-  "delay": 15,
-  "data": {
-    "payload": "{\n  \"hello\": \"world\"\n}",
-    "test_payload": "{\n  \"hello\": \"world\",\n  \"acessEnvVars\": \"$env.MY_KEY\",\n  \"accessPayload\": \"$payload.message\"\n}"
-  },
-  "created_at": "2020-11-26T18:30:24.093Z",
-  "updated_at": "2020-11-26T18:30:24.093Z",
-  "user_id": 3,
-  "active": true,
-  "eventCount": 0,
-  "completedAt": ""
+  "bridge": {
+    "id": 1,
+    "title": "title_1",
+    "inbound_url": "534a9856d7b2b9267609",
+    "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
+    "http_method": "POST",
+    "retries": 2,
+    "delay": 15,
+    "data": {
+      "payload": "{\n  \"hello\": \"world\"\n}",
+      "test_payload": "{\n  \"hello\": \"world\",\n  \"acessEnvVars\": \"$env.MY_KEY\",\n  \"accessPayload\": \"$payload.message\"\n}"
+    },
+    "created_at": "2020-11-26T18:30:24.093Z",
+    "updated_at": "2020-11-26T18:30:24.093Z",
+    "user_id": 3,
+    "active": true,
+    "eventCount": 10,
+    "completedAt": "",
+    "environment_variables": [],
+    "headers": [],
+    "events": []
+  }
 }

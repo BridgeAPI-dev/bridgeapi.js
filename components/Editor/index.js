@@ -99,7 +99,7 @@ function Editor({ bridge, isEditView }) {
   const generatePayload = (values) => ({
     active: values.active,
     title: values.title,
-    method: values.method,
+    http_method: values.method,
     outbound_url: values.outboundUrl,
     retries: values.retries,
     delay: values.delay,
@@ -120,11 +120,17 @@ function Editor({ bridge, isEditView }) {
     } else {
       await api
         .post('/bridges', generatePayload(values))
-        .then((res) => router.push(`/bridge/${res.data.id}`))
+        .then((res) => {
+          setOpen(true);
+          // TODO: Should timeout so user gets a chance to read the snack
+          // but is 200ms the time we want?
+          setTimeout(() => {
+            router.push(`/bridge/${res.data.id}`);
+          }, 200);
+        })
         .catch(() => setErrorOpen(true));
     }
 
-    setOpen(true);
     setSubmitting(false);
   };
 
