@@ -23,8 +23,8 @@ describe('Events Show', () => {
   it('can show or hide retries', () => {
     cy.setToken();
     cy.visit(url);
-    cy.get('#event-timeline')
-      .click();
+    // cy.get('#event-timeline')
+    //   .click();
 
     cy.get('#event-timeline')
       .children()
