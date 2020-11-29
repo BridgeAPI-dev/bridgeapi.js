@@ -69,9 +69,6 @@ export const inputDelay = (delay) => {
       cy.get('#delay').invoke('text').should('eq', `${input} Minutes`);
     });
   });
-
-  // const input = delay || 'Delay';
-  // cy.get('#delay').type(input).should('have.value', input);
 };
 
 export const inputHeaderKey = (headerKey) => {
@@ -100,20 +97,14 @@ export const inputEnvVarValue = (envValue) => {
   cy.get('#envVar-0-value').type(input).should('have.value', input);
 };
 
-// const defaultPayload = {
-//   hello: 'world',
-//   acessEnvVars: '$env.MY_KEY',
-//   accessPayload: '$payload.message',
-// };
-
 export const inputPayload = (payload) => {
-  const input = "{ 'hello': 'world' }";
+  const input = payload || "{ 'hello': 'world' }";
   // const input = payload || defaultPayload;
   cy.get('#payload').type(input).should('have.value', input);
 };
 
 export const inputTestPayload = (testPayload) => {
-  const input = "{ 'hello': 'world' }" || testPayload;
+  const input = testPayload || "{ 'hello': 'world' }";
   // const input = testPayload || defaultPayload;
   cy.get('#test-payload').type(input).should('have.value', input);
 };

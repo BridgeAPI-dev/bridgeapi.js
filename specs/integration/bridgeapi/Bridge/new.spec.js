@@ -26,39 +26,38 @@ describe('Create a new bridge', () => {
     cy.clearCookies();
   });
 
-  //  TEST FOR bridge/[id]
-  // it('redirects to login with bad token', () => {
-  //   cy.setBadToken();
-  //   cy.visit('/bridge/new');
+  it('redirects to login with bad token', () => {
+    cy.setBadToken();
+    cy.visit('/bridge/new');
 
-  //   cy.location().should((location) => {
-  //     expect(location.pathname).to.eq('/users/login');
-  //   });
-  // });
+    cy.location().should((location) => {
+      expect(location.pathname).to.eq('/users/login');
+    });
+  });
 
-  // it.skip('displays all error messages upon empty submission', () => { // PASSES
-  //   cy.setToken();
-  //   cy.visit('/bridge/new');
-  //   cy.get('#save-btn').click();
-  //   cy.get('#save-btn').click();
-  //   cy.get('#title-helper-text').contains('Required');
-  //   cy.get('#outboundUrl-helper-text').contains('Required');
-  //   cy.get('#method-helper-text').contains('Required');
-  //   cy.get('#retries-helper-text').contains('Required');
-  //   cy.get('#delay-helper-text').contains('Required');
-  // });
+  it.skip('displays all error messages upon empty submission', () => { // PASSES
+    cy.setToken();
+    cy.visit('/bridge/new');
+    cy.get('#save-btn').click();
+    cy.get('#save-btn').click();
+    cy.get('#title-helper-text').contains('Required');
+    cy.get('#outboundUrl-helper-text').contains('Required');
+    cy.get('#method-helper-text').contains('Required');
+    cy.get('#retries-helper-text').contains('Required');
+    cy.get('#delay-helper-text').contains('Required');
+  });
 
-  // it.skip('returns an error message if an error submission occurred', () => { // PASSES
-  //   cy.setToken();
-  //   cy.visit('/bridge/new');
-  //   inputHeaderFields();
-  //   inputEnvFields();
-  //   cy.get('#save-btn').click();
-  //   cy.get('#save-btn').click();
-  //   cy.get('#error-alert').contains('Some error has occurred. Please try again.');
-  // });
+  it.skip('returns an error message if an error submission occurred', () => { // PASSES
+    cy.setToken();
+    cy.visit('/bridge/new');
+    inputHeaderFields();
+    inputEnvFields();
+    cy.get('#save-btn').click();
+    cy.get('#save-btn').click();
+    cy.get('#error-alert').contains('Some error has occurred. Please try again.');
+  });
 
-  it('can create a new bridge', () => { // Problem: goes to login page and times out
+  it('can create a new bridge', () => {
     stubSuccessfullCreateBridge();
     cy.setToken();
     cy.visit('/bridge/new');
