@@ -25,7 +25,7 @@ const handlers = [
 
     return res(ctx.json(bridges));
   }),
-  rest.get('http://localhost/bridge/1', (req, res, ctx) => {
+  rest.get('http://localhost/bridges/1', (req, res, ctx) => {
     if (invalidToken(req)) {
       return res(
         ctx.status(401),
