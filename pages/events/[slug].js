@@ -33,7 +33,6 @@ function Events({ event }) {
 
   const { inbound, outbound } = event.data;
   const requiredRetry = outbound.length > 1;
-  console.log(outbound.length);
 
   return (
     <ProtectRoute>
