@@ -48,5 +48,5 @@ export const stubUpdateSuccessBridge = () => {
 };
 
 export const stubFailUpdateBridge = () => {
-  cy.stubRequest('/bridge/1', 'PATCH', 400);
+  cy.stubRequest('/bridges/1', 'PATCH', 400);
 };

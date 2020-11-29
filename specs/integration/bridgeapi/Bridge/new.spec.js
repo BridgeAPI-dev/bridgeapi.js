@@ -58,19 +58,19 @@ describe('Create a new bridge', () => {
     cy.get('#error-alert').contains('Some error has occurred. Please try again.');
   });
 
-  it.skip('can create a new bridge', () => {
+  it('can create a new bridge', () => { // Problem: goes to login page and times out
+    stubSuccessfullCreateBridge();
     cy.setToken();
     cy.visit('/bridge/new');
     inputHeaderFields();
     inputEnvFields();
     cy.get('#save-btn').click();
     cy.get('#save-btn').click();
-    // submit();
-    cy.get('.MuiAlert-message').contains('Bridge has been saved.');
-    // cy.location().should((location) => {
-    //   expect(location.pathname).to.eq('/bridges/login');
-    // });
-    // TEST LOCATION: router.push(`/bridge/${res.data.id}`))
+    cy.location().should((location) => {
+      expect(location.pathname).to.eq('/bridges/1');
+    });
+    // cy.get('#success-alert').contains('A Bridge has been saved.');
+    // cy.get('.MuiAlert-message').contains('Bridge has been saved.');
   });
 
   // it('redirects upon successful submission', () => {
@@ -86,17 +86,13 @@ describe('Create a new bridge', () => {
   // });
 });
 
-//  TESTS
-// Test for redirect if no token?
-// Test redirect path after submission
-// create with no values -> test all error messages / alerts
-// test with incorrect values (test validations) at each field
-// Test that new bridge exists after submission
-
 // ?:
+// Test happy path?
+
+
+//  TESTS
+// test with incorrect values (test validations) at each field
 // - redirection with getServerSideProps on Bridge/new.js not working properly
-// -
 // - how to set payloads?
-// - how to deal with submissions
+  // - Test Set form input values 
 // - test success
-// - test failure
