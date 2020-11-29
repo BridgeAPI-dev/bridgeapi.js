@@ -49,11 +49,11 @@ function Sidebar({ events, title }) {
         <Toolbar className={classes.toolbar} />
         <div className={classes.drawerContainer}>
           <List>
-            <Link href={`/bridges/${events[0] ? events[0].bridge_id : 'new'}`}>
+            <Link href={`/bridges/${events && events[0] ? events[0].bridge_id : 'new'}`}>
               <Typography variant="h6" align="center" className={classes.title}>{title || 'Untitled'}</Typography>
             </Link>
             <Divider />
-            {events.map((event) => (
+            {events && events.map((event) => (
               <ListItem
                 completedAt={event.completedAt}
                 statusCode={event.statusCode}
