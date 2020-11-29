@@ -33,6 +33,7 @@ function Events({ event }) {
 
   const { inbound, outbound } = event.data;
   const requiredRetry = outbound.length > 1;
+  console.log(outbound.length);
 
   return (
     <ProtectRoute>
@@ -66,15 +67,20 @@ function Events({ event }) {
             {event.outbound_url}
           </Typography> */}
           <Timeline id="event-timeline">
-            <ResponseAccordion
-              request={outbound[0].response}
-              id="response-0"
-            />
+            {outbound.length >= 1
+              && (
+              <>
+                <ResponseAccordion
+                  request={outbound[0].response}
+                  id="response-0"
+                />
 
-            <OutboundAccordion
-              request={outbound[0].request}
-              id="outbound-0"
-            />
+                <OutboundAccordion
+                  request={outbound[0].request}
+                  id="outbound-0"
+                />
+              </>
+              )}
 
             { requiredRetry && <FailedAttempts requests={outbound.slice(1)} />}
             <InboundAccordion request={inbound} />
