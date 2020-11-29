@@ -66,11 +66,10 @@ describe('Create a new bridge', () => {
     inputEnvFields();
     cy.get('#save-btn').click();
     cy.get('#save-btn').click();
+    cy.get('#success-alert').contains('A Bridge has been saved.');
     cy.location().should((location) => {
-      expect(location.pathname).to.eq('/bridges/1');
+      expect(location.pathname).to.eq('/bridge/1');
     });
-    // cy.get('#success-alert').contains('A Bridge has been saved.');
-    // cy.get('.MuiAlert-message').contains('Bridge has been saved.');
   });
 
   // it('redirects upon successful submission', () => {
