@@ -54,7 +54,7 @@ export const inputMethod = (methodName) => {
 };
 
 export const inputRetries = (retries) => {
-  const input = retries && `${retries} Retries` || '3 Retries';
+  const input = retries || '3';
   cy.get('#retries').click().then(() => {
     cy.get(`[data-value="${3}"]`).click().then(() => {
       cy.get('#retries').invoke('text').should('eq', input);
@@ -77,8 +77,6 @@ export const inputHeaderKey = (headerKey) => {
     cy.get('#headers-0').type(input).should('have.value', input);
   });
 };
-
-// envPlusBtn
 
 export const inputHeaderValue = (headerValue) => {
   const input = headerValue || 'Value';
@@ -129,4 +127,24 @@ export const inputEnvFields = (key, value) => {
 export const inputPayloadFields = (payload, testPayload) => {
   inputPayload(payload);
   inputTestPayload(testPayload);
+};
+
+export const inputHeaderFieldsInvalidUrl = () => {
+  inputTitle();
+  inputOutboundUrl('invalidUrl');
+  inputMethod();
+  inputRetries();
+  inputDelay();
+  inputHeaderKey();
+  inputHeaderValue();
+};
+
+export const inputHeaderFieldsInvalidTitle = () => {
+  inputTitle('ab');
+  inputOutboundUrl();
+  inputMethod();
+  inputRetries();
+  inputDelay();
+  inputHeaderKey();
+  inputHeaderValue();
 };

@@ -42,6 +42,8 @@ function Editor({ bridge, isEditView }) {
   const [open, setOpen] = useState(false);
   const [actionsDialogOpen, setActionsDialogOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
+  // const [errorMessage, setErrorMessage] = useState("Some error has occurred. Please try again.")
+
   // TODO: Custom error messages
   // const [errMsg, setErrMsg] = useState('');
 
@@ -111,8 +113,37 @@ function Editor({ bridge, isEditView }) {
     },
   });
 
+  let errorMessage = '';
+  const validatePayloads = (dataObj) => {
+    const erraneousPayloads = [];
+    const validatePayload = (payload, type) => {
+      try { JSON.parse(payload); } catch { erraneousPayloads.push(type); }
+    };
+    const createErrorMessage = () => {
+      if (erraneousPayloads.length === 1) {
+        errorMessage = `invalid json syntax for ${erraneousPayloads[0]} editor`;
+      } else {
+        errorMessage = 'invalid json syntax for payload and test_payload editor';
+      }
+    };
+
+    validatePayload(dataObj.payload, 'payload');
+    validatePayload(dataObj.testPayload, 'testPayload');
+
+    try {
+      if (erraneousPayloads.length === 0) {
+        throw Error;
+      }
+    } catch (Error) {
+      createErrorMessage();
+      // setErrorMessage(`invalid json syntax for ${editor} editor`);
+    }
+  };
+
   const handleSubmit = async (values, setSubmitting) => {
     if (id) {
+      validatePayloads(values.data);
+
       // POST if new bridge, otherwise PATCH
       await api
         .patch(`/bridges/${id}`, generatePayload(values))

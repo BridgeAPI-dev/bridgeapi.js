@@ -15,11 +15,7 @@
     "updated_at": "2020-11-26T18:30:24.093Z",
     "user_id": 3,
     "active": true,
-<<<<<<< HEAD
-    "eventCount": 0,
-=======
     "eventCount": 10,
->>>>>>> d80a2b0c3a6cf8ec5464833bf6b1f72b9cb40432
     "completedAt": "",
     "environment_variables": [],
     "headers": [],
