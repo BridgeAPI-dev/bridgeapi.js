@@ -1,4 +1,6 @@
 {
-  "email": "demo@demo.com",
-  "password": "password"
+  "user": {
+    "email": "demo@demo.com",
+    "notifications": true
+  }
 }

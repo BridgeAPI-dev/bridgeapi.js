@@ -3,6 +3,7 @@ import { rest } from 'msw';
 
 const bridges = require('../../fixtures/bridges.json');
 const event = require('../../fixtures/event.json');
+const user = require('../../fixtures/user.json');
 
 // msw doesn't give us a way to stub requests on a per spec basis. Because
 // of this, we need to make our own way. Use `cy.setToken` to create a
@@ -37,6 +38,19 @@ const handlers = [
     }
 
     return res(ctx.json(event));
+  }),
+
+  rest.get('http://localhost/user', (req, res, ctx) => {
+    if (invalidToken(req)) {
+      return res(
+        ctx.status(401),
+        ctx.json(
+          {},
+        ),
+      );
+    }
+
+    return res(ctx.json(user));
   }),
 ];
 
