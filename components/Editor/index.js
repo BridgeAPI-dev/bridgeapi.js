@@ -42,7 +42,7 @@ function Editor({ bridge, isEditView }) {
   const [open, setOpen] = useState(false);
   const [actionsDialogOpen, setActionsDialogOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState("Some error has occurred. Please try again.")
+  const [errorMessage, setErrorMessage] = useState('Some error has occurred. Please try again.');
 
   // TODO: Custom error messages
   // const [errMsg, setErrMsg] = useState('');
@@ -113,7 +113,6 @@ function Editor({ bridge, isEditView }) {
     },
   });
 
-  let errorMessage = '';
   const validatePayloads = (dataObj) => {
     const erraneousPayloads = [];
     const validatePayload = (payload, type) => {
@@ -121,9 +120,9 @@ function Editor({ bridge, isEditView }) {
     };
     const createErrorMessage = () => {
       if (erraneousPayloads.length === 1) {
-        errorMessage = `invalid json syntax for ${erraneousPayloads[0]} editor`;
+        setErrorMessage(`invalid json syntax for ${erraneousPayloads[0]} editor`);
       } else {
-        errorMessage = 'invalid json syntax for payload and test_payload editor';
+        setErrorMessage('invalid json syntax for payload and test_payload editor');
       }
     };
 
@@ -131,13 +130,15 @@ function Editor({ bridge, isEditView }) {
     validatePayload(dataObj.testPayload, 'testPayload');
 
     try {
-      if (erraneousPayloads.length === 0) {
+      if (erraneousPayloads.length !== 0) {
         throw Error;
       }
     } catch (Error) {
       createErrorMessage();
-      // setErrorMessage(`invalid json syntax for ${editor} editor`);
+      setErrorOpen(true)
+      return false 
     }
+    return true 
   };
 
   const handleSubmit = async (values, setSubmitting) => {
@@ -235,7 +236,7 @@ function Editor({ bridge, isEditView }) {
         </Grid>
       </Grid>
       <SnackAlert id="success-alert" open={open} onClose={handleClose} severity="success" message="Bridge has been saved." />
-      <SnackAlert id="error-alert" open={errorOpen} onClose={handleClose} severity="error" message="Some error has occurred. Please try again." />
+      <SnackAlert id="error-alert" open={errorOpen} onClose={handleClose} severity="error" message={errorMessage} // "Some error has occurred. Please try again." />
     </>
   );
 }
