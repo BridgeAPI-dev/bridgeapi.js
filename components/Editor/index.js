@@ -142,9 +142,7 @@ function Editor({ bridge, isEditView }) {
   };
 
   const handleSubmit = async (values, setSubmitting) => {
-    if (id) {
-      validatePayloads(values.data);
-
+    if (id && validatePayloads(values.data)) {
       // POST if new bridge, otherwise PATCH
       await api
         .patch(`/bridges/${id}`, generatePayload(values))
