@@ -135,10 +135,10 @@ function Editor({ bridge, isEditView }) {
       }
     } catch (Error) {
       createErrorMessage();
-      setErrorOpen(true)
-      return false 
+      setErrorOpen(true);
+      return false;
     }
-    return true 
+    return true;
   };
 
   const handleSubmit = async (values, setSubmitting) => {
@@ -236,7 +236,7 @@ function Editor({ bridge, isEditView }) {
         </Grid>
       </Grid>
       <SnackAlert id="success-alert" open={open} onClose={handleClose} severity="success" message="Bridge has been saved." />
-      <SnackAlert id="error-alert" open={errorOpen} onClose={handleClose} severity="error" message={errorMessage} // "Some error has occurred. Please try again." />
+      <SnackAlert id="error-alert" open={errorOpen} onClose={handleClose} severity="error" message={errorMessage} />
     </>
   );
 }
