@@ -51,7 +51,7 @@ function Editor({ bridge, isEditView }) {
     active,
     id,
     outboundUrl,
-    method,
+    httpMethod,
     headers,
     environmentVariables,
     events,
@@ -65,7 +65,7 @@ function Editor({ bridge, isEditView }) {
     active,
     title,
     outboundUrl,
-    method,
+    httpMethod,
     retries,
     delay,
     headers,
@@ -129,11 +129,7 @@ function Editor({ bridge, isEditView }) {
     validatePayload(dataObj.payload, 'payload');
     validatePayload(dataObj.testPayload, 'testPayload');
 
-    try {
-      if (erraneousPayloads.length !== 0) {
-        throw Error;
-      }
-    } catch (Error) {
+    if (erraneousPayloads.length !== 0) {
       createErrorMessage();
       setErrorOpen(true);
       return false;
@@ -247,7 +243,7 @@ Editor.defaultProps = {
     active: true,
     title: '',
     outboundUrl: '',
-    method: '',
+    httpMethod: '',
     retries: '',
     delay: '',
     headers: [
@@ -271,7 +267,7 @@ Editor.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
     outboundUrl: PropTypes.string,
-    method: PropTypes.string,
+    httpMethod: PropTypes.string,
     retries: PropTypes.number,
     delay: PropTypes.number,
     headers: PropTypes.arrayOf(
