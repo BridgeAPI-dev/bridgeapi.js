@@ -49,7 +49,7 @@ function MethodDropdown() {
         id="retries"
       >
         {retries.map((retry) => (
-          <MenuItem key={`${retry}-retries`} value={retry}>{`${retry} Retries`}</MenuItem>
+          <MenuItem key={`${retry}-retries`} value={retry}>{`${retry}`}</MenuItem>
         ))}
       </Field>
     </FormControl>
