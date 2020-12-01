@@ -59,24 +59,21 @@ function Sidebar({ events, title }) {
           style={{ overflow: mounted ? 'auto' : 'hidden' }}
         >
           <List>
-            <Link href="/editor/32">
-              <Typography variant="h6" align="center" className={classes.title}>{title}</Typography>
+            <Link href={`/bridges/${events[0] ? events[0].bridge_id : 'new'}`}>
+              <Typography variant="h6" align="center" className={classes.title}>{title || 'Untitled'}</Typography>
             </Link>
             <Divider />
             {!mounted
               ? (
                 <Loader />
               ) : (
-                events.map((event) => {
-                  const { completed, completedAt, statusCode } = event;
-                  return (
-                    <ListItem
-                      statusCode={statusCode}
-                      completedAt={completedAt}
-                      completed={completed}
-                    />
-                  );
-                })
+                events.map((event) => (
+                  <ListItem
+                    completedAt={event.completedAt}
+                    statusCode={event.statusCode}
+                    completed={event.completed}
+                  />
+                ))
               )}
           </List>
         </div>

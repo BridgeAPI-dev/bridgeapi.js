@@ -4,9 +4,7 @@ import {
   Button,
   makeStyles,
   Grid,
-  Snackbar,
 } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import { useRouter } from 'next/router';
@@ -18,8 +16,10 @@ import BridgeTestCard from './BridgeTestCard';
 import PayloadCard from './PayloadCard';
 import EnvironmentVariablesCard from './EnvironmentVariablesCard';
 import HeadersCard from './HeadersCard';
+import ActionsDialog from './ActionsDialog';
 
 import api from '../../utils/api';
+import SnackAlert from '../shared/SnackAlert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,11 +40,13 @@ function Editor({ bridge, isEditView }) {
   const classes = useStyles();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [actionsDialogOpen, setActionsDialogOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
   // TODO: Custom error messages
   // const [errMsg, setErrMsg] = useState('');
 
   const {
+    active,
     id,
     outboundUrl,
     method,
@@ -58,6 +60,7 @@ function Editor({ bridge, isEditView }) {
   const delay = String(bridge.delay);
 
   const initialValues = {
+    active,
     title,
     outboundUrl,
     method,
@@ -94,6 +97,7 @@ function Editor({ bridge, isEditView }) {
   });
 
   const generatePayload = (values) => ({
+    active: values.active,
     title: values.title,
     method: values.method,
     outbound_url: values.outboundUrl,
@@ -165,20 +169,14 @@ function Editor({ bridge, isEditView }) {
                   </Grid>
                   <Grid item sm={4} md={4} lg={4} container justify="flex-end">
                     <Grid>
-                      <Button
-                        variant="outlined"
-                        color="secondary"
-                        className={classes.action}
-                      >
-                        Actions
-                      </Button>
-                      <Button
-                        onClick={submitForm}
-                        variant="contained"
-                        color="secondary"
-                      >
-                        Save
-                      </Button>
+                      <ActionsDialog
+                        active={active}
+                        open={actionsDialogOpen}
+                        onClose={() => setActionsDialogOpen(false)}
+                        id={id}
+                      />
+                      <Button onClick={() => setActionsDialogOpen(true)} variant="outlined" color="secondary" className={classes.action}>Actions</Button>
+                      <Button onClick={submitForm} variant="contained" color="secondary">Save</Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -198,26 +196,8 @@ function Editor({ bridge, isEditView }) {
           </Formik>
         </Grid>
       </Grid>
-      <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      >
-        <Alert onClose={handleClose} severity="success">
-          Bridge has been saved.
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={errorOpen}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      >
-        <Alert onClose={handleClose} severity="error">
-          Some error has occured. Please try again.
-        </Alert>
-      </Snackbar>
+      <SnackAlert open={open} onClose={handleClose} severity="success" message="Bridge has been saved." />
+      <SnackAlert open={errorOpen} onClose={handleClose} severity="error" message="Some error has occured. Please try again." />
     </>
   );
 }
@@ -227,6 +207,7 @@ export default Editor;
 Editor.defaultProps = {
   isEditView: false,
   bridge: {
+    active: true,
     title: '',
     outboundUrl: '',
     method: '',
@@ -249,6 +230,7 @@ Editor.defaultProps = {
 Editor.propTypes = {
   isEditView: PropTypes.bool,
   bridge: PropTypes.shape({
+    active: PropTypes.bool,
     id: PropTypes.number,
     title: PropTypes.string,
     outboundUrl: PropTypes.string,

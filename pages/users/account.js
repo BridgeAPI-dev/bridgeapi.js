@@ -7,18 +7,17 @@ import {
   Container,
   Grid,
   Typography,
-  Snackbar,
 } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
 import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
 import Navbar from '../../components/shared/dashboard/Navbar';
-import DeleteAccountModal from '../../components/Account/Modal';
+import DeleteAccountModal from '../../components/Account/ActionsDialog';
 import emailValidator from '../../utils/emailValidator';
 import ProtectRoute from '../../utils/ProtectRoute';
 
 import api from '../../utils/api';
 import fetchDataOrRedirect from '../../utils/ssrRedirect';
+import SnackAlert from '../../components/shared/SnackAlert';
 
 function Account({ user }) {
   const [open, setOpen] = useState(false);
@@ -96,12 +95,13 @@ function Account({ user }) {
   return (
     <ProtectRoute>
       <Navbar />
-      <DeleteAccountModal open={open} setOpen={setOpen} />
+      <DeleteAccountModal open={open} onClose={() => setOpen(false)} id="delete-account-modal" />
 
       <Formik
         initialValues={initialValues}
         validate={(values) => handleValidate(values)}
         onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
+        id="form"
       >
         {({
           values, submitForm, isSubmitting, resetForm,
@@ -123,6 +123,7 @@ function Account({ user }) {
                       label="Email"
                       value={values.email}
                       style={{ marginBottom: '10px' }}
+                      id="email-input"
                     />
 
                     <Field
@@ -133,6 +134,7 @@ function Account({ user }) {
                       name="currentPassword"
                       style={{ marginBottom: '10px' }}
                       value={values.currentPassword}
+                      id="password-input"
                     />
                     <Typography variant="caption" display="block" gutterBottom>
                       New Password:
@@ -145,6 +147,7 @@ function Account({ user }) {
                       name="newPassword"
                       value={values.newPassword}
                       style={{ marginBottom: '10px' }}
+                      id="new-password-input"
                     />
                     <Field
                       component={TextField}
@@ -154,6 +157,7 @@ function Account({ user }) {
                       name="confirmPassword"
                       value={values.confirmPassword}
                       style={{ marginBottom: '25px' }}
+                      id="new-password-confirmation-input"
                     />
 
                     <Typography variant="caption" display="block" gutterBottom>
@@ -167,6 +171,7 @@ function Account({ user }) {
                       Label={{
                         label: 'Email notification after each bridge event',
                       }}
+                      id="notifications-checkbox"
                     />
 
                     <Typography
@@ -181,6 +186,7 @@ function Account({ user }) {
                       variant="contained"
                       onClick={handleOpen}
                       style={{ backgroundColor: '#f32013', color: 'white' }}
+                      id="open-modal-button"
                     >
                       Delete Account
                     </Button>
@@ -212,26 +218,20 @@ function Account({ user }) {
           </Form>
         )}
       </Formik>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      <SnackAlert
         open={successOpen}
-        autoHideDuration={3000}
         onClose={handleSnackClose}
-      >
-        <Alert onClose={handleSnackClose} severity="success">
-          Account info has been updated.
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        severity="success"
+        message="Account info has been updated."
+        id="success-message"
+      />
+      <SnackAlert
         open={errorOpen}
-        autoHideDuration={3000}
         onClose={handleSnackClose}
-      >
-        <Alert onClose={handleSnackClose} severity="error">
-          Some error occurred. Please try again later.
-        </Alert>
-      </Snackbar>
+        severity="error"
+        message="Some error occurred. Please try again later."
+        id="error-message"
+      />
     </ProtectRoute>
   );
 }
