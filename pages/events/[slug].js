@@ -148,6 +148,50 @@ Events.propTypes = {
     statusCode: PropTypes.number,
     test: PropTypes.bool,
   }).isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      completed: PropTypes.bool.isRequired,
+      aborted: PropTypes.bool.isRequired,
+      id: PropTypes.number.isRequired,
+      bridgeId: PropTypes.number.isRequired,
+      completedAt: PropTypes.string.isRequired,
+      data: PropTypes.shape({
+        inbound: PropTypes.shape({
+          dateTime: PropTypes.string.isRequired,
+          contentLength: PropTypes.number.isRequired,
+          payload: PropTypes.shape({}).isRequired,
+        }).isRequired,
+
+        outbound: PropTypes.arrayOf(
+          PropTypes.shape({
+            request: PropTypes.shape({
+              dateTime: PropTypes.string.isRequired,
+              contentLength: PropTypes.string.isRequired,
+              uri: PropTypes.string.isRequired,
+              payload: PropTypes.shape({}).isRequired,
+              headers: PropTypes.arrayOf(
+                PropTypes.shape({
+                  key: PropTypes.string.isRequired,
+                  value: PropTypes.string.isRequired,
+                }),
+              ),
+            }).isRequired,
+
+            response: PropTypes.shape({
+              dateTime: PropTypes.string.isRequired,
+              statusCode: PropTypes.string.isRequired,
+              message: PropTypes.string.isRequired,
+              size: PropTypes.number.isRequired,
+              payload: PropTypes.shape({}).isRequired,
+            }).isRequired,
+          }).isRequired,
+        ).isRequired,
+      }),
+      statusCode: PropTypes.number,
+      test: PropTypes.bool,
+    }).isRequired,
+  ).isRequired,
+  bridgeTitle: PropTypes.string.isRequired,
 };
 
 export default Events;

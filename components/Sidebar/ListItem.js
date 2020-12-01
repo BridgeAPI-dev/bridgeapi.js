@@ -40,4 +40,5 @@ ListItem.propTypes = {
   statusCode: PropTypes.number.isRequired,
   completedAt: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
+  eventId: PropTypes.number.isRequired,
 };

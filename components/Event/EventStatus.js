@@ -99,7 +99,7 @@ function EventStatus({
 export default EventStatus;
 
 EventStatus.propTypes = {
-  aborted: PropTypes.bool.isRequired,
+  eventAborted: PropTypes.bool.isRequired,
   eventCompleted: PropTypes.bool.isRequired,
   outbound: PropTypes.array.isRequired,
   eventId: PropTypes.number.isRequired,

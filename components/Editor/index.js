@@ -52,7 +52,6 @@ function Editor({ bridge, isEditView }) {
     method,
     headers,
     environmentVariables,
-    events,
     data,
     title,
   } = bridge;

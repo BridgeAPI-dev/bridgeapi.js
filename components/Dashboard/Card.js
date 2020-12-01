@@ -121,6 +121,7 @@ Card.propTypes = {
     eventCount: PropTypes.number.isRequired,
     completedAt: PropTypes.string,
     active: PropTypes.bool.isRequired,
+    eventId: PropTypes.number.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
 };
