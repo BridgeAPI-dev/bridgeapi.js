@@ -34,6 +34,20 @@ function ActionsDialog({
   const router = useRouter();
 
   const handleAbort = () => {
+    api.patch('/events/abort', {
+      bridge_id: id,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setSuccessOpen(true);
+        }
+      })
+      .catch(() => {
+        setErrorOpen(true);
+        setTimeout(() => {
+          setErrorOpen(false);
+        }, 2500);
+      });
   };
 
   const handleActivate = async () => {
