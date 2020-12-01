@@ -1,0 +1,9 @@
+service: bridgeapi-frontend
+
+myNextApplication:
+  component: "@sls-next/serverless-component@1.19.0-alpha.12"
+  inputs:
+    domain: ["bridgeapi.dev"]
+    publicDirectoryCache:
+      value: public, max-age=604800
+      test: /\.(gif|jpe?g|png|txt|xml)$/i

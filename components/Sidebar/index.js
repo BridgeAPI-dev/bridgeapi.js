@@ -36,6 +36,7 @@ const useStyles = makeStyles(() => ({
 
 function Sidebar({ events, title }) {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <Drawer
@@ -48,21 +49,17 @@ function Sidebar({ events, title }) {
         <Toolbar className={classes.toolbar} />
         <div className={classes.drawerContainer}>
           <List>
-            <Link href={`/bridges/${events[0].bridge_id}`}>
+            <Link href={`/bridges/${events[0] ? events[0].bridge_id : 'new'}`}>
               <Typography variant="h6" align="center" className={classes.title}>{title || 'Untitled'}</Typography>
             </Link>
             <Divider />
-            {events.slice().reverse().map((evt) => {
-              const { date, statusCode, time } = evt.responses.slice(-1)[0].headers;
-              return (
-                <ListItem
-                  date={date}
-                  statusCode={statusCode}
-                  timestamp={time}
-                  completed={evt.completed}
-                />
-              );
-            })}
+            {events.map((event) => (
+              <ListItem
+                completedAt={event.completedAt}
+                statusCode={event.statusCode}
+                completed={event.completed}
+              />
+            ))}
           </List>
         </div>
       </Drawer>

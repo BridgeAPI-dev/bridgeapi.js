@@ -1,3 +1,4 @@
+// TODO: Change to snackbar
 import { useState } from 'react';
 import {
   Container,
@@ -15,6 +16,7 @@ import { TextField } from 'formik-material-ui';
 
 import emailValidator from '../../utils/emailValidator';
 import { useAuth } from '../../src/contexts/auth';
+import SnackAlert from '../../components/shared/SnackAlert';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,8 +43,12 @@ const useStyles = makeStyles((theme) => ({
 function Login() {
   const { login } = useAuth();
   const classes = useStyles();
+  // TODO
+  // eslint-disable-next-line no-unused-vars
   const router = useRouter();
   const [formMessage, setFormMessage] = useState('');
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [errorOpen, setErrorOpen] = useState(false);
 
   const initialValues = {
     email: '',
@@ -67,11 +73,33 @@ function Login() {
 
     if (await login(values.email, values.password)) {
       setFormMessage('Success: Logging in. Please wait.');
-      router.push('/dashboard');
+      // router.push('/dashboard');
+      //
+      // TODO: Nextjs doesn't support Server side redirects
+      // with client side router pushes. If we push to dashboard,
+      // then dashboards `getServerSideProps` returns 4XX, the app
+      // will crash with error:
+      // Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+      //
+      // To remedy this, I believe it would be best to get rid of
+      // the ssrRedirect protection and rely on the client side
+      // protection.
+      //
+      // window.location causes a full refresh which solves the issue.
+      window.location.pathname = '/dashboard';
     } else {
-      setFormMessage('Error: Email or password is invalid');
+      setErrorOpen(true);
       setSubmitting(false);
     }
+  };
+
+  const handleSnackClose = (_, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSuccessOpen(false);
+    setErrorOpen(false);
   };
 
   return (
@@ -92,6 +120,7 @@ function Login() {
             initialValues={initialValues}
             validate={(values) => handleValidate(values)}
             onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
+            id="form"
           >
             {({
               submitForm, isSubmitting, values,
@@ -107,6 +136,7 @@ function Login() {
                       label="Email"
                       value={values.email}
                       style={{ marginBottom: '25px', width: '100%' }}
+                      id="email-input"
                     />
                     <Field
                       component={TextField}
@@ -116,6 +146,7 @@ function Login() {
                       name="password"
                       style={{ width: '100%' }}
                       value={values.password}
+                      id="password-input"
                     />
                   </Grid>
                 </Grid>
@@ -149,6 +180,8 @@ function Login() {
 
         </Container>
       </Paper>
+      <SnackAlert open={successOpen} onClose={handleSnackClose} severity="success" message="Success: Logging in. Please wait." />
+      <SnackAlert open={errorOpen} onClose={handleSnackClose} severity="error" message="Error: Email or password is invalid" />
     </Grid>
   );
 }

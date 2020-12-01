@@ -24,4 +24,4 @@ jobs:
     - name: Install modules
       run: npm i
     - name: Run Cypress
-      run: npx cypress run
+      run: NEXT_PUBLIC_TEST_ENV=test npm run test
