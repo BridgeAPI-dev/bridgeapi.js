@@ -7,21 +7,25 @@ import {
 import PropTypes from 'prop-types';
 
 function ListItem({
-  completed, completedAt, statusCode,
+  completed, completedAt, statusCode, eventId,
 }) {
   const timestamp = new Date(completedAt).toDateString();
+  let message = completed ? `${timestamp}` : 'Ongoing';
+  if (statusCode) {
+    message += ` - ${statusCode}`;
+  }
 
   return (
     <MUIListItem divider>
 
       <ListItemText>
-        <Link href="/events/3">
+        <Link href={`/events/${eventId}`}>
           <Typography
             style={{ fontSize: '0.75em' }}
             noWrap
             align="center"
           >
-            {completed ? `${timestamp} - ${statusCode}` : 'Ongoing' }
+            {message}
           </Typography>
         </Link>
       </ListItemText>

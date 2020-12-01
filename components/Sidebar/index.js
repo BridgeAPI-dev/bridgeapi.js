@@ -72,6 +72,7 @@ function Sidebar({ events, bridgeId, title }) {
                     completedAt={event.completedAt}
                     statusCode={event.statusCode}
                     completed={event.completed}
+                    eventId={event.id}
                   />
                 ))
               )}

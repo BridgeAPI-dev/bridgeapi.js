@@ -50,7 +50,7 @@ function Events({ event, events, bridgeTitle }) {
         <Grid item container direction="column" wrap="nowrap">
           <EventStatus
             eventCompleted={event.completed}
-            aborted={event.aborted}
+            eventAborted={event.aborted}
             outbound={outbound}
             eventId={event.id}
           />

@@ -62,6 +62,9 @@ function Card({ bridge, index }) {
               <Typography variant="subtitle1">
                 Total Requests:
               </Typography>
+              <Typography variant="subtitle1">
+                State:
+              </Typography>
             </Grid>
           </Grid>
 
@@ -76,6 +79,10 @@ function Card({ bridge, index }) {
 
             <Typography variant="subtitle1" id={`card-eventCount-${index}`}>
               {bridge.eventCount || '0'}
+            </Typography>
+
+            <Typography variant="subtitle1" id={`card-active-${index}`}>
+              {bridge.active ? 'Active' : 'Deactivated'}
             </Typography>
           </Grid>
         </Grid>
@@ -113,6 +120,7 @@ Card.propTypes = {
     updatedAt: PropTypes.string.isRequired,
     eventCount: PropTypes.number.isRequired,
     completedAt: PropTypes.string,
+    active: PropTypes.bool.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
 };

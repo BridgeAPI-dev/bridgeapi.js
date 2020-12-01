@@ -99,7 +99,7 @@ function Editor({ bridge, isEditView }) {
   const generatePayload = (values) => ({
     active: values.active,
     title: values.title,
-    method: values.method,
+    http_method: values.method,
     outbound_url: values.outboundUrl,
     retries: values.retries,
     delay: values.delay,
