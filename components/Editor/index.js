@@ -52,7 +52,6 @@ function Editor({ bridge, isEditView }) {
     method,
     headers,
     environmentVariables,
-    events,
     data,
     title,
   } = bridge;
@@ -99,7 +98,7 @@ function Editor({ bridge, isEditView }) {
   const generatePayload = (values) => ({
     active: values.active,
     title: values.title,
-    method: values.method,
+    http_method: values.method,
     outbound_url: values.outboundUrl,
     retries: values.retries,
     delay: values.delay,
@@ -140,7 +139,7 @@ function Editor({ bridge, isEditView }) {
   return (
     <>
       <Navbar />
-      <Sidebar events={events} title={title} />
+      <Sidebar events={bridge.events} bridgeId={bridge.id} title={title} />
 
       <Grid container item spacing={5} className={classes.root} sm={9} md={10}>
         <Grid item container wrap="nowrap">

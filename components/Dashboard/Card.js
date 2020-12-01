@@ -62,6 +62,9 @@ function Card({ bridge, index }) {
               <Typography variant="subtitle1">
                 Total Requests:
               </Typography>
+              <Typography variant="subtitle1">
+                State:
+              </Typography>
             </Grid>
           </Grid>
 
@@ -77,6 +80,10 @@ function Card({ bridge, index }) {
             <Typography variant="subtitle1" id={`card-eventCount-${index}`}>
               {bridge.eventCount || '0'}
             </Typography>
+
+            <Typography variant="subtitle1" id={`card-active-${index}`}>
+              {bridge.active ? 'Active' : 'Deactivated'}
+            </Typography>
           </Grid>
         </Grid>
 
@@ -84,12 +91,18 @@ function Card({ bridge, index }) {
         <Grid container spacing={2} style={{ textAlign: 'left' }}>
           <Grid item xs container spacing={2}>
             <Grid item xs>
-              {/* TODO: Should be request id */}
-              <Link href={`/events/${bridge.id}`}>
-                <Typography variant="subtitle1" color="secondary">
+              {bridge.eventId ? (
+                <Link href={`/events/${bridge.eventId}`}>
+                  <Typography variant="subtitle1" color="secondary">
+                    View Events
+                  </Typography>
+                </Link>
+              ) : (
+                <Typography variant="subtitle1">
                   View Events
                 </Typography>
-              </Link>
+              )}
+
             </Grid>
           </Grid>
         </Grid>
@@ -107,6 +120,8 @@ Card.propTypes = {
     updatedAt: PropTypes.string.isRequired,
     eventCount: PropTypes.number.isRequired,
     completedAt: PropTypes.string,
+    active: PropTypes.bool.isRequired,
+    eventId: PropTypes.number.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
 };
