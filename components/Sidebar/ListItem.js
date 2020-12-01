@@ -2,6 +2,7 @@ import {
   ListItem as MUIListItem,
   ListItemText,
   Typography,
+  Link,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
@@ -12,15 +13,19 @@ function ListItem({
 
   return (
     <MUIListItem divider>
+
       <ListItemText>
-        <Typography
-          style={{ fontSize: '0.75em' }}
-          noWrap
-          align="center"
-        >
-          {completed ? `${timestamp} - ${statusCode}` : 'Ongoing' }
-        </Typography>
+        <Link href="/events/3">
+          <Typography
+            style={{ fontSize: '0.75em' }}
+            noWrap
+            align="center"
+          >
+            {completed ? `${timestamp} - ${statusCode}` : 'Ongoing' }
+          </Typography>
+        </Link>
       </ListItemText>
+
     </MUIListItem>
   );
 }

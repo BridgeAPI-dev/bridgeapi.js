@@ -37,12 +37,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Sidebar({ events, title }) {
+function Sidebar({ events, bridgeId, title }) {
   const classes = useStyles();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setMounted(true), 2500);
+    setTimeout(() => setMounted(true), 1000);
   }, []);
 
   return (
@@ -59,7 +59,7 @@ function Sidebar({ events, title }) {
           style={{ overflow: mounted ? 'auto' : 'hidden' }}
         >
           <List>
-            <Link href={`/bridges/${events[0] ? events[0].bridge_id : 'new'}`}>
+            <Link href={`/bridge/${bridgeId}`}>
               <Typography variant="h6" align="center" className={classes.title}>{title || 'Untitled'}</Typography>
             </Link>
             <Divider />
@@ -67,7 +67,7 @@ function Sidebar({ events, title }) {
               ? (
                 <Loader />
               ) : (
-                events.map((event) => (
+                events && events.map((event) => (
                   <ListItem
                     completedAt={event.completedAt}
                     statusCode={event.statusCode}

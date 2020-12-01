@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Events({ event }) {
+function Events({ event, events, bridgeTitle }) {
   const classes = useStyles();
 
   const { inbound, outbound } = event.data;
@@ -37,7 +37,7 @@ function Events({ event }) {
   return (
     <ProtectRoute>
       <Navbar />
-      <Sidebar events={[]} title="TODO" />
+      <Sidebar events={events} bridgeId={event.bridgeId} title={bridgeTitle} />
 
       <Grid
         container
@@ -99,7 +99,9 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      bridgeTitle: res.data.bridge_title,
       event: toCamel(event),
+      events: toCamel(JSON.parse(res.data.events)),
     },
   };
 }

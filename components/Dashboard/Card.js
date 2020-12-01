@@ -84,12 +84,18 @@ function Card({ bridge, index }) {
         <Grid container spacing={2} style={{ textAlign: 'left' }}>
           <Grid item xs container spacing={2}>
             <Grid item xs>
-              {/* TODO: Should be request id */}
-              <Link href={`/events/${bridge.id}`}>
-                <Typography variant="subtitle1" color="secondary">
+              {bridge.eventId ? (
+                <Link href={`/events/${bridge.eventId}`}>
+                  <Typography variant="subtitle1" color="secondary">
+                    View Events
+                  </Typography>
+                </Link>
+              ) : (
+                <Typography variant="subtitle1">
                   View Events
                 </Typography>
-              </Link>
+              )}
+
             </Grid>
           </Grid>
         </Grid>
