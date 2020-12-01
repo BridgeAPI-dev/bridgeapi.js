@@ -12,6 +12,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 import emailValidator from '../utils/emailValidator';
+import api from '../utils/api';
 
 const useStyles = makeStyles((theme) => ({
   aside: {
@@ -79,8 +80,10 @@ function ContactUs() {
   };
 
   const handleSubmit = async (values) => {
-    setFormMessage('');
     console.log(values);
+    api.post('/contact_us', values).then( res => {
+      setFormMessage('Success! We\'ll be in contact with you shortly');
+    });
   };
 
   return (
@@ -102,7 +105,7 @@ function ContactUs() {
           <Container component="main" maxWidth="md">
             <Grid container justify="center" item>
               <Typography variant="body1" className={classes.title}>
-                Contact Us@@
+                Contact Us
               </Typography>
             </Grid>
             <Formik
