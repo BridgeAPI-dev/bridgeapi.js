@@ -28,6 +28,7 @@ SnackAlert.propTypes = {
   onClose: PropTypes.func,
   severity: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 SnackAlert.defaultProps = {

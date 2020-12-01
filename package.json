@@ -8,7 +8,7 @@
     "start": "next start",
     "cypress:open": "cypress open",
     "start-test-server": "next build && next start",
-    "cy:run": "cypress run",
+    "cy:run": "cypress run --headed",
     "test": "start-server-and-test start-test-server http://localhost:3000 cy:run"
   },
   "dependencies": {

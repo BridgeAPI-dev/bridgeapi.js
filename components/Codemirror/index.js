@@ -17,7 +17,11 @@ import 'codemirror/addon/display/fullscreen.css';
 import 'codemirror/addon/fold/foldgutter.css';
 
 function CodeMirror({
+<<<<<<< HEAD
   formKey, isEditView, readOnly, values, id,
+=======
+  formKey, isEditView, readOnly, values, data,
+>>>>>>> 4683017abea59d04f6d7abb0e3757c185459d0a8
 }) {
   const codeRef = useRef(null);
   const [mounted, setMounted] = useState(false);
@@ -49,8 +53,8 @@ function CodeMirror({
       // set editor data
       // TODO: Need endpoint that accepts bridge_id and returns
       // inbound payload of latest payload
-      const data = '// My latest request';
-      setCode(data);
+      const state = JSON.stringify(data, null, 2) || '// My latest request';
+      setCode(state);
     } else if (formKey) {
       // New Bridge - For payload & test payload editors
       // Sets the default for form, editor state is already at default
@@ -135,7 +139,7 @@ function CodeMirror({
               fullScreen,
               readOnly,
             }}
-            onChange={(editor, data, value) => {
+            onChange={(_, __, value) => {
               if (formKey) {
                 values[formKey] = value;
               }
@@ -158,7 +162,11 @@ CodeMirror.propTypes = {
     payloadCode: PropTypes.string,
     testPayloadCode: PropTypes.string,
   }),
+<<<<<<< HEAD
   id: PropTypes.string,
+=======
+  data: PropTypes.shape({}),
+>>>>>>> 4683017abea59d04f6d7abb0e3757c185459d0a8
 };
 
 CodeMirror.defaultProps = {
@@ -168,5 +176,9 @@ CodeMirror.defaultProps = {
     payloadCode: '',
     testPayloadCode: '',
   },
+<<<<<<< HEAD
   id: '',
+=======
+  data: {},
+>>>>>>> 4683017abea59d04f6d7abb0e3757c185459d0a8
 };
