@@ -1,10 +1,10 @@
 import React, {
-  useState, useEffect, useRef,
+  useRef,
 } from 'react';
 import {
   AppBar, Toolbar, Typography, IconButton, makeStyles, Link,
 } from '@material-ui/core';
-import { FaPlus, FaArrowDown } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 
 import { AccountCircle } from '@material-ui/icons';
 import Menu from './Menu';
@@ -47,51 +47,51 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const classes = useStyles();
-  const [bridges, setBridges] = useState([]);
-  const [width, setWidth] = useState(null);
+  // const [bridges, setBridges] = useState([]);
+  // const [width, setWidth] = useState(null);
   const { logout } = useAuth();
 
-  const bridgeMenuTransforms = {
-    anchor: {
-      vertical: 'bottom',
-      horizontal: 'center',
-    },
-    transform: {
-      vertical: 'top',
-      horizontal: 'center',
-    },
-  };
+  // const bridgeMenuTransforms = {
+  //   anchor: {
+  //     vertical: 'bottom',
+  //     horizontal: 'center',
+  //   },
+  //   transform: {
+  //     vertical: 'top',
+  //     horizontal: 'center',
+  //   },
+  // };
 
-  const menuUseEffect = () => {
-    let cancelled = false;
-    const getBridges = async () => {
-      // await axios.get('http://localhost:3001/bridges')
-      // if (!cancelled)
-      //   .then((res) => {
-      //     setBridges(res.data);
-      //   });
-      setBridges([
-        'Bridge 1',
-        'Bridge 2',
-        'Bridge 3',
-      ]);
-    };
+  // const menuUseEffect = () => {
+  //   let cancelled = false;
+  //   const getBridges = async () => {
+  //     // await axios.get('http://localhost:3001/bridges')
+  //     // if (!cancelled)
+  //     //   .then((res) => {
+  //     //     setBridges(res.data);
+  //     //   });
+  //     setBridges([
+  //       'Bridge 1',
+  //       'Bridge 2',
+  //       'Bridge 3',
+  //     ]);
+  //   };
 
-    getBridges();
-    // eslint-disable-next-line no-unused-vars
-    return () => { cancelled = true; };
-  };
+  //   getBridges();
+  //   // eslint-disable-next-line no-unused-vars
+  //   return () => { cancelled = true; };
+  // };
 
   // Determine the width of the 'Dashboard' link &
   // move the brigdes dropdown to center of the screen
   const ref = useRef(null);
-  useEffect(() => {
-    if (ref.current) {
-      setWidth(ref.current.offsetWidth);
-    } else {
-      throw new Error('Ref not found');
-    }
-  }, [ref.current]);
+  // useEffect(() => {
+  //   if (ref.current) {
+  //     setWidth(ref.current.offsetWidth);
+  //   } else {
+  //     throw new Error('Ref not found');
+  //   }
+  // }, [ref.current]);
 
   return (
     <div className={classes.root}>
@@ -114,7 +114,7 @@ export default function Navbar() {
             </Typography>
           </Link>
 
-          <Menu
+          {/* <Menu
             icon={<FaArrowDown size={15} className={classes.icon} />}
             text="Bridges"
             width={width}
@@ -132,7 +132,8 @@ export default function Navbar() {
                 </Typography>
               </Link>
             ))}
-          </Menu>
+          </Menu> */}
+          <div className={classes.menuRoot} />
 
           <Menu icon={<AccountCircle />}>
             <Link href="/users/account" id="menu-item-profile">
