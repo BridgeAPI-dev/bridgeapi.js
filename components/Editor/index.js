@@ -101,7 +101,7 @@ function Editor({ bridge, isEditView }) {
   const generatePayload = (values) => ({
     active: values.active,
     title: values.title,
-    http_method: values.method,
+    http_method: values.httpMethod,
     outbound_url: values.outboundUrl,
     retries: values.retries,
     delay: values.delay,
@@ -113,7 +113,7 @@ function Editor({ bridge, isEditView }) {
     },
   });
 
-  const validatePayloads = (dataObj) => {
+  const validatePayloads = (payloadCode, testPayloadCode) => {
     const erraneousPayloads = [];
     const validatePayload = (payload, type) => {
       try { JSON.parse(payload); } catch { erraneousPayloads.push(type); }
@@ -126,22 +126,24 @@ function Editor({ bridge, isEditView }) {
       }
     };
 
-    validatePayload(dataObj.payload, 'payload');
-    validatePayload(dataObj.testPayload, 'testPayload');
+    validatePayload(payloadCode, 'payload');
+    validatePayload(testPayloadCode, 'testPayload');
 
     if (erraneousPayloads.length !== 0) {
       createErrorMessage();
       setErrorOpen(true);
       return false;
     }
+
     return true;
   };
 
   const handleSubmit = async (values, setSubmitting) => {
-    if (id && validatePayloads(values.data)) {
+    if (id && validatePayloads(values.payloadCode, values.testPayloadCode)) {
       // POST if new bridge, otherwise PATCH
       await api
         .patch(`/bridges/${id}`, generatePayload(values))
+        .then(() => setOpen(true))
         .catch(() => setErrorOpen(true));
     } else {
       await api

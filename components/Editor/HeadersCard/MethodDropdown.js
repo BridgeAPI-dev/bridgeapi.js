@@ -42,7 +42,7 @@ function MethodDropdown() {
       <Field
         component={TextField}
         type="text"
-        name="method"
+        name="httpMethod"
         select
         validate={validateMethod}
         label="Method"
