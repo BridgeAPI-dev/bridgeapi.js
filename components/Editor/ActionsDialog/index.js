@@ -34,10 +34,21 @@ function ActionsDialog({
   const router = useRouter();
 
   const handleAbort = () => {
+    api.post(`/events/abort?bridge_id=${id}`).then(() => {
+      setSuccessOpen(true);
+      setTimeout(() => {
+        setSuccessOpen(false);
+      }, 2500);
+    }).catch(() => {
+      setErrorOpen(true);
+      setTimeout(() => {
+        setErrorOpen(false);
+      }, 2500);
+    });
   };
 
-  const handleActivate = async () => {
-    await api.patch(`/bridges/${id}/${active ? 'deactivate' : 'activate'}`).then(() => {
+  const handleActivate = () => {
+    api.patch(`/bridges/${id}/${active ? 'deactivate' : 'activate'}`).then(() => {
       router.push(`/bridge/${id}`);
       setSuccessOpen(true);
       setTimeout(() => {
