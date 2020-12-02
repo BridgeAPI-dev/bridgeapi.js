@@ -45,10 +45,17 @@ function ActionsDialog({
   };
 
   const handleAbort = () => {
-    api.post(`/events/abort?bridge_id=${id}`).then(() => {
-      setSuccessOpen(true);
-      handleSuccess();
-    }).catch(() => handleError());
+    api.patch('/events/abort', {
+      bridge_id: id,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setSuccessOpen(true);
+        }
+      })
+      .catch(() => {
+        handleError();
+      });
   };
 
   const handleActivate = () => {
