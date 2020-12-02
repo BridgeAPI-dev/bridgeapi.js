@@ -7,23 +7,21 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import PauseIcon from '@material-ui/icons/Pause';
-import { blue } from '@material-ui/core/colors';
-import { Snackbar } from '@material-ui/core';
+import { ListItemIcon, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 import api from '../../../utils/api';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
+    backgroundColor: 'inherit',
+    color: theme.palette.primary.main,
   },
-});
+}));
 
 function ActionsDialog({
   active, open, onClose, id,
@@ -90,27 +88,27 @@ function ActionsDialog({
       <DialogTitle id="simple-dialog-title">Bridge Actions</DialogTitle>
       <List>
         <ListItem button onClick={handleAbort}>
-          <ListItemAvatar>
+          <ListItemIcon>
             <Avatar className={classes.avatar}>
-              <CancelIcon />
+              <CancelIcon fontSize="large" />
             </Avatar>
-          </ListItemAvatar>
+          </ListItemIcon>
           <ListItemText primary="Abort Ongoing Requests" />
         </ListItem>
         <ListItem button onClick={handleActivate}>
-          <ListItemAvatar>
+          <ListItemIcon>
             <Avatar className={classes.avatar}>
-              <PauseIcon />
+              <PauseIcon fontSize="large" />
             </Avatar>
-          </ListItemAvatar>
+          </ListItemIcon>
           <ListItemText primary={`${active ? 'Deactivate' : 'Activate'} Bridge`} />
         </ListItem>
         <ListItem button onClick={handleDelete}>
-          <ListItemAvatar>
+          <ListItemIcon>
             <Avatar className={classes.avatar}>
-              <DeleteForeverIcon />
+              <DeleteForeverIcon fontSize="large" />
             </Avatar>
-          </ListItemAvatar>
+          </ListItemIcon>
           <ListItemText primary="Delete Bridge" />
         </ListItem>
       </List>
