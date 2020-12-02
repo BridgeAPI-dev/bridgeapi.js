@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -96,25 +95,19 @@ function ActionsDialog({
       <List>
         <ListItem button onClick={handleAbort}>
           <ListItemIcon>
-            <Avatar className={classes.avatar}>
-              <CancelIcon fontSize="large" />
-            </Avatar>
+            <CancelIcon fontSize="large" className={classes.avatar} />
           </ListItemIcon>
           <ListItemText primary="Abort Ongoing Requests" />
         </ListItem>
         <ListItem button onClick={handleActivate}>
           <ListItemIcon>
-            <Avatar className={classes.avatar}>
-              <PauseIcon fontSize="large" />
-            </Avatar>
+            <PauseIcon fontSize="large" className={classes.avatar} />
           </ListItemIcon>
           <ListItemText primary={`${active ? 'Deactivate' : 'Activate'} Bridge`} />
         </ListItem>
         <ListItem button onClick={handleDelete}>
           <ListItemIcon>
-            <Avatar className={classes.avatar}>
-              <DeleteForeverIcon fontSize="large" />
-            </Avatar>
+            <DeleteForeverIcon fontSize="large" className={classes.avatar} />
           </ListItemIcon>
           <ListItemText primary="Delete Bridge" />
         </ListItem>
