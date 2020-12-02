@@ -1,28 +1,13 @@
 import { stubSuccessfullCreateBridge } from '../../../support/utils/stubs';
 
 import {
-  // inputHeaderFields,
+  inputHeaderFields,
   inputHeaderFieldsInvalidTitle,
   inputHeaderFieldsInvalidUrl,
   inputEnvFields,
   inputInvalidPayload,
-  inputOutboundUrl,
-  inputTitle,
-  inputMethod,
-  inputRetries,
-  inputDelay,
-  inputHeaderPairs,
+  inputInvalidTestPayload,
 } from '../../../support/utils/inputs';
-
-const inputHeaderFields = () => (
-) => {
-  inputTitle();
-  inputOutboundUrl();
-  inputMethod();
-  inputRetries();
-  inputDelay();
-  inputHeaderPairs();
-};
 
 describe('Create a new bridge', () => {
   beforeEach(() => {
@@ -83,46 +68,33 @@ describe('Create a new bridge', () => {
   });
 
   it.skip('gives validation error if invalid payload', () => {
-    // stubSuccessfullCreateBridge();
     cy.wait(100);
     inputHeaderFields();
-    // cy.pause();
     inputEnvFields();
     inputInvalidPayload();
     cy.get('#save-btn').click();
-
-    // cy.get('#title-helper-text').contains('Title must be at least 3 characters long');
+    cy.wait(100);
+    cy.get('#error-alert'); // should be "invalid json syntax for payload editor"
   });
 
-  // it.skip('gives validation error if invalid payload', () => {
-  //   // stubSuccessfullCreateBridge();
-  //   cy.wait(100);
-  //   inputHeaderFields();
-  //   // cy.pause();
-  //   inputEnvFields();
-  //   inputInvalidTestPayload();
-  //   cy.get('#save-btn').click();
-
-  //   // cy.get('#title-helper-text').contains('Title must be at least 3 characters long');
-  // });
-
-  it.skip('can do something', () => {
-    // stubSuccessfullCreateBridge();
-    // cy.wait(1000); // Sometimes editor takes a second to load..
-    // stubSuccessfullCreateBridge();
-    // inputTitle();
-    // inputOutboundUrl();
-    // inputInvalidPayload();
+  it.skip('gives validation error if invalid testPayload', () => {
     cy.wait(100);
     inputHeaderFields();
-    // inputEmail();
-    // inputEnvFields();
-    // cy.get('#save-btn').click();
+    inputEnvFields();
+    inputInvalidTestPayload();
+    cy.get('#save-btn').click();
+    cy.wait(100);
+    cy.get('#error-alert'); // should be "invalid json syntax for testPayload editor"
+  });
 
-    // cy.wait(100);
-    // cy.get('#success-alert').contains('Bridge has been saved.');
-    // cy.location().should((location) => {
-    //   expect(location.pathname).to.eq('/bridge/1');
-    // });
+  it('gives validation errors for both payloads if both are invalid', () => {
+    cy.wait(100);
+    inputHeaderFields();
+    inputEnvFields();
+    inputInvalidPayload();
+    inputInvalidTestPayload();
+    cy.get('#save-btn').click();
+    cy.wait(100);
+    cy.get('#error-alert'); // should be "invalid json syntax for payload and testPayload editor"
   });
 });
