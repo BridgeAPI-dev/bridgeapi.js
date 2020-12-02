@@ -40,12 +40,16 @@ function ActionsDialog({
     }, 2500);
   };
 
+  const handleSuccess = () => {
+    setTimeout(() => {
+      setSuccessOpen(false);
+    }, 2500);
+  };
+
   const handleAbort = () => {
     api.post(`/events/abort?bridge_id=${id}`).then(() => {
       setSuccessOpen(true);
-      setTimeout(() => {
-        setSuccessOpen(false);
-      }, 2500);
+      handleSuccess();
     }).catch(() => handleError());
   };
 
@@ -53,9 +57,7 @@ function ActionsDialog({
     api.patch(`/bridges/${id}/${active ? 'deactivate' : 'activate'}`).then(() => {
       router.push(`/bridge/${id}`);
       setSuccessOpen(true);
-      setTimeout(() => {
-        setSuccessOpen(false);
-      }, 2500);
+      handleSuccess();
     }).catch(() => handleError());
   };
 
