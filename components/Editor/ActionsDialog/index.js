@@ -33,18 +33,20 @@ function ActionsDialog({
   const classes = useStyles();
   const router = useRouter();
 
+  const handleError = () => {
+    setErrorOpen(true);
+    setTimeout(() => {
+      setErrorOpen(false);
+    }, 2500);
+  };
+
   const handleAbort = () => {
     api.post(`/events/abort?bridge_id=${id}`).then(() => {
       setSuccessOpen(true);
       setTimeout(() => {
         setSuccessOpen(false);
       }, 2500);
-    }).catch(() => {
-      setErrorOpen(true);
-      setTimeout(() => {
-        setErrorOpen(false);
-      }, 2500);
-    });
+    }).catch(() => handleError());
   };
 
   const handleActivate = () => {
@@ -54,23 +56,13 @@ function ActionsDialog({
       setTimeout(() => {
         setSuccessOpen(false);
       }, 2500);
-    }).catch(() => {
-      setErrorOpen(true);
-      setTimeout(() => {
-        setErrorOpen(false);
-      }, 2500);
-    });
+    }).catch(() => handleError());
   };
 
   const handleDelete = () => {
     api.delete(`/bridges/${id}`).then(() => {
       router.push('/dashboard');
-    }).catch(() => {
-      setErrorOpen(true);
-      setTimeout(() => {
-        setErrorOpen(false);
-      }, 2500);
-    });
+    }).catch(() => handleError());
   };
 
   return (
