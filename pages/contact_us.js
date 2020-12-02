@@ -80,8 +80,7 @@ function ContactUs() {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
-    api.post('/contact_us', values).then( res => {
+    api.post('/contact_us', values).then(() => {
       setFormMessage('Success! We\'ll be in contact with you shortly');
     });
   };
