@@ -1,14 +1,32 @@
 import { stubSuccessfullCreateBridge } from '../../../support/utils/stubs';
 
 import {
-  inputHeaderFields,
+  // inputHeaderFields,
   inputHeaderFieldsInvalidTitle,
   inputHeaderFieldsInvalidUrl,
   inputEnvFields,
+  inputInvalidPayload,
+  inputOutboundUrl,
+  inputTitle,
+  inputMethod,
+  inputRetries,
+  inputDelay,
+  inputHeaderPairs,
 } from '../../../support/utils/inputs';
+
+const inputHeaderFields = () => (
+) => {
+  inputTitle();
+  inputOutboundUrl();
+  inputMethod();
+  inputRetries();
+  inputDelay();
+  inputHeaderPairs();
+};
 
 describe('Create a new bridge', () => {
   beforeEach(() => {
+    cy.clearCookies();
     cy.setToken();
     cy.visit('/bridge/new');
   });
@@ -27,6 +45,7 @@ describe('Create a new bridge', () => {
   });
 
   it.skip('returns an error message if an error submission occurred', () => { // PASSES
+    cy.wait(100);
     inputHeaderFields();
     inputEnvFields();
     cy.get('#save-btn').click();
@@ -48,19 +67,62 @@ describe('Create a new bridge', () => {
     });
   });
 
-  it('gives url validation error if invalid url', () => {
+  it.skip('gives url validation error if invalid url', () => {
     inputHeaderFieldsInvalidUrl();
     inputEnvFields();
     cy.get('#save-btn').click();
+    cy.wait(100);
     cy.get('#outboundUrl-helper-text').contains('Invalid URL');
   });
 
-  it('gives title validation error if too short title (< 2 chars)', () => {
+  it.skip('gives title validation error if too short title (< 2 chars)', () => {
     inputHeaderFieldsInvalidTitle();
     inputEnvFields();
     cy.get('#save-btn').click();
-    cy.get('#outboundUrl-helper-text').contains('Title must be at least 3 characters long');
+    cy.get('#title-helper-text').contains('Title must be at least 3 characters long');
   });
 
-// - how to set validate payloads and test these validations
+  it.skip('gives validation error if invalid payload', () => {
+    // stubSuccessfullCreateBridge();
+    cy.wait(100);
+    inputHeaderFields();
+    // cy.pause();
+    inputEnvFields();
+    inputInvalidPayload();
+    cy.get('#save-btn').click();
+
+    // cy.get('#title-helper-text').contains('Title must be at least 3 characters long');
+  });
+
+  // it.skip('gives validation error if invalid payload', () => {
+  //   // stubSuccessfullCreateBridge();
+  //   cy.wait(100);
+  //   inputHeaderFields();
+  //   // cy.pause();
+  //   inputEnvFields();
+  //   inputInvalidTestPayload();
+  //   cy.get('#save-btn').click();
+
+  //   // cy.get('#title-helper-text').contains('Title must be at least 3 characters long');
+  // });
+
+  it.skip('can do something', () => {
+    // stubSuccessfullCreateBridge();
+    // cy.wait(1000); // Sometimes editor takes a second to load..
+    // stubSuccessfullCreateBridge();
+    // inputTitle();
+    // inputOutboundUrl();
+    // inputInvalidPayload();
+    cy.wait(100);
+    inputHeaderFields();
+    // inputEmail();
+    // inputEnvFields();
+    // cy.get('#save-btn').click();
+
+    // cy.wait(100);
+    // cy.get('#success-alert').contains('Bridge has been saved.');
+    // cy.location().should((location) => {
+    //   expect(location.pathname).to.eq('/bridge/1');
+    // });
+  });
 });

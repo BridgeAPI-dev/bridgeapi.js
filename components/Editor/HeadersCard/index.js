@@ -46,7 +46,7 @@ function HeaderCard({ headers, outboundUrl, title }) {
     let error;
     if (!bridgeTitle) {
       error = 'Required';
-    } else if (bridgeTitle.size < 3) {
+    } else if (bridgeTitle.length < 3) {
       error = 'Title must be at least 3 characters long';
     }
     return error;

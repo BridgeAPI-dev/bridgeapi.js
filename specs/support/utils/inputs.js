@@ -73,16 +73,22 @@ export const inputDelay = (delay) => {
 
 export const inputHeaderKey = (headerKey) => {
   const input = headerKey || 'Key';
-  cy.get('#headerPlusBtn').click().then(() => {
-    cy.get('#headers-0').type(input).should('have.value', input);
-  });
+  // cy.get('#headerPlusBtn').click().then(() => {
+  cy.get('#headers-0').type(input).should('have.value', input);
+  // });
 };
 
 export const inputHeaderValue = (headerValue) => {
   const input = headerValue || 'Value';
-  cy.get('#envPlusBtn').click().then(() => {
-    cy.get('#headers-0-value').type(input).should('have.value', input);
-  });
+  // cy.get('#headerPlusBtn').click().then(() => {
+  cy.get('#headers-0-value').type(input).should('have.value', input);
+  // });
+};
+
+export const inputHeaderPairs = () => {
+  cy.get('#headerPlusBtn').click();
+  inputHeaderKey();
+  inputHeaderValue();
 };
 
 export const inputEnvVarKey = (envKey) => {
@@ -95,38 +101,32 @@ export const inputEnvVarValue = (envValue) => {
   cy.get('#envVar-0-value').type(input).should('have.value', input);
 };
 
-export const inputPayload = (payload) => {
-  const input = payload || "{ 'hello': 'world' }";
-  // const input = payload || defaultPayload;
-  cy.get('#payload').type(input).should('have.value', input);
-};
+// export const inputPayload = (payload) => {
+//   const input = payload || "{ 'hello': 'world' }";
+//   // const input = payload || defaultPayload;
+//   cy.get('#payload').type(input).should('have.value', input);
+// };
 
-export const inputTestPayload = (testPayload) => {
-  const input = testPayload || "{ 'hello': 'world' }";
-  // const input = testPayload || defaultPayload;
-  cy.get('#test-payload').type(input).should('have.value', input);
-};
+// export const inputTestPayload = (testPayload) => {
+//   const input = testPayload || "{ 'hello': 'world' }";
+//   // const input = testPayload || defaultPayload;
+//   cy.get('#test-payload').type(input).should('have.value', input);
+// };
 
-export const inputHeaderFields = (
-  title, outboundUrl, method, retries, delay, key, value,
+export const inputHeaderFields = () => (
 ) => {
-  inputTitle(title);
-  inputOutboundUrl(outboundUrl);
-  inputMethod(method);
-  inputRetries(retries);
-  inputDelay(delay);
-  inputHeaderKey(key);
-  inputHeaderValue(value);
+  inputTitle();
+  inputOutboundUrl();
+  inputMethod();
+  inputRetries();
+  inputDelay();
+  inputHeaderPairs();
 };
 
-export const inputEnvFields = (key, value) => {
-  inputEnvVarKey(key);
-  inputEnvVarValue(value);
-};
-
-export const inputPayloadFields = (payload, testPayload) => {
-  inputPayload(payload);
-  inputTestPayload(testPayload);
+export const inputEnvFields = () => {
+  cy.get('#envPlusBtn').click();
+  inputEnvVarKey();
+  inputEnvVarValue();
 };
 
 export const inputHeaderFieldsInvalidUrl = () => {
@@ -135,8 +135,9 @@ export const inputHeaderFieldsInvalidUrl = () => {
   inputMethod();
   inputRetries();
   inputDelay();
-  inputHeaderKey();
-  inputHeaderValue();
+  inputHeaderPairs();
+  // inputHeaderKey();
+  // inputHeaderValue();
 };
 
 export const inputHeaderFieldsInvalidTitle = () => {
@@ -145,6 +146,12 @@ export const inputHeaderFieldsInvalidTitle = () => {
   inputMethod();
   inputRetries();
   inputDelay();
-  inputHeaderKey();
-  inputHeaderValue();
+  inputHeaderPairs();
+  // inputHeaderKey();
+  // inputHeaderValue();
+};
+
+export const inputInvalidPayload = (value) => {
+  const input = value || 'invalidPayload';
+  cy.get('div.MuiGrid-root.jss1.MuiGrid-container.MuiGrid-spacing-xs-5.MuiGrid-item.MuiGrid-grid-sm-9.MuiGrid-grid-md-10 > div > form > div:nth-child(4) > div.MuiCollapse-container.MuiCollapse-entered > div > div > div > div > div > div:nth-child(3) > div > div > div.CodeMirror-scroll > div.CodeMirror-sizer > div > div > div > div.CodeMirror-code > div:nth-child(2) > pre > span > span:nth-child(2)').type(input);
 };
