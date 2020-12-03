@@ -54,7 +54,6 @@ function Editor({ bridge, isEditView }) {
     httpMethod,
     headers,
     environmentVariables,
-    events,
     data,
     title,
   } = bridge;
@@ -174,7 +173,7 @@ function Editor({ bridge, isEditView }) {
   return (
     <>
       <Navbar />
-      <Sidebar events={events} title={title} />
+      <Sidebar events={bridge.events} bridgeId={bridge.id} title={title} />
 
       <Grid container item spacing={5} className={classes.root} sm={9} md={10}>
         <Grid item container wrap="nowrap">

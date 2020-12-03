@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Events({ event }) {
+function Events({ event, events, bridgeTitle }) {
   const classes = useStyles();
 
   const { inbound, outbound } = event.data;
@@ -37,7 +37,7 @@ function Events({ event }) {
   return (
     <ProtectRoute>
       <Navbar />
-      <Sidebar events={[]} title="TODO" />
+      <Sidebar events={events} bridgeId={event.bridgeId} title={bridgeTitle} />
 
       <Grid
         container
@@ -50,7 +50,7 @@ function Events({ event }) {
         <Grid item container direction="column" wrap="nowrap">
           <EventStatus
             eventCompleted={event.completed}
-            aborted={event.aborted}
+            eventAborted={event.aborted}
             outbound={outbound}
             eventId={event.id}
           />
@@ -99,7 +99,9 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      bridgeTitle: res.data.bridge_title,
       event: toCamel(event),
+      events: toCamel(JSON.parse(res.data.events)),
     },
   };
 }
@@ -146,6 +148,50 @@ Events.propTypes = {
     statusCode: PropTypes.number,
     test: PropTypes.bool,
   }).isRequired,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      completed: PropTypes.bool.isRequired,
+      aborted: PropTypes.bool.isRequired,
+      id: PropTypes.number.isRequired,
+      bridgeId: PropTypes.number.isRequired,
+      completedAt: PropTypes.string.isRequired,
+      data: PropTypes.shape({
+        inbound: PropTypes.shape({
+          dateTime: PropTypes.string.isRequired,
+          contentLength: PropTypes.number.isRequired,
+          payload: PropTypes.shape({}).isRequired,
+        }).isRequired,
+
+        outbound: PropTypes.arrayOf(
+          PropTypes.shape({
+            request: PropTypes.shape({
+              dateTime: PropTypes.string.isRequired,
+              contentLength: PropTypes.string.isRequired,
+              uri: PropTypes.string.isRequired,
+              payload: PropTypes.shape({}).isRequired,
+              headers: PropTypes.arrayOf(
+                PropTypes.shape({
+                  key: PropTypes.string.isRequired,
+                  value: PropTypes.string.isRequired,
+                }),
+              ),
+            }).isRequired,
+
+            response: PropTypes.shape({
+              dateTime: PropTypes.string.isRequired,
+              statusCode: PropTypes.string.isRequired,
+              message: PropTypes.string.isRequired,
+              size: PropTypes.number.isRequired,
+              payload: PropTypes.shape({}).isRequired,
+            }).isRequired,
+          }).isRequired,
+        ).isRequired,
+      }),
+      statusCode: PropTypes.number,
+      test: PropTypes.bool,
+    }).isRequired,
+  ).isRequired,
+  bridgeTitle: PropTypes.string.isRequired,
 };
 
 export default Events;
