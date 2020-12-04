@@ -98,6 +98,7 @@ function EnvironmentVariablesCard({ environmentVariables }) {
                       <Button
                         className={classes.primary}
                         onClick={() => { handleDelete(arrayHelpers, envVar, idx); }}
+                        id={`envVar-trash-${idx}`}
                       >
                         <DeleteForeverIcon fontSize="large" />
                       </Button>

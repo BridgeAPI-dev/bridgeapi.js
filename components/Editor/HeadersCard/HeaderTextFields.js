@@ -99,6 +99,7 @@ function HeaderTextFields({ headers }) {
                   <Button
                     className={classes.primary}
                     onClick={() => { handleDelete(arrayHelpers, header, idx); }}
+                    id={`headers-trash-${idx}`}
                   >
                     <DeleteForeverIcon fontSize="large" />
                   </Button>

@@ -1,4 +1,4 @@
-import { stubSuccessfullCreateBridge } from '../../../support/utils/stubs';
+import { stubSuccessfullCreateBridge, stubFailedCreateBridge } from '../../../support/utils/stubs';
 
 import {
   inputHeaderFields,
@@ -15,13 +15,14 @@ describe('Create a new bridge', () => {
     cy.setToken();
     cy.visit('/bridge/new');
   });
+
   afterEach(() => {
     cy.clearCookies();
   });
 
-  it.skip('displays all error messages upon submission of empty fields', () => { // PASSES
+  it('displays all error messages upon submission of empty fields', () => {
     cy.get('#save-btn').click();
-    cy.get('#save-btn').click();
+
     cy.get('#title-helper-text').contains('Required');
     cy.get('#outboundUrl-helper-text').contains('Required');
     cy.get('#method-helper-text').contains('Required');
@@ -29,16 +30,17 @@ describe('Create a new bridge', () => {
     cy.get('#delay-helper-text').contains('Required');
   });
 
-  it.skip('returns an error message if an error submission occurred', () => { // PASSES
+  it('returns an error message if an error submission occurred', () => {
+    stubFailedCreateBridge();
     cy.wait(100);
     inputHeaderFields();
     inputEnvFields();
     cy.get('#save-btn').click();
-    cy.get('#save-btn').click();
+
     cy.get('#error-alert').contains('Some error has occurred. Please try again.');
   });
 
-  it.skip('can create a new bridge', () => {
+  it('can create a new bridge', () => {
     stubSuccessfullCreateBridge();
     cy.wait(1000); // Sometimes editor takes a second to load..
     inputHeaderFields();
@@ -52,39 +54,45 @@ describe('Create a new bridge', () => {
     });
   });
 
-  it.skip('gives url validation error if invalid url', () => {
+  it('gives url validation error if invalid url', () => {
     inputHeaderFieldsInvalidUrl();
     inputEnvFields();
     cy.get('#save-btn').click();
     cy.wait(100);
-    cy.get('#outboundUrl-helper-text').contains('Invalid URL');
+    cy.get('#outboundUrl-helper-text')
+      .contains('Invalid URL');
   });
 
-  it.skip('gives title validation error if too short title (< 2 chars)', () => {
+  it('gives title validation error if too short title (< 2 chars)', () => {
     inputHeaderFieldsInvalidTitle();
     inputEnvFields();
     cy.get('#save-btn').click();
-    cy.get('#title-helper-text').contains('Title must be at least 3 characters long');
+    cy.get('#title-helper-text')
+      .contains('Title must be at least 3 characters long');
   });
 
-  it.skip('gives validation error if invalid payload', () => {
+  it('gives validation error if invalid payload', () => {
     cy.wait(100);
     inputHeaderFields();
     inputEnvFields();
     inputInvalidPayload();
     cy.get('#save-btn').click();
     cy.wait(100);
-    cy.get('#error-alert'); // should be "invalid json syntax for payload editor"
+    cy.get('#error-alert')
+      .contains('Invalid JSON for Payload editor')
+      .should('be.visible');
   });
 
-  it.skip('gives validation error if invalid testPayload', () => {
+  it('gives validation error if invalid testPayload', () => {
     cy.wait(100);
     inputHeaderFields();
     inputEnvFields();
     inputInvalidTestPayload();
     cy.get('#save-btn').click();
     cy.wait(100);
-    cy.get('#error-alert'); // should be "invalid json syntax for testPayload editor"
+    cy.get('#error-alert')
+      .contains('Invalid JSON for Test Payload editor')
+      .should('be.visible');
   });
 
   it('gives validation errors for both payloads if both are invalid', () => {
@@ -95,6 +103,8 @@ describe('Create a new bridge', () => {
     inputInvalidTestPayload();
     cy.get('#save-btn').click();
     cy.wait(100);
-    cy.get('#error-alert'); // should be "invalid json syntax for payload and testPayload editor"
+    cy.get('#error-alert')
+      .contains('Invalid JSON for Payload and Test Payload editors')
+      .should('be.visible');
   });
 });

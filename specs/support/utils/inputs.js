@@ -146,13 +146,12 @@ export const inputHeaderFieldsInvalidTitle = () => {
   inputHeaderPairs();
 };
 
-const valueSelector = 'div.MuiGrid-root.jss1.MuiGrid-container.MuiGrid-spacing-xs-5.MuiGrid-item.MuiGrid-grid-sm-9.MuiGrid-grid-md-10 > div > form > div:nth-child(4) > div.MuiCollapse-container.MuiCollapse-entered > div > div > div > div > div > div:nth-child(3) > div > div > div.CodeMirror-scroll > div.CodeMirror-sizer > div > div > div > div.CodeMirror-code > div.CodeMirror-activeline > pre > span > span:nth-child(3)';
-const valueSelectorTestPayload = 'div.MuiGrid-root.jss1.MuiGrid-container.MuiGrid-spacing-xs-5.MuiGrid-item.MuiGrid-grid-sm-9.MuiGrid-grid-md-10 > div > form > div:nth-child(5) > div.MuiCollapse-container.MuiCollapse-entered > div > div > div > div > div > div > div > div > div.CodeMirror-scroll > div.CodeMirror-sizer > div > div > div > div.CodeMirror-code > div:nth-child(2) > pre > span > span:nth-child(2)';
-
 export const inputInvalidPayload = () => {
-  cy.get(valueSelector).type('{backspace}{backspace}{backspace}{del}{del}{del}{del}invalidKey');
+  cy.get('#payload textarea')
+    .type('hi', { force: true });
 };
 
 export const inputInvalidTestPayload = () => {
-  cy.get(valueSelectorTestPayload).type('{backspace}{backspace}{backspace}{del}{del}{del}{del}invalidKey');
+  cy.get('#test-payload textarea')
+    .type('hi', { force: true });
 };

@@ -5,7 +5,7 @@
     "inbound_url": "534a9856d7b2b9267609",
     "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
     "http_method": "POST",
-    "retries": 2,
+    "retries": 3,
     "delay": 15,
     "data": {
       "payload": "{\n  \"hello\": \"world\"\n}",
@@ -19,14 +19,16 @@
     "completedAt": "",
     "environment_variables": [
       {
-        "database": "z9992374623",
-        "database_password": "@@@!++#*!@"
+        "id": 12,
+        "key": "API_KEY",
+        "value": "897342jhad891-adf"
       }
     ],
     "headers": [
       {
-        "X_API_KEY": "returntheslab",
-        "Authentication": "Bearer *************"
+        "id": 57,
+        "key": "X_API_KEY",
+        "value": "$env.API_KEY"
       }
     ],
     "events": [

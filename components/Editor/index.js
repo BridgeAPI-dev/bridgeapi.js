@@ -119,14 +119,14 @@ function Editor({ bridge, isEditView }) {
     };
     const createErrorMessage = () => {
       if (erraneousPayloads.length === 1) {
-        setErrorMessage(`invalid json syntax for ${erraneousPayloads[0]} editor`);
+        setErrorMessage(`Invalid JSON for ${erraneousPayloads[0]} editor`);
       } else {
-        setErrorMessage('invalid json syntax for payload and test_payload editor');
+        setErrorMessage('Invalid JSON for Payload and Test Payload editors');
       }
     };
 
-    validatePayload(payloadCode, 'payload');
-    validatePayload(testPayloadCode, 'testPayload');
+    validatePayload(payloadCode, 'Payload');
+    validatePayload(testPayloadCode, 'Test Payload');
 
     if (erraneousPayloads.length !== 0) {
       createErrorMessage();
@@ -138,24 +138,26 @@ function Editor({ bridge, isEditView }) {
   };
 
   const handleSubmit = async (values, setSubmitting) => {
-    if (id && validatePayloads(values.payloadCode, values.testPayloadCode)) {
+    if (validatePayloads(values.payloadCode, values.testPayloadCode)) {
       // POST if new bridge, otherwise PATCH
-      await api
-        .patch(`/bridges/${id}`, generatePayload(values))
-        .then(() => setOpen(true))
-        .catch(() => setErrorOpen(true));
-    } else {
-      await api
-        .post('/bridges', generatePayload(values))
-        .then((res) => {
-          setOpen(true);
-          // TODO: Should timeout so user gets a chance to read the snack
-          // but is 200ms the time we want?
-          setTimeout(() => {
-            router.push(`/bridge/${res.data.id}`);
-          }, 200);
-        })
-        .catch(() => setErrorOpen(true));
+      if (id) {
+        await api
+          .patch(`/bridges/${id}`, generatePayload(values))
+          .then(() => setOpen(true))
+          .catch(() => setErrorOpen(true));
+      } else {
+        await api
+          .post('/bridges', generatePayload(values))
+          .then((res) => {
+            setOpen(true);
+            // TODO: Should timeout so user gets a chance to read the snack
+            // but is 200ms the time we want?
+            setTimeout(() => {
+              router.push(`/bridge/${res.data.id}`);
+            }, 200);
+          })
+          .catch(() => setErrorOpen(true));
+      }
     }
 
     setSubmitting(false);
@@ -207,9 +209,17 @@ function Editor({ bridge, isEditView }) {
                         active={active}
                         open={actionsDialogOpen}
                         onClose={() => setActionsDialogOpen(false)}
-                        id={id}
+                        bridgeId={id}
                       />
-                      <Button onClick={() => setActionsDialogOpen(true)} variant="outlined" color="secondary" className={classes.action}>Actions</Button>
+                      <Button
+                        onClick={() => setActionsDialogOpen(true)}
+                        variant="outlined"
+                        color="secondary"
+                        className={classes.action}
+                        id="actions-button"
+                      >
+                        Actions
+                      </Button>
                       <Button id="save-btn" onClick={submitForm} variant="contained" color="secondary">Save</Button>
                     </Grid>
                   </Grid>
