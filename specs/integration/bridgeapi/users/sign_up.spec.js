@@ -30,7 +30,7 @@ describe('Sign Up', () => {
     inputFields();
     submit();
 
-    cy.get('.MuiAlert-message').contains('Account has been created. Redirecting...');
+    cy.get('#success-message').contains('Account has been created. Redirecting...');
     cy.location().should((location) => {
       expect(location.pathname).to.eq('/bridge/new');
     });
@@ -41,7 +41,7 @@ describe('Sign Up', () => {
     inputFields();
     submit();
 
-    cy.get('.MuiAlert-message').contains('Some error occurred. Please try again.');
+    cy.get('#error-message').contains('Some error has occurred. Please try again.');
     cy.location().should((location) => {
       expect(location.pathname).to.eq('/users/signup');
     });

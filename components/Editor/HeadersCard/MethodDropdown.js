@@ -42,11 +42,12 @@ function MethodDropdown() {
       <Field
         component={TextField}
         type="text"
-        name="method"
+        name="httpMethod"
         select
         validate={validateMethod}
         label="Method"
         className={classes.dropDown}
+        id="method"
       >
         {methods.map((method) => (
           <MenuItem key={method} value={method}>{method}</MenuItem>

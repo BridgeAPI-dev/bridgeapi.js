@@ -17,7 +17,7 @@ import 'codemirror/addon/display/fullscreen.css';
 import 'codemirror/addon/fold/foldgutter.css';
 
 function CodeMirror({
-  formKey, isEditView, readOnly, values, data,
+  formKey, isEditView, readOnly, values, data, id,
 }) {
   const codeRef = useRef(null);
   const [mounted, setMounted] = useState(false);
@@ -111,7 +111,7 @@ function CodeMirror({
   }, []);
 
   return (
-    <div ref={codeRef} style={{ zIndex: fullScreen ? 1200 : 5, position: 'relative' }}>
+    <div ref={codeRef} id={id} style={{ zIndex: fullScreen ? 1200 : 5, position: 'relative' }}>
       {mounted
         ? (
           <CM
@@ -159,6 +159,7 @@ CodeMirror.propTypes = {
     testPayloadCode: PropTypes.string,
   }),
   data: PropTypes.shape({}),
+  id: PropTypes.string.isRequired,
 };
 
 CodeMirror.defaultProps = {

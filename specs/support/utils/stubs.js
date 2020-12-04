@@ -28,3 +28,25 @@ export const stubFailLogin = () => {
   };
   cy.stubRequest('/login', 'POST', 422, response);
 };
+
+export const stubSuccessfullCreateBridge = () => {
+  const response = {
+    id: '1',
+  };
+  cy.stubRequest('/bridges', 'POST', 201, response);
+};
+
+export const stubFailedCreateBridge = () => {
+  const response = {
+    error: 'Some error has occurred. Please try again.',
+  };
+  cy.stubRequest('/bridges', 'POST', 400, response);
+};
+
+export const stubUpdateSuccessBridge = () => {
+  cy.stubRequest('/bridges/1', 'PATCH', 200);
+};
+
+export const stubFailUpdateBridge = () => {
+  cy.stubRequest('/bridges/1', 'PATCH', 400);
+};
