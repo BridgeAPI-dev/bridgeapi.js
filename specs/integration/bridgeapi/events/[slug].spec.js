@@ -28,8 +28,9 @@ describe('Events Show', () => {
       .children()
       .should('have.length', 4);
 
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(100);
     cy.get('#failed-attempts')
-      .click()
       .click();
 
     cy.get('#event-timeline')
