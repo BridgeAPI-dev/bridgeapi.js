@@ -67,6 +67,7 @@ function BridgeTestCard({ isEditView, values }) {
             formKey="testPayloadCode"
             isEditView={isEditView}
             values={values}
+            id="test-payload"
           />
         </Container>
       </AccordionDetails>

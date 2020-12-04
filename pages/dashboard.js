@@ -29,11 +29,11 @@ function Dashboard({ bridges }) {
     <ProtectRoute>
       <div className={classes.root}>
         <Navbar />
-        <Container maxWidth="md">
-          <Grid container spacing={2}>
+        <Container maxWidth="lg">
+          <Grid container spacing={2} id="dashboard-card-container">
 
             {bridges && bridges.length > 0
-              ? (bridges.map((bridge) => <Card bridge={bridge} key={bridge} />))
+              ? (bridges.map((bridge, idx) => <Card bridge={bridge} key={bridge} index={idx} />))
               : (
                 <Grid item xs={12}>
                   <Typography
@@ -72,8 +72,9 @@ Dashboard.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       updatedAt: PropTypes.string.isRequired,
-      lastRequest: PropTypes.string,
-      requests: PropTypes.string,
+      lastRequest: PropTypes.string.isRequired,
+      requests: PropTypes.string.isRequired,
+      eventId: PropTypes.string.isRequired,
     }),
   ).isRequired,
 };

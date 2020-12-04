@@ -6,3 +6,24 @@ function formatDate(timeStamp) {
 }
 
 export default formatDate;
+
+export const hourMinutes = (timestamp) => {
+  const date = new Date(timestamp);
+  const minutes = date.getMinutes();
+  let hour = date.getHours();
+  let amPm;
+
+  if (hour === 0) {
+    hour = 12;
+    amPm = 'AM';
+  } else if (hour > 12) {
+    amPm = 'PM';
+    hour -= 12;
+  } else if (hour === 12) {
+    amPm = 'PM';
+  } else {
+    amPm = 'AM';
+  }
+
+  return `${hour}:${minutes}${amPm}`;
+};

@@ -1,0 +1,79 @@
+{
+  "bridge": {
+    "id": 1,
+    "title": "title_1",
+    "inbound_url": "534a9856d7b2b9267609",
+    "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
+    "http_method": "POST",
+    "retries": 3,
+    "delay": 15,
+    "data": {
+      "payload": "{\n  \"hello\": \"world\"\n}",
+      "test_payload": "{\n  \"hello\": \"world\",\n  \"acessEnvVars\": \"$env.MY_KEY\",\n  \"accessPayload\": \"$payload.message\"\n}"
+    },
+    "created_at": "2020-11-26T18:30:24.093Z",
+    "updated_at": "2020-11-26T18:30:24.093Z",
+    "user_id": 3,
+    "active": true,
+    "eventCount": 10,
+    "completedAt": "",
+    "environment_variables": [
+      {
+        "id": 12,
+        "key": "API_KEY",
+        "value": "897342jhad891-adf"
+      }
+    ],
+    "headers": [
+      {
+        "id": 57,
+        "key": "X_API_KEY",
+        "value": "$env.API_KEY"
+      }
+    ],
+    "events": [
+      {
+        "id": 22,
+        "completed": true,
+        "data": "{\"inbound\":{\"payload\":{\"bridge_id\":\"1\",\"top_level_key\":\"present\",\"nested_key_1\":{\"nested_key_2\":\"present\"}},\"dateTime\":\"2020-11-25T15:33:31.372Z\",\"ip\":\"::1\",\"contentLength\":101},\"outbound\":[{\"request\":{\"payload\":{\"hello\":\"world\"},\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"contentLength\":\"17\",\"uri\":\"https://c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event\",\"headers\":[{\"key\":\"content-type\",\"value\":\"application/json\"},{\"key\":\"accept-encoding\",\"value\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\"},{\"key\":\"accept\",\"value\":\"*/*\"},{\"key\":\"user-agent\",\"value\":\"Ruby\"},{\"key\":\"host\",\"value\":\"c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io\"},{\"key\":\"connection\",\"value\":\"close\"},{\"key\":\"content-length\",\"value\":\"17\"}]},\"response\":{\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"statusCode\":\"200\",\"message\":\"OK\",\"size\":13,\"payload\":{\"hello\":\"world\"}}},{\"request\":{\"payload\":{\"hello\":\"world\"},\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"contentLength\":\"17\",\"uri\":\"https://c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event\",\"headers\":[{\"key\":\"content-type\",\"value\":\"application/json\"},{\"key\":\"accept-encoding\",\"value\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\"},{\"key\":\"accept\",\"value\":\"*/*\"},{\"key\":\"user-agent\",\"value\":\"Ruby\"},{\"key\":\"host\",\"value\":\"c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io\"},{\"key\":\"connection\",\"value\":\"close\"},{\"key\":\"content-length\",\"value\":\"17\"}]},\"response\":{\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"statusCode\":\"200\",\"message\":\"OK\",\"size\":13,\"payload\":{\"hello\":\"world\"}}},{\"request\":{\"payload\":{\"hello\":\"world\"},\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"contentLength\":\"17\",\"uri\":\"https://c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event\",\"headers\":[{\"key\":\"content-type\",\"value\":\"application/json\"},{\"key\":\"accept-encoding\",\"value\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\"},{\"key\":\"accept\",\"value\":\"*/*\"},{\"key\":\"user-agent\",\"value\":\"Ruby\"},{\"key\":\"host\",\"value\":\"c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io\"},{\"key\":\"connection\",\"value\":\"close\"},{\"key\":\"content-length\",\"value\":\"17\"}]},\"response\":{\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"statusCode\":\"200\",\"message\":\"OK\",\"size\":13,\"payload\":{\"hello\":\"world\"}}}]}",
+        "inbound_url": "d51985cdb5139d8d7a76",
+        "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
+        "status_code": 201,
+        "completed_at": "2020-11-26T15:33:34.274Z",
+        "bridge_id": 3,
+        "created_at": "2020-11-25T15:33:31.383Z",
+        "updated_at": "2020-11-28T13:07:00.408Z",
+        "test": false,
+        "aborted": false
+      },
+      {
+        "id": 24,
+        "completed": true,
+        "data": "{\"inbound\":{\"payload\":{\"bridge_id\":\"1\",\"top_level_key\":\"present\",\"nested_key_1\":{\"nested_key_2\":\"present\"}},\"dateTime\":\"2020-11-25T15:33:31.372Z\",\"ip\":\"::1\",\"contentLength\":101},\"outbound\":[{\"request\":{\"payload\":{\"hello\":\"world\"},\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"contentLength\":\"17\",\"uri\":\"https://c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event\",\"headers\":[{\"key\":\"content-type\",\"value\":\"application/json\"},{\"key\":\"accept-encoding\",\"value\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\"},{\"key\":\"accept\",\"value\":\"*/*\"},{\"key\":\"user-agent\",\"value\":\"Ruby\"},{\"key\":\"host\",\"value\":\"c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io\"},{\"key\":\"connection\",\"value\":\"close\"},{\"key\":\"content-length\",\"value\":\"17\"}]},\"response\":{\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"statusCode\":\"200\",\"message\":\"OK\",\"size\":13,\"payload\":{\"hello\":\"world\"}}},{\"request\":{\"payload\":{\"hello\":\"world\"},\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"contentLength\":\"17\",\"uri\":\"https://c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event\",\"headers\":[{\"key\":\"content-type\",\"value\":\"application/json\"},{\"key\":\"accept-encoding\",\"value\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\"},{\"key\":\"accept\",\"value\":\"*/*\"},{\"key\":\"user-agent\",\"value\":\"Ruby\"},{\"key\":\"host\",\"value\":\"c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io\"},{\"key\":\"connection\",\"value\":\"close\"},{\"key\":\"content-length\",\"value\":\"17\"}]},\"response\":{\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"statusCode\":\"200\",\"message\":\"OK\",\"size\":13,\"payload\":{\"hello\":\"world\"}}},{\"request\":{\"payload\":{\"hello\":\"world\"},\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"contentLength\":\"17\",\"uri\":\"https://c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event\",\"headers\":[{\"key\":\"content-type\",\"value\":\"application/json\"},{\"key\":\"accept-encoding\",\"value\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\"},{\"key\":\"accept\",\"value\":\"*/*\"},{\"key\":\"user-agent\",\"value\":\"Ruby\"},{\"key\":\"host\",\"value\":\"c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io\"},{\"key\":\"connection\",\"value\":\"close\"},{\"key\":\"content-length\",\"value\":\"17\"}]},\"response\":{\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"statusCode\":\"200\",\"message\":\"OK\",\"size\":13,\"payload\":{\"hello\":\"world\"}}}]}",
+        "inbound_url": "d51985cdb5139d8d7a76",
+        "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
+        "status_code": 200,
+        "completed_at": "2020-11-25T15:33:34.274Z",
+        "bridge_id": 3,
+        "created_at": "2020-11-25T15:33:31.383Z",
+        "updated_at": "2020-11-28T13:07:00.408Z",
+        "test": false,
+        "aborted": false
+      },
+      {
+        "id": 26,
+        "completed": true,
+        "data": "{\"inbound\":{\"payload\":{\"bridge_id\":\"1\",\"top_level_key\":\"present\",\"nested_key_1\":{\"nested_key_2\":\"present\"}},\"dateTime\":\"2020-11-25T15:33:31.372Z\",\"ip\":\"::1\",\"contentLength\":101},\"outbound\":[{\"request\":{\"payload\":{\"hello\":\"world\"},\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"contentLength\":\"17\",\"uri\":\"https://c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event\",\"headers\":[{\"key\":\"content-type\",\"value\":\"application/json\"},{\"key\":\"accept-encoding\",\"value\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\"},{\"key\":\"accept\",\"value\":\"*/*\"},{\"key\":\"user-agent\",\"value\":\"Ruby\"},{\"key\":\"host\",\"value\":\"c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io\"},{\"key\":\"connection\",\"value\":\"close\"},{\"key\":\"content-length\",\"value\":\"17\"}]},\"response\":{\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"statusCode\":\"200\",\"message\":\"OK\",\"size\":13,\"payload\":{\"hello\":\"world\"}}},{\"request\":{\"payload\":{\"hello\":\"world\"},\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"contentLength\":\"17\",\"uri\":\"https://c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event\",\"headers\":[{\"key\":\"content-type\",\"value\":\"application/json\"},{\"key\":\"accept-encoding\",\"value\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\"},{\"key\":\"accept\",\"value\":\"*/*\"},{\"key\":\"user-agent\",\"value\":\"Ruby\"},{\"key\":\"host\",\"value\":\"c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io\"},{\"key\":\"connection\",\"value\":\"close\"},{\"key\":\"content-length\",\"value\":\"17\"}]},\"response\":{\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"statusCode\":\"200\",\"message\":\"OK\",\"size\":13,\"payload\":{\"hello\":\"world\"}}},{\"request\":{\"payload\":{\"hello\":\"world\"},\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"contentLength\":\"17\",\"uri\":\"https://c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event\",\"headers\":[{\"key\":\"content-type\",\"value\":\"application/json\"},{\"key\":\"accept-encoding\",\"value\":\"gzip;q=1.0,deflate;q=0.6,identity;q=0.3\"},{\"key\":\"accept\",\"value\":\"*/*\"},{\"key\":\"user-agent\",\"value\":\"Ruby\"},{\"key\":\"host\",\"value\":\"c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io\"},{\"key\":\"connection\",\"value\":\"close\"},{\"key\":\"content-length\",\"value\":\"17\"}]},\"response\":{\"dateTime\":\"2020-11-25T15:33:34.273Z\",\"statusCode\":\"200\",\"message\":\"OK\",\"size\":13,\"payload\":{\"hello\":\"world\"}}}]}",
+        "inbound_url": "d51985cdb5139d8d7a76",
+        "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
+        "status_code": 200,
+        "completed_at": "2020-11-23T15:33:34.274Z",
+        "bridge_id": 3,
+        "created_at": "2020-11-23T15:33:31.383Z",
+        "updated_at": "2020-11-28T13:07:00.408Z",
+        "test": false,
+        "aborted": false
+      }
+    ]
+  }
+}

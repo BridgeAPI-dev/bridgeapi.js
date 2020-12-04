@@ -47,6 +47,7 @@ function MethodDropdown() {
         select
         validate={validateDelay}
         className={classes.dropDown}
+        id="delay"
       >
         <MenuItem value="0">Instant</MenuItem>
         <MenuItem value="15">15 Minutes</MenuItem>

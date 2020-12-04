@@ -1,4 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Divider,
@@ -11,6 +12,7 @@ import {
 } from '@material-ui/core';
 
 import ListItem from './ListItem';
+import Loader from '../Loader';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -21,48 +23,59 @@ const useStyles = makeStyles(() => ({
     position: 'relative',
   },
   drawer: {
-    width: 180,
+    width: '180px',
   },
   drawerPaper: {
     width: 180,
   },
-  drawerContainer: {
-    overflow: 'auto',
+  drawerPaperNoOverflow: {
+    width: 180,
+    overflow: 'hidden',
   },
   toolbar: {
     minHeight: 46,
   },
 }));
 
-function Sidebar({ events, title }) {
+function Sidebar({ events, bridgeId, title }) {
   const classes = useStyles();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setMounted(true), 1000);
+  }, []);
+
   return (
     <div className={classes.root}>
       <Drawer
         className={classes.drawer}
         variant="permanent"
         classes={{
-          paper: classes.drawerPaper,
+          paper: mounted ? classes.drawerPaper : classes.drawerPaperNoOverflow,
         }}
       >
         <Toolbar className={classes.toolbar} />
-        <div className={classes.drawerContainer}>
+        <div
+          style={{ overflow: mounted ? 'auto' : 'hidden' }}
+        >
           <List>
-            <Link href={`/bridges/${events[0] ? events[0].bridge_id : 'new'}`}>
+            <Link href={`/bridge/${bridgeId}`}>
               <Typography variant="h6" align="center" className={classes.title}>{title || 'Untitled'}</Typography>
             </Link>
             <Divider />
-            {events.slice().reverse().map((evt) => {
-              const { date, statusCode, time } = evt.responses.slice(-1)[0].headers;
-              return (
-                <ListItem
-                  date={date}
-                  statusCode={statusCode}
-                  timestamp={time}
-                  completed={evt.completed}
-                />
-              );
-            })}
+            {!mounted
+              ? (
+                <Loader />
+              ) : (
+                events && events.map((event) => (
+                  <ListItem
+                    completedAt={event.completedAt}
+                    statusCode={event.statusCode}
+                    completed={event.completed}
+                    eventId={event.id}
+                  />
+                ))
+              )}
           </List>
         </div>
       </Drawer>
@@ -75,4 +88,5 @@ export default Sidebar;
 Sidebar.propTypes = {
   events: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
+  bridgeId: PropTypes.number.isRequired,
 };

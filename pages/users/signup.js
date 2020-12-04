@@ -16,7 +16,7 @@ import { TextField } from 'formik-material-ui';
 import { useAuth } from '../../src/contexts/auth';
 import emailValidator from '../../utils/emailValidator';
 import api from '../../utils/api';
-import SnackAlert from '../../components/shared/alert';
+import SnackAlert from '../../components/shared/SnackAlert';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -77,7 +77,7 @@ function Signup() {
   const { login } = useAuth();
 
   const handleSubmit = async (values, setSubmitting) => {
-    await api.post('/users', {
+    const res = await api.post('/user', {
       user: {
         email: values.email,
         password: values.password,
@@ -87,13 +87,15 @@ function Signup() {
       setErrorOpen(true);
     });
 
-    setSuccessOpen(true);
-    if (await login(values.email, values.password)) {
-      router.push('/bridge/new');
-    } else {
-      // Ideally we send users to `/bridge/new` but if an error occurs
-      // lets at least send them to the login page.
-      router.push('/users/login');
+    if (res) {
+      setSuccessOpen(true);
+      if (await login(values.email, values.password)) {
+        router.push('/bridge/new');
+      } else {
+        // Ideally we send users to `/bridge/new` but if an error occurs
+        // lets at least send them to the login page.
+        router.push('/users/login');
+      }
     }
 
     setSubmitting(false);
@@ -121,6 +123,7 @@ function Signup() {
             onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
             validateOnBlur={false}
             validateOnChange={false}
+            id="form"
           >
             {({ values, submitForm, isSubmitting }) => (
               <Form className={classes.form}>
@@ -135,6 +138,7 @@ function Signup() {
                       name="email"
                       value={values.email}
                       style={{ marginBottom: 20 }}
+                      id="email-input"
                     />
                     <Field
                       component={TextField}
@@ -145,6 +149,7 @@ function Signup() {
                       type="password"
                       value={values.password}
                       style={{ marginBottom: 20 }}
+                      id="password-input"
                     />
                     <Field
                       component={TextField}
@@ -155,6 +160,7 @@ function Signup() {
                       type="password"
                       value={values.confirmPassword}
                       style={{ marginBottom: 10 }}
+                      id="password-confirmation-input"
                     />
                   </Grid>
                 </Grid>
@@ -171,15 +177,27 @@ function Signup() {
               </Form>
             )}
           </Formik>
-          <Link href="/user/login">
+          <Link href="/users/login">
             <Typography className={classes.login}>
               Already have an account?
             </Typography>
           </Link>
         </Container>
       </Paper>
-      <SnackAlert open={successOpen} onClose={handleSnackClose} severity="success" message="Account has been created. Redirecting..." />
-      <SnackAlert open={errorOpen} onClose={handleSnackClose} severity="error" message="Some error occurred. Please try again." />
+      <SnackAlert
+        open={successOpen}
+        onClose={handleSnackClose}
+        severity="success"
+        message="Account has been created. Redirecting..."
+        id="success-message"
+      />
+      <SnackAlert
+        open={errorOpen}
+        onClose={handleSnackClose}
+        severity="error"
+        message="Some error has occurred. Please try again."
+        id="error-message"
+      />
     </Grid>
   );
 }

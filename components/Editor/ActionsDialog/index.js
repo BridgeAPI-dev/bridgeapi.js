@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 });
 
 function ActionsDialog({
-  active, open, onClose, id,
+  active, open, onClose, bridgeId,
 }) {
   const [errorOpen, setErrorOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
@@ -34,11 +34,25 @@ function ActionsDialog({
   const router = useRouter();
 
   const handleAbort = () => {
+    api.patch('/events/abort', {
+      bridge_id: bridgeId,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          setSuccessOpen(true);
+        }
+      })
+      .catch(() => {
+        setErrorOpen(true);
+        setTimeout(() => {
+          setErrorOpen(false);
+        }, 2500);
+      });
   };
 
   const handleActivate = async () => {
-    await api.patch(`/bridges/${id}/${active ? 'deactivate' : 'activate'}`).then(() => {
-      router.push(`/bridge/${id}`);
+    await api.patch(`/bridges/${bridgeId}/${active ? 'deactivate' : 'activate'}`).then(() => {
+      router.push(`/bridge/${bridgeId}`);
       setSuccessOpen(true);
       setTimeout(() => {
         setSuccessOpen(false);
@@ -52,7 +66,7 @@ function ActionsDialog({
   };
 
   const handleDelete = () => {
-    api.delete(`/bridges/${id}`).then(() => {
+    api.delete(`/bridges/${bridgeId}`).then(() => {
       router.push('/dashboard');
     }).catch(() => {
       setErrorOpen(true);
@@ -68,6 +82,7 @@ function ActionsDialog({
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={successOpen}
         autoHideDuration={3000}
+        id="actions-success-message"
       >
         <Alert severity="success">
           Success! Your bridge has been updated.
@@ -77,14 +92,16 @@ function ActionsDialog({
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={errorOpen}
         autoHideDuration={3000}
+        id="actions-error-message"
       >
         <Alert severity="error">
           Some error occurred. Please try again.
         </Alert>
       </Snackbar>
+
       <DialogTitle id="simple-dialog-title">Bridge Actions</DialogTitle>
       <List>
-        <ListItem button onClick={handleAbort}>
+        <ListItem button onClick={handleAbort} id="action-abort">
           <ListItemAvatar>
             <Avatar className={classes.avatar}>
               <CancelIcon />
@@ -92,7 +109,8 @@ function ActionsDialog({
           </ListItemAvatar>
           <ListItemText primary="Abort Ongoing Requests" />
         </ListItem>
-        <ListItem button onClick={handleActivate}>
+
+        <ListItem button onClick={handleActivate} id="action-deactive">
           <ListItemAvatar>
             <Avatar className={classes.avatar}>
               <PauseIcon />
@@ -100,7 +118,8 @@ function ActionsDialog({
           </ListItemAvatar>
           <ListItemText primary={`${active ? 'Deactivate' : 'Activate'} Bridge`} />
         </ListItem>
-        <ListItem button onClick={handleDelete}>
+
+        <ListItem button onClick={handleDelete} id="action-delete">
           <ListItemAvatar>
             <Avatar className={classes.avatar}>
               <DeleteForeverIcon />
@@ -117,7 +136,7 @@ ActionsDialog.propTypes = {
   active: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  id: PropTypes.number.isRequired,
+  bridgeId: PropTypes.number.isRequired,
 };
 
 export default ActionsDialog;

@@ -2,23 +2,34 @@ import {
   ListItem as MUIListItem,
   ListItemText,
   Typography,
+  Link,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 function ListItem({
-  date, statusCode, timestamp, completed,
+  completed, completedAt, statusCode, eventId,
 }) {
+  const timestamp = new Date(completedAt).toDateString();
+  let message = completed ? `${timestamp}` : 'Ongoing';
+  if (statusCode) {
+    message += ` - ${statusCode}`;
+  }
+
   return (
     <MUIListItem divider>
+
       <ListItemText>
-        <Typography
-          style={{ fontSize: '0.75em' }}
-          noWrap
-          align="center"
-        >
-          {completed ? `${timestamp} - ${date} ${statusCode}` : 'Ongoing' }
-        </Typography>
+        <Link href={`/events/${eventId}`}>
+          <Typography
+            style={{ fontSize: '0.75em' }}
+            noWrap
+            align="center"
+          >
+            {message}
+          </Typography>
+        </Link>
       </ListItemText>
+
     </MUIListItem>
   );
 }
@@ -26,8 +37,8 @@ function ListItem({
 export default ListItem;
 
 ListItem.propTypes = {
-  date: PropTypes.string.isRequired,
   statusCode: PropTypes.number.isRequired,
-  timestamp: PropTypes.string.isRequired,
+  completedAt: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
+  eventId: PropTypes.number.isRequired,
 };

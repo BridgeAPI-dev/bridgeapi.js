@@ -19,7 +19,7 @@ import HeadersCard from './HeadersCard';
 import ActionsDialog from './ActionsDialog';
 
 import api from '../../utils/api';
-import SnackAlert from '../shared/alert';
+import SnackAlert from '../shared/SnackAlert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +42,8 @@ function Editor({ bridge, isEditView }) {
   const [open, setOpen] = useState(false);
   const [actionsDialogOpen, setActionsDialogOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('Some error has occurred. Please try again.');
+
   // TODO: Custom error messages
   // const [errMsg, setErrMsg] = useState('');
 
@@ -49,10 +51,9 @@ function Editor({ bridge, isEditView }) {
     active,
     id,
     outboundUrl,
-    method,
+    httpMethod,
     headers,
     environmentVariables,
-    events,
     data,
     title,
   } = bridge;
@@ -63,7 +64,7 @@ function Editor({ bridge, isEditView }) {
     active,
     title,
     outboundUrl,
-    method,
+    httpMethod,
     retries,
     delay,
     headers,
@@ -99,7 +100,7 @@ function Editor({ bridge, isEditView }) {
   const generatePayload = (values) => ({
     active: values.active,
     title: values.title,
-    method: values.method,
+    http_method: values.httpMethod,
     outbound_url: values.outboundUrl,
     retries: values.retries,
     delay: values.delay,
@@ -111,20 +112,54 @@ function Editor({ bridge, isEditView }) {
     },
   });
 
-  const handleSubmit = async (values, setSubmitting) => {
-    if (id) {
-      // POST if new bridge, otherwise PATCH
-      await api
-        .patch(`/bridges/${id}`, generatePayload(values))
-        .catch(() => setErrorOpen(true));
-    } else {
-      await api
-        .post('/bridges', generatePayload(values))
-        .then((res) => router.push(`/bridge/${res.data.id}`))
-        .catch(() => setErrorOpen(true));
+  const validatePayloads = (payloadCode, testPayloadCode) => {
+    const erraneousPayloads = [];
+    const validatePayload = (payload, type) => {
+      try { JSON.parse(payload); } catch { erraneousPayloads.push(type); }
+    };
+    const createErrorMessage = () => {
+      if (erraneousPayloads.length === 1) {
+        setErrorMessage(`Invalid JSON for ${erraneousPayloads[0]} editor`);
+      } else {
+        setErrorMessage('Invalid JSON for Payload and Test Payload editors');
+      }
+    };
+
+    validatePayload(payloadCode, 'Payload');
+    validatePayload(testPayloadCode, 'Test Payload');
+
+    if (erraneousPayloads.length !== 0) {
+      createErrorMessage();
+      setErrorOpen(true);
+      return false;
     }
 
-    setOpen(true);
+    return true;
+  };
+
+  const handleSubmit = async (values, setSubmitting) => {
+    if (validatePayloads(values.payloadCode, values.testPayloadCode)) {
+      // POST if new bridge, otherwise PATCH
+      if (id) {
+        await api
+          .patch(`/bridges/${id}`, generatePayload(values))
+          .then(() => setOpen(true))
+          .catch(() => setErrorOpen(true));
+      } else {
+        await api
+          .post('/bridges', generatePayload(values))
+          .then((res) => {
+            setOpen(true);
+            // TODO: Should timeout so user gets a chance to read the snack
+            // but is 200ms the time we want?
+            setTimeout(() => {
+              router.push(`/bridge/${res.data.id}`);
+            }, 200);
+          })
+          .catch(() => setErrorOpen(true));
+      }
+    }
+
     setSubmitting(false);
   };
 
@@ -140,7 +175,7 @@ function Editor({ bridge, isEditView }) {
   return (
     <>
       <Navbar />
-      <Sidebar events={events} title={title} />
+      <Sidebar events={bridge.events} bridgeId={bridge.id} title={title} />
 
       <Grid container item spacing={5} className={classes.root} sm={9} md={10}>
         <Grid item container wrap="nowrap">
@@ -150,6 +185,7 @@ function Editor({ bridge, isEditView }) {
             validateOnChange={false}
             validateOnBlur={false}
             className={classes.root}
+            id="form"
           >
             {({ values, submitForm }) => (
               <Form className={classes.form}>
@@ -173,10 +209,18 @@ function Editor({ bridge, isEditView }) {
                         active={active}
                         open={actionsDialogOpen}
                         onClose={() => setActionsDialogOpen(false)}
-                        id={id}
+                        bridgeId={id}
                       />
-                      <Button onClick={() => setActionsDialogOpen(true)} variant="outlined" color="secondary" className={classes.action}>Actions</Button>
-                      <Button onClick={submitForm} variant="contained" color="secondary">Save</Button>
+                      <Button
+                        onClick={() => setActionsDialogOpen(true)}
+                        variant="outlined"
+                        color="secondary"
+                        className={classes.action}
+                        id="actions-button"
+                      >
+                        Actions
+                      </Button>
+                      <Button id="save-btn" onClick={submitForm} variant="contained" color="secondary">Save</Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -196,8 +240,8 @@ function Editor({ bridge, isEditView }) {
           </Formik>
         </Grid>
       </Grid>
-      <SnackAlert open={open} onClose={handleClose} severity="success" message="Bridge has been saved." />
-      <SnackAlert open={errorOpen} onClose={handleClose} severity="error" message="Some error has occured. Please try again." />
+      <SnackAlert id="success-alert" open={open} onClose={handleClose} severity="success" message="Bridge has been saved." />
+      <SnackAlert id="error-alert" open={errorOpen} onClose={handleClose} severity="error" message={errorMessage} />
     </>
   );
 }
@@ -210,7 +254,7 @@ Editor.defaultProps = {
     active: true,
     title: '',
     outboundUrl: '',
-    method: '',
+    httpMethod: '',
     retries: '',
     delay: '',
     headers: [
@@ -234,7 +278,7 @@ Editor.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
     outboundUrl: PropTypes.string,
-    method: PropTypes.string,
+    httpMethod: PropTypes.string,
     retries: PropTypes.number,
     delay: PropTypes.number,
     headers: PropTypes.arrayOf(

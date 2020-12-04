@@ -89,6 +89,7 @@ function EnvironmentVariablesCard({ environmentVariables }) {
                         name={`environmentVariables[${idx}].value`}
                         value={envVar.value || ''}
                         placeholder="Value"
+                        id={`envVar-${idx}-value`}
                         fullWidth
                         validate={validateEnvVars}
                       />
@@ -97,6 +98,7 @@ function EnvironmentVariablesCard({ environmentVariables }) {
                       <Button
                         className={classes.primary}
                         onClick={() => { handleDelete(arrayHelpers, envVar, idx); }}
+                        id={`envVar-trash-${idx}`}
                       >
                         <DeleteForeverIcon fontSize="large" />
                       </Button>
@@ -109,6 +111,7 @@ function EnvironmentVariablesCard({ environmentVariables }) {
                   variant="outlined"
                   className={classes.plusButton}
                   onClick={() => arrayHelpers.push({ key: '', value: '' })}
+                  id="envPlusBtn"
                 >
                   +
                 </Button>

@@ -7,6 +7,9 @@
 
 # testing
 /coverage
+/specs/videos
+/specs/screenshots
+/.nyc_output
 
 # next.js
 /.next/
@@ -32,3 +35,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# deploy
+.serverless
+.serverless_nextjs
