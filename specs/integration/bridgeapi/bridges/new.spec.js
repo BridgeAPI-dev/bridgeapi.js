@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 import { stubSuccessfullCreateBridge, stubFailedCreateBridge } from '../../../support/utils/stubs';
 
 import {

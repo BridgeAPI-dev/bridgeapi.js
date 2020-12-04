@@ -159,6 +159,7 @@ CodeMirror.propTypes = {
     testPayloadCode: PropTypes.string,
   }),
   data: PropTypes.shape({}),
+  id: PropTypes.string.isRequired,
 };
 
 CodeMirror.defaultProps = {

@@ -1,3 +1,4 @@
+/* eslint-disable cypress/no-unnecessary-waiting */
 describe('Show bridge', () => {
   beforeEach(() => {
     cy.clearCookies();

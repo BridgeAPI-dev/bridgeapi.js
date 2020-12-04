@@ -23,7 +23,6 @@ function SnackAlert({
 export default SnackAlert;
 
 SnackAlert.propTypes = {
-  id: PropTypes.bool.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func,
   severity: PropTypes.string.isRequired,
