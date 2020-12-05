@@ -114,10 +114,14 @@ export default function Contact({ open, setOpen }) {
             spacing={0}
             className={classes.modal}
           >
-            <Grid item sm={4}>
+            <Grid
+              item
+              sm={4}
+              style={{ textAlign: 'center', paddingTop: '3rem' }}
+            >
               <MailIcon className={classes.mailIcon} />
 
-              <Typography variant="h6">
+              <Typography variant="body1">
                 If you’re having any issues with our service feel
                 free to contact us and we’ll get back to you as soon as possible
               </Typography>
@@ -138,7 +142,7 @@ export default function Contact({ open, setOpen }) {
                   {({
                     submitForm, isSubmitting, values,
                   }) => (
-                    <Form>
+                    <Form style={{ textAlign: 'center' }}>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Field
