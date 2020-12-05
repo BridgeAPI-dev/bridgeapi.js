@@ -1,5 +1,5 @@
 import {
-  Grid, makeStyles, Container, Typography,
+  Grid, makeStyles, Container, Typography, Divider,
 } from '@material-ui/core';
 import Link from 'next/link';
 import logo from '../../../public/logo.svg';
@@ -26,7 +26,31 @@ function Footer() {
   return (
     <Container className={classes.root}>
       <Grid container spacing={3} className={classes.mainGrid}>
-        <img src={logo} width="150" alt="logo" />
+        <Container>
+          <img src={logo} width="150" alt="logo" />
+        </Container>
+
+        <Container maxWidth="md" style={{ marginTop: '0.5rem' }}>
+          <Grid item spacing={3} maxWidth>
+            <Typography>
+              About Us
+            </Typography>
+
+            <Typography>
+              Our team has built internet scale applications and managed
+              data pipelines in excess of 10 million events per second at
+              startups and high-growth environments like BrightRoll, Yahoo!, Affirm and Instacart.
+
+              We
+              {' '}
+              <span role="img" aria-label="heart icon">❤️</span>
+              {' '}
+              building platforms and hope Pipedream simplifies your next project or business.
+            </Typography>
+          </Grid>
+
+          <Divider flexItem style={{ width: '100%', margin: '1rem 0', border: '1px solid' }} />
+        </Container>
 
         <Grid container item spacing={3} justify="center">
           <Typography variant="subtitle1" className={classes['mr-6']}>
@@ -38,12 +62,6 @@ function Footer() {
           <Typography variant="subtitle1" className={classes['mr-6']}>
             <Link href="/users/signup">
               Sign Up
-            </Link>
-          </Typography>
-
-          <Typography variant="subtitle1" className={classes['mr-6']}>
-            <Link href="/about">
-              About
             </Link>
           </Typography>
 
