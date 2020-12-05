@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import {
   Grid, makeStyles, Container, Typography, Divider,
 } from '@material-ui/core';
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Footer() {
+function Footer({ handleOpen }) {
   const classes = useStyles();
 
   return (
@@ -65,10 +66,12 @@ function Footer() {
             </Link>
           </Typography>
 
-          <Typography variant="subtitle1">
-            <Link href="/contact">
-              Contact Us
-            </Link>
+          <Typography
+            variant="subtitle1"
+            onClick={() => handleOpen()}
+            // style={{ ':hover': 'cursor:pointer' }}
+          >
+            Contact Us
           </Typography>
         </Grid>
 
@@ -87,3 +90,7 @@ function Footer() {
 }
 
 export default Footer;
+
+Footer.propTypes = {
+  handleOpen: PropTypes.func.isRequired,
+};

@@ -1,9 +1,11 @@
+import React, { useState } from 'react';
 import {
   Card, Grid, Button, Container, Typography, Link, makeStyles,
 } from '@material-ui/core';
 
 import Navbar from '../components/shared/landing/Navbar';
 import Footer from '../components/shared/Footer';
+import ContactForm from '../components/ContactModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,10 +35,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   return (
     <div className={classes.root}>
       <Navbar />
+      <ContactForm open={open} setOpen={setOpen} />
+
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid container item xs={12} justify="center">
@@ -44,13 +53,16 @@ export default function Home() {
               Bridge incompatible API&#39;s
             </Typography>
           </Grid>
+
           <Grid container item xs={12} alignItems="center" direction="column">
             <Typography variant="subtitle1">
               BridgeAPI is a serverless integration platform that
             </Typography>
+
             <Typography variant="subtitle1">
               lets you connect your apps through event-driven workflows
             </Typography>
+
             <Link href="/users/signup">
               <Button
                 color="primary"
@@ -60,6 +72,7 @@ export default function Home() {
                 Get Started
               </Button>
             </Link>
+
             <Typography variant="subtitle2" className={classes['m-6']}>
               Join the developers that are integrating API&#39;s around the world.
             </Typography>
@@ -74,6 +87,7 @@ export default function Home() {
               Advantages of BridgeAPI
             </Typography>
           </Grid>
+
           <Grid container item xs={12} alignItems="center" direction="column">
             <Grid container item direction="row" justify="center">
               <Card style={{ padding: 14 }}>
@@ -120,6 +134,7 @@ export default function Home() {
             <Typography variant="h5" component="h2" className={classes['m-4']}>
               Some Call To Action
             </Typography>
+
             <Link href="/users/signup">
               <Button
                 color="primary"
@@ -133,7 +148,7 @@ export default function Home() {
         </Grid>
       </Container>
 
-      <Footer />
+      <Footer handleOpen={handleOpen} />
     </div>
   );
 }
