@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Divider,
-  Link,
   List,
   makeStyles,
   Typography,
   Toolbar,
   Drawer,
 } from '@material-ui/core';
+import Link from 'next/link';
 
 import ListItem from './ListItem';
 import Loader from '../Loader';
@@ -59,9 +59,12 @@ function Sidebar({ events, bridgeId, title }) {
           style={{ overflow: mounted ? 'auto' : 'hidden' }}
         >
           <List>
-            <Link href={`/bridge/${bridgeId}`}>
-              <Typography variant="h6" align="center" className={classes.title}>{title || 'Untitled'}</Typography>
-            </Link>
+            <Typography variant="h6" align="center" className={classes.title}>
+              <Link href={`/bridge/${bridgeId}`}>
+                {title || 'Untitled'}
+              </Link>
+            </Typography>
+
             <Divider />
             {!mounted
               ? (

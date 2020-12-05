@@ -5,8 +5,9 @@ import {
   makeStyles,
   Divider,
   Typography,
-  Link,
+  // Link,
 } from '@material-ui/core';
+import Link from 'next/link';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -37,17 +38,18 @@ function Card({ bridge, index }) {
   return (
     <Grid item xs={12} sm={6} md={4} key={`main-grid-${bridge.title}`}>
       <Paper className={classes.paper} id={`card-${index}`}>
-        <Link href={`/bridge/${bridge.id}`}>
-          <Typography
-            variant="h5"
-            color="primary"
-            className={classes.title}
-            style={{ fontWeight: 600 }}
-            id={`card-title-${index}`}
-          >
+        <Typography
+          variant="h5"
+          color="primary"
+          className={classes.title}
+          style={{ fontWeight: 600 }}
+          id={`card-title-${index}`}
+        >
+          <Link href={`/bridge/${bridge.id}`}>
             {bridge.title}
-          </Typography>
-        </Link>
+          </Link>
+        </Typography>
+
         <Divider light className={classes.paddedDivider} />
 
         <Grid container spacing={2}>
@@ -92,11 +94,12 @@ function Card({ bridge, index }) {
           <Grid item xs container spacing={2}>
             <Grid item xs>
               {bridge.eventId ? (
-                <Link href={`/events/${bridge.eventId}`}>
-                  <Typography variant="subtitle1" color="secondary">
+
+                <Typography variant="subtitle1" color="secondary">
+                  <Link href={`/events/${bridge.eventId}`}>
                     View Events
-                  </Typography>
-                </Link>
+                  </Link>
+                </Typography>
               ) : (
                 <Typography variant="subtitle1">
                   View Events

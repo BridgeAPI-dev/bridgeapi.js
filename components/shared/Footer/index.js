@@ -1,8 +1,8 @@
 import {
-  Grid, makeStyles, Container, Typography, Link,
+  Grid, makeStyles, Container, Typography,
 } from '@material-ui/core';
-// import logo from '../../../src/images/logo.svg';
-import Image from 'next/image';
+import Link from 'next/link';
+import logo from '../../../public/logo.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,35 +26,32 @@ function Footer() {
   return (
     <Container className={classes.root}>
       <Grid container spacing={3} className={classes.mainGrid}>
-        <Link href="/">
-          {/* <img src={logo} width={150} alt="BridgeAPI logo depicting an arch bridge" /> */}
-          <Image src="/logo.svg" alt="me" width="64" height="64" />
-        </Link>
+        <img src={logo} width="150" alt="logo" />
 
         <Grid container item spacing={3} justify="center">
-          <Link href="/users/login">
-            <Typography variant="subtitle1" className={classes['mr-6']}>
+          <Typography variant="subtitle1" className={classes['mr-6']}>
+            <Link href="/users/login">
               Login
-            </Typography>
-          </Link>
+            </Link>
+          </Typography>
 
-          <Link href="/users/signup">
-            <Typography variant="subtitle1" className={classes['mr-6']}>
+          <Typography variant="subtitle1" className={classes['mr-6']}>
+            <Link href="/users/signup">
               Sign Up
-            </Typography>
-          </Link>
+            </Link>
+          </Typography>
 
-          <Link href="/about">
-            <Typography variant="subtitle1" className={classes['mr-6']}>
+          <Typography variant="subtitle1" className={classes['mr-6']}>
+            <Link href="/about">
               About
-            </Typography>
-          </Link>
+            </Link>
+          </Typography>
 
-          <Link href="/docs">
-            <Typography variant="subtitle1">
-              Docs
-            </Typography>
-          </Link>
+          <Typography variant="subtitle1">
+            <Link href="/contact">
+              Contact Us
+            </Link>
+          </Typography>
         </Grid>
 
         <Grid container item spacing={3} justify="center">
