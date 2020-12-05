@@ -45,7 +45,7 @@ Show.propTypes = {
     active: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
     outboundUrl: PropTypes.string.isRequired,
-    method: PropTypes.string.isRequired,
+    http_method: PropTypes.string.isRequired,
     retries: PropTypes.number.isRequired,
     delay: PropTypes.number.isRequired,
     headers: PropTypes.arrayOf(

@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
 function Card({ bridge, index }) {
   const classes = useStyles();
 
-  const completedAt = (bridge.completedAt
-    && new Date(bridge.completedAt).toDateString())
+  const latestRequest = (bridge.latestRequest
+    && new Date(bridge.latestRequest).toDateString())
     || 'No requests';
 
   const updatedAt = new Date(bridge.updatedAt).toDateString();
@@ -70,7 +70,7 @@ function Card({ bridge, index }) {
 
           <Grid item xs container direction="column" className={classes.values}>
             <Typography variant="subtitle1" id={`card-completedAt-${index}`}>
-              {completedAt}
+              {latestRequest}
             </Typography>
 
             <Typography variant="subtitle1" id={`card-updateAt-${index}`}>
@@ -119,7 +119,7 @@ Card.propTypes = {
     title: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
     eventCount: PropTypes.number.isRequired,
-    completedAt: PropTypes.string,
+    latestRequest: PropTypes.string,
     active: PropTypes.bool.isRequired,
     eventId: PropTypes.number.isRequired,
   }).isRequired,

@@ -72,9 +72,8 @@ Dashboard.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       updatedAt: PropTypes.string.isRequired,
-      lastRequest: PropTypes.string.isRequired,
-      requests: PropTypes.string.isRequired,
-      eventId: PropTypes.string.isRequired,
+      lastRequest: PropTypes.string,
+      eventId: PropTypes.number.isRequired,
     }),
   ).isRequired,
 };
