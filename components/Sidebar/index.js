@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Sidebar({ events, bridgeId, title }) {
+function Sidebar({ events, bridgeSlug, title }) {
   const classes = useStyles();
   const [mounted, setMounted] = useState(false);
 
@@ -60,7 +60,7 @@ function Sidebar({ events, bridgeId, title }) {
         >
           <List>
             <Typography variant="h6" align="center" className={classes.title}>
-              <Link href={`/bridge/${bridgeId}`}>
+              <Link href={`/bridge/${bridgeSlug}`}>
                 {title || 'Untitled'}
               </Link>
             </Typography>
@@ -91,5 +91,5 @@ export default Sidebar;
 Sidebar.propTypes = {
   events: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  bridgeId: PropTypes.number.isRequired,
+  bridgeSlug: PropTypes.string.isRequired,
 };

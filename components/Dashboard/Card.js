@@ -45,7 +45,7 @@ function Card({ bridge, index }) {
           style={{ fontWeight: 600 }}
           id={`card-title-${index}`}
         >
-          <Link href={`/bridge/${bridge.id}`}>
+          <Link href={`/bridge/${bridge.slug}`}>
             {bridge.title}
           </Link>
         </Typography>
@@ -118,7 +118,7 @@ export default Card;
 
 Card.propTypes = {
   bridge: PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     updatedAt: PropTypes.string.isRequired,
     eventCount: PropTypes.number.isRequired,
