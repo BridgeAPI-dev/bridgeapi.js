@@ -10,7 +10,7 @@ describe('Show bridge', () => {
 
   it('redirects to login with bad token', () => {
     cy.setBadToken();
-    cy.visit('/bridge/1');
+    cy.visit('/bridge/298347q9083274098');
 
     cy.location().should((location) => {
       expect(location.pathname).to.eq('/users/login');
@@ -19,7 +19,7 @@ describe('Show bridge', () => {
 
   it('can display bridge values', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
+    cy.visit('/bridge/298347q9083274098');
 
     cy.get('#title').should('have.value', 'title_1');
     cy.get('#outboundUrl').should('have.value', 'c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event');
@@ -38,7 +38,7 @@ describe('Show bridge', () => {
 
   it('can delete headers', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
+    cy.visit('/bridge/298347q9083274098');
     cy.stubRequest('/headers/57', 'DELETE', 200, {});
 
     cy.wait(100);
@@ -52,7 +52,7 @@ describe('Show bridge', () => {
 
   it('can put headers back into dom if request fails', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
+    cy.visit('/bridge/298347q9083274098');
     cy.stubRequest('/headers/57', 'DELETE', 400);
 
     cy.get('#headers-trash-0').click();
@@ -66,7 +66,7 @@ describe('Show bridge', () => {
 
   it('can delete environment variables', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
+    cy.visit('/bridge/298347q9083274098');
     cy.stubRequest('/environment_variables/12', 'DELETE', 200, {});
 
     cy.wait(100);
@@ -80,7 +80,7 @@ describe('Show bridge', () => {
 
   it('can put environment variables back into dom if request fails', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
+    cy.visit('/bridge/298347q9083274098');
     cy.stubRequest('/environment_variables/12', 'DELETE', 400, {});
 
     cy.get('#envVar-trash-0').click();
@@ -94,7 +94,7 @@ describe('Show bridge', () => {
 
   it('can save', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
+    cy.visit('/bridge/298347q9083274098');
     cy.stubRequest('/bridges', 'PATCH', 201, {});
     cy.wait(100);
 
@@ -104,8 +104,8 @@ describe('Show bridge', () => {
 
   it('can deactive', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
-    cy.stubRequest('/bridges/1/deactivate', 'PATCH', 201, {});
+    cy.visit('/bridge/298347q9083274098');
+    cy.stubRequest('/bridges/298347q9083274098/deactivate', 'PATCH', 201, {});
     cy.wait(100);
 
     cy.get('#actions-button').click();
@@ -115,8 +115,8 @@ describe('Show bridge', () => {
 
   it('can show error when deactiving fails', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
-    cy.stubRequest('/bridges/1/deactivate', 'PATCH', 400, {});
+    cy.visit('/bridge/298347q9083274098');
+    cy.stubRequest('/bridges/298347q9083274098/deactivate', 'PATCH', 400, {});
     cy.wait(100);
 
     cy.get('#actions-button').click();
@@ -126,7 +126,7 @@ describe('Show bridge', () => {
 
   it('can abort requests', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
+    cy.visit('/bridge/298347q9083274098');
     cy.stubRequest('/events/abort', 'PATCH', 200, {});
     cy.wait(100);
 
@@ -137,7 +137,7 @@ describe('Show bridge', () => {
 
   it('can show error when aborting fails', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
+    cy.visit('/bridge/298347q9083274098');
     cy.stubRequest('/events/abort', 'PATCH', 400, {});
     cy.wait(100);
 
@@ -148,8 +148,8 @@ describe('Show bridge', () => {
 
   it('can delete', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
-    cy.stubRequest('/bridges/1', 'DELETE', 200, {});
+    cy.visit('/bridge/298347q9083274098');
+    cy.stubRequest('/bridges/298347q9083274098', 'DELETE', 200, {});
     cy.wait(100);
 
     cy.get('#actions-button').click();
@@ -162,8 +162,8 @@ describe('Show bridge', () => {
 
   it('can show error when deleting fails', () => {
     cy.setToken();
-    cy.visit('/bridge/1');
-    cy.stubRequest('/bridges/1', 'DELETE', 400, {});
+    cy.visit('/bridge/298347q9083274098');
+    cy.stubRequest('/bridges/298347q9083274098', 'DELETE', 400, {});
     cy.wait(100);
 
     cy.get('#actions-button').click();

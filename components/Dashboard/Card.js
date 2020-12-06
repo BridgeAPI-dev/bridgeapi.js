@@ -95,13 +95,17 @@ function Card({ bridge, index }) {
             <Grid item xs>
               {bridge.eventId ? (
 
-                <Typography variant="subtitle1" color="secondary">
+                <Typography
+                  variant="subtitle1"
+                  color="secondary"
+                  id={`card-events-${index}`}
+                >
                   <Link href={`/events/${bridge.eventId}`}>
                     View Events
                   </Link>
                 </Typography>
               ) : (
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1" id={`card-events-${index}`}>
                   View Events
                 </Typography>
               )}
