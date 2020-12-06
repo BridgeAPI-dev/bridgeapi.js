@@ -180,8 +180,8 @@ function Login() {
 
         </Container>
       </Paper>
-      <SnackAlert open={successOpen} onClose={handleSnackClose} severity="success" message="Success: Logging in. Please wait." />
-      <SnackAlert open={errorOpen} onClose={handleSnackClose} severity="error" message="Error: Email or password is invalid" />
+      <SnackAlert id="login_success_alert" open={successOpen} onClose={handleSnackClose} severity="success" message="Success: Logging in. Please wait." />
+      <SnackAlert id="login_fail_alert" open={errorOpen} onClose={handleSnackClose} severity="error" message="Error: Email or password is invalid" />
     </Grid>
   );
 }
