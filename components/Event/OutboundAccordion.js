@@ -122,7 +122,7 @@ function OutboundAccordion({ request }) {
                   Payload:
                 </Typography>
 
-                <CodeMirror readOnly isEditView data={request.payload} />
+                <CodeMirror readOnly id="codemirror-outbound" isEditView data={request.payload} />
               </Grid>
             </AccordionDetails>
           </Accordion>

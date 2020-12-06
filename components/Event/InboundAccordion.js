@@ -101,7 +101,7 @@ function TimelineAccordion({ request }) {
                   Payload:
                 </Typography>
 
-                <CodeMirror readOnly isEditView data={request.payload} />
+                <CodeMirror readOnly id="codemirror-inbound" isEditView data={request.payload} />
               </Grid>
             </AccordionDetails>
           </Accordion>

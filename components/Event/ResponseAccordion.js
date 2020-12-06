@@ -109,7 +109,7 @@ function ResponseAccordion({ request }) {
                   Payload:
                 </Typography>
 
-                <CodeMirror readOnly isEditView data={request.payload} />
+                <CodeMirror readOnly id="codemirror-response" isEditView data={request.payload} />
               </Grid>
             </AccordionDetails>
           </Accordion>
