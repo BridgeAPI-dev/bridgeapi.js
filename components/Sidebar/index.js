@@ -73,6 +73,7 @@ function Sidebar({ events, bridgeId, title }) {
                     statusCode={event.statusCode}
                     completed={event.completed}
                     eventId={event.id}
+                    key={event.id}
                   />
                 ))
               )}

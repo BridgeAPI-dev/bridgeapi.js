@@ -37,8 +37,13 @@ function ListItem({
 export default ListItem;
 
 ListItem.propTypes = {
-  statusCode: PropTypes.number.isRequired,
-  completedAt: PropTypes.string.isRequired,
+  statusCode: PropTypes.number,
+  completedAt: PropTypes.string,
   completed: PropTypes.bool.isRequired,
   eventId: PropTypes.number.isRequired,
+};
+
+ListItem.defaultProps = {
+  statusCode: null,
+  completedAt: null,
 };
