@@ -191,6 +191,7 @@ function Editor({ bridge, isEditView }) {
               <Form className={classes.form}>
                 <Grid container>
                   <Grid item sm={8} md={8} lg={8} container justify="flex-end">
+                    {id && (
                     <Grid>
                       <Typography
                         variant="subtitle2"
@@ -202,24 +203,29 @@ function Editor({ bridge, isEditView }) {
                         https://bridgeapi.dev/b13923/inbound
                       </Typography>
                     </Grid>
+                    )}
                   </Grid>
                   <Grid item sm={4} md={4} lg={4} container justify="flex-end">
                     <Grid>
-                      <ActionsDialog
-                        active={active}
-                        open={actionsDialogOpen}
-                        onClose={() => setActionsDialogOpen(false)}
-                        bridgeId={id}
-                      />
-                      <Button
-                        onClick={() => setActionsDialogOpen(true)}
-                        variant="outlined"
-                        color="secondary"
-                        className={classes.action}
-                        id="actions-button"
-                      >
-                        Actions
-                      </Button>
+                      {id && (
+                        <>
+                          <ActionsDialog
+                            active={active}
+                            open={actionsDialogOpen}
+                            onClose={() => setActionsDialogOpen(false)}
+                            bridgeId={id}
+                          />
+                          <Button
+                            onClick={() => setActionsDialogOpen(true)}
+                            variant="outlined"
+                            color="secondary"
+                            className={classes.action}
+                            id="actions-button"
+                          >
+                            Actions
+                          </Button>
+                        </>
+                      )}
                       <Button id="save-btn" onClick={submitForm} variant="contained" color="secondary">Save</Button>
                     </Grid>
                   </Grid>
@@ -296,7 +302,7 @@ Editor.propTypes = {
     events: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        bridge_id: PropTypes.number.isRequired,
+        bridgeId: PropTypes.number.isRequired,
         completed: PropTypes.bool,
         completed_at: PropTypes.string,
         data: PropTypes.string,

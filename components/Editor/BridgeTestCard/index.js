@@ -80,7 +80,6 @@ export default BridgeTestCard;
 BridgeTestCard.propTypes = {
   values: PropTypes.shape({
     outboundUrl: PropTypes.string.isRequired,
-    method: PropTypes.string.isRequired,
     retries: PropTypes.string.isRequired,
     delay: PropTypes.string.isRequired,
     headers: PropTypes.arrayOf(

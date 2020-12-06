@@ -89,5 +89,9 @@ export default Sidebar;
 Sidebar.propTypes = {
   events: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
-  bridgeId: PropTypes.number.isRequired,
+  bridgeId: PropTypes.number,
+};
+
+Sidebar.defaultProps = {
+  bridgeId: null,
 };
