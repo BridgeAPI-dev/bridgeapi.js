@@ -38,15 +38,16 @@ function Footer({ handleOpen }) {
             </Typography>
 
             <Typography>
-              Our team has built internet scale applications and managed
-              data pipelines in excess of 10 million events per second at
-              startups and high-growth environments like BrightRoll, Yahoo!, Affirm and Instacart.
+              We are three developers whose goal is to provide an intuitive tool to receive, filter and forward API requests in order
+              in order to automate workflows.
 
-              We
-              {' '}
-              <span role="img" aria-label="heart icon">❤️</span>
-              {' '}
-              building platforms and hope Pipedream simplifies your next project or business.
+              Current options for developers usually require subscribing to bloated services and granting intrusive permissions in order to connect apps.
+
+              With BridgeAPI, simply define your desired workflow (what we call a `bridge`) and direct your vendor webhooks or api calls
+              towards your provided BridgeAPI endpoint.
+
+              Our service is open source, permission free and fully customizable.
+              We hope you enjoy our product and we appreciate any feedback or suggestion that can help us improve it further.
             </Typography>
           </Grid>
 
