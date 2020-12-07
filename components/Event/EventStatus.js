@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, Button, Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { Alert } from '@material-ui/lab';
@@ -17,35 +17,52 @@ const useStyles = makeStyles({
   },
 });
 
-function EventStatus({
-  eventCompleted, eventAborted, outbound, eventId,
-}) {
+function EventStatus({ eventData }) {
   const classes = useStyles();
-  const [completed, setCompleted] = useState(eventCompleted);
-  const [aborted, setAborted] = useState(eventAborted);
   const [buttonDisable, setButtonDisable] = useState(false);
+  const [data, setData] = useState({ ...eventData, severity: 'info', message: '' });
 
-  const { statusCode, message } = (outbound.length >= 1 && outbound.slice(-1)[0].response);
+  const severity = (code) => {
+    if (code <= 199) {
+      return 'info';
+    }
 
-  const severity = (statusCode <= 199 && 'info')
-  || (statusCode <= 299 && 'success')
-  || (statusCode <= 399 && 'warning')
-  || 'error';
+    if (code <= 299) {
+      return 'success';
+    }
+
+    if (code <= 399) {
+      return 'warning';
+    }
+
+    return 'error';
+  };
 
   const handleAbort = async () => {
     setButtonDisable(true);
     await api.patch('/events/abort', {
-      event_id: eventId,
+      event_id: data.eventId,
     })
       .then((res) => {
         if (res.status === 200) {
-          setAborted(true);
+          setData({
+            ...data, aborted: true, completed: true, severity: 'error',
+          });
         }
       });
-    setCompleted(true);
+    // TODO: Catch error
   };
 
-  if (!completed) {
+  useEffect(() => {
+    const { statusCode, message } = (eventData.outbound.length >= 1
+      && eventData.outbound.slice(-1)[0].response);
+
+    setData({
+      ...eventData, message, severity: severity(statusCode), statusCode,
+    });
+  }, [eventData]);
+
+  if (!data.completed) {
     return (
       <>
         <Alert
@@ -75,10 +92,10 @@ function EventStatus({
     );
   }
 
-  if (aborted) {
+  if (data.aborted) {
     return (
       <>
-        <Alert severity={severity} className={classes.mb}>
+        <Alert severity={data.severity} className={classes.mb}>
           Aborted
         </Alert>
       </>
@@ -86,12 +103,12 @@ function EventStatus({
   }
 
   return (
-    <Alert severity={severity} className={classes.mb} id="success-alert">
-      {statusCode}
+    <Alert severity={data.severity} className={classes.mb} id="success-alert">
+      {data.statusCode}
       {' '}
       -
       {' '}
-      {message}
+      {data.message}
     </Alert>
   );
 }
@@ -99,8 +116,10 @@ function EventStatus({
 export default EventStatus;
 
 EventStatus.propTypes = {
-  eventAborted: PropTypes.bool.isRequired,
-  eventCompleted: PropTypes.bool.isRequired,
-  outbound: PropTypes.array.isRequired,
-  eventId: PropTypes.number.isRequired,
+  eventData: PropTypes.shape({
+    aborted: PropTypes.bool.isRequired,
+    completed: PropTypes.bool.isRequired,
+    outbound: PropTypes.array.isRequired,
+    eventId: PropTypes.number.isRequired,
+  }).isRequired,
 };

@@ -1,6 +1,7 @@
 {
   "bridge": {
     "id": 1,
+    "slug": "298347q9083274098",
     "title": "title_1",
     "inbound_url": "534a9856d7b2b9267609",
     "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
