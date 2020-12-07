@@ -56,9 +56,7 @@ function EnvironmentVariablesCard({ environmentVariables }) {
       <AccordionSummary
         icon={<ExpandMoreIcon />}
         title="Environment variables"
-        subtitle="Keep Your Secrets Safe"
-        tooltip
-        tooltipMessage="Environment variables are encrypted for data protection. You will not be able to view the value after saving."
+        subtitle="Encrypted To Keep Your Secrets Safe"
       />
       <AccordionDetails>
         <Grid container spacing={2}>
