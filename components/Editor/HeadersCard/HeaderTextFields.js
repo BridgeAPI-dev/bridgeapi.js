@@ -90,6 +90,7 @@ function HeaderTextFields({ headers }) {
                     name={`headers[${idx}].value`}
                     value={header.value || ''}
                     placeholder="Value"
+                    id={`headers-${idx}-value`}
                     validate={validateHeaders}
                     fullWidth
                   />
@@ -98,6 +99,7 @@ function HeaderTextFields({ headers }) {
                   <Button
                     className={classes.primary}
                     onClick={() => { handleDelete(arrayHelpers, header, idx); }}
+                    id={`headers-trash-${idx}`}
                   >
                     <DeleteForeverIcon fontSize="large" />
                   </Button>
@@ -110,6 +112,7 @@ function HeaderTextFields({ headers }) {
               variant="outlined"
               className={classes.plusButton}
               onClick={() => arrayHelpers.push({ key: '', value: '' })}
+              id="headerPlusBtn"
             >
               +
             </Button>

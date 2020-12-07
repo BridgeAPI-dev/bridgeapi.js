@@ -28,7 +28,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function Events({ event, events, bridgeTitle }) {
+function Events({
+  event, events, bridgeTitle, bridgeSlug,
+}) {
   const classes = useStyles();
 
   const { inbound, outbound } = event.data;
@@ -37,7 +39,7 @@ function Events({ event, events, bridgeTitle }) {
   return (
     <ProtectRoute>
       <Navbar />
-      <Sidebar events={events} bridgeId={event.bridgeId} title={bridgeTitle} />
+      <Sidebar events={events} bridgeSlug={bridgeSlug} title={bridgeTitle} />
 
       <Grid
         container
@@ -49,10 +51,12 @@ function Events({ event, events, bridgeTitle }) {
 
         <Grid item container direction="column" wrap="nowrap">
           <EventStatus
-            eventCompleted={event.completed}
-            eventAborted={event.aborted}
-            outbound={outbound}
-            eventId={event.id}
+            eventData={{
+              eventId: event.id,
+              outbound,
+              aborted: event.aborted,
+              completed: event.completed,
+            }}
           />
           {/* <Typography align="center" variant="body2" className={classes.microCopy} noWrap>
             Send your events here:
@@ -70,18 +74,18 @@ function Events({ event, events, bridgeTitle }) {
               && (
               <>
                 <ResponseAccordion
-                  request={outbound[0].response}
+                  request={outbound[outbound.length - 1].response}
                   id="response-0"
                 />
 
                 <OutboundAccordion
-                  request={outbound[0].request}
+                  request={outbound[outbound.length - 1].request}
                   id="outbound-0"
                 />
               </>
               )}
 
-            { requiredRetry && <FailedAttempts requests={outbound.slice(1)} />}
+            { requiredRetry && <FailedAttempts requests={outbound.slice(0, -1).reverse()} />}
             <InboundAccordion request={inbound} />
           </Timeline>
         </Grid>
@@ -99,6 +103,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
+      bridgeSlug: res.data.bridge_slug,
       bridgeTitle: res.data.bridge_title,
       event: toCamel(event),
       events: toCamel(JSON.parse(res.data.events)),
@@ -192,6 +197,7 @@ Events.propTypes = {
     }).isRequired,
   ).isRequired,
   bridgeTitle: PropTypes.string.isRequired,
+  bridgeSlug: PropTypes.string.isRequired,
 };
 
 export default Events;

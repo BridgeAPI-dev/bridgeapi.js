@@ -11,7 +11,7 @@ const ssrRedirect = (context) => {
 // Called during `getServerSideProps` to ensure
 // a user is authenticated otherwise they will be redirected
 // to the login page. Returns `true` if redirect will be occuring.
-const ssrRedirectUnlessToken = (context) => {
+export const ssrRedirectUnlessToken = (context) => {
   if (!nookies.get(context).token) {
     ssrRedirect(context);
     return true;

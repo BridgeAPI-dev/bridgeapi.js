@@ -2,6 +2,7 @@
 import { rest } from 'msw';
 
 const bridges = require('../../fixtures/bridges.json');
+const bridge = require('../../fixtures/bridge.json');
 const event = require('../../fixtures/event.json');
 const user = require('../../fixtures/user.json');
 
@@ -25,6 +26,19 @@ const handlers = [
     }
 
     return res(ctx.json(bridges));
+  }),
+
+  rest.get('http://localhost/bridges/298347q9083274098', (req, res, ctx) => {
+    if (invalidToken(req)) {
+      return res(
+        ctx.status(401),
+        ctx.json(
+          {},
+        ),
+      );
+    }
+
+    return res(ctx.json(bridge));
   }),
 
   rest.get('http://localhost/events/26', (req, res, ctx) => {

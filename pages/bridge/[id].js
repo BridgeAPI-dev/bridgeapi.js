@@ -43,7 +43,7 @@ export async function getServerSideProps(context) {
 Show.propTypes = {
   bridge: PropTypes.shape({
     active: PropTypes.bool.isRequired,
-    id: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
     outboundUrl: PropTypes.string.isRequired,
     method: PropTypes.string.isRequired,
     retries: PropTypes.number.isRequired,
