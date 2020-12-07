@@ -28,9 +28,11 @@ function AuthProvider({ children }) {
 
       if (res && res.status === 200) {
         setIsAuthenticated(true);
-        setLoading(false);
+        setTimeout(() => setLoading(false), 100);
         api.defaults.headers['BRIDGE-JWT'] = token;
       }
+
+      setLoading(false);
     }
 
     loadUserFromCookies();

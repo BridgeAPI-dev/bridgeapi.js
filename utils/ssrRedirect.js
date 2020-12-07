@@ -8,10 +8,10 @@ import api from './api';
 //
 // Usage:
 //
-// `if (!fetchDataOrRedirect(context)) { return { props: {} }}`
+// `if (!fetchSSRData(context)) { return { props: {} }}`
 //
 // *You can safely access the data retrieved from the api request*
-const fetchData = async (context, endpoint) => {
+const fetchSSRData = async (context, endpoint) => {
   const { token } = nookies.get(context);
   const res = await api.get(endpoint, {
     headers: {
@@ -22,4 +22,4 @@ const fetchData = async (context, endpoint) => {
   return res;
 };
 
-export default fetchData;
+export default fetchSSRData;

@@ -1,6 +1,19 @@
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useAuth } from '../src/contexts/auth';
+import Loader from '../components/Loader';
+
+const LoadingScreen = () => (
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    height: '100vh',
+    overflow: 'hidden',
+  }}
+  >
+    <Loader />
+  </div>
+);
 
 // This is a client side route protection.
 //
@@ -20,7 +33,7 @@ function ProtectRoute({ children }) {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div />;
+    return <LoadingScreen />;
   }
 
   if (isAuthenticated) {
@@ -28,10 +41,11 @@ function ProtectRoute({ children }) {
   }
 
   if (typeof window !== 'undefined') {
+    console.log('pushhhh');
     router.push('/users/login');
   }
 
-  return <div />;
+  return <LoadingScreen />;
 }
 
 export default ProtectRoute;

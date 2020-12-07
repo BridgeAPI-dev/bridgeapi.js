@@ -3,7 +3,7 @@ import nookies from 'nookies';
 
 const urls = {
   development: 'http://localhost:3001/',
-  production: 'https://api.bridgeapi.dev',
+  production: 'http://localhost:3001/',
 };
 
 // Tests require the application to be built and
@@ -31,7 +31,7 @@ const api = Axios.create({
 //
 // Usage:
 //
-// `if (!fetchDataOrRedirect(context)) { return { props: {} }}`
+// `if (!fetchSSRData(context)) { return { props: {} }}`
 //
 // *You can safely access the data retrieved from the api request*
 export const fetchSSRData = async (context, endpoint) => {
