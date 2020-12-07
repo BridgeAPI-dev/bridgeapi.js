@@ -15,11 +15,12 @@ const LoadingScreen = () => (
   </div>
 );
 
-// This is a client side route protection.
+// This is a client side route protection component.
 //
-// It will return the children of the page if `isAuthenticated`
-// returns true. It will do a push of the URL to `/users/login`
-// & display the login page if `isAuthenticated` returns false.
+// Returns `LoadingScreen` if `useAuth` is `loading`.
+// Returns `children` if `isAuthenticated` is `true`.
+// If `isAuthenticated` returns `false` then redirect
+// to `/users/login` & display the login page.
 //
 // Usage:
 //
@@ -32,18 +33,11 @@ function ProtectRoute({ children }) {
   const router = useRouter();
   const { isAuthenticated, loading } = useAuth();
 
-  if (loading) {
-    return <LoadingScreen />;
-  }
+  if (loading) return <LoadingScreen />;
 
-  if (isAuthenticated) {
-    return children;
-  }
+  if (isAuthenticated) return children;
 
-  if (typeof window !== 'undefined') {
-    console.log('pushhhh');
-    router.push('/users/login');
-  }
+  if (typeof window !== 'undefined') router.push('/users/login');
 
   return <LoadingScreen />;
 }

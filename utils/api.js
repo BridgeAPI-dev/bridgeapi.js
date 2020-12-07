@@ -24,10 +24,10 @@ const api = Axios.create({
   },
 });
 
-// Call this function during `getServerSideProps` to ensure
-// a user is authenticated & retrieve the particular data a page needs
-// if the user is not authenticated, they will be redirected
-// to the login page. Returns `false` if redirect will be occuring.
+// Helper function designed to be used with `getServerSideProps`.
+// Handles fetching the token from cookies, firing off the api
+// request and returning the data. Returns `false` if the token or
+// or route was invalid.
 //
 // Usage:
 //

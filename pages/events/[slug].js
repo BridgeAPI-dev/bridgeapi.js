@@ -11,7 +11,7 @@ import InboundAccordion from '../../components/Event/InboundAccordion';
 import OutboundAccordion from '../../components/Event/OutboundAccordion';
 import ResponseAccordion from '../../components/Event/ResponseAccordion';
 
-import fetchDataOrRedirect from '../../utils/ssrRedirect';
+import { fetchSSRData } from '../../utils/api';
 import ProtectRoute from '../../utils/ProtectRoute';
 import toCamel from '../../utils/toCamel';
 
@@ -95,7 +95,7 @@ function Events({
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetchDataOrRedirect(context, `/events/${context.query.slug}`);
+  const res = await fetchSSRData(context, `/events/${context.query.slug}`);
   if (!res) return { props: {} }; // Redirecting to /users/login
 
   const { event } = res.data;
