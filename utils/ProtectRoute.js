@@ -1,16 +1,26 @@
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useAuth } from '../src/contexts/auth';
-import Login from '../pages/users/login';
+import Loader from '../components/Loader';
 
-// This is a client side route protection.
+const LoadingScreen = () => (
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    height: '100vh',
+    overflow: 'hidden',
+  }}
+  >
+    <Loader />
+  </div>
+);
+
+// This is a client side route protection component.
 //
-// It will return the children of the page if `isAuthenticated`
-// returns true. It will do a shallow push of the URL to `/users/login`
-// & display the login page if `isAuthenticated` returns false.
-// Realistically, we will be redirecting in the `getServerSideProps` phase
-// if the user is not authenticated. This is more of a last resort.
+// Returns `LoadingScreen` if `useAuth` is `loading`.
+// Returns `children` if `isAuthenticated` is `true`.
+// If `isAuthenticated` returns `false` then redirect
+// to `/users/login` & display the login page.
 //
 // Usage:
 //
@@ -21,25 +31,15 @@ import Login from '../pages/users/login';
 // </ProtectRoute>
 function ProtectRoute({ children }) {
   const router = useRouter();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
-  // Incase we forget to redirect in getServerSideProps
-  useEffect(() => {
-    if (!isAuthenticated) { router.push('/users/login'); }
-  }, []);
+  if (loading) return <LoadingScreen />;
 
-  // If window is not defined, return the page to
-  // prevent `Expected server HTML to contain a matching` warning.
-  if (typeof window === 'undefined') {
-    return children;
-  }
+  if (isAuthenticated) return children;
 
-  // Note: If this actually does return `<Login />`,
-  // a `Expected server HTML to contain a matching` warning will
-  // be thrown because the SSR HTML & CSR HTML won't match.
-  // This is only a last resort though. User's *should* be redirected
-  // during the `getServerSideProps` phase.
-  return isAuthenticated ? (children) : (<Login />);
+  if (typeof window !== 'undefined') router.push('/users/login');
+
+  return <LoadingScreen />;
 }
 
 export default ProtectRoute;

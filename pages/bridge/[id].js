@@ -6,7 +6,7 @@
 import PropTypes from 'prop-types';
 import Editor from '../../components/Editor';
 import ProtectRoute from '../../utils/ProtectRoute';
-import fetchDataOrRedirect from '../../utils/ssrRedirect';
+import { fetchSSRData } from '../../utils/api';
 
 import toCamel from '../../utils/toCamel';
 
@@ -24,7 +24,7 @@ function Show({ bridge }) {
 export default Show;
 
 export async function getServerSideProps(context) {
-  const res = await fetchDataOrRedirect(context, `/bridges/${context.query.id}`);
+  const res = await fetchSSRData(context, `/bridges/${context.query.id}`);
   if (!res) return { props: {} }; // Redirecting to /users/login
 
   const bridge = toCamel(res.data.bridge);

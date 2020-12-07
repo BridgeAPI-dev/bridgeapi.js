@@ -9,7 +9,7 @@ import {
 import Card from '../components/Dashboard/Card';
 import Navbar from '../components/shared/dashboard/Navbar';
 
-import fetchDataOrRedirect from '../utils/ssrRedirect';
+import { fetchSSRData } from '../utils/api';
 import ProtectRoute from '../utils/ProtectRoute';
 import toCamel from '../utils/toCamel';
 
@@ -57,7 +57,7 @@ function Dashboard({ bridges }) {
 export default Dashboard;
 
 export async function getServerSideProps(context) {
-  const res = await fetchDataOrRedirect(context, '/bridges');
+  const res = await fetchSSRData(context, '/bridges');
   if (!res) return { props: {} }; // Redirecting to /users/login
 
   return {

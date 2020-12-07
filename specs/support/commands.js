@@ -32,8 +32,16 @@ Cypress.Commands.add('stubRequest', (endpoint, method, statusCode, body) => {
 
 Cypress.Commands.add('setToken', () => {
   cy.setCookie('token', 'goodToken');
+  cy.intercept('GET', '/user/valid', {
+    statusCode: 200,
+    body: {},
+  });
 });
 
 Cypress.Commands.add('setBadToken', () => {
   cy.setCookie('token', 'badToken');
+  cy.intercept('GET', '/user/valid', {
+    statusCode: 401,
+    body: {},
+  });
 });
