@@ -239,7 +239,16 @@ export default Account;
 
 export async function getServerSideProps(context) {
   const res = await fetchSSRData(context, '/user');
-  if (!res) return { props: {} }; // Redirecting to /user/login
+  if (!res) {
+    // Required otherwise Account#initialValues will throw an error
+    return {
+      props: {
+        user: {
+          notifications: {},
+        },
+      },
+    };
+  } // Redirecting to /user/login
 
   return {
     props: {

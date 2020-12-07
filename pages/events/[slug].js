@@ -96,7 +96,18 @@ function Events({
 
 export async function getServerSideProps(context) {
   const res = await fetchSSRData(context, `/events/${context.query.slug}`);
-  if (!res) return { props: {} }; // Redirecting to /users/login
+  if (!res) {
+    return {
+      props: {
+        event: {
+          data: {
+            inbound: [],
+            outbound: [],
+          },
+        },
+      },
+    };
+  } // Redirecting to /users/login
 
   const { event } = res.data;
   event.data = JSON.parse(event.data);
