@@ -46,7 +46,6 @@ function Login() {
   // TODO
   // eslint-disable-next-line no-unused-vars
   const router = useRouter();
-  const [formMessage, setFormMessage] = useState('');
   const [successOpen, setSuccessOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
 
@@ -69,10 +68,8 @@ function Login() {
   };
 
   const handleSubmit = async (values, setSubmitting) => {
-    setFormMessage('');
-
     if (await login(values.email, values.password)) {
-      setFormMessage('Success: Logging in. Please wait.');
+      setSuccessOpen(true);
       // router.push('/dashboard');
       //
       // TODO: Nextjs doesn't support Server side redirects
@@ -123,7 +120,7 @@ function Login() {
             id="form"
           >
             {({
-              submitForm, isSubmitting, values,
+              isSubmitting, values,
             }) => (
               <Form className={classes.form}>
                 <Grid container spacing={2}>
@@ -156,21 +153,14 @@ function Login() {
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-                  onClick={submitForm}
                   disabled={isSubmitting}
+                  type="submit"
                 >
                   Login
                 </Button>
               </Form>
             )}
           </Formik>
-
-          {formMessage
-            && (
-            <Typography>
-              {formMessage}
-            </Typography>
-            )}
 
           <Link href="/users/signup">
             <Typography className={classes.login}>
@@ -180,8 +170,20 @@ function Login() {
 
         </Container>
       </Paper>
-      <SnackAlert id="loginSuccessAlert" open={successOpen} onClose={handleSnackClose} severity="success" message="Success: Logging in. Please wait." />
-      <SnackAlert id="loginFailAlert" open={errorOpen} onClose={handleSnackClose} severity="error" message="Error: Email or password is invalid" />
+      <SnackAlert
+        open={successOpen}
+        onClose={handleSnackClose}
+        severity="success"
+        message="Success: Logging in. Please wait."
+        id="success-message"
+      />
+      <SnackAlert
+        open={errorOpen}
+        onClose={handleSnackClose}
+        severity="error"
+        message="Error: Email or password is invalid"
+        id="error-message"
+      />
     </Grid>
   );
 }
