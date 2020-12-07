@@ -31,7 +31,7 @@ export const stubFailLogin = () => {
 
 export const stubSuccessfullCreateBridge = () => {
   const response = {
-    id: '1',
+    slug: '298347q9083274098',
   };
   cy.stubRequest('/bridges', 'POST', 201, response);
 };
@@ -44,9 +44,9 @@ export const stubFailedCreateBridge = () => {
 };
 
 export const stubUpdateSuccessBridge = () => {
-  cy.stubRequest('/bridges/1', 'PATCH', 200);
+  cy.stubRequest('/bridges/298347q9083274098', 'PATCH', 200);
 };
 
 export const stubFailUpdateBridge = () => {
-  cy.stubRequest('/bridges/1', 'PATCH', 400);
+  cy.stubRequest('/bridges/298347q9083274098', 'PATCH', 400);
 };

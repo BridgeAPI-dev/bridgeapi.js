@@ -49,7 +49,7 @@ function Editor({ bridge, isEditView }) {
 
   const {
     active,
-    id,
+    slug,
     outboundUrl,
     httpMethod,
     headers,
@@ -140,9 +140,9 @@ function Editor({ bridge, isEditView }) {
   const handleSubmit = async (values, setSubmitting) => {
     if (validatePayloads(values.payloadCode, values.testPayloadCode)) {
       // POST if new bridge, otherwise PATCH
-      if (id) {
+      if (slug) {
         await api
-          .patch(`/bridges/${id}`, generatePayload(values))
+          .patch(`/bridges/${slug}`, generatePayload(values))
           .then(() => setOpen(true))
           .catch(() => setErrorOpen(true));
       } else {
@@ -153,7 +153,7 @@ function Editor({ bridge, isEditView }) {
             // TODO: Should timeout so user gets a chance to read the snack
             // but is 200ms the time we want?
             setTimeout(() => {
-              router.push(`/bridge/${res.data.id}`);
+              router.push(`/bridge/${res.data.slug}`);
             }, 200);
           })
           .catch(() => setErrorOpen(true));
@@ -175,7 +175,7 @@ function Editor({ bridge, isEditView }) {
   return (
     <>
       <Navbar />
-      <Sidebar events={bridge.events} bridgeId={bridge.id} title={title} />
+      <Sidebar events={bridge.events} bridgeSlug={bridge.slug} title={title} />
 
       <Grid container item spacing={5} className={classes.root} sm={9} md={10}>
         <Grid item container wrap="nowrap">
@@ -191,7 +191,7 @@ function Editor({ bridge, isEditView }) {
               <Form className={classes.form}>
                 <Grid container>
                   <Grid item sm={8} md={8} lg={8} container justify="flex-end">
-                    {id && (
+                    {slug && (
                     <Grid>
                       <Typography
                         variant="subtitle2"
@@ -207,13 +207,13 @@ function Editor({ bridge, isEditView }) {
                   </Grid>
                   <Grid item sm={4} md={4} lg={4} container justify="flex-end">
                     <Grid>
-                      {id && (
+                      {slug && (
                         <>
                           <ActionsDialog
                             active={active}
                             open={actionsDialogOpen}
                             onClose={() => setActionsDialogOpen(false)}
-                            bridgeId={id}
+                            bridgeSlug={slug}
                           />
                           <Button
                             onClick={() => setActionsDialogOpen(true)}
@@ -281,7 +281,7 @@ Editor.propTypes = {
   isEditView: PropTypes.bool,
   bridge: PropTypes.shape({
     active: PropTypes.bool,
-    id: PropTypes.number,
+    slug: PropTypes.string,
     title: PropTypes.string,
     outboundUrl: PropTypes.string,
     httpMethod: PropTypes.string,
