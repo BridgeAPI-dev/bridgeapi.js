@@ -12,6 +12,7 @@ import MailIcon from '@material-ui/icons/Mail';
 
 import { Formik, Form, Field } from 'formik';
 import { TextField } from 'formik-material-ui';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import SnackAlert from '../shared/SnackAlert';
 import emailValidator from '../../utils/emailValidator';
@@ -36,12 +37,16 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginBottom: theme.spacing(2),
   },
+  submit: {
+    marginTop: theme.spacing(1),
+  },
 }));
 
 export default function Contact({ open, setOpen }) {
   const classes = useStyles();
   const [successOpen, setSuccessOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
+  const [reCAPTCHAValue, setReCAPTCHAValue] = useState();
 
   const handleClose = () => {
     setOpen(false);
@@ -85,6 +90,10 @@ export default function Contact({ open, setOpen }) {
     setSuccessOpen(false);
     setErrorOpen(false);
   };
+
+  function onCAPTCHAChange(value) {
+    setReCAPTCHAValue(value);
+  }
 
   return (
     <div>
@@ -177,13 +186,16 @@ export default function Contact({ open, setOpen }) {
                           />
                         </Grid>
                       </Grid>
-
+                      <ReCAPTCHA
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SECRET}
+                        onChange={onCAPTCHAChange}
+                      />
                       <Button
                         variant="contained"
                         color="secondary"
                         className={classes.submit}
                         onClick={submitForm}
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || !reCAPTCHAValue}
                       >
                         Send
                       </Button>
