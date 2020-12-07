@@ -4,26 +4,23 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import PauseIcon from '@material-ui/icons/Pause';
-import { blue } from '@material-ui/core/colors';
-import { Snackbar } from '@material-ui/core';
+import { ListItemIcon, Snackbar } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 
 import api from '../../../utils/api';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   avatar: {
-    backgroundColor: blue[100],
-    color: blue[600],
+    backgroundColor: 'inherit',
+    color: theme.palette.primary.main,
   },
-});
+}));
 
 function ActionsDialog({
   active, open, onClose, bridgeSlug,
@@ -32,6 +29,19 @@ function ActionsDialog({
   const [successOpen, setSuccessOpen] = useState(false);
   const classes = useStyles();
   const router = useRouter();
+
+  const handleError = () => {
+    setErrorOpen(true);
+    setTimeout(() => {
+      setErrorOpen(false);
+    }, 2500);
+  };
+
+  const handleSuccess = () => {
+    setTimeout(() => {
+      setSuccessOpen(false);
+    }, 2500);
+  };
 
   const handleAbort = () => {
     api.patch('/events/abort', {
@@ -43,37 +53,22 @@ function ActionsDialog({
         }
       })
       .catch(() => {
-        setErrorOpen(true);
-        setTimeout(() => {
-          setErrorOpen(false);
-        }, 2500);
+        handleError();
       });
   };
 
-  const handleActivate = async () => {
-    await api.patch(`/bridges/${bridgeSlug}/${active ? 'deactivate' : 'activate'}`).then(() => {
+  const handleActivate = () => {
+    api.patch(`/bridges/${bridgeSlug}/${active ? 'deactivate' : 'activate'}`).then(() => {
       router.push(`/bridge/${bridgeSlug}`);
       setSuccessOpen(true);
-      setTimeout(() => {
-        setSuccessOpen(false);
-      }, 2500);
-    }).catch(() => {
-      setErrorOpen(true);
-      setTimeout(() => {
-        setErrorOpen(false);
-      }, 2500);
-    });
+      handleSuccess();
+    }).catch(() => handleError());
   };
 
   const handleDelete = () => {
     api.delete(`/bridges/${bridgeSlug}`).then(() => {
       router.push('/dashboard');
-    }).catch(() => {
-      setErrorOpen(true);
-      setTimeout(() => {
-        setErrorOpen(false);
-      }, 2500);
-    });
+    }).catch(() => handleError());
   };
 
   return (
@@ -102,29 +97,21 @@ function ActionsDialog({
       <DialogTitle id="simple-dialog-title">Bridge Actions</DialogTitle>
       <List>
         <ListItem button onClick={handleAbort} id="action-abort">
-          <ListItemAvatar>
-            <Avatar className={classes.avatar}>
-              <CancelIcon />
-            </Avatar>
-          </ListItemAvatar>
+          <ListItemIcon>
+            <CancelIcon fontSize="large" className={classes.avatar} />
+          </ListItemIcon>
           <ListItemText primary="Abort Ongoing Requests" />
         </ListItem>
-
         <ListItem button onClick={handleActivate} id="action-deactive">
-          <ListItemAvatar>
-            <Avatar className={classes.avatar}>
-              <PauseIcon />
-            </Avatar>
-          </ListItemAvatar>
+          <ListItemIcon>
+            <PauseIcon fontSize="large" className={classes.avatar} />
+          </ListItemIcon>
           <ListItemText primary={`${active ? 'Deactivate' : 'Activate'} Bridge`} />
         </ListItem>
-
         <ListItem button onClick={handleDelete} id="action-delete">
-          <ListItemAvatar>
-            <Avatar className={classes.avatar}>
-              <DeleteForeverIcon />
-            </Avatar>
-          </ListItemAvatar>
+          <ListItemIcon>
+            <DeleteForeverIcon fontSize="large" className={classes.avatar} />
+          </ListItemIcon>
           <ListItemText primary="Delete Bridge" />
         </ListItem>
       </List>
