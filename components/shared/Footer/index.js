@@ -32,7 +32,7 @@ function Footer({ handleOpen }) {
         </Container>
 
         <Container maxWidth="md" style={{ marginTop: '0.5rem' }}>
-          <Grid item spacing={3} maxWidth>
+          <Grid item>
             <Typography style={{ fontWeight: 'bold' }}>
               About Us
             </Typography>
