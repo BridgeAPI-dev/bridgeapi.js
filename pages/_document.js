@@ -12,6 +12,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* PWA primary color */}
+          {process.env.NODE_ENV === 'production' && (
           <script
             dangerouslySetInnerHTML={{
               __html: `
@@ -29,6 +30,8 @@ export default class MyDocument extends Document {
             `,
             }}
           />
+          )}
+
           <meta name="theme-color" content={theme.palette.primary.main} />
         </Head>
         <body>
