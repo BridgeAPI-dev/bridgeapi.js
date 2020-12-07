@@ -125,7 +125,7 @@ function Signup() {
             validateOnChange={false}
             id="form"
           >
-            {({ values, submitForm, isSubmitting }) => (
+            {({ values, isSubmitting }) => (
               <Form className={classes.form}>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
@@ -169,8 +169,8 @@ function Signup() {
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-                  onClick={submitForm}
                   disabled={isSubmitting}
+                  type="submit"
                 >
                   Sign Up
                 </Button>

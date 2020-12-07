@@ -123,7 +123,7 @@ function Login() {
             id="form"
           >
             {({
-              submitForm, isSubmitting, values,
+              isSubmitting, values,
             }) => (
               <Form className={classes.form}>
                 <Grid container spacing={2}>
@@ -156,8 +156,8 @@ function Login() {
                   variant="contained"
                   color="primary"
                   className={classes.submit}
-                  onClick={submitForm}
                   disabled={isSubmitting}
+                  type="submit"
                 >
                   Login
                 </Button>
