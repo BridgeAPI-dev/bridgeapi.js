@@ -3,7 +3,7 @@ import nookies from 'nookies';
 
 const urls = {
   development: 'http://localhost:3001/',
-  production: 'http://localhost:3001/',
+  production: 'https://api.bridgeapi.dev',
 };
 
 // Tests require the application to be built and
