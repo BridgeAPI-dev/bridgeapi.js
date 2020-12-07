@@ -51,7 +51,7 @@ describe('Create a new bridge', () => {
     cy.wait(100);
     cy.get('#success-alert').contains('Bridge has been saved.');
     cy.location().should((location) => {
-      expect(location.pathname).to.eq('/bridge/1');
+      expect(location.pathname).to.eq('/bridge/298347q9083274098');
     });
   });
 

@@ -2,9 +2,10 @@ import React, {
   useRef,
 } from 'react';
 import {
-  AppBar, Toolbar, Typography, IconButton, makeStyles, Link,
+  AppBar, Toolbar, Typography, IconButton, makeStyles,
 } from '@material-ui/core';
 import { FaPlus } from 'react-icons/fa';
+import Link from 'next/link';
 
 import { AccountCircle } from '@material-ui/icons';
 import Menu from './Menu';
@@ -108,11 +109,11 @@ export default function Navbar() {
             </IconButton>
           </Link>
 
-          <Link href="/dashboard">
-            <Typography variant="h6" ref={ref} className="menu-link-item" style={{ color: 'white' }}>
+          <Typography variant="h6" ref={ref} className="menu-link-item" style={{ color: 'white' }}>
+            <Link href="/dashboard">
               Dashboard
-            </Typography>
-          </Link>
+            </Link>
+          </Typography>
 
           {/* <Menu
             icon={<FaArrowDown size={15} className={classes.icon} />}

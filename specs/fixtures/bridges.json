@@ -2,6 +2,7 @@
   "bridges": [
     {
       "id": 7,
+      "slug": "298347q83839083274098",
       "title": "title_0",
       "inbound_url": "d51985cdb5139d8d7a76",
       "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
@@ -17,10 +18,12 @@
       "user_id": 3,
       "active": true,
       "eventCount": 1,
-      "completedAt": "2020-11-25T15:33:34.274Z"
+      "completedAt": "2020-11-25T15:33:34.274Z",
+      "event_id": 1
     },
     {
       "id": 4,
+      "slug": "298347q9083210174098",
       "title": "title_1",
       "inbound_url": "534a9856d7b2b9267609",
       "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",
@@ -40,6 +43,7 @@
     },
     {
       "id": 5,
+      "slug": "1103298347q9083274098",
       "title": "title_2",
       "inbound_url": "71049d297d641db846ff",
       "outbound_url": "c41a7126-a18c-4af6-880e-6857771a35c8.mock.pstmn.io/success_event",

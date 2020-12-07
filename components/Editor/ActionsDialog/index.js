@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 });
 
 function ActionsDialog({
-  active, open, onClose, bridgeId,
+  active, open, onClose, bridgeSlug,
 }) {
   const [errorOpen, setErrorOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
@@ -35,7 +35,7 @@ function ActionsDialog({
 
   const handleAbort = () => {
     api.patch('/events/abort', {
-      bridge_id: bridgeId,
+      bridge_slug: bridgeSlug,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -51,8 +51,8 @@ function ActionsDialog({
   };
 
   const handleActivate = async () => {
-    await api.patch(`/bridges/${bridgeId}/${active ? 'deactivate' : 'activate'}`).then(() => {
-      router.push(`/bridge/${bridgeId}`);
+    await api.patch(`/bridges/${bridgeSlug}/${active ? 'deactivate' : 'activate'}`).then(() => {
+      router.push(`/bridge/${bridgeSlug}`);
       setSuccessOpen(true);
       setTimeout(() => {
         setSuccessOpen(false);
@@ -66,7 +66,7 @@ function ActionsDialog({
   };
 
   const handleDelete = () => {
-    api.delete(`/bridges/${bridgeId}`).then(() => {
+    api.delete(`/bridges/${bridgeSlug}`).then(() => {
       router.push('/dashboard');
     }).catch(() => {
       setErrorOpen(true);
@@ -136,7 +136,7 @@ ActionsDialog.propTypes = {
   active: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  bridgeId: PropTypes.number.isRequired,
+  bridgeSlug: PropTypes.string.isRequired,
 };
 
 export default ActionsDialog;
