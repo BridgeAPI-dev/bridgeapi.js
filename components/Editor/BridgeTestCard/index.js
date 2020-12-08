@@ -109,4 +109,7 @@ BridgeTestCard.propTypes = {
     testPayloadCode: PropTypes.string.isRequired,
   }).isRequired,
   isEditView: PropTypes.bool.isRequired,
+  slug: PropTypes.string.isRequired,
+  setOpen: PropTypes.func.isRequired,
+  setErrorOpen: PropTypes.func.isRequired,
 };
