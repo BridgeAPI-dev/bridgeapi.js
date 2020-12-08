@@ -56,6 +56,7 @@ export default function Contact({ open, setOpen }) {
     full_name: '',
     email: '',
     message: '',
+    subject: '',
   };
 
   const handleValidate = (values) => {
@@ -68,6 +69,10 @@ export default function Contact({ open, setOpen }) {
       errors.email = 'Required';
     } else if (emailValidator(values.email)) {
       errors.email = 'Invalid Email Address';
+    }
+
+    if (!values.subject) {
+      errors.subject = 'Required';
     }
 
     if (!values.message) {
@@ -170,6 +175,15 @@ export default function Contact({ open, setOpen }) {
                             label="Email"
                             name="email"
                             value={values.email}
+                            style={{ marginBottom: '10px', width: '100%' }}
+                            required
+                          />
+                          <Field
+                            component={TextField}
+                            variant="outlined"
+                            label="Subject"
+                            name="subject"
+                            value={values.subject}
                             style={{ marginBottom: '10px', width: '100%' }}
                             required
                           />
