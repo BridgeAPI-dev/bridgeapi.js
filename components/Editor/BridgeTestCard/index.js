@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import CodeMirror from '../../Codemirror';
 import AccordionSummary from '../../AccordionSummary';
 
+import api from '../../../utils/api';
+
 const useStyles = makeStyles((theme) => ({
   pullRight: {
     position: 'absolute',
@@ -27,8 +29,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BridgeTestCard({ isEditView, values }) {
+function BridgeTestCard({ isEditView, values, slug }) {
   const classes = useStyles();
+
+  const handleClick = () => {
+    api.post(`/events/${slug}`, values.testPayloadCode)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <Accordion defaultExpanded>
       <AccordionSummary
@@ -43,9 +52,6 @@ function BridgeTestCard({ isEditView, values }) {
           maxWidth={false}
           className={classes.payloadContainer}
         >
-          <Typography align="center" className={classes.heading}>
-            URL: https://bridgeapi.dev/b12873/inbound
-          </Typography>
           <Typography>
             Content-Type: application/json
           </Typography>
@@ -57,6 +63,8 @@ function BridgeTestCard({ isEditView, values }) {
             className={classes.pullRight}
             variant="outlined"
             color="secondary"
+            onClick={handleClick}
+            disabled={!slug}
           >
             Test Bridge
           </Button>

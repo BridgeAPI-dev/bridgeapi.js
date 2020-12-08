@@ -19,16 +19,23 @@ import 'codemirror/addon/fold/foldgutter.css';
 function CodeMirror({
   formKey, isEditView, readOnly, values, data, id,
 }) {
+  const defaultCode = '{\n'
+    + '  "hello": "world",\n'
+    + '  "accessPayload": "$payload.message",\n'
+    + '  "accessNestedPayload": "$payload.nested.message"\n'
+    + '}';
+  const defaultTestCode = '{\n'
+    + '  "hello": "world",\n'
+    + '  "message": "Hello World",\n'
+    + '  "nested": {\n'
+    + '    "message": "Hello World"\n'
+    + '  }\n'
+    + '}';
+
   const codeRef = useRef(null);
   const [mounted, setMounted] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
-  const [code, setCode] = useState(
-    '{\n'
-      + '  "hello": "world",\n'
-      + '  "acessEnvVars": "$env.MY_KEY",\n'
-      + '  "accessPayload": "$payload.message"\n'
-      + '}',
-  );
+  const [code, setCode] = useState(formKey === 'testPayloadCode' ? defaultTestCode : defaultCode);
 
   const handleKeyPress = (e) => {
     if (e.key === 'F11') {
