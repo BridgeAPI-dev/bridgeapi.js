@@ -29,13 +29,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BridgeTestCard({ isEditView, values, slug }) {
+function BridgeTestCard({
+  isEditView, values, slug, setOpen, setErrorOpen,
+}) {
   const classes = useStyles();
 
   const handleClick = () => {
     api.post(`/events/${slug}`, values.testPayloadCode)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then(() => setOpen(true))
+      .catch(() => setErrorOpen(true));
   };
 
   return (

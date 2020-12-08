@@ -54,11 +54,18 @@ function EventStatus({ eventData }) {
   };
 
   useEffect(() => {
-    const { statusCode, message } = (eventData.outbound.length >= 1
-      && eventData.outbound.slice(-1)[0].response);
+    if (eventData.outbound.length >= 1 && eventData.outbound.slice(-1)[0].response) {
+      const { statusCode, message } = (eventData.outbound.length >= 1
+        && eventData.outbound.slice(-1)[0].response);
+
+      setData({
+        ...eventData, message, severity: severity(statusCode), statusCode,
+      });
+      return;
+    }
 
     setData({
-      ...eventData, message, severity: severity(statusCode), statusCode,
+      ...eventData, message: 'Unprocessable', severity: 'error', statusCode: 'Error',
     });
   }, [eventData]);
 

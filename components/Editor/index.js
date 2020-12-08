@@ -43,6 +43,7 @@ function Editor({ bridge, isEditView }) {
   const [actionsDialogOpen, setActionsDialogOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('Some error has occurred. Please try again.');
+  const [testAlertOpen, setTestAlertOpen] = useState(false);
 
   // TODO: Custom error messages
   // const [errMsg, setErrMsg] = useState('');
@@ -172,6 +173,7 @@ function Editor({ bridge, isEditView }) {
 
     setOpen(false);
     setErrorOpen(false);
+    setTestAlertOpen(false);
   };
 
   return (
@@ -236,7 +238,13 @@ function Editor({ bridge, isEditView }) {
                   environmentVariables={values.environmentVariables}
                 />
                 <PayloadCard isEditView={isEditView} values={values} />
-                <BridgeTestCard isEditView={isEditView} values={values} slug={slug} />
+                <BridgeTestCard
+                  isEditView={isEditView}
+                  values={values}
+                  slug={slug}
+                  setOpen={setTestAlertOpen}
+                  setErrorOpen={setErrorOpen}
+                />
               </Form>
             )}
           </Formik>
@@ -244,6 +252,13 @@ function Editor({ bridge, isEditView }) {
       </Grid>
       <SnackAlert id="success-alert" open={open} onClose={handleClose} severity="success" message="Bridge has been saved." />
       <SnackAlert id="error-alert" open={errorOpen} onClose={handleClose} severity="error" message={errorMessage} />
+      <SnackAlert
+        id="bridge-test-success-alert"
+        open={testAlertOpen}
+        onClose={handleClose}
+        severity="success"
+        message="Test has been started. Please check your events in a few minutes."
+      />
     </>
   );
 }
