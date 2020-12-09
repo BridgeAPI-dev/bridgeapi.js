@@ -27,9 +27,9 @@ function Footer({ handleOpen }) {
   return (
     <Container className={classes.root}>
       <Grid container spacing={3} className={classes.mainGrid}>
-        <Container>
+        {/* <Container>
           <img src={logo} width="150" alt="logo" />
-        </Container>
+        </Container> */}
 
         <Container maxWidth="md" style={{ marginTop: '0.5rem' }}>
           <Grid item spacing={3} maxWidth>
@@ -40,12 +40,13 @@ function Footer({ handleOpen }) {
             <Typography>
               We are three developers whose goal is to provide an intuitive tool to receive,
               filter and forward API requests in order to automate workflows.
-
+            </Typography>
+            <br />
+            <Typography>
               Current options for developers usually require subscribing to bloated
               services and granting intrusive permissions in order to connect apps.
-
               With BridgeAPI, simply define your desired workflow and direct your
-              vendor webhooks or api calls towards your provided BridgeAPI endpoint.
+              vendor webhooks or API calls toward your provided BridgeAPI endpoint.
             </Typography>
             <br />
             <Typography>
@@ -57,6 +58,9 @@ function Footer({ handleOpen }) {
 
           <Divider flexItem style={{ width: '100%', margin: '1rem 0', border: '1px solid' }} />
         </Container>
+        {/* <Container>
+          <img src={logo} width="150" alt="logo" />
+        </Container> */}
 
         <Grid container item spacing={3} justify="center">
           <Typography variant="subtitle1" className={classes['mr-6']}>

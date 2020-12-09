@@ -90,36 +90,42 @@ export default function Home() {
 
           <Grid container item xs={12} alignItems="center" direction="column">
             <Grid container item direction="row" justify="center">
-              <Card style={{ padding: 14 }}>
-                <Typography>Customize each workflow</Typography>
-                {/* SMALL TEXT: alter or complement the data
-                you want sent between apps */}
+              <Card style={{
+                padding: 14, margin: 14,
+              }}
+              >
+                <Typography style={{ fontWeight: 'bold' }}>Customize each API request</Typography>
+                <Typography>
+                  Filter or complement the
+                </Typography>
+                <Typography>
+                  data to send between apps
+                </Typography>
               </Card>
-              <Card style={{ padding: 14 }}>
-                <Typography>Monitor all your webhooks in one place</Typography>
-                {/* SMALL TEXT: No more need to log in to every app to inspect
-                its webhook activity, it's all available from the BridgeAPI dashboard */}
+              <Card style={{ padding: 14, margin: 14 }}>
+                <Typography style={{ fontWeight: 'bold' }}>Monitor all API traffic in one place</Typography>
+                <Typography>
+                  No further need to manually inspect the
+                </Typography>
+                <Typography>
+                  the API activity of every involved app
+                </Typography>
               </Card>
             </Grid>
             <Grid container item direction="row" justify="center">
-              <Card style={{ padding: 14 }}>
-                <Typography>Automate every workflow</Typography>
-                {/* SMALL TEXT: Once defined, Workflows are triggered and execute automatically */}
+              <Card style={{ padding: 14, margin: 14 }}>
+                <Typography style={{ fontWeight: 'bold' }}>Automate every workflow</Typography>
+                <Typography>Once defined, incoming API</Typography>
+                <Typography>requests trigger the </Typography>
+                <Typography>workflow sequence</Typography>
               </Card>
-              <Card style={{ padding: 14 }}>
-                <Typography>Protect your privacy</Typography>
-                {/* SMALL TEXT: We do not ask for any permissions
-                to reach into your connected apps With bridgeAPI as the go-between,
-                your connected apps can gather only limited data on your private workflows */}
+              <Card style={{ padding: 14, margin: 14 }}>
+                <Typography style={{ fontWeight: 'bold' }}>Protect your privacy</Typography>
+                <Typography>We do not ask for app permissions.</Typography>
+                <Typography>You chose which data to store</Typography>
+                <Typography>in order to make successfull API requests</Typography>
               </Card>
             </Grid>
-            {/*
-            <Typography variant="subtitle1">
-              Maybe a 2 x 2 grid with some icons and light text on the right side.
-            </Typography> */}
-            {/* <Typography variant="subtitle1">
-              dont ask me what to do for this box. I am out of ideas.
-            </Typography> */}
 
             <Typography variant="subtitle2" className={classes['mt-6']}>
               Some small test here
@@ -131,9 +137,9 @@ export default function Home() {
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           <Grid container item xs={12} justify="center">
-            <Typography variant="h5" component="h2" className={classes['m-4']}>
+            {/* <Typography variant="h5" component="h2" className={classes['m-4']}>
               Some Call To Action
-            </Typography>
+            </Typography> */}
 
             <Link href="/users/signup">
               <Button
