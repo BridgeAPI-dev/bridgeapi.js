@@ -1,7 +1,7 @@
 service: bridgeapi-frontend
 
 myNextApplication:
-  component: "@sls-next/serverless-component@1.19.0-alpha.12"
+  component: "@sls-next/serverless-component@1.19.0-alpha.19"
   inputs:
     domain: ["bridgeapi.dev"]
     publicDirectoryCache:
