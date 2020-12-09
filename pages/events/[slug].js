@@ -73,10 +73,12 @@ function Events({
             {outbound.length >= 1
               && (
               <>
-                <ResponseAccordion
-                  request={outbound[outbound.length - 1].response}
-                  id="response-0"
-                />
+                {outbound[outbound.length - 1].response && (
+                  <ResponseAccordion
+                    request={outbound[outbound.length - 1].response}
+                    id="response-0"
+                  />
+                )}
 
                 <OutboundAccordion
                   request={outbound[outbound.length - 1].request}

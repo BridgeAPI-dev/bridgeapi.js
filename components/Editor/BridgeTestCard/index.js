@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import CodeMirror from '../../Codemirror';
 import AccordionSummary from '../../AccordionSummary';
 
+import api from '../../../utils/api';
+
 const useStyles = makeStyles((theme) => ({
   pullRight: {
     position: 'absolute',
@@ -27,8 +29,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function BridgeTestCard({ isEditView, values }) {
+function BridgeTestCard({
+  isEditView, values, slug, setOpen, setErrorOpen,
+}) {
   const classes = useStyles();
+
+  const handleClick = () => {
+    api.post(`/events/${slug}`, values.testPayloadCode)
+      .then(() => setOpen(true))
+      .catch(() => setErrorOpen(true));
+  };
+
   return (
     <Accordion defaultExpanded>
       <AccordionSummary
@@ -43,9 +54,6 @@ function BridgeTestCard({ isEditView, values }) {
           maxWidth={false}
           className={classes.payloadContainer}
         >
-          <Typography align="center" className={classes.heading}>
-            URL: https://bridgeapi.dev/b12873/inbound
-          </Typography>
           <Typography>
             Content-Type: application/json
           </Typography>
@@ -57,6 +65,8 @@ function BridgeTestCard({ isEditView, values }) {
             className={classes.pullRight}
             variant="outlined"
             color="secondary"
+            onClick={handleClick}
+            disabled={!slug}
           >
             Test Bridge
           </Button>
@@ -99,4 +109,7 @@ BridgeTestCard.propTypes = {
     testPayloadCode: PropTypes.string.isRequired,
   }).isRequired,
   isEditView: PropTypes.bool.isRequired,
+  slug: PropTypes.string.isRequired,
+  setOpen: PropTypes.func.isRequired,
+  setErrorOpen: PropTypes.func.isRequired,
 };

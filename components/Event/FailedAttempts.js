@@ -103,8 +103,12 @@ function FailedAttempts({ requests }) {
 
       {failedOpen && requests.map((req) => (
         <>
-          <ResponseAccordion request={req.response} />
-          <OutboundAccordion request={req.request} />
+          {req.response && (
+            <ResponseAccordion request={req.response} />
+          )}
+          {req.request && (
+            <OutboundAccordion request={req.request} />
+          )}
         </>
       ))}
     </>
