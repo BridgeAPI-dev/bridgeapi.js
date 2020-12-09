@@ -302,7 +302,6 @@ Editor.propTypes = {
     events: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
-        bridgeId: PropTypes.number.isRequired,
         completed: PropTypes.bool,
         completed_at: PropTypes.string,
         data: PropTypes.string,
