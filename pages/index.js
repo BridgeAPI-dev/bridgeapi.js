@@ -91,39 +91,39 @@ export default function Home() {
           <Grid container item xs={12} alignItems="center" direction="column">
             <Grid container item direction="row" justify="center">
               <Card style={{
-                padding: 14, margin: 14,
+                padding: 14, margin: 14, width: 250,
               }}
               >
-                <Typography style={{ fontWeight: 'bold' }}>Customize each API request</Typography>
-                <Typography>
+                <Typography align="center" style={{ fontWeight: 'bold' }}>Customize each API request</Typography>
+                <Typography align="center">
                   Filter or complement the
                 </Typography>
-                <Typography>
+                <Typography align="center">
                   data to send between apps
                 </Typography>
               </Card>
-              <Card style={{ padding: 14, margin: 14 }}>
-                <Typography style={{ fontWeight: 'bold' }}>Monitor all API traffic in one place</Typography>
-                <Typography>
+              <Card style={{ padding: 14, margin: 14, width: 340 }}>
+                <Typography align="center" style={{ fontWeight: 'bold' }}>Monitor all API traffic in one place</Typography>
+                <Typography align="center">
                   No further need to manually inspect the
                 </Typography>
-                <Typography>
+                <Typography align="center">
                   the API activity of every involved app
                 </Typography>
               </Card>
             </Grid>
             <Grid container item direction="row" justify="center">
-              <Card style={{ padding: 14, margin: 14 }}>
-                <Typography style={{ fontWeight: 'bold' }}>Automate every workflow</Typography>
-                <Typography>Once defined, incoming API</Typography>
-                <Typography>requests trigger the </Typography>
-                <Typography>workflow sequence</Typography>
+              <Card style={{ padding: 14, margin: 14, width: 250 }}>
+                <Typography align="center" style={{ fontWeight: 'bold' }}>Automate every workflow</Typography>
+                <Typography align="center">Once defined, incoming API</Typography>
+                <Typography align="center">requests trigger the </Typography>
+                <Typography align="center">workflow sequence</Typography>
               </Card>
-              <Card style={{ padding: 14, margin: 14 }}>
-                <Typography style={{ fontWeight: 'bold' }}>Protect your privacy</Typography>
-                <Typography>We do not ask for app permissions.</Typography>
-                <Typography>You chose which data to store</Typography>
-                <Typography>in order to make successfull API requests</Typography>
+              <Card style={{ padding: 14, margin: 14, width: 340 }}>
+                <Typography align="center" style={{ fontWeight: 'bold' }}>Protect your privacy</Typography>
+                <Typography align="center">We do not ask for app permissions.</Typography>
+                <Typography align="center">You chose which data to store in</Typography>
+                <Typography align="center">order to ensure successfull API requests</Typography>
               </Card>
             </Grid>
 
