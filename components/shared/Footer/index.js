@@ -86,7 +86,7 @@ function Footer({ handleOpen }) {
             {' '}
             <span role="img" aria-label="heart icon">❤️</span>
             {' '}
-            by WAA
+            by AWA
           </Typography>
         </Grid>
       </Grid>

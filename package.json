@@ -29,6 +29,7 @@
     "react": "^17.0.1",
     "react-codemirror2": "^7.2.1",
     "react-dom": "^17.0.1",
+    "react-google-recaptcha": "^2.1.0",
     "react-icons": "^3.11.0",
     "swr": "^0.3.8",
     "typeface-open-sans": "^1.1.13"

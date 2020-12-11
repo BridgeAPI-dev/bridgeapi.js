@@ -1,5 +1,5 @@
 import {
-  createContext, useContext, useEffect,
+  createContext, useContext, useEffect, useState,
 } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
@@ -11,21 +11,31 @@ const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
   const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Sets the JWT in headers for future api requests on the current page.
   // Helper function that enables us to fire off requests without
   // having the set the header token each time.
   useEffect(() => {
-    let userLoaded = false;
     async function loadUserFromCookies() {
       const token = Cookies.get('token');
-      if (!userLoaded && token) {
+      const res = await api.get('/user/valid', {
+        headers: {
+          'BRIDGE-JWT': token,
+        },
+      }).catch(() => false);
+
+      if (res && res.status === 200) {
+        setIsAuthenticated(true);
+        setTimeout(() => setLoading(false), 100);
         api.defaults.headers['BRIDGE-JWT'] = token;
       }
+
+      setLoading(false);
     }
 
     loadUserFromCookies();
-    return () => { userLoaded = true; };
   }, []);
 
   // Fires off an api request to fetch the JWT.
@@ -42,6 +52,7 @@ function AuthProvider({ children }) {
     if (token) {
       Cookies.set('token', token, { expires: 60, path: '/', sameSite: 'strict' });
       api.defaults.headers['BRIDGE-JWT'] = token;
+      setIsAuthenticated(true);
 
       return true;
     }
@@ -59,9 +70,7 @@ function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{
-      // TODO: Currently, isAuthenticated is true by me manually settings a cookie named 'token'
-      // Need to some how ensure it is a valid token and not a made up one
-      isAuthenticated: /* !!user */!!Cookies.get('token'), login, logout,
+      isAuthenticated, login, logout, loading,
     }}
     >
       {children}

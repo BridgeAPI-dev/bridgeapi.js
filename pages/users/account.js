@@ -15,8 +15,7 @@ import DeleteAccountModal from '../../components/Account/ActionsDialog';
 import emailValidator from '../../utils/emailValidator';
 import ProtectRoute from '../../utils/ProtectRoute';
 
-import api from '../../utils/api';
-import fetchDataOrRedirect from '../../utils/ssrRedirect';
+import api, { fetchSSRData } from '../../utils/api';
 import SnackAlert from '../../components/shared/SnackAlert';
 
 function Account({ user }) {
@@ -239,8 +238,17 @@ function Account({ user }) {
 export default Account;
 
 export async function getServerSideProps(context) {
-  const res = await fetchDataOrRedirect(context, '/user');
-  if (!res) return { props: {} }; // Redirecting to /user/login
+  const res = await fetchSSRData(context, '/user');
+  if (!res) {
+    // Required otherwise Account#initialValues will throw an error
+    return {
+      props: {
+        user: {
+          notifications: {},
+        },
+      },
+    };
+  } // Redirecting to /user/login
 
   return {
     props: {

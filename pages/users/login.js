@@ -43,8 +43,6 @@ const useStyles = makeStyles((theme) => ({
 function Login() {
   const { login } = useAuth();
   const classes = useStyles();
-  // TODO
-  // eslint-disable-next-line no-unused-vars
   const router = useRouter();
   const [successOpen, setSuccessOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
@@ -70,20 +68,7 @@ function Login() {
   const handleSubmit = async (values, setSubmitting) => {
     if (await login(values.email, values.password)) {
       setSuccessOpen(true);
-      // router.push('/dashboard');
-      //
-      // TODO: Nextjs doesn't support Server side redirects
-      // with client side router pushes. If we push to dashboard,
-      // then dashboards `getServerSideProps` returns 4XX, the app
-      // will crash with error:
-      // Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-      //
-      // To remedy this, I believe it would be best to get rid of
-      // the ssrRedirect protection and rely on the client side
-      // protection.
-      //
-      // window.location causes a full refresh which solves the issue.
-      window.location.pathname = '/dashboard';
+      setTimeout(() => router.push('/dashboard'), 200);
     } else {
       setErrorOpen(true);
       setSubmitting(false);
