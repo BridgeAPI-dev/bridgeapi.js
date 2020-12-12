@@ -1,4 +1,5 @@
 import {
+  Container,
   ListItem as MUIListItem,
   ListItemText,
   Typography,
@@ -10,9 +11,15 @@ function ListItem({
   completed, completedAt, statusCode, eventId,
 }) {
   const timestamp = new Date(completedAt).toDateString();
-  let message = completed ? `${timestamp}` : 'Ongoing';
-  if (statusCode) {
-    message += ` - ${statusCode}`;
+  const message = completed ? `${timestamp}` : 'Ongoing';
+
+  function color(code) {
+    if (code <= 299) {
+      return 'green';
+    } if (code <= 399) {
+      return 'yellow';
+    }
+    return 'red';
   }
 
   return (
@@ -25,7 +32,17 @@ function ListItem({
           align="center"
         >
           <Link href={`/events/${eventId}`}>
-            {message}
+            <Container style={{ cursor: 'pointer' }}>
+              {message}
+              {statusCode && (
+              <Typography display="inline" style={{ color: color(statusCode), fontSize: '1em' }}>
+                {' '}
+                -
+                {' '}
+                {statusCode}
+              </Typography>
+              )}
+            </Container>
           </Link>
         </Typography>
       </ListItemText>
