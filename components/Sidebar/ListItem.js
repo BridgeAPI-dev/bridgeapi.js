@@ -1,14 +1,25 @@
 import {
   ListItem as MUIListItem,
   ListItemText,
+  makeStyles,
   Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+const useStyles = makeStyles((theme) => ({
+  active: {
+    backgroundColor: theme.palette.lightGrey.main,
+  },
+}));
 
 function ListItem({
   completed, completedAt, statusCode, eventId,
 }) {
+  const classes = useStyles();
+  const router = useRouter();
+  const active = Number(router.asPath.split('/')[2]) === Number(eventId);
   const timestamp = new Date(completedAt).toDateString();
   let message = completed ? `${timestamp}` : 'Ongoing';
   if (statusCode) {
@@ -16,7 +27,7 @@ function ListItem({
   }
 
   return (
-    <MUIListItem divider>
+    <MUIListItem divider className={active ? classes.active : ''}>
 
       <ListItemText>
         <Typography
