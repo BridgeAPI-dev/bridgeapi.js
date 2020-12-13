@@ -88,7 +88,7 @@ function ActionsDialog({
   return (
     <Dialog onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
       <SnackAlert open={successOpen} severity="success" message="Success! Your bridge has been updated." id="actions-success-message" />
-      <SnackAlert open={warningOpen} severity="warning" message="The bridge has been deactivated" id="actions-warning-message" />
+      <SnackAlert open={warningOpen} severity="warning" message="Your bridge has been deactivated." id="actions-warning-message" />
       <SnackAlert open={errorOpen} severity="error" message="Some error occurred. Please try again." id="actions-error-message" />
       <DialogTitle id="simple-dialog-title">Bridge Actions</DialogTitle>
       <List>
