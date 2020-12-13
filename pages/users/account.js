@@ -12,6 +12,7 @@ import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
 import Navbar from '../../components/shared/dashboard/Navbar';
 import DeleteAccountModal from '../../components/Account/ActionsDialog';
+import ResetAlert from '../../components/Account/ResetAlert';
 import emailValidator from '../../utils/emailValidator';
 import ProtectRoute from '../../utils/ProtectRoute';
 
@@ -21,6 +22,7 @@ import SnackAlert from '../../components/shared/SnackAlert';
 function Account({ user }) {
   const [open, setOpen] = useState(false);
   const [successOpen, setSuccessOpen] = useState(false);
+  const [resetAlertOpen, setResetAlertOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
 
   const handleOpen = () => {
@@ -84,18 +86,10 @@ function Account({ user }) {
     emailOnEvents: user.notifications.emailOnEvents,
   };
 
-  const handleReset = (resetForm) => {
-    // eslint-disable-next-line no-alert
-    if (window.confirm('Reset?')) {
-      resetForm();
-    }
-  };
-
   return (
     <ProtectRoute>
       <Navbar />
       <DeleteAccountModal open={open} onClose={() => setOpen(false)} id="delete-account-modal" />
-
       <Formik
         initialValues={initialValues}
         validate={(values) => handleValidate(values)}
@@ -193,11 +187,16 @@ function Account({ user }) {
                 </Grid>
                 <Grid item container md={4} lg={4} direction="column">
                   <Grid item container justify="flex-end">
+                    <ResetAlert
+                      open={resetAlertOpen}
+                      handleClose={() => setResetAlertOpen(false)}
+                      resetForm={resetForm}
+                    />
                     <Button
                       variant="outlined"
                       color="secondary"
                       disabled={isSubmitting}
-                      onClick={() => handleReset(resetForm)}
+                      onClick={() => setResetAlertOpen(true)}
                       style={{ marginRight: '10px' }}
                     >
                       Cancel
