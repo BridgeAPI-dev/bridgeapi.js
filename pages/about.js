@@ -47,7 +47,7 @@ export default function Home() {
           <Typography variant="h2" className={classes.header}>Our Team</Typography>
         </Grid>
         <Grid container className={classes.avatars} justify="center">
-          <Grid container xs={10} md={8} spacing={4}>
+          <Grid container xs={10} sm={8} spacing={4}>
             <Grid item xs={4}>
               <Andrew />
             </Grid>
@@ -62,8 +62,8 @@ export default function Home() {
         <Grid container>
           <Typography variant="h4" className={classes.header}>About Us</Typography>
           <Grid item xs={12} align="left" style={{ marginTop: '20px' }}>
-            <Typography variant="body1" style={{ textIndent: '40px' }}>
-              We are three developers whose goal is to provide an intuitive tool
+            <Typography variant="body1">
+              BridgeAPI&apos;s goal is to provide an intuitive tool
               to receive, filter, and forward API requests to automate workflows.
               Current options for developers usually require subscribing to bloated
               services and granting intrusive permissions to connect apps. With BridgeAPI,
@@ -71,10 +71,10 @@ export default function Home() {
               or API calls towards your provided BridgeAPI endpoint.
             </Typography>
             <br />
-            <Typography variant="body1" style={{ textIndent: '40px' }}>
-              Our service is open source, permission free, and fully customizable.
-              We hope you enjoy our product, and we appreciate any feedback or suggestion
-              that can help us improve it further.
+            <Typography variant="body1">
+              We built BridgeAPI by collaborating remotely in the United States. We
+              are looking for opportunities, so please contact us if you think we
+              can contribute to your team.
             </Typography>
 
           </Grid>
