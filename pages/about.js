@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.secondary.main,
   },
   avatars: {
-    marginBottom: theme.spacing(3),
+    margin: theme.spacing(3, 0),
   },
 }));
 
@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <div className={classes.root}>
       <Navbar />
-      <Grid container align="center" spacing={5}>
+      <Grid container align="center">
         <Grid item xs={2} id="brand_container">
           <img style={{ width: '100%', height: '100%' }} src={brand} alt="brand" />
         </Grid>

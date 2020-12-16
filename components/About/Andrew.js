@@ -1,14 +1,14 @@
-import { Avatar, Link, makeStyles } from '@material-ui/core';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-// import PublicIcon from '@material-ui/icons/Public';
-import EmailIcon from '@material-ui/icons/Email';
+import {
+  Avatar, makeStyles, Typography,
+} from '@material-ui/core';
 
 import AdditionalInfo from './AdditionalInfo';
+import Links from './Links';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
     width: '100%',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(4),
     [theme.breakpoints.up('xs')]: {
       height: '12vh',
     },
@@ -22,6 +22,14 @@ const useStyles = makeStyles((theme) => ({
   link: {
     margin: theme.spacing(0, 2),
   },
+  icon: {
+    fontSize: '3rem',
+    padding: '8px',
+    margin: theme.spacing(4, 0),
+    borderRadius: '100%',
+    backgroundColor: theme.palette.secondary.main,
+    color: 'white',
+  },
 }));
 
 export default function Andrew() {
@@ -30,12 +38,9 @@ export default function Andrew() {
   return (
     <>
       <Avatar className={classes.avatar}>A</Avatar>
-      <Link href="https://www.linkedin.com/in/andrewcrotwell/" className={classes.link}>
-        <LinkedInIcon fontSize="large" />
-      </Link>
-      <Link href="mailto:Andrewcrotwell910@gmail.com" className={classes.link}>
-        <EmailIcon fontSize="large" />
-      </Link>
+      <Typography variant="h5">Andrew Crotwell</Typography>
+      <Typography variant="subtitle1">Software Engineer</Typography>
+      <Links linkedIn="https://www.linkedin.com/in/andrewcrotwell/" email="Andrewcrotwell910@gmail.com" />
       <AdditionalInfo />
     </>
   );

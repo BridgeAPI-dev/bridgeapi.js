@@ -1,14 +1,14 @@
-import { Avatar, Link, makeStyles } from '@material-ui/core';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-// import PublicIcon from '@material-ui/icons/Public';
-import EmailIcon from '@material-ui/icons/Email';
+import {
+  Avatar, makeStyles, Typography,
+} from '@material-ui/core';
 
 import AdditionalInfo from './AdditionalInfo';
+import Links from './Links';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
     width: '100%',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(5),
     [theme.breakpoints.up('xs')]: {
       height: '12vh',
     },
@@ -30,12 +30,9 @@ export default function Andrew() {
   return (
     <>
       <Avatar className={classes.avatar}>W</Avatar>
-      <Link href="https://www.linkedin.com/in/william-jackson-62514b5/" className={classes.link}>
-        <LinkedInIcon fontSize="large" />
-      </Link>
-      <Link href="mailto:williampj@gmail.com" className={classes.link}>
-        <EmailIcon fontSize="large" />
-      </Link>
+      <Typography variant="h5">William Jackson</Typography>
+      <Typography variant="subtitle1">Software Engineer</Typography>
+      <Links linkedIn="https://www.linkedin.com/in/william-jackson-62514b5/" email="williampj@gmail.com" />
       <AdditionalInfo />
     </>
   );
