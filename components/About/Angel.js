@@ -47,6 +47,7 @@ export default function Andrew() {
       <Avatar className={classes.avatar}>A</Avatar>
       <Typography variant="h5">Angel Ruiz-Bates</Typography>
       <Typography variant="subtitle1">Software Engineer</Typography>
+      <Typography variant="subtitle2">Rincón, PR</Typography>
       <Links linkedIn="https://www.linkedin.com/in/angel-ruiz-bates-1b68a2142/" email="angelbates5@yahoo.com" />
       <AdditionalInfo />
     </>

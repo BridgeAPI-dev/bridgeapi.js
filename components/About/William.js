@@ -32,6 +32,7 @@ export default function Andrew() {
       <Avatar className={classes.avatar}>W</Avatar>
       <Typography variant="h5">William Jackson</Typography>
       <Typography variant="subtitle1">Software Engineer</Typography>
+      <Typography variant="subtitle2">Chicago, IL</Typography>
       <Links linkedIn="https://www.linkedin.com/in/william-jackson-62514b5/" email="williampj@gmail.com" />
       <AdditionalInfo />
     </>
