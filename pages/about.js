@@ -7,9 +7,9 @@ import {
 
 import brand from '../public/full_logo.svg';
 import Navbar from '../components/shared/landing/Navbar';
-import Andrew from '../components/About/Andrew';
-import William from '../components/About/William';
-import Angel from '../components/About/Angel';
+import Andrew from '../components/About/Members/Andrew';
+import William from '../components/About/Members/William';
+import Angel from '../components/About/Members/Angel';
 
 const useStyles = makeStyles((theme) => ({
   root: {

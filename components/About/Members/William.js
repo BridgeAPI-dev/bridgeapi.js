@@ -1,32 +1,15 @@
 import {
-  Avatar, makeStyles, Typography,
+  Typography,
 } from '@material-ui/core';
 
-import AdditionalInfo from './AdditionalInfo';
-import Links from './Links';
-
-const useStyles = makeStyles((theme) => ({
-  avatar: {
-    width: '90%',
-    marginBottom: theme.spacing(5),
-    [theme.breakpoints.up('xs')]: {
-      height: '15vh',
-    },
-    [theme.breakpoints.up('md')]: {
-      height: '22vh',
-    },
-    [theme.breakpoints.up('lg')]: {
-      height: '30vh',
-    },
-  },
-}));
+import AdditionalInfo from '../AdditionalInfo';
+import Avatar from '../Avatar';
+import Links from '../Links';
 
 export default function William() {
-  const classes = useStyles();
-
   return (
     <>
-      <Avatar className={classes.avatar}>W</Avatar>
+      <Avatar>W</Avatar>
       <Typography variant="h5">William Jackson</Typography>
       <Typography variant="subtitle1">Software Engineer</Typography>
       <Typography variant="subtitle2">Chicago, IL</Typography>
