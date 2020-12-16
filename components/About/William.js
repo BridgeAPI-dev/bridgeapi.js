@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
       height: '30vh',
     },
   },
-  link: {
-    margin: theme.spacing(0, 2),
-  },
 }));
 
 export default function William() {

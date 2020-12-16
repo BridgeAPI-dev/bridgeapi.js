@@ -19,17 +19,6 @@ const useStyles = makeStyles((theme) => ({
       height: '30vh',
     },
   },
-  link: {
-    margin: theme.spacing(0, 2),
-  },
-  icon: {
-    fontSize: '3rem',
-    padding: '8px',
-    margin: theme.spacing(4, 0),
-    borderRadius: '100%',
-    backgroundColor: theme.palette.secondary.main,
-    color: 'white',
-  },
 }));
 
 export default function Andrew() {
