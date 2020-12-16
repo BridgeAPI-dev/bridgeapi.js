@@ -3,8 +3,8 @@ import { makeStyles, Avatar as MUIAvatar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
-    width: '15vh',
-    height: '15vh',
+    width: '20vh',
+    height: '20vh',
     marginBottom: theme.spacing(4),
     [theme.breakpoints.up('md')]: {
       height: '22vh',

@@ -37,7 +37,7 @@ export default function AdditionalInfo({ interests }) {
     <>
       <div className={classes.triangle} />
       <div className={classes.box}>
-        <Typography variant="h6" className={classes.header}>Area of interest:</Typography>
+        <Typography variant="h6" className={classes.header}>Areas of interest:</Typography>
         <Typography variant="body1" className={classes.interests}>{interests}</Typography>
       </div>
     </>
