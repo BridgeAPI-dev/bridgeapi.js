@@ -3,6 +3,8 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 // import PublicIcon from '@material-ui/icons/Public';
 import EmailIcon from '@material-ui/icons/Email';
 
+import AdditionalInfo from './AdditionalInfo';
+
 const useStyles = makeStyles((theme) => ({
   avatar: {
     width: '100%',
@@ -11,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
       height: '12vh',
     },
     [theme.breakpoints.up('md')]: {
-      height: '25vh',
+      height: '22vh',
     },
     [theme.breakpoints.up('lg')]: {
       height: '30vh',
@@ -34,6 +36,7 @@ export default function Andrew() {
       <Link href="mailto:williampj@gmail.com" className={classes.link}>
         <EmailIcon fontSize="large" />
       </Link>
+      <AdditionalInfo />
     </>
   );
 }
