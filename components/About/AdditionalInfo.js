@@ -19,13 +19,13 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(1),
   },
   header: {
-    color: theme.palette.primary.main,
+    color: 'white',
     fontWeight: 'bold',
     fontSize: '1.2rem',
     marginBottom: theme.spacing(2),
   },
   interests: {
-    color: theme.palette.primary.main,
+    color: 'white',
     fontSize: '1.25rem',
   },
 }));

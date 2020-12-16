@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     background: 'white',
-    padding: theme.spacing(5, 2),
+    padding: theme.spacing(5, 3),
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(5, 15),
     },
