@@ -47,7 +47,7 @@ export default function Home() {
           <Typography variant="h2" className={classes.header}>Our Team</Typography>
         </Grid>
         <Grid container className={classes.avatars} justify="center">
-          <Grid container xs={10} sm={8} spacing={4}>
+          <Grid container xs={10} spacing={4}>
             <Grid item xs={4}>
               <Andrew />
             </Grid>

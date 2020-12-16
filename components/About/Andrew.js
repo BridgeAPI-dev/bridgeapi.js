@@ -7,10 +7,10 @@ import Links from './Links';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
-    width: '100%',
+    width: '90%',
     marginBottom: theme.spacing(4),
     [theme.breakpoints.up('xs')]: {
-      height: '12vh',
+      height: '15vh',
     },
     [theme.breakpoints.up('md')]: {
       height: '22vh',

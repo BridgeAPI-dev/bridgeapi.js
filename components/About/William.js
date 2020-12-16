@@ -7,10 +7,10 @@ import Links from './Links';
 
 const useStyles = makeStyles((theme) => ({
   avatar: {
-    width: '100%',
+    width: '90%',
     marginBottom: theme.spacing(5),
     [theme.breakpoints.up('xs')]: {
-      height: '12vh',
+      height: '15vh',
     },
     [theme.breakpoints.up('md')]: {
       height: '22vh',
@@ -34,7 +34,7 @@ export default function Andrew() {
       <Typography variant="subtitle1">Software Engineer</Typography>
       <Typography variant="subtitle2">Chicago, IL</Typography>
       <Links linkedIn="https://www.linkedin.com/in/william-jackson-62514b5/" email="williampj@gmail.com" />
-      <AdditionalInfo />
+      <AdditionalInfo interests="Back-end development, security, algorithms, infrastructure, DevOps" />
     </>
   );
 }
