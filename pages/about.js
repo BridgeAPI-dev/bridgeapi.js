@@ -15,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     background: 'white',
-    padding: theme.spacing(5, 15),
+    padding: theme.spacing(5, 2),
+    [theme.breakpoints.up('md')]: {
+      padding: theme.spacing(5, 15),
+    },
   },
   header: {
     fontWeight: '500',
@@ -47,14 +50,14 @@ export default function About() {
           <Typography variant="h2" className={classes.header}>Our Team</Typography>
         </Grid>
         <Grid container className={classes.avatars} justify="center">
-          <Grid container xs={10} spacing={4}>
-            <Grid item xs={4}>
+          <Grid container xs={12} md={10} spacing={4}>
+            <Grid item xs={12} md={4}>
               <Andrew />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <William />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <Angel />
             </Grid>
           </Grid>
