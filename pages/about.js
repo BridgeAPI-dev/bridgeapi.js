@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Home() {
+export default function About() {
   const [width, setWidth] = useState(0);
   const classes = useStyles();
 

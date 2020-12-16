@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Andrew() {
+export default function Angel() {
   const classes = useStyles();
 
   return (
