@@ -45,7 +45,7 @@ export default function About() {
       <Navbar />
       <Grid container align="center" justify="center" spacing={5}>
         <Grid item xs={2} id="brand_container">
-          <img style={{ width: '100%', height: '100%' }} src={brand} alt="brand" />
+          <img style={{ marginLeft: '60px', width: '100%', height: '100%' }} src={brand} alt="brand" />
         </Grid>
         <Grid item xs={10} style={{ marginLeft: `-${width}px` }}>
           <Typography variant="h2" className={classes.header}>Our Team</Typography>
