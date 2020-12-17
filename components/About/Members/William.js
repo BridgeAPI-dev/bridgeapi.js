@@ -14,7 +14,7 @@ export default function William() {
       <Typography variant="subtitle1">Software Engineer</Typography>
       <Typography variant="subtitle2">Chicago, IL</Typography>
       <Links linkedIn="https://www.linkedin.com/in/william-jackson-62514b5/" email="williampj@gmail.com" />
-      <AdditionalInfo interests="Back-end development, security, algorithms, infrastructure, DevOps" />
+      <AdditionalInfo interests="Back-end development, decentralized systems, security, algorithms, infrastructure, DevOps" />
     </>
   );
 }

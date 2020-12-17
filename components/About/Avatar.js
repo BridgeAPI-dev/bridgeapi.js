@@ -6,13 +6,9 @@ const useStyles = makeStyles((theme) => ({
     width: '20vh',
     height: '20vh',
     marginBottom: theme.spacing(4),
-    [theme.breakpoints.up('md')]: {
-      height: '22vh',
-      width: '22vh',
-    },
     [theme.breakpoints.up('lg')]: {
-      height: '30vh',
-      width: '30vh',
+      height: '25vh',
+      width: '25vh',
     },
   },
 }));

@@ -14,7 +14,7 @@ export default function Angel() {
       <Typography variant="subtitle1">Software Engineer</Typography>
       <Typography variant="subtitle2">Rincón, PR</Typography>
       <Links linkedIn="https://www.linkedin.com/in/angel-ruiz-bates-1b68a2142/" email="angelbates5@yahoo.com" />
-      <AdditionalInfo interests="Full-stack development, decentralized systems, containerization, security, algorithms." />
+      <AdditionalInfo interests="Full-stack development, decentralized systems, security, AI, containerization, algorithms" />
     </>
   );
 }
