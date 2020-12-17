@@ -5,7 +5,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import brand from '../public/full_logo.svg';
+import brand from '../public/brand.svg';
 import Navbar from '../components/shared/landing/Navbar';
 import Andrew from '../components/About/Members/Andrew';
 import William from '../components/About/Members/William';
@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(5, 15),
     },
+    marginBottom: theme.spacing(5),
   },
   header: {
     fontWeight: '500',
@@ -42,12 +43,19 @@ export default function About() {
   return (
     <div className={classes.root}>
       <Navbar />
-      <Grid container align="center">
+      <Grid container align="center" justify="center" spacing={5}>
         <Grid item xs={2} id="brand_container">
           <img style={{ width: '100%', height: '100%' }} src={brand} alt="brand" />
         </Grid>
-        <Grid item xs={10} style={{ marginLeft: `-${width / 2}px` }}>
+        <Grid item xs={10} style={{ marginLeft: `-${width}px` }}>
           <Typography variant="h2" className={classes.header}>Our Team</Typography>
+        </Grid>
+        <Grid item xs={8}>
+          <Typography variant="body1">
+            We built BridgeAPI by collaborating remotely in the United States. We
+            are looking for opportunities, so please contact us if you think we
+            can contribute to your team.
+          </Typography>
         </Grid>
         <Grid container className={classes.avatars} justify="center">
           <Grid container xs={12} md={10} spacing={4}>
@@ -60,26 +68,6 @@ export default function About() {
             <Grid item xs={12} md={4}>
               <Angel />
             </Grid>
-          </Grid>
-        </Grid>
-        <Grid container>
-          <Typography variant="h4" className={classes.header}>About Us</Typography>
-          <Grid item xs={12} align="left" style={{ marginTop: '20px' }}>
-            <Typography variant="body1">
-              BridgeAPI&apos;s goal is to provide an intuitive tool
-              to receive, filter, and forward API requests to automate workflows.
-              Current options for developers usually require subscribing to bloated
-              services and granting intrusive permissions to connect apps. With BridgeAPI,
-              simply define your desired workflow and direct your vendor webhooks
-              or API calls towards your provided BridgeAPI endpoint.
-            </Typography>
-            <br />
-            <Typography variant="body1">
-              We built BridgeAPI by collaborating remotely in the United States. We
-              are looking for opportunities, so please contact us if you think we
-              can contribute to your team.
-            </Typography>
-
           </Grid>
         </Grid>
       </Grid>
