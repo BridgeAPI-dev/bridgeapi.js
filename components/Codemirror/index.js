@@ -6,9 +6,8 @@ import React, {
   useState, useRef, useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
-
-import { JSHINT } from 'jshint';
 import { UnControlled as CM } from 'react-codemirror2';
+
 import Loader from '../Loader';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
@@ -80,12 +79,12 @@ function CodeMirror({
     // require('codemirror/addon/fold/foldgutter');
     // require('codemirror/addon/fold/brace-fold');
 
-    // Must bind JSHINT to window for lint support
-    window.JSHINT = JSHINT;
+    // Must bind jsonlint to window for lint support
+    window.jsonlint = require('jsonlint');
     // Base Linting
     require('codemirror/addon/lint/lint');
-    // JS & JSON Linting
-    require('codemirror/addon/lint/javascript-lint');
+    // JSON Linting
+    require('codemirror/addon/lint/json-lint');
 
     // Automatically make a closing bracket
     require('codemirror/addon/edit/closebrackets');
@@ -125,13 +124,13 @@ function CodeMirror({
             value={code}
             options={{
               mode: {
-                name: 'javascript',
+                name: 'application/json',
                 statementIndent: 2,
               },
               theme: 'material',
               lineNumbers: true,
               lint: true,
-              tabSize: 2,
+              tabSize: 4,
               autocomplete: true,
               lineWrapping: true,
               indentWithTabs: false,
@@ -139,6 +138,7 @@ function CodeMirror({
               showTrailingSpace: true,
               styleActiveLine: true,
               foldGutter: true,
+              gutters: ['CodeMirror-lint-markers'],
               fullScreen,
               readOnly,
             }}
