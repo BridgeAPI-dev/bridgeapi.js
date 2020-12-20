@@ -40,9 +40,24 @@ const useStyles = makeStyles(() => ({
 function Sidebar({ events, bridgeSlug, title }) {
   const classes = useStyles();
   const [mounted, setMounted] = useState(false);
+  const [sortedEvents, setSortedEvents] = useState([]);
+
+  function sortEvents() {
+    const ongoingEvents = [];
+    const completedEvents = [];
+    events.forEach((event) => {
+      if (!event.completed) {
+        ongoingEvents.push(event);
+      } else {
+        completedEvents.push(event);
+      }
+    });
+    setSortedEvents(ongoingEvents.concat(completedEvents));
+  }
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 1000);
+    sortEvents();
   }, []);
 
   return (
@@ -70,7 +85,7 @@ function Sidebar({ events, bridgeSlug, title }) {
               ? (
                 <Loader />
               ) : (
-                events && events.map((event) => (
+                sortedEvents && sortedEvents.map((event) => (
                   <ListItem
                     completedAt={event.completedAt}
                     statusCode={event.statusCode}
