@@ -1,4 +1,5 @@
 import {
+  Container,
   ListItem as MUIListItem,
   ListItemText,
   makeStyles,
@@ -21,9 +22,15 @@ function ListItem({
   const router = useRouter();
   const active = Number(router.asPath.split('/')[2]) === Number(eventId);
   const timestamp = new Date(completedAt).toDateString();
-  let message = completed ? `${timestamp}` : 'Ongoing';
-  if (statusCode) {
-    message += ` - ${statusCode}`;
+  const message = completed ? `${timestamp}` : 'Ongoing';
+
+  function color(code) {
+    if (code <= 299) {
+      return '#5cb660';
+    } if (code <= 399) {
+      return 'yellow';
+    }
+    return '#f55347';
   }
 
   return (
@@ -36,7 +43,26 @@ function ListItem({
           align="center"
         >
           <Link href={`/events/${eventId}`}>
-            {message}
+            <Container style={{ cursor: 'pointer' }}>
+              {message}
+              {statusCode && (
+                <>
+                  {' '}
+                  -
+                  {' '}
+                  <Typography
+                    display="inline"
+                    style={{
+                      color: color(statusCode),
+                      fontSize: '1em',
+                      fontWeight: '600',
+                    }}
+                  >
+                    {statusCode}
+                  </Typography>
+                </>
+              )}
+            </Container>
           </Link>
         </Typography>
       </ListItemText>
