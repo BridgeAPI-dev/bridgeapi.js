@@ -26,7 +26,7 @@ export const hourMinutes = (timestamp) => {
   }
 
   if (minutes.length === 1) {
-    minutes = `0${minutes}`
+    minutes = `0${minutes}`;
   }
 
   return `${hour}:${minutes}${amPm}`;
