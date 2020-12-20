@@ -15,11 +15,11 @@ function ListItem({
 
   function color(code) {
     if (code <= 299) {
-      return 'green';
+      return '#5cb660';
     } if (code <= 399) {
       return 'yellow';
     }
-    return 'red';
+    return '#f55347';
   }
 
   return (
@@ -35,12 +35,21 @@ function ListItem({
             <Container style={{ cursor: 'pointer' }}>
               {message}
               {statusCode && (
-              <Typography display="inline" style={{ color: color(statusCode), fontSize: '1em' }}>
-                {' '}
-                -
-                {' '}
-                {statusCode}
-              </Typography>
+                <>
+                  {' '}
+                  -
+                  {' '}
+                  <Typography
+                    display="inline"
+                    style={{
+                      color: color(statusCode),
+                      fontSize: '1em',
+                      fontWeight: '600',
+                    }}
+                  >
+                    {statusCode}
+                  </Typography>
+                </>
               )}
             </Container>
           </Link>
