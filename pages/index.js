@@ -22,11 +22,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.offWhite.main,
   },
   header: {
-    fontWeight: 600,
+    fontWeight: 700,
     color: theme.palette.primary.main,
+    padding: theme.spacing(0, 1),
+    margin: theme.spacing(5),
   },
   mainText: {
+    fontSize: '1.2rem',
     padding: theme.spacing(0, 8),
+    marginBottom: theme.spacing(5),
   },
   button: {
     backgroundColor: theme.palette.primary.main,
@@ -34,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '600',
     fontSize: '1.1rem',
     padding: theme.spacing(1.2, 3.5),
+    '&:hover': {
+      backgroundColor: theme.palette.secondary.main,
+    },
   },
 }));
 
@@ -47,10 +54,10 @@ export default function Home() {
       <ContactForm open={open} setOpen={setOpen} />
       <Container maxWidth="xl" align="center" style={{ padding: 0 }}>
         <Grid container justify="center" className={classes.blue}>
-          <Grid container xs={8} justify="center">
+          <Grid container item xs={8} justify="center">
             <Typography variant="h3" className={classes.header}>Amet nam ornare urna mauris in in.</Typography>
           </Grid>
-          <Grid container xs={8}>
+          <Grid container item xs={7}>
             <Typography variant="body1" className={classes.mainText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor posuere id et sit viverra egestas tristique. Donec viverra eget fringilla euismod velit tortor. Id mauris a euismod tortor neque </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -68,7 +75,7 @@ export default function Home() {
               <img style={{ width: '100%', height: '100%' }} src={headers} alt="header" />
             </Grid>
           </Grid>
-          <Grid container xs={12} className={classes.blue}>
+          <Grid container item xs={12} className={classes.blue}>
             <Grid item xs={6}>
               <img style={{ width: '100%', height: '100%' }} src={environmentVariables} alt="header" />
             </Grid>
