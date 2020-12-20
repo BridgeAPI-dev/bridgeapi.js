@@ -21,6 +21,9 @@ export const hourMinutes = (timestamp) => {
     hour -= 12;
   } else if (hour === 12) {
     amPm = 'PM';
+  } else if (hour < 10) {
+    hour = `0${hour}`;
+    amPm = 'AM';
   } else {
     amPm = 'AM';
   }
