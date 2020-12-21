@@ -199,7 +199,7 @@ function Editor({ bridge, isEditView }) {
             {({ values, submitForm }) => (
               <Form className={classes.form}>
                 <Grid container>
-                  <Alert id="deactivated-alert" open={!active} className={classes.alert} severity="warning">This bridge is deactivated.</Alert>
+                  <Alert id="deactivated-alert" open={!active} className={classes.alert} severity="warning">This bridge is currently deactivated.</Alert>
                   <Grid item sm={8} md={8} lg={8} container justify="flex-end">
                     <Grid>
                       <Typography
