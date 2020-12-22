@@ -52,8 +52,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(15, 0),
     margin: theme.spacing(0, 10),
   },
-  paddedItem: {
-    padding: theme.spacing(0, 5),
+  environmentVariablesImage: {
+    [theme.breakpoints.down('md')]: {
+      marginBottom: theme.spacing(5),
+    },
   },
 }));
 
@@ -70,7 +72,7 @@ export default function Home() {
           <Grid container item xs={8} justify="center">
             <Typography variant="h2" className={classes.header}>Bridge Incompatible API&apos;s</Typography>
           </Grid>
-          <Grid container item xs={6}>
+          <Grid container item xs={10} md={6}>
             <Typography variant="body1" className={classes.mainText}>
               BridgeAPI is a serverless integration platform that
               lets you connect your apps through event-driven workflows.
@@ -92,11 +94,11 @@ export default function Home() {
               <Button className={classes.button}>Sign Up Now</Button>
             </Link>
           </Grid>
-          <img style={{ display: 'block' }} src={dashboard} alt="header" />
+          <img style={{ display: 'block', maxWidth: '100vw' }} src={dashboard} alt="header" />
         </Grid>
         <Grid container>
           <Grid container className={classes.paddedContainer}>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Typography variant="h4" className={classes.header}>Fully customizable requests</Typography>
               <Typography variant="body1" className={classes.mainText}>
                 BridgeAPI gives developers the ability to connect APIs easily,
@@ -121,15 +123,15 @@ export default function Home() {
                 can focus on what matters most: productivity.
               </Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <img style={{ width: '100%', height: '100%' }} src={headers} alt="header" />
             </Grid>
           </Grid>
           <Grid container item xs={12} className={classes.blue}>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6} className={classes.environmentVariablesImage}>
               <img style={{ width: '100%', height: '100%' }} src={environmentVariables} alt="header" />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Typography variant="h4" className={classes.header}>Keep your information safe</Typography>
               <Typography variant="body1" className={classes.mainText}>
                 Your security & privacy are important to us. When you create an
@@ -154,7 +156,7 @@ export default function Home() {
             </Grid>
           </Grid>
           <Grid container className={classes.paddedContainer}>
-            <Grid item xs={6} className={classes.paddedItem}>
+            <Grid item xs={12} md={6}>
               <Typography variant="h4" className={classes.header}>Bridge almost any API together</Typography>
               <Typography variant="body1" className={classes.mainText}>
                 You must be able to send webhooks from service A to your bridge&apos;s URL. Service
@@ -185,7 +187,7 @@ export default function Home() {
                 <Button className={classes.button}>Try It Now</Button>
               </Link>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <img style={{ width: '100%', height: '100%' }} src={payload} alt="header" />
             </Grid>
           </Grid>
