@@ -18,18 +18,21 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     background: 'white',
   },
+  main: {
+    backgroundColor: theme.palette.offWhite.main,
+    paddingBottom: theme.spacing(15),
+  },
   blue: {
     backgroundColor: theme.palette.offWhite.main,
+    padding: theme.spacing(15, 10),
   },
   header: {
     fontWeight: 700,
     color: theme.palette.primary.main,
-    padding: theme.spacing(0, 1),
-    margin: theme.spacing(5),
+    marginBottom: theme.spacing(5),
   },
   mainText: {
     fontSize: '1.2rem',
-    padding: theme.spacing(0, 8),
     marginBottom: theme.spacing(5),
   },
   button: {
@@ -37,10 +40,19 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     fontWeight: '600',
     fontSize: '1.1rem',
+    borderRadius: theme.spacing(1.25),
     padding: theme.spacing(1.2, 3.5),
+    marginBottom: theme.spacing(6),
     '&:hover': {
       backgroundColor: theme.palette.secondary.main,
     },
+  },
+  paddedContainer: {
+    padding: theme.spacing(15, 0),
+    margin: theme.spacing(0, 10),
+  },
+  paddedItem: {
+    padding: theme.spacing(0, 5),
   },
 }));
 
@@ -52,24 +64,60 @@ export default function Home() {
     <div className={classes.root}>
       <Navbar />
       <ContactForm open={open} setOpen={setOpen} />
-      <Container maxWidth="xl" align="center" style={{ padding: 0 }}>
-        <Grid container justify="center" className={classes.blue}>
+      <Container maxWidth="xl" style={{ padding: 0 }}>
+        <Grid container justify="center" align="center" className={classes.main}>
           <Grid container item xs={8} justify="center">
-            <Typography variant="h3" className={classes.header}>Amet nam ornare urna mauris in in.</Typography>
+            <Typography variant="h2" className={classes.header}>Bridge Incompatible API&apos;s</Typography>
           </Grid>
-          <Grid container item xs={7}>
-            <Typography variant="body1" className={classes.mainText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor posuere id et sit viverra egestas tristique. Donec viverra eget fringilla euismod velit tortor. Id mauris a euismod tortor neque </Typography>
+          <Grid container item xs={6}>
+            <Typography variant="body1" className={classes.mainText}>
+              BridgeAPI is a serverless integration platform that
+              lets you connect your apps through event-driven workflows.
+              <br />
+              <br />
+              Current options
+              for developers usually require subscribing to bloated services and granting
+              intrusive permissions in order to connect apps.
+              <br />
+              <br />
+              With BridgeAPI, simply define
+              your desired workflow and direct your vendor&apos;s webhooks or API calls towards
+              your bridge&apos;s provided endpoint.
+
+            </Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} align="center">
             <Button className={classes.button}>Sign Up Now</Button>
           </Grid>
           <img style={{ display: 'block' }} src={dashboard} alt="header" />
         </Grid>
         <Grid container>
-          <Grid container>
+          <Grid container className={classes.paddedContainer}>
             <Grid item xs={6}>
-              <Typography variant="h4" className={classes.header}>Amet nam ornare urna mauris in in.</Typography>
-              <Typography variant="body1" className={classes.mainText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor posuere id et sit viverra egestas tristique. Donec viverra eget fringilla euismod velit tortor. Id mauris a euismod tortor neque </Typography>
+              <Typography variant="h4" className={classes.header}>Fully customizable requests</Typography>
+              <Typography variant="body1" className={classes.mainText}>
+                BridgeAPI gives developers the ability to connect APIs easily,
+                regardless of any differences. One of those differences being
+                the headers they expect. You&apos;re able to easily define any headers needed
+                quickly with our service, even ones that must be generated
+                dynamically.
+                <br />
+                <br />
+                You can access data from the payload sent to your bridge
+                using
+                {' '}
+                <code>$payload.key_name</code>
+                {' '}
+                , and your environment variables with
+                {' '}
+                <code>$env.key_name</code>
+                .
+                This allows you to create the dynamic headers developers without issue.
+                <br />
+                <br />
+                We give users the flexibility they need, so they
+                can focus on what matters most: productivity.
+              </Typography>
             </Grid>
             <Grid item xs={6}>
               <img style={{ width: '100%', height: '100%' }} src={headers} alt="header" />
@@ -80,16 +128,64 @@ export default function Home() {
               <img style={{ width: '100%', height: '100%' }} src={environmentVariables} alt="header" />
             </Grid>
             <Grid item xs={6}>
-              <Typography variant="h4" className={classes.header}>Store Sensitive Information Safely</Typography>
-              <Typography variant="body1" className={classes.mainText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor posuere id et sit viverra egestas tristique. Donec viverra eget fringilla euismod velit tortor. Id mauris a euismod tortor neque </Typography>
+              <Typography variant="h4" className={classes.header}>Keep your information safe</Typography>
+              <Typography variant="body1" className={classes.mainText}>
+                Your security & privacy are important to us. When you create an
+                environment variable, it is encrypted and hidden from view to
+                keep it safe.
+                <br />
+                <br />
+                Once an environment variable has been saved, you&apos;ll be able to
+                access it in the headers & settings or payload section. For
+                example, if you created an environment variable named
+                {' '}
+                <code>API_KEY</code>
+                , you&apos;d be able to access its value with
+                {' '}
+                <code>$env.API_KEY</code>
+                .
+                <br />
+                <br />
+                BridgeAPI doesn&apos;t ask for permissions to your essential apps,
+                either. We strive to be as unintrusive as possible.
+              </Typography>
             </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <Typography variant="h4" className={classes.header}>Amet nam ornare urna mauris in in.</Typography>
-            <Typography variant="body1" className={classes.mainText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor posuere id et sit viverra egestas tristique. Donec viverra eget fringilla euismod velit tortor. Id mauris a euismod tortor neque </Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <img style={{ width: '100%', height: '100%' }} src={payload} alt="header" />
+          <Grid container className={classes.paddedContainer}>
+            <Grid item xs={6} className={classes.paddedItem}>
+              <Typography variant="h4" className={classes.header}>Bridge almost any API together</Typography>
+              <Typography variant="body1" className={classes.mainText}>
+                Two things must be met for a bridge to be created between service A and service B.
+                You must be able to send webhooks from service A to your bridge&apos;s URL. Service
+                B must then accept BridgeAPI&apos;s webhooks. This should allow any two services
+                to be bridged together, regardless if they were ever meant to be.
+                <br />
+                <br />
+                You&apos;ll then craft a JSON payload in the format expected by service B in this
+                section here. You&apos;re able to reference
+                values from service A&apos;s payload using
+                {' '}
+                <code>$payload </code>
+                {' '}
+                and the name of the key.
+                <br />
+                <br />
+                For example, if you need the value of the key first_name, you&apos;d write out
+                {' '}
+                <code>$payload.first_name.</code>
+                <br />
+                <br />
+                You can also access your environment variables, in the same
+                way, using
+                {' '}
+                <code>$env</code>
+                .
+              </Typography>
+              <Button className={classes.button}>Try It Now</Button>
+            </Grid>
+            <Grid item xs={6}>
+              <img style={{ width: '100%', height: '100%' }} src={payload} alt="header" />
+            </Grid>
           </Grid>
         </Grid>
       </Container>
