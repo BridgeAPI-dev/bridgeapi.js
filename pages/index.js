@@ -155,7 +155,6 @@ export default function Home() {
             <Grid item xs={6} className={classes.paddedItem}>
               <Typography variant="h4" className={classes.header}>Bridge almost any API together</Typography>
               <Typography variant="body1" className={classes.mainText}>
-                Two things must be met for a bridge to be created between service A and service B.
                 You must be able to send webhooks from service A to your bridge&apos;s URL. Service
                 B must then accept BridgeAPI&apos;s webhooks. This should allow any two services
                 to be bridged together, regardless if they were ever meant to be.
@@ -173,8 +172,7 @@ export default function Home() {
                 For example, if you need the value of the key first_name, you&apos;d write out
                 {' '}
                 <code>$payload.first_name.</code>
-                <br />
-                <br />
+                {' '}
                 You can also access your environment variables, in the same
                 way, using
                 {' '}
