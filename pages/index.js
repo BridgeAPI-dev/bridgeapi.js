@@ -122,7 +122,7 @@ export default function Home() {
                 {' '}
                 <code>$env.key_name</code>
                 .
-                This allows you to create the dynamic headers without issue.
+                This allows you to create dynamic headers without issue.
                 <br />
                 <br />
                 We give users the flexibility they need, so they
@@ -146,7 +146,7 @@ export default function Home() {
                 <br />
                 <br />
                 Once an environment variable has been saved, you&apos;ll be able to
-                access it in the headers & settings or payload section. For
+                access it in the headers & settings or payload sections. For
                 example, if you created an environment variable named
                 {' '}
                 <code>API_KEY</code>
