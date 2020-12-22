@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   main: {
     backgroundColor: theme.palette.offWhite.main,
-    paddingBottom: theme.spacing(15),
+    padding: theme.spacing(10, 0),
   },
   blue: {
     backgroundColor: theme.palette.offWhite.main,
