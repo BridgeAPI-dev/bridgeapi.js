@@ -6,6 +6,7 @@ import {
   makeStyles, Typography,
 } from '@material-ui/core';
 
+import Link from 'next/link';
 import Navbar from '../components/shared/landing/Navbar';
 import ContactForm from '../components/ContactModal';
 import dashboard from '../public/dashboard.png';
@@ -87,7 +88,9 @@ export default function Home() {
             </Typography>
           </Grid>
           <Grid item xs={12} align="center">
-            <Button className={classes.button}>Sign Up Now</Button>
+            <Link href="/users/signup">
+              <Button className={classes.button}>Sign Up Now</Button>
+            </Link>
           </Grid>
           <img style={{ display: 'block' }} src={dashboard} alt="header" />
         </Grid>
@@ -179,7 +182,9 @@ export default function Home() {
                 <code>$env</code>
                 .
               </Typography>
-              <Button className={classes.button}>Try It Now</Button>
+              <Link href="/users/signup">
+                <Button className={classes.button}>Try It Now</Button>
+              </Link>
             </Grid>
             <Grid item xs={6}>
               <img style={{ width: '100%', height: '100%' }} src={payload} alt="header" />
