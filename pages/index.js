@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   blue: {
     backgroundColor: theme.palette.offWhite.main,
     padding: theme.spacing(15, 10),
+    [theme.breakpoints.down('md')]: {
+      padding: theme.spacing(15, 5),
+    },
   },
   header: {
     fontWeight: 700,
@@ -51,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
   paddedContainer: {
     padding: theme.spacing(15, 0),
     margin: theme.spacing(0, 10),
+    [theme.breakpoints.down('md')]: {
+      margin: theme.spacing(0, 5),
+    },
   },
   environmentVariablesImage: {
     [theme.breakpoints.down('md')]: {
