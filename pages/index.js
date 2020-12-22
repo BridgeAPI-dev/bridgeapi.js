@@ -110,12 +110,11 @@ export default function Home() {
                 using
                 {' '}
                 <code>$payload.key_name</code>
-                {' '}
                 , and your environment variables with
                 {' '}
                 <code>$env.key_name</code>
                 .
-                This allows you to create the dynamic headers developers without issue.
+                This allows you to create the dynamic headers without issue.
                 <br />
                 <br />
                 We give users the flexibility they need, so they
