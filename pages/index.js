@@ -145,7 +145,7 @@ export default function Home() {
                 keep it safe.
                 <br />
                 <br />
-                Once an environment variable has been saved, you&apos;ll be able to
+                Once an environment variable has been created, you&apos;ll be able to
                 access it in the headers & settings or payload sections. For
                 example, if you created an environment variable named
                 {' '}
