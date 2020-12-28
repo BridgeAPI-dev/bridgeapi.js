@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import React from 'react';
 import {
   Accordion,
   AccordionDetails,
@@ -21,7 +22,7 @@ import CodeMirror from '../Codemirror';
 
 import { hourMinutes } from '../../utils/formatDate';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
   },
@@ -52,8 +53,9 @@ const useStyles = makeStyles({
   },
   bold: {
     fontWeight: '700',
+    margin: theme.spacing(0, 1, 0, 2),
   },
-});
+}));
 
 function OutboundAccordion({ request }) {
   const classes = useStyles();
@@ -97,23 +99,19 @@ function OutboundAccordion({ request }) {
 
                 <Typography>
                   Headers:
-                  {' '}
-                  <ul>
-                    {request.headers.map((header) => (
-                      <li key={`${header.key}`}>
-                        <Typography display="inline" className={classes.bold}>
-                          {header.key}
-                          :
-                        </Typography>
-                        {'  '}
-                        <Typography display="inline">
-                          {header.value}
-                        </Typography>
-                      </li>
-                    ))}
-                  </ul>
-
                 </Typography>
+
+                {request.headers.map((header) => (
+                  <div style={{ display: 'flex' }} key={`${header.key}`}>
+                    <Typography variant="body1" className={classes.bold}>
+                      {header.key}
+                      :
+                    </Typography>
+                    <Typography variant="body1">
+                      {header.value}
+                    </Typography>
+                  </div>
+                ))}
 
                 <Typography
                   variant="subtitle1"
@@ -122,7 +120,7 @@ function OutboundAccordion({ request }) {
                   Payload:
                 </Typography>
 
-                <CodeMirror readOnly isEditView data={request.payload} />
+                <CodeMirror readOnly id="codemirror-outbound" isEditView data={request.payload} />
               </Grid>
             </AccordionDetails>
           </Accordion>

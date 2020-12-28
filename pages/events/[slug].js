@@ -129,8 +129,7 @@ Events.propTypes = {
     completed: PropTypes.bool.isRequired,
     aborted: PropTypes.bool.isRequired,
     id: PropTypes.number.isRequired,
-    bridgeId: PropTypes.number.isRequired,
-    completedAt: PropTypes.string.isRequired,
+    completedAt: PropTypes.string,
     data: PropTypes.shape({
       inbound: PropTypes.shape({
         dateTime: PropTypes.string.isRequired,
@@ -171,8 +170,7 @@ Events.propTypes = {
       completed: PropTypes.bool.isRequired,
       aborted: PropTypes.bool.isRequired,
       id: PropTypes.number.isRequired,
-      bridgeId: PropTypes.number.isRequired,
-      completedAt: PropTypes.string.isRequired,
+      completedAt: PropTypes.string,
       data: PropTypes.shape({
         inbound: PropTypes.shape({
           dateTime: PropTypes.string.isRequired,

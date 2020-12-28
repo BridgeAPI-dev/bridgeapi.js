@@ -33,7 +33,13 @@ function Dashboard({ bridges }) {
           <Grid container spacing={2} id="dashboard-card-container">
 
             {bridges && bridges.length > 0
-              ? (bridges.map((bridge, idx) => <Card bridge={bridge} key={bridge} index={idx} />))
+              ? (bridges.map((bridge, idx) => (
+                <Card
+                  bridge={bridge}
+                  key={bridge.updatedAt}
+                  index={idx}
+                />
+              )))
               : (
                 <Grid item xs={12}>
                   <Typography
@@ -72,9 +78,8 @@ Dashboard.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       updatedAt: PropTypes.string.isRequired,
-      lastRequest: PropTypes.string.isRequired,
-      requests: PropTypes.string.isRequired,
-      eventId: PropTypes.string.isRequired,
+      lastRequest: PropTypes.string,
+      eventId: PropTypes.number,
     }),
   ).isRequired,
 };

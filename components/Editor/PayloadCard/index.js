@@ -65,7 +65,7 @@ function PayloadCard({ isEditView, values }) {
                 className={classes.payloadContainer}
               >
 
-                <CodeMirror readOnly isEditView={isEditView} />
+                <CodeMirror readOnly isEditView={isEditView} id="latestPayload" />
               </Container>
             </AccordionDetails>
           </Accordion>
@@ -85,7 +85,6 @@ PayloadCard.propTypes = {
   isEditView: PropTypes.bool.isRequired,
   values: PropTypes.shape({
     outboundUrl: PropTypes.string.isRequired,
-    method: PropTypes.string.isRequired,
     retries: PropTypes.string.isRequired,
     delay: PropTypes.string.isRequired,
     headers: PropTypes.arrayOf(

@@ -9,7 +9,7 @@ export default formatDate;
 
 export const hourMinutes = (timestamp) => {
   const date = new Date(timestamp);
-  const minutes = date.getMinutes();
+  let minutes = String(date.getMinutes());
   let hour = date.getHours();
   let amPm;
 
@@ -21,8 +21,15 @@ export const hourMinutes = (timestamp) => {
     hour -= 12;
   } else if (hour === 12) {
     amPm = 'PM';
+  } else if (hour < 10) {
+    hour = `0${hour}`;
+    amPm = 'AM';
   } else {
     amPm = 'AM';
+  }
+
+  if (minutes.length === 1) {
+    minutes = `0${minutes}`;
   }
 
   return `${hour}:${minutes}${amPm}`;
