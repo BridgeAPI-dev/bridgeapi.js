@@ -5,8 +5,10 @@ import {
   Grid,
   makeStyles, Typography,
 } from '@material-ui/core';
-
 import Link from 'next/link';
+import Image from 'next/image';
+import Footer from '../components/shared/Footer';
+
 import Navbar from '../components/shared/landing/Navbar';
 import ContactForm from '../components/ContactModal';
 import dashboard from '../public/dashboard.png';
@@ -63,6 +65,13 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: theme.spacing(5),
     },
   },
+  imgFluid: {
+    height: 'auto',
+    width: '100%',
+  },
+  centerImg: {
+
+  },
 }));
 
 export default function Home() {
@@ -100,7 +109,10 @@ export default function Home() {
               <Button className={classes.button}>Sign Up Now</Button>
             </Link>
           </Grid>
-          <img style={{ display: 'block', maxWidth: '100vw' }} src={dashboard} alt="header" />
+          {/* <div style={{ maxWidth: '500px' }}>
+            <Image layout="responsive" width={500} height={500} src={dashboard} alt="header" />
+          </div> */}
+
         </Grid>
         <Grid container>
           <Grid container className={classes.paddedContainer}>
@@ -130,12 +142,12 @@ export default function Home() {
               </Typography>
             </Grid>
             <Grid item xs={12} md={6}>
-              <img style={{ width: '100%', height: '100%' }} src={headers} alt="header" />
+              <img className={classes.imgFluid} src={headers} alt="header" />
             </Grid>
           </Grid>
           <Grid container item xs={12} className={classes.blue}>
-            <Grid item xs={12} md={6} className={classes.environmentVariablesImage}>
-              <img style={{ width: '100%', height: '100%' }} src={environmentVariables} alt="header" />
+            <Grid container alignItems="center" item xs={12} md={6} className={classes.environmentVariablesImage}>
+              <img className={classes.imgFluid} src={environmentVariables} alt="header" />
             </Grid>
             <Grid item xs={12} md={6}>
               <Typography variant="h4" className={classes.header}>Keep your information safe</Typography>
@@ -193,12 +205,14 @@ export default function Home() {
                 <Button className={classes.button}>Try It Now</Button>
               </Link>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <img style={{ width: '100%', height: '100%' }} src={payload} alt="header" />
+            <Grid container alignItems="center" item xs={12} md={6}>
+              <img className={classes.imgFluid} src={payload} alt="header" />
             </Grid>
           </Grid>
         </Grid>
       </Container>
+
+      <Footer />
     </div>
   );
 }

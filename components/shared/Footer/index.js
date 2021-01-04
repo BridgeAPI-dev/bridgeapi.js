@@ -71,6 +71,12 @@ function Footer({ handleOpen }) {
             </Link>
           </Typography>
 
+          <Typography variant="subtitle1" className={classes['mr-6']}>
+            <Link href="/about">
+              About
+            </Link>
+          </Typography>
+
           <Typography
             variant="subtitle1"
             onClick={() => handleOpen()}

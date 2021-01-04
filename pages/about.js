@@ -4,6 +4,7 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core';
+import Footer from '../components/shared/Footer';
 
 import brand from '../public/brand.svg';
 import Navbar from '../components/shared/landing/Navbar';
@@ -31,46 +32,50 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function About() {
-  const [width, setWidth] = useState(0);
+  // const [width, setWidth] = useState(0);
   const classes = useStyles();
 
-  useEffect(() => {
-    if (document) {
-      setWidth(document.getElementById('brand_container').getBoundingClientRect().width);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (document) {
+  //     setWidth(document.getElementById('brand_container').getBoundingClientRect().width);
+  //   }
+  // }, []);
 
   return (
-    <div className={classes.root}>
-      <Navbar />
-      <Grid container align="center" justify="center" spacing={5}>
-        <Grid item xs={2} id="brand_container">
+    <div>
+      <div className={classes.root}>
+        <Navbar />
+        <Grid container align="center" justify="center" spacing={5}>
+          {/* <Grid item xs={2} id="brand_container">
           <img style={{ width: '100%', height: '100%' }} src={brand} alt="brand" />
-        </Grid>
-        <Grid item xs={10} style={{ marginLeft: `-${width}px` }}>
-          <Typography variant="h2" className={classes.header}>Our Team</Typography>
-        </Grid>
-        <Grid item xs={8}>
-          <Typography variant="body1">
-            We built BridgeAPI by collaborating remotely in the United States. We
-            are looking for opportunities, so please contact us if you think we
-            can contribute to your team.
-          </Typography>
-        </Grid>
-        <Grid container className={classes.avatars} justify="center">
-          <Grid container xs={12} md={10} spacing={4}>
-            <Grid item xs={12} md={4}>
-              <Andrew />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <William />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <Angel />
+        </Grid> */}
+          <Grid item xs={10}>
+            <Typography variant="h2" className={classes.header}>Our Team</Typography>
+          </Grid>
+          <Grid item xs={8}>
+            <Typography variant="body1">
+              We built BridgeAPI by collaborating remotely in the United States. We
+              are looking for opportunities, so please contact us if you think we
+              can contribute to your team.
+            </Typography>
+          </Grid>
+          <Grid container className={classes.avatars} justify="center">
+            <Grid container xs={12} md={10} spacing={4}>
+              <Grid item xs={12} md={4}>
+                <Andrew />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <William />
+              </Grid>
+              <Grid item xs={12} md={4}>
+                <Angel />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+
+      </div>
+      <Footer />
     </div>
   );
 }
