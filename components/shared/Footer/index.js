@@ -38,17 +38,10 @@ function Footer({ handleOpen }) {
             </Typography>
 
             <Typography>
-              We are three developers whose goal is to provide an intuitive tool to receive,
-              filter and forward API requests in order to automate workflows.
-
-              Current options for developers usually require subscribing to bloated
-              services and granting intrusive permissions in order to connect apps.
-
-              With BridgeAPI, simply define your desired workflow and direct your
-              vendor webhooks or api calls towards your provided BridgeAPI endpoint.
-            </Typography>
-            <br />
-            <Typography>
+              We are three developers whose goal is to provide an intuitive tool
+              to automate workflows.
+              <br />
+              <br />
               Our service is open source, permission free and fully customizable.
               We hope you enjoy our product and we appreciate any feedback or suggestion
               that can help us improve it further.

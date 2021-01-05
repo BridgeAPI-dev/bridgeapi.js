@@ -167,28 +167,13 @@ export default function Home() {
             <Grid item xs={12} md={6}>
               <Typography variant="h4" className={classes.header}>Keep your information safe</Typography>
               <Typography variant="body1" className={classes.mainText}>
-                Your security & privacy are important to us. When you create an
+                Your security and privacy are important to us. When you create an
                 environment variable, it is encrypted and hidden from view to
                 keep it safe.
                 <br />
                 <br />
-<<<<<<< HEAD
-                Once an environment variable has been created, you&apos;ll be able to
-                access it in the headers & settings or payload sections. For
-                example, if you created an environment variable named
-                {' '}
-                <code>API_KEY</code>
-                , you&apos;d be able to access its value with
-                {' '}
-                <code>$env.API_KEY</code>
-                .
-                <br />
-                <br />
+
                 BridgeAPI does not request intrusive permissions to access your essential apps.
-=======
-                BridgeAPI doesn&apos;t ask for permissions to your essential apps.
-                We strive to be as unintrusive as possible.
->>>>>>> 403004b0e5a3960b0290fc15bf88b161767b5bd0
               </Typography>
             </Grid>
           </Grid>
@@ -196,7 +181,7 @@ export default function Home() {
             <Grid item xs={12} md={6}>
               <Typography variant="h4" className={classes.header}>Customize your requests</Typography>
               <Typography variant="body1" className={classes.mainText}>
-                Set your headers, environmental variables and payload manually or
+                Set your headers, environment variables and payload manually or
                 dynamically using data from inbound requests
               </Typography>
             </Grid>
