@@ -144,7 +144,7 @@ export default function Home() {
           </Grid>
           <Grid container className={classes.paddedContainer}>
             <Grid item xs={12} md={6}>
-              <Typography variant="h4" className={classes.header}>Fully customizable requests</Typography>
+              <Typography variant="h4" className={classes.header}>Customize your requests</Typography>
               <Typography variant="body1" className={classes.mainText}>
                 Set your headers, environmental variables and payload manually or
                 dynamically using data from inbound requests
