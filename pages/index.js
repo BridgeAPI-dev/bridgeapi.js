@@ -6,12 +6,12 @@ import {
   makeStyles, Typography,
 } from '@material-ui/core';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Footer from '../components/shared/Footer';
 
 import Navbar from '../components/shared/landing/Navbar';
 import ContactForm from '../components/ContactModal';
-import dashboard from '../public/dashboard.png';
+// import dashboard from '../public/dashboard.png';
 import headers from '../public/headers.png';
 import environmentVariables from '../public/environment variables.png';
 import payload from '../public/payload.png';
@@ -117,33 +117,13 @@ export default function Home() {
         <Grid container>
           <Grid container className={classes.paddedContainer}>
             <Grid item xs={12} md={6}>
-              <Typography variant="h4" className={classes.header}>Fully customizable requests</Typography>
+              <Typography variant="h4" className={classes.header}>Connect any two APIs</Typography>
+
               <Typography variant="body1" className={classes.mainText}>
-                BridgeAPI gives developers the ability to connect APIs easily,
-                regardless of any differences. One of those differences being
-                the headers they expect. You&apos;re able to easily define any headers needed
-                quickly with our service, even ones that must be generated
-                dynamically.
-                <br />
-                <br />
-                You can access data from the payload sent to your bridge
-                using
-                {' '}
-                <code>$payload.key_name</code>
-                , and your environment variables with
-                {' '}
-                <code>$env.key_name</code>
-                .
-                This allows you to create dynamic headers without issue.
-                <br />
-                <br />
-                We give users the flexibility they need, so they
-                can focus on what matters most: productivity.
+                Using BridgeAPI as a proxy gives developers the ability to effortlessly bridge disparate APIs.
               </Typography>
             </Grid>
-            <Grid item xs={12} md={6}>
-              <img className={classes.imgFluid} src={headers} alt="header" />
-            </Grid>
+
           </Grid>
           <Grid container item xs={12} className={classes.blue}>
             <Grid container alignItems="center" item xs={12} md={6} className={classes.environmentVariablesImage}>
@@ -157,54 +137,25 @@ export default function Home() {
                 keep it safe.
                 <br />
                 <br />
-                Once an environment variable has been created, you&apos;ll be able to
-                access it in the headers & settings or payload sections. For
-                example, if you created an environment variable named
-                {' '}
-                <code>API_KEY</code>
-                , you&apos;d be able to access its value with
-                {' '}
-                <code>$env.API_KEY</code>
-                .
-                <br />
-                <br />
-                BridgeAPI doesn&apos;t ask for permissions to your essential apps,
-                either. We strive to be as unintrusive as possible.
+                BridgeAPI doesn&apos;t ask for permissions to your essential apps.
+                We strive to be as unintrusive as possible.
               </Typography>
             </Grid>
           </Grid>
           <Grid container className={classes.paddedContainer}>
             <Grid item xs={12} md={6}>
-              <Typography variant="h4" className={classes.header}>Bridge almost any API together</Typography>
+              <Typography variant="h4" className={classes.header}>Customize your requests</Typography>
               <Typography variant="body1" className={classes.mainText}>
-                You must be able to send webhooks from service A to your bridge&apos;s URL. Service
-                B must then accept BridgeAPI&apos;s webhooks. This should allow any two services
-                to be bridged together, regardless if they were ever meant to be.
-                <br />
-                <br />
-                You&apos;ll then craft a JSON payload in the format expected by service B in this
-                section here. You&apos;re able to reference
-                values from service A&apos;s payload using
-                {' '}
-                <code>$payload </code>
-                {' '}
-                and the name of the key.
-                <br />
-                <br />
-                For example, if you need the value of the key first_name, you&apos;d write out
-                {' '}
-                <code>$payload.first_name.</code>
-                {' '}
-                You can also access your environment variables, in the same
-                way, using
-                {' '}
-                <code>$env</code>
-                .
+                Set your headers, environmental variables and payload manually or
+                dynamically using data from inbound requests
               </Typography>
-              <Link href="/users/signup">
-                <Button className={classes.button}>Try It Now</Button>
-              </Link>
             </Grid>
+            <Grid item xs={12} md={6}>
+              <img className={classes.imgFluid} src={headers} alt="header" />
+            </Grid>
+            <Link href="/users/signup">
+              <Button className={classes.button}>Try It Now</Button>
+            </Link>
             <Grid container alignItems="center" item xs={12} md={6}>
               <img className={classes.imgFluid} src={payload} alt="header" />
             </Grid>
