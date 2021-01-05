@@ -172,11 +172,8 @@ export default function Home() {
               <Typography variant="h4" className={classes.header}>Keep your information safe</Typography>
               <Typography variant="body1" className={classes.mainText}>
                 Your security and privacy are important to us. When you create an
-                environment variable, it is encrypted and hidden from view to
-                keep it safe.
+                environment variable, it is encrypted and hidden from view.
                 <br />
-                <br />
-
                 BridgeAPI does not request intrusive permissions to access your essential apps.
               </Typography>
             </Grid>
@@ -186,7 +183,7 @@ export default function Home() {
               <Typography variant="h4" className={classes.header}>Customize your requests</Typography>
               <Typography variant="body1" className={classes.mainText}>
                 Set your headers, environment variables and payload manually or
-                dynamically using data from inbound requests
+                dynamically using data from inbound requests.
               </Typography>
             </Grid>
             <Grid container alignItems="center" item xs={12} md={6}>

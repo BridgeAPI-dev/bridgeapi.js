@@ -41,7 +41,6 @@ function Footer({ handleOpen }) {
               We are three developers whose goal is to provide an intuitive tool
               to automate workflows.
               <br />
-              <br />
               Our service is open source, permission free and fully customizable.
               We hope you enjoy our product and we appreciate any feedback or suggestion
               that can help us improve it further.
