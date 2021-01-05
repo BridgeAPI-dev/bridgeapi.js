@@ -117,10 +117,10 @@ export default function Home() {
         <Grid container>
           <Grid container className={classes.paddedContainer}>
             <Grid item xs={12} md={6}>
-              <Typography variant="h4" className={classes.header}>Bridge almost any API together</Typography>
+              <Typography variant="h4" className={classes.header}>Connect any two APIs</Typography>
 
               <Typography variant="body1" className={classes.mainText}>
-                BridgeAPI gives developers the ability to effortlessly bridge disparate APIs.
+                Using BridgeAPI as a proxy gives developers the ability to effortlessly bridge disparate APIs.
               </Typography>
             </Grid>
 
