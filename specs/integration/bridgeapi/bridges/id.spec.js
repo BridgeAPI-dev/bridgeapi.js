@@ -110,7 +110,7 @@ describe('Show bridge', () => {
 
     cy.get('#actions-button').click();
     cy.get('#action-deactive').click();
-    cy.get('#actions-success-message').contains('Success! Your bridge has been updated.');
+    cy.get('#actions-warning-message').contains('Your bridge has been deactivated.');
   });
 
   it('can show error when deactiving fails', () => {

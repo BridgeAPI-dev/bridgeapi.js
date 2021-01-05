@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import { useRouter } from 'next/router';
 
+import Alert from '@material-ui/lab/Alert';
 import Navbar from '../shared/dashboard/Navbar';
 import Sidebar from '../Sidebar';
 
@@ -24,6 +25,10 @@ import SnackAlert from '../shared/SnackAlert';
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: 180,
+  },
+  alert: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
   },
   form: {
     minWidth: '100%',
@@ -194,6 +199,7 @@ function Editor({ bridge, isEditView }) {
             {({ values, submitForm }) => (
               <Form className={classes.form}>
                 <Grid container>
+                  <Alert id="deactivated-alert" open={!active} className={classes.alert} severity="warning">This bridge is currently deactivated.</Alert>
                   <Grid item sm={8} md={8} lg={8} container justify="flex-end">
                     <Grid>
                       <Typography
