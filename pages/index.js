@@ -3,15 +3,16 @@ import {
   Button,
   Container,
   Grid,
-  makeStyles, Typography,
+  makeStyles,
+  Typography,
 } from '@material-ui/core';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 import Footer from '../components/shared/Footer';
 
 import Navbar from '../components/shared/landing/Navbar';
 import ContactForm from '../components/ContactModal';
-import dashboard from '../public/dashboard.png';
+// import dashboard from '../public/dashboard.png';
 import headers from '../public/headers.png';
 import environmentVariables from '../public/environment variables.png';
 import payload from '../public/payload.png';
@@ -27,15 +28,18 @@ const useStyles = makeStyles((theme) => ({
   },
   blue: {
     backgroundColor: theme.palette.offWhite.main,
-    padding: theme.spacing(15, 10),
+    padding: theme.spacing(5, 10),
     [theme.breakpoints.down('md')]: {
-      padding: theme.spacing(15, 5),
+      padding: theme.spacing(5, 5),
     },
   },
   header: {
     fontWeight: 700,
     color: theme.palette.primary.main,
     marginBottom: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3rem',
+    },
   },
   mainText: {
     fontSize: '1.2rem',
@@ -54,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paddedContainer: {
-    padding: theme.spacing(15, 0),
+    padding: theme.spacing(5, 0),
     margin: theme.spacing(0, 10),
     [theme.breakpoints.down('md')]: {
       margin: theme.spacing(0, 5),
@@ -116,6 +120,7 @@ export default function Home() {
         </Grid>
         <Grid container>
           <Grid container className={classes.paddedContainer}>
+              </a>
             <Grid item xs={12} md={6}>
               <Typography variant="h4" className={classes.header}>Fully customizable requests</Typography>
               <Typography variant="body1" className={classes.mainText}>
