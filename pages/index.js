@@ -3,7 +3,8 @@ import {
   Button,
   Container,
   Grid,
-  makeStyles, Typography,
+  makeStyles,
+  Typography,
 } from '@material-ui/core';
 import Link from 'next/link';
 // import Image from 'next/image';
@@ -27,15 +28,18 @@ const useStyles = makeStyles((theme) => ({
   },
   blue: {
     backgroundColor: theme.palette.offWhite.main,
-    padding: theme.spacing(15, 10),
+    padding: theme.spacing(5, 10),
     [theme.breakpoints.down('md')]: {
-      padding: theme.spacing(15, 5),
+      padding: theme.spacing(5, 5),
     },
   },
   header: {
     fontWeight: 700,
     color: theme.palette.primary.main,
     marginBottom: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3rem',
+    },
   },
   mainText: {
     fontSize: '1.2rem',
@@ -54,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paddedContainer: {
-    padding: theme.spacing(15, 0),
+    padding: theme.spacing(5, 0),
     margin: theme.spacing(0, 10),
     [theme.breakpoints.down('md')]: {
       margin: theme.spacing(0, 5),
@@ -116,16 +120,47 @@ export default function Home() {
         </Grid>
         <Grid container>
           <Grid container className={classes.paddedContainer}>
-            <Grid item xs={12} md={6}>
-              <Typography variant="h4" className={classes.header}>Connect any two APIs</Typography>
+            <Grid container alignItems="center" justify="center" item>
+              <Typography variant="h4" className={classes.header}>
+                What is BridgeAPI?
+              </Typography>
 
               <Typography variant="body1" className={classes.mainText}>
-                Using BridgeAPI as a proxy gives developers the ability to effortlessly bridge disparate APIs.
+                BridgeAPI is a free, open-source web developer tool that receives, filters,
+                and forwards HTTP requests. This combination allows developers to set up
+                event-driven workflows in a few simple steps with BridgeAPI as the bridge
+                between apps.
               </Typography>
+
+              <a href="https://bridgeapi-dev.github.io">
+                <Button className={classes.button}>
+                  Read Our Case Study
+                </Button>
+              </a>
+
             </Grid>
 
           </Grid>
-          <Grid container item xs={12} className={classes.blue}>
+
+          <Grid container className={classes.blue}>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h4" className={classes.header}>
+                Connect any two APIs
+              </Typography>
+
+              <Typography variant="body1" className={classes.mainText}>
+                Using BridgeAPI as a proxy gives developers the ability to
+                effortlessly bridge disparate APIs.
+              </Typography>
+            </Grid>
+
+            <Grid container alignItems="center" item xs={12} md={6}>
+              <img className={classes.imgFluid} src={payload} alt="header" />
+            </Grid>
+
+          </Grid>
+
+          <Grid container item xs={12} className={classes.paddedContainer}>
             <Grid container alignItems="center" item xs={12} md={6} className={classes.environmentVariablesImage}>
               <img className={classes.imgFluid} src={environmentVariables} alt="header" />
             </Grid>
@@ -142,7 +177,7 @@ export default function Home() {
               </Typography>
             </Grid>
           </Grid>
-          <Grid container className={classes.paddedContainer}>
+          <Grid container className={classes.blue}>
             <Grid item xs={12} md={6}>
               <Typography variant="h4" className={classes.header}>Customize your requests</Typography>
               <Typography variant="body1" className={classes.mainText}>
@@ -150,15 +185,12 @@ export default function Home() {
                 dynamically using data from inbound requests
               </Typography>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid container alignItems="center" item xs={12} md={6}>
               <img className={classes.imgFluid} src={headers} alt="header" />
             </Grid>
             <Link href="/users/signup">
               <Button className={classes.button}>Try It Now</Button>
             </Link>
-            <Grid container alignItems="center" item xs={12} md={6}>
-              <img className={classes.imgFluid} src={payload} alt="header" />
-            </Grid>
           </Grid>
         </Grid>
       </Container>
