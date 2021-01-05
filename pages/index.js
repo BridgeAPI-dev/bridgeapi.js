@@ -82,6 +82,10 @@ export default function Home() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <div className={classes.root}>
       <Navbar />
@@ -195,7 +199,7 @@ export default function Home() {
         </Grid>
       </Container>
 
-      <Footer />
+      <Footer handleOpen={handleOpen} />
     </div>
   );
 }

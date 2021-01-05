@@ -65,8 +65,8 @@ function Footer({ handleOpen }) {
           </Typography>
 
           <Typography variant="subtitle1" className={classes['mr-6']}>
-            <Link href="/about">
-              About
+            <Link href="/team">
+              Team
             </Link>
           </Typography>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Grid,
   makeStyles,
@@ -8,6 +8,7 @@ import Footer from '../components/shared/Footer';
 
 // import brand from '../public/brand.svg';
 import Navbar from '../components/shared/landing/Navbar';
+import ContactForm from '../components/ContactModal';
 import Andrew from '../components/About/Members/Andrew';
 import William from '../components/About/Members/William';
 import Angel from '../components/About/Members/Angel';
@@ -34,6 +35,11 @@ const useStyles = makeStyles((theme) => ({
 export default function About() {
   // const [width, setWidth] = useState(0);
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   // useEffect(() => {
   //   if (document) {
@@ -45,6 +51,7 @@ export default function About() {
     <div>
       <div className={classes.root}>
         <Navbar />
+        <ContactForm open={open} setOpen={setOpen} />
         <Grid container align="center" justify="center" spacing={5}>
           {/* <Grid item xs={2} id="brand_container">
           <img style={{ width: '100%', height: '100%' }} src={brand} alt="brand" />
@@ -75,7 +82,7 @@ export default function About() {
         </Grid>
 
       </div>
-      <Footer />
+      <Footer handleOpen={handleOpen} />
     </div>
   );
 }
