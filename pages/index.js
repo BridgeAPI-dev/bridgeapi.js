@@ -168,8 +168,7 @@ export default function Home() {
                 .
                 <br />
                 <br />
-                BridgeAPI doesn&apos;t ask for permissions to your essential apps,
-                either. We strive to be as unintrusive as possible.
+                BridgeAPI does not request intrusive permissions to access your essential apps.
               </Typography>
             </Grid>
           </Grid>
