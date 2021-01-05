@@ -57,7 +57,7 @@ function Sidebar({ events, bridgeSlug, title }) {
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 1000);
-    sortEvents();
+    if (events) sortEvents();
   }, []);
 
   return (

@@ -6,12 +6,10 @@ import {
   makeStyles, Typography,
 } from '@material-ui/core';
 import Link from 'next/link';
-import Image from 'next/image';
 import Footer from '../components/shared/Footer';
 
 import Navbar from '../components/shared/landing/Navbar';
 import ContactForm from '../components/ContactModal';
-import dashboard from '../public/dashboard.png';
 import headers from '../public/headers.png';
 import environmentVariables from '../public/environment variables.png';
 import payload from '../public/payload.png';

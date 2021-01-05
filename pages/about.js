@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Grid,
   makeStyles,
@@ -6,7 +6,6 @@ import {
 } from '@material-ui/core';
 import Footer from '../components/shared/Footer';
 
-import brand from '../public/brand.svg';
 import Navbar from '../components/shared/landing/Navbar';
 import Andrew from '../components/About/Members/Andrew';
 import William from '../components/About/Members/William';
