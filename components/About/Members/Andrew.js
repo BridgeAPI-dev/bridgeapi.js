@@ -14,7 +14,7 @@ export default function Andrew() {
       <Avatar>
         <Image layout="fill" src="/andrew.png" />
       </Avatar>
-      <Typography variant="h5">Andrew Crotwell</Typography>
+      <Typography variant="h5">Andi Crotwell</Typography>
       <Typography variant="subtitle1">Software Engineer</Typography>
       <Typography variant="subtitle2">Asheville, NC</Typography>
       <Links
